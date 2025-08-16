@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import AdSlot from '@/components/AdSlot'
 
 export default function AboutPage() {
   return (
@@ -132,6 +133,11 @@ export default function AboutPage() {
           Add a Farm Shop
         </Link>
       </footer>
+
+      {/* Support the project — respectful, consented ad */}
+      <div className="mt-10">
+        <AdSlot />
+      </div>
     </main>
   )
 }

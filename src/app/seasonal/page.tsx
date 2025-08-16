@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import AdSlot from '@/components/AdSlot'
 
 type SeasonItem = { month: number; inSeason: string[]; notes: string }
 type SeasonItemWithProv = SeasonItem & { source?: string; sourceName?: string; updatedAt?: string }
@@ -41,6 +42,11 @@ export default function SeasonalPage() {
             <option key={i} value={i + 1}>{m}</option>
           ))}
         </select>
+      </div>
+
+      {/* Respectful, consented ad slot (appears only after Accept) */}
+      <div className="mt-6">
+        <AdSlot />
       </div>
 
       {/* Results */}
