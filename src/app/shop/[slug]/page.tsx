@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import type { FarmShop } from '@/types/farm'
+import { ObfuscatedEmail, ObfuscatedPhone } from '@/components/ObfuscatedContact'
 
 async function readFarms(): Promise<FarmShop[]> {
   const file = path.join(process.cwd(), 'public', 'data', 'farms.uk.json')
@@ -46,28 +47,14 @@ export default async function ShopPage({ params }: { params: { slug: string } })
       </p>
 
       <section className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {contact?.phone && (
-          <a
-            className="rounded border px-4 py-2 hover:bg-gray-50 dark:hover:bg-[#1E1F23]"
-            href={`tel:${contact.phone}`}
-          >
-            📞 Call
-          </a>
-        )}
-        {contact?.email && (
-          <a
-            className="rounded border px-4 py-2 hover:bg-gray-50 dark:hover:bg-[#1E1F23]"
-            href={`mailto:${contact.email}`}
-          >
-            ✉️ Email
-          </a>
-        )}
+        {contact?.phone && <ObfuscatedPhone phone={contact.phone} />}
+        {contact?.email && <ObfuscatedEmail email={contact.email} />}
         {contact?.website && (
           <a
             className="rounded border px-4 py-2 hover:bg-gray-50 dark:hover:bg-[#1E1F23]"
             href={contact.website}
             target="_blank"
-            rel="noreferrer"
+            rel="nofollow ugc noopener noreferrer"
           >
             🌐 Website
           </a>
