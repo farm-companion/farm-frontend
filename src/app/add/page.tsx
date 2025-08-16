@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo, useState, useEffect, useRef } from 'react'
 import type { ChangeEvent } from 'react'
 
 type Hours = { day: 'Mon'|'Tue'|'Wed'|'Thu'|'Fri'|'Sat'|'Sun'; open?: string; close?: string }
@@ -28,6 +28,10 @@ export default function AddFarmPage() {
   const [mounted, setMounted] = useState(false)
   const [draftId, setDraftId] = useState<string | null>(null)
   const [updatedAtClient, setUpdatedAtClient] = useState<string | null>(null)
+  // Anti-spam
+  const [hp, setHp] = useState('')                  // honeypot input (should stay empty)
+  const startedAtRef = useRef<number | null>(null)  // when the user opened the page
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
   function onChange<K extends keyof FarmForm>(key: K) {
     return (e: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) =>
@@ -45,6 +49,8 @@ export default function AddFarmPage() {
     setMounted(true) // first client render after SSR
     setDraftId(genId())
     setUpdatedAtClient(new Date().toISOString())
+    // record start time (used to block instant bot submissions)
+    if (typeof performance !== 'undefined') startedAtRef.current = performance.now()
   }, [])
 
   const json = useMemo(() => {
@@ -97,6 +103,20 @@ export default function AddFarmPage() {
 
   function handleDownload() {
     setTouched(true)
+    setErrorMsg(null)
+
+    // 1) Honeypot — bots often fill every field; humans never see this
+    if (hp.trim() !== '') {
+      setErrorMsg('Submission blocked.')
+      return
+    }
+    // 2) Time gate — require at least 5s on page before download
+    const now = typeof performance !== 'undefined' ? performance.now() : 0
+    const elapsed = startedAtRef.current ? now - startedAtRef.current : 0
+    if (elapsed < 5000) {
+      setErrorMsg('Please take a few seconds to fill in the form before downloading.')
+      return
+    }
     if (!valid) return
     const blob = new Blob([JSON.stringify(json, null, 2)], { type: 'application/json' })
     const a = document.createElement('a')
@@ -114,6 +134,19 @@ export default function AddFarmPage() {
       </p>
 
       <section className="mt-8 grid gap-6">
+        {/* Honeypot (hidden from real users & assistive tech) */}
+        <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
+          <label>
+            If you are human, leave this field empty
+            <input
+              tabIndex={-1}
+              autoComplete="off"
+              className="border px-2 py-1"
+              value={hp}
+              onChange={(e) => setHp(e.target.value)}
+            />
+          </label>
+        </div>
         <div className="grid gap-3">
           <label className="block text-sm font-medium">Farm shop name *</label>
           <input className="w-full rounded border px-3 py-2" value={form.name} onChange={onChange('name')} />
@@ -208,6 +241,7 @@ export default function AddFarmPage() {
           >
             Download JSON
           </button>
+          {errorMsg && <span className="text-sm text-red-600">{errorMsg}</span>}
           {!valid && touched && (
             <span className="text-sm text-red-600">Please complete all required fields marked *</span>
           )}
