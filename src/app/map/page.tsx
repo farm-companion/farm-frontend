@@ -33,6 +33,16 @@ export default function MapPage() {
 
       map.addControl(new maplibregl.NavigationControl({ showCompass: true }), 'top-right')
       map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left')
+      // "Near me" — ask for permission and pan to the user's location
+      map.addControl(
+        new maplibregl.GeolocateControl({
+          positionOptions: { enableHighAccuracy: true },
+          trackUserLocation: false,
+          showUserLocation: true,
+          fitBoundsOptions: { maxZoom: 13 }
+        }),
+        'top-right'
+      )
 
       // When style/tiles are ready, resize and add markers
       map.once('load', async () => {
