@@ -4,9 +4,39 @@ import type { Metadata } from 'next'
 import ConsentBanner from '@/components/ConsentBanner'
 import Link from 'next/link'
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
+
 export const metadata: Metadata = {
-  title: 'Farm Companion',
-  description: 'The UK&apos;s premium guide to real food, real people, and real places.',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'Farm Companion',
+    template: '%s · Farm Companion',
+  },
+  description: 'UK farm shops directory — LibreMaps, not Google',
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+  },
+  openGraph: {
+    type: 'website',
+    url: siteUrl,
+    siteName: 'Farm Companion',
+    title: 'Farm Companion — UK farm shops directory',
+    description: 'Find trusted farm shops near you with verified information and the freshest local produce.',
+    images: [
+      { url: '/og.jpg', width: 1200, height: 630, alt: 'Farm Companion' },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Farm Companion — UK farm shops directory',
+    description: 'Find trusted farm shops near you with verified information and the freshest local produce.',
+    images: ['/og.jpg'],
+  },
+  alternates: {
+    canonical: '/',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

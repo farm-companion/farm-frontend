@@ -16,9 +16,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const farms = await readFarms()
   const shop = farms.find((f) => f.slug === slug)
   if (!shop) return { title: 'Farm shop not found' }
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
+  const url = `/shop/${encodeURIComponent(shop.slug)}`
   return {
     title: `${shop.name} · Farm Companion`,
     description: `${shop.location.address}, ${shop.location.county} ${shop.location.postcode}`,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'place',
+      url: `${base}${url}`,
+      title: shop.name,
+      description: `${shop.location.address}, ${shop.location.county} ${shop.location.postcode}`,
+      // If you later add images per shop, list them here
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: shop.name,
+      description: `${shop.location.address}, ${shop.location.county} ${shop.location.postcode}`,
+    },
   }
 }
 
