@@ -5,6 +5,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import type { FarmShop } from '@/types/farm'
 import { ObfuscatedEmail, ObfuscatedPhone } from '@/components/ObfuscatedContact'
+import ShopImageGallery from '@/components/ShopImageGallery'
 
 async function readFarms(): Promise<FarmShop[]> {
   const file = path.join(process.cwd(), 'public', 'data', 'farms.uk.json')
@@ -119,6 +120,9 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
       <p className="mt-2 text-gray-700 dark:text-[#E4E2DD]/80">
         {location.address}, {location.county} {location.postcode}
       </p>
+
+      {/* Image Gallery */}
+      <ShopImageGallery images={shop.images} shopName={shop.name} shopSlug={shop.slug} />
 
       {/* Description */}
       {shop.description && (

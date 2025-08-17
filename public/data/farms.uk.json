@@ -24,7 +24,12 @@
     "description": "Located in the heart of South Nutfield Priory Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
-    "updatedAt": "2025-08-17T22:34:09.191731+00:00"
+    "updatedAt": "2025-08-17T22:34:09.191731+00:00",
+    "images": [
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop"
+    ]
   },
   {
     "id": "farm_2hn5d1nf32",
@@ -51,7 +56,12 @@
     "description": "Located in the heart of Aveley Rd Bloom & Veg offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
-    "updatedAt": "2025-08-17T22:34:09.191849+00:00"
+    "updatedAt": "2025-08-17T22:34:09.191849+00:00",
+    "images": [
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop"
+    ]
   },
   {
     "id": "farm_6pc0zbvxox",
@@ -78,7 +88,12 @@
     "description": "Located in the heart of Forest Rd Forest Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
-    "updatedAt": "2025-08-17T22:34:09.191918+00:00"
+    "updatedAt": "2025-08-17T22:34:09.191918+00:00",
+    "images": [
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop"
+    ]
   },
   {
     "id": "farm_56v7qppugv",
@@ -105,7 +120,12 @@
     "description": "Located in the heart of Chelsfield Hewitt's Farm shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
-    "updatedAt": "2025-08-17T22:34:09.191978+00:00"
+    "updatedAt": "2025-08-17T22:34:09.191978+00:00",
+    "images": [
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop"
+    ]
   },
   {
     "id": "farm_8kbscfs7en",
@@ -132,7 +152,12 @@
     "description": "Located in the heart of Hartley Rd Hartley Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
-    "updatedAt": "2025-08-17T22:34:09.192028+00:00"
+    "updatedAt": "2025-08-17T22:34:09.192028+00:00",
+    "images": [
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop"
+    ]
   },
   {
     "id": "farm_2e8zyvjg5b",
@@ -614,10 +639,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Hamels Mead Pearce's Farm Shop & Cafe provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Hamels Mead Pearce's Farm Shop & Cafe provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.192932+00:00"
@@ -941,10 +966,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Warfield Fernygrove Farm Shop & Coffee Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Warfield Fernygrove Farm Shop & Coffee Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.193492+00:00"
@@ -1510,10 +1535,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Epping Rd Ashlyns Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Epping Rd Ashlyns Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.194449+00:00"
@@ -1728,10 +1753,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Netherton Moor Rd Hinchliffe's Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Netherton Moor Rd Hinchliffe's Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.194815+00:00"
@@ -2488,10 +2513,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Delph Albion Farm Shop & Cafe provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Delph Albion Farm Shop & Cafe provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.209468+00:00"
@@ -2734,10 +2759,10 @@
       "fresh produce",
       "grocery",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Calder Grove Blacker Hall Farm Shop provides bakery, fresh produce, grocery, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Calder Grove Blacker Hall Farm Shop provides bakery, fresh produce, grocery, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.209602+00:00"
@@ -2979,10 +3004,10 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Tong Ln Lane End Farm Shop provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Tong Ln Lane End Farm Shop provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.209735+00:00"
@@ -3333,10 +3358,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Catthorpe Manor Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Catthorpe Manor Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.209919+00:00"
@@ -3469,10 +3494,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Great Haywood Canalside Farm, Shop & Cafe provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Great Haywood Canalside Farm, Shop & Cafe provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.209995+00:00"
@@ -3551,10 +3576,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Snitterfield Cobbs at Stratford provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Snitterfield Cobbs at Stratford provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.210033+00:00"
@@ -3579,10 +3604,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Wythall Becketts Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Wythall Becketts Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.210049+00:00"
@@ -4021,7 +4046,7 @@
   },
   {
     "id": "farm_r9cqrjasuo",
-    "name": "Broomfield\u2019s of Holt",
+    "name": "Broomfield’s of Holt",
     "slug": "broomfields-of-holt",
     "location": {
       "lat": 52.2664412,
@@ -4041,7 +4066,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Holt Heath Broomfield\u2019s of Holt offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Holt Heath Broomfield’s of Holt offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.210660+00:00"
@@ -4481,7 +4506,7 @@
   },
   {
     "id": "farm_2t7dq7a3ub",
-    "name": "Chadbury Farm Shop & Caf\u00e9",
+    "name": "Chadbury Farm Shop & Café",
     "slug": "chadbury-farm-shop-cafe",
     "location": {
       "lat": 52.1134111,
@@ -4501,7 +4526,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Worcester Rd Chadbury Farm Shop & Caf\u00e9 offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Worcester Rd Chadbury Farm Shop & Café offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.211244+00:00"
@@ -4634,10 +4659,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Stoneleigh Farmers Fayre provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Stoneleigh Farmers Fayre provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.211323+00:00"
@@ -4689,10 +4714,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Defford Revills Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Defford Revills Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.211352+00:00"
@@ -5044,10 +5069,10 @@
       "fresh produce",
       "grocery",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of 21 Gargrave Rd Robertshaws provides bakery, fresh produce, grocery, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 21 Gargrave Rd Robertshaws provides bakery, fresh produce, grocery, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.211550+00:00"
@@ -5288,10 +5313,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Railway Rd Fodder - Great Yorkshire Food Hall provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Railway Rd Fodder - Great Yorkshire Food Hall provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.211686+00:00"
@@ -5343,10 +5368,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Featherstone Farmer Copleys provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Featherstone Farmer Copleys provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.211745+00:00"
@@ -5589,10 +5614,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Cookridge Crag House Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Cookridge Crag House Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.211886+00:00"
@@ -5672,10 +5697,10 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Addingham The Joyful Deli provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Addingham The Joyful Deli provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.211925+00:00"
@@ -5781,10 +5806,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Wortley Wortley Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Wortley Wortley Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.211983+00:00"
@@ -6190,10 +6215,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Hawarden Hawarden Estate Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Hawarden Hawarden Estate Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.212222+00:00"
@@ -6328,10 +6353,10 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Birkenhead Claremont Farm provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Birkenhead Claremont Farm provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.212303+00:00"
@@ -6663,7 +6688,7 @@
   },
   {
     "id": "farm_ai9u27n0fi",
-    "name": "Honeywell\u2019s",
+    "name": "Honeywell’s",
     "slug": "honeywells",
     "location": {
       "lat": 53.828484,
@@ -6684,7 +6709,7 @@
       "honey"
     ],
     "hours": [],
-    "description": "Located in the heart of Eaves Ln Honeywell\u2019s provides fresh produce, farm shop and honey. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Eaves Ln Honeywell’s provides fresh produce, farm shop and honey. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.212484+00:00"
@@ -6745,7 +6770,7 @@
   },
   {
     "id": "farm_3nk81ttknp",
-    "name": "H I V E \u2022 GREAT COFFEE \u2022 REAL FOOD \u2022 B L A C K P O O L",
+    "name": "H I V E • GREAT COFFEE • REAL FOOD • B L A C K P O O L",
     "slug": "h-i-v-e-great-coffee-real-food-b-l-a-c-k-p-o-o-l",
     "location": {
       "lat": 53.8177375,
@@ -6763,10 +6788,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of 80-82 Church St H I V E \u2022 GREAT COFFEE \u2022 REAL FOOD \u2022 B L A C K P O O L provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 80-82 Church St H I V E • GREAT COFFEE • REAL FOOD • B L A C K P O O L provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.212528+00:00"
@@ -6820,10 +6845,10 @@
       "organic produce",
       "grocery",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of A5 Rhug Estate Farm Shop, Brasserie, Takeaway, Drive Thru & Organic Skincare provides fresh produce, organic produce, grocery, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the fr...",
+    "description": "Located in the heart of A5 Rhug Estate Farm Shop, Brasserie, Takeaway, Drive Thru & Organic Skincare provides fresh produce, organic produce, grocery, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the fr...",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.212562+00:00"
@@ -7147,10 +7172,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Thorney Edge Road Bagnall Jacksons Nurseries, Tea Room & Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Thorney Edge Road Bagnall Jacksons Nurseries, Tea Room & Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.212762+00:00"
@@ -7203,17 +7228,17 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Steetley Ln Arrow Farm Shop provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Steetley Ln Arrow Farm Shop provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.212790+00:00"
   },
   {
     "id": "farm_cdr8t5ubo4",
-    "name": "Denstone Hall Farm Shop & Caf\u00e9",
+    "name": "Denstone Hall Farm Shop & Café",
     "slug": "denstone-hall-farm-shop-cafe",
     "location": {
       "lat": 52.965157,
@@ -7231,10 +7256,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Denstone Denstone Hall Farm Shop & Caf\u00e9 provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Denstone Denstone Hall Farm Shop & Café provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.212806+00:00"
@@ -7448,10 +7473,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Beckington White Row Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Beckington White Row Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.212930+00:00"
@@ -7476,10 +7501,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Saltford Flourish at Glenavon Farm - Foodhall & Kitchen and Home & Lifestyle provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Saltford Flourish at Glenavon Farm - Foodhall & Kitchen and Home & Lifestyle provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.212954+00:00"
@@ -7720,10 +7745,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Holcombe Holcombe Farmshop & Kitchen provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Holcombe Holcombe Farmshop & Kitchen provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.213078+00:00"
@@ -7776,10 +7801,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Cathedine Welsh Venison Centre provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Cathedine Welsh Venison Centre provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.213105+00:00"
@@ -7840,7 +7865,7 @@
   },
   {
     "id": "farm_3uhedytoyg",
-    "name": "Farrington's Farm Shop & Caf\u00e9",
+    "name": "Farrington's Farm Shop & Café",
     "slug": "farrington-s-farm-shop-cafe",
     "location": {
       "lat": 51.29706299999999,
@@ -7858,10 +7883,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Farrington Gurney Farrington's Farm Shop & Caf\u00e9 provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Farrington Gurney Farrington's Farm Shop & Café provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.213150+00:00"
@@ -8292,10 +8317,10 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Frampton Mansell Jolly Nice Farmshop, Cafe & Drive Through provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Frampton Mansell Jolly Nice Farmshop, Cafe & Drive Through provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.213400+00:00"
@@ -8573,7 +8598,7 @@
   },
   {
     "id": "farm_zi4x2k6c7q",
-    "name": "Middlewick Farm Shop & Caf\u00e9",
+    "name": "Middlewick Farm Shop & Café",
     "slug": "middlewick-farm-shop-cafe",
     "location": {
       "lat": 51.1533796,
@@ -8593,7 +8618,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Middlewick Cottage Middlewick Farm Shop & Caf\u00e9 offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Middlewick Cottage Middlewick Farm Shop & Café offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.213556+00:00"
@@ -8780,10 +8805,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Tortworth Tortworth Estate Shop provides fresh produce, farm shop and caf\u00e9. Supporting local farmers and sustainable agriculture. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Tortworth Tortworth Estate Shop provides fresh produce, farm shop and café. Supporting local farmers and sustainable agriculture. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.213676+00:00"
@@ -9080,10 +9105,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Brocksbushes Farm Brocksbushes Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Brocksbushes Farm Brocksbushes Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.213842+00:00"
@@ -9351,10 +9376,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Piercebridge Piercebridge Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Piercebridge Piercebridge Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.213988+00:00"
@@ -9488,10 +9513,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Wolsingham Bradley Burn Farm Cafe provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Wolsingham Bradley Burn Farm Cafe provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.214060+00:00"
@@ -9525,7 +9550,7 @@
   },
   {
     "id": "farm_b2i3g9nyqx",
-    "name": "Gardiner\u00b4s Farm and Country Store",
+    "name": "Gardiner´s Farm and Country Store",
     "slug": "gardiner-s-farm-and-country-store",
     "location": {
       "lat": 54.7269845,
@@ -9544,14 +9569,14 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Frosterley Gardiner\u00b4s Farm and Country Store specializes in farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Frosterley Gardiner´s Farm and Country Store specializes in farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.214097+00:00"
   },
   {
     "id": "farm_gl0cqclxpj",
-    "name": "Rosie\u2019s Farm Shop",
+    "name": "Rosie’s Farm Shop",
     "slug": "rosies-farm-shop",
     "location": {
       "lat": 54.9459727,
@@ -9571,7 +9596,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Birches Nook Rosie\u2019s Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Birches Nook Rosie’s Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.214111+00:00"
@@ -9786,10 +9811,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Wheelbirks Farm North Cottage Wheelbirks Parlour provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Wheelbirks Farm North Cottage Wheelbirks Parlour provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.214229+00:00"
@@ -10085,10 +10110,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Silk Willoughby Pennells Four Seasons Garden Centre & Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Silk Willoughby Pennells Four Seasons Garden Centre & Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.214396+00:00"
@@ -10654,10 +10679,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Newton Dovecote Buttery and The Pantry provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Newton Dovecote Buttery and The Pantry provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.214748+00:00"
@@ -10710,10 +10735,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of 7 A14 Glebe Farm Shop & Tea Room provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 7 A14 Glebe Farm Shop & Tea Room provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.214777+00:00"
@@ -10883,7 +10908,7 @@
   },
   {
     "id": "farm_loeku7dzv5",
-    "name": "Hardys Farndon - Farm Shop, Caf\u00e9, Storage Units",
+    "name": "Hardys Farndon - Farm Shop, Café, Storage Units",
     "slug": "hardys-farndon-farm-shop-cafe-storage-units",
     "location": {
       "lat": 53.0559702,
@@ -10903,7 +10928,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Farndon Hardys Farndon - Farm Shop, Caf\u00e9, Storage Units offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Farndon Hardys Farndon - Farm Shop, Café, Storage Units offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.214888+00:00"
@@ -10983,10 +11008,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Earls Barton Scotch Lodge Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Earls Barton Scotch Lodge Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.214934+00:00"
@@ -11255,10 +11280,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Strathtyrum Balgove Larder provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Strathtyrum Balgove Larder provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.215076+00:00"
@@ -11337,11 +11362,11 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9",
+      "café",
       "preserves"
     ],
     "hours": [],
-    "description": "Located in the heart of Abernethy Road Jamesfield Farm Shop & Restaurant provides fresh produce, farm shop, caf\u00e9 and preserves. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Abernethy Road Jamesfield Farm Shop & Restaurant provides fresh produce, farm shop, café and preserves. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.215114+00:00"
@@ -11584,17 +11609,17 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of 1 Mannerston Holdings Mannerstons Cafe & Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 1 Mannerston Holdings Mannerstons Cafe & Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.215243+00:00"
   },
   {
     "id": "farm_9x8nv8gqpr",
-    "name": "Broadslap Farm Shop and Caf\u00e9",
+    "name": "Broadslap Farm Shop and Café",
     "slug": "broadslap-farm-shop-and-cafe",
     "location": {
       "lat": 56.3236353,
@@ -11613,7 +11638,7 @@
       "fresh produce"
     ],
     "hours": [],
-    "description": "Situated in Perth PH2 0QX Broadslap Farm Shop and Caf\u00e9 specializes in fresh produce. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Situated in Perth PH2 0QX Broadslap Farm Shop and Café specializes in fresh produce. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.215260+00:00"
@@ -11833,10 +11858,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Overton Farm The Oven at Overton Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Overton Farm The Oven at Overton Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.215366+00:00"
@@ -12024,10 +12049,10 @@
       "bakery",
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Thankerton Damn Delicious provides bakery, fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Thankerton Damn Delicious provides bakery, fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.215464+00:00"
@@ -12106,10 +12131,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Elsrickle Errington's Barn provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Elsrickle Errington's Barn provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.215504+00:00"
@@ -12216,10 +12241,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Loch Leven's Larder/Channel Farm Loch Leven's Larder provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Loch Leven's Larder/Channel Farm Loch Leven's Larder provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.215556+00:00"
@@ -12944,10 +12969,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Blair Drummond Blair Drummond Smiddy Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Blair Drummond Blair Drummond Smiddy Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.215953+00:00"
@@ -13052,10 +13077,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Monkton Tattie Shack Farm Shop & The View At Monktonhill Restaurant provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Monkton Tattie Shack Farm Shop & The View At Monktonhill Restaurant provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.216015+00:00"
@@ -13619,10 +13644,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Warrenhill Rd The Carmichael Estate provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Warrenhill Rd The Carmichael Estate provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.216307+00:00"
@@ -13656,7 +13681,7 @@
   },
   {
     "id": "farm_j3gnolrv5p",
-    "name": "Fiona\u2019s Fresh Farm Shop",
+    "name": "Fiona’s Fresh Farm Shop",
     "slug": "fionas-fresh-farm-shop",
     "location": {
       "lat": 55.9270836,
@@ -13676,7 +13701,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Waterside Fiona\u2019s Fresh Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Waterside Fiona’s Fresh Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.216332+00:00"
@@ -13837,10 +13862,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Fordoun Castleton Farm Shop - (PYO Not available) provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Fordoun Castleton Farm Shop - (PYO Not available) provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.216429+00:00"
@@ -13865,10 +13890,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Kintore Marshall's Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Kintore Marshall's Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.216444+00:00"
@@ -13976,10 +14001,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Charleton Fruit Farm Charleton Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Charleton Fruit Farm Charleton Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.216521+00:00"
@@ -14526,7 +14551,7 @@
   },
   {
     "id": "farm_j8tozyitjb",
-    "name": "Louise\u2019s Farm Kitchen",
+    "name": "Louise’s Farm Kitchen",
     "slug": "louises-farm-kitchen",
     "location": {
       "lat": 57.1022234,
@@ -14546,7 +14571,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Situated in Aboyne AB34 5BD Louise\u2019s Farm Kitchen offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Situated in Aboyne AB34 5BD Louise’s Farm Kitchen offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.216805+00:00"
@@ -14946,10 +14971,10 @@
     },
     "offerings": [
       "fresh produce",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of A93 World Horse Welfare Belwade Farm offers fresh produce and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of A93 World Horse Welfare Belwade Farm offers fresh produce and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.217000+00:00"
@@ -15081,10 +15106,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Kirktown of Fetteresso Kirktown Garden Centre provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Kirktown of Fetteresso Kirktown Garden Centre provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.217073+00:00"
@@ -15109,10 +15134,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Penllyn Estate Farm Llwynhelig Forage Farm Shop and Kitchen provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Penllyn Estate Farm Llwynhelig Forage Farm Shop and Kitchen provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.217085+00:00"
@@ -15137,10 +15162,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Ynyswen Cwm Farm Shop Ltd provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Ynyswen Cwm Farm Shop Ltd provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.217098+00:00"
@@ -15893,10 +15918,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Wraxall Noah's Ark Zoo Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Wraxall Noah's Ark Zoo Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.217511+00:00"
@@ -16085,10 +16110,10 @@
       "bakery",
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Gorslas Cwmcerrig Farm Shop provides bakery, fresh produce, farm shop and caf\u00e9. Supporting local farmers and sustainable agriculture. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Gorslas Cwmcerrig Farm Shop provides bakery, fresh produce, farm shop and café. Supporting local farmers and sustainable agriculture. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.217604+00:00"
@@ -16329,10 +16354,10 @@
     },
     "offerings": [
       "fresh produce",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Doniford Doniford Farm Park offers fresh produce and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Doniford Doniford Farm Park offers fresh produce and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.217738+00:00"
@@ -16384,10 +16409,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of lee meadow farm Lee Meadow Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of lee meadow farm Lee Meadow Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.217767+00:00"
@@ -16576,10 +16601,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Horner Horner Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Horner Horner Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.217856+00:00"
@@ -16768,10 +16793,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Holywood Rd McKees Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Holywood Rd McKees Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.217954+00:00"
@@ -16959,11 +16984,11 @@
       "fresh produce",
       "dairy products",
       "farm shop",
-      "caf\u00e9",
+      "café",
       "meat"
     ],
     "hours": [],
-    "description": "Located in the heart of 5 Waterfall Rd The Dairy - Bistro, Butchers & Farm Shop provides fresh produce, dairy products, farm shop, caf\u00e9 and meat. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 5 Waterfall Rd The Dairy - Bistro, Butchers & Farm Shop provides fresh produce, dairy products, farm shop, café and meat. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.218051+00:00"
@@ -17426,11 +17451,11 @@
       "fresh produce",
       "grocery",
       "farm shop",
-      "caf\u00e9",
+      "café",
       "meat"
     ],
     "hours": [],
-    "description": "Located in the heart of 26A Primacy Rd Primacy Meats Food Village provides fresh produce, grocery, farm shop, caf\u00e9 and meat. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 26A Primacy Rd Primacy Meats Food Village provides fresh produce, grocery, farm shop, café and meat. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.218323+00:00"
@@ -17616,10 +17641,10 @@
     },
     "offerings": [
       "fresh produce",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of 12 Dromara Rd Mill Farm offers fresh produce and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 12 Dromara Rd Mill Farm offers fresh produce and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.218417+00:00"
@@ -17816,7 +17841,7 @@
   },
   {
     "id": "farm_zbvwg9zsd6",
-    "name": "AJ\u2019s Farmshop",
+    "name": "AJ’s Farmshop",
     "slug": "ajs-farmshop",
     "location": {
       "lat": 54.740647,
@@ -17836,7 +17861,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of 3 Moss Rd AJ\u2019s Farmshop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 3 Moss Rd AJ’s Farmshop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.218523+00:00"
@@ -18215,10 +18240,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of 35 Ballybryan Rd Harrisons of Greyabbey provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 35 Ballybryan Rd Harrisons of Greyabbey provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.218717+00:00"
@@ -18541,10 +18566,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Higher Tynes Sea View Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Higher Tynes Sea View Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.218883+00:00"
@@ -18605,7 +18630,7 @@
   },
   {
     "id": "farm_awmu6z4fhe",
-    "name": "Bailey\u2019s Country Store and Farm Shop",
+    "name": "Bailey’s Country Store and Farm Shop",
     "slug": "baileys-country-store-and-farm-shop",
     "location": {
       "lat": 50.1660948,
@@ -18624,10 +18649,10 @@
       "bakery",
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Eastwood Rd Bailey\u2019s Country Store and Farm Shop provides bakery, fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Eastwood Rd Bailey’s Country Store and Farm Shop provides bakery, fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.218927+00:00"
@@ -18681,10 +18706,10 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Connor Downs Trevaskis Farm provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Connor Downs Trevaskis Farm provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.218959+00:00"
@@ -18709,10 +18734,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Pensilva Trevallick's Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Pensilva Trevallick's Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.218976+00:00"
@@ -18818,10 +18843,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Gwinear Rd The Farm Shop and Restaurant provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Gwinear Rd The Farm Shop and Restaurant provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.219034+00:00"
@@ -18929,10 +18954,10 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Kingswood Business Park Trevithick And Trays Farm Shop And Cafe provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Kingswood Business Park Trevithick And Trays Farm Shop And Cafe provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.219087+00:00"
@@ -19173,10 +19198,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of 2 Pennygillam Way Philip Warren & Son provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 2 Pennygillam Way Philip Warren & Son provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.219243+00:00"
@@ -19283,10 +19308,10 @@
       "bakery",
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Lewannick Coombeshead Farm provides bakery, fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Lewannick Coombeshead Farm provides bakery, fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.219294+00:00"
@@ -19564,7 +19589,7 @@
   },
   {
     "id": "farm_vp17lbg9c7",
-    "name": "Farmer Shaun\u2019s- Farmshop and Cafe",
+    "name": "Farmer Shaun’s- Farmshop and Cafe",
     "slug": "farmer-shauns-farmshop-and-cafe",
     "location": {
       "lat": 50.2328091,
@@ -19584,7 +19609,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Sandy Ln Farmer Shaun\u2019s- Farmshop and Cafe offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Sandy Ln Farmer Shaun’s- Farmshop and Cafe offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.219442+00:00"
@@ -19809,7 +19834,7 @@
   },
   {
     "id": "farm_zvlb9nhlk8",
-    "name": "Fi\u2019s Farm Shop",
+    "name": "Fi’s Farm Shop",
     "slug": "fis-farm-shop",
     "location": {
       "lat": 50.6376874,
@@ -19830,7 +19855,7 @@
       "grocery"
     ],
     "hours": [],
-    "description": "Located in the heart of 6-8 Church St Fi\u2019s Farm Shop provides fresh produce, farm shop and grocery. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 6-8 Church St Fi’s Farm Shop provides fresh produce, farm shop and grocery. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.219567+00:00"
@@ -19908,10 +19933,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of St Keverne Roskilly's provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of St Keverne Roskilly's provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.219605+00:00"
@@ -20208,10 +20233,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Rumwell Rumwell Farm Shop and Restaurant provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Rumwell Rumwell Farm Shop and Restaurant provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.219773+00:00"
@@ -20237,10 +20262,10 @@
       "bakery",
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Barleymows Farm Shop Barleymows Farm Shop, Cafe and Florist provides bakery, fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Barleymows Farm Shop Barleymows Farm Shop, Cafe and Florist provides bakery, fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.219790+00:00"
@@ -20320,10 +20345,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Bradford-on-Tone Sheppy's Cider Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Bradford-on-Tone Sheppy's Cider Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.219834+00:00"
@@ -20483,10 +20508,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Clyst St George Darts Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Clyst St George Darts Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.219914+00:00"
@@ -20511,10 +20536,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Farringdon Greendale Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Farringdon Greendale Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.219926+00:00"
@@ -21080,10 +21105,10 @@
       "fresh produce",
       "grocery",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Situated in Buckfastleigh TQ11 0JR Strawberry Fields Farm Shop Buckfastleigh provides bakery, fresh produce, grocery, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Situated in Buckfastleigh TQ11 0JR Strawberry Fields Farm Shop Buckfastleigh provides bakery, fresh produce, grocery, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.220228+00:00"
@@ -21173,7 +21198,7 @@
   },
   {
     "id": "farm_dvqsgpg81g",
-    "name": "Shillingford Organics Farm Shop & Caf\u00e9",
+    "name": "Shillingford Organics Farm Shop & Café",
     "slug": "shillingford-organics-farm-shop-cafe",
     "location": {
       "lat": 50.7165528,
@@ -21193,7 +21218,7 @@
       "organic produce"
     ],
     "hours": [],
-    "description": "Located in the heart of St Thomas Shillingford Organics Farm Shop & Caf\u00e9 offers fresh produce and organic produce. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of St Thomas Shillingford Organics Farm Shop & Café offers fresh produce and organic produce. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.220293+00:00"
@@ -21327,10 +21352,10 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of 20-22 High St Ruxstons provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 20-22 High St Ruxstons provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.220362+00:00"
@@ -21464,10 +21489,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Cadleigh Park Countryman's Choice Farm Shop and Restaurant provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Cadleigh Park Countryman's Choice Farm Shop and Restaurant provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.220431+00:00"
@@ -21576,10 +21601,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of North Allington Washingpool Farm Shop & Cafe provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of North Allington Washingpool Farm Shop & Cafe provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.220489+00:00"
@@ -21685,10 +21710,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Portesham Duck's Farm Shop & Cafe provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Portesham Duck's Farm Shop & Cafe provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.220547+00:00"
@@ -21932,10 +21957,10 @@
       "fresh produce",
       "grocery",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of West Moors Gullivers Farm Shop & Kitchen provides bakery, fresh produce, grocery, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of West Moors Gullivers Farm Shop & Kitchen provides bakery, fresh produce, grocery, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.220674+00:00"
@@ -21997,7 +22022,7 @@
   },
   {
     "id": "farm_3mx0bdtq7v",
-    "name": "Aunt Fanny's Farm Shop & Caf\u00e9",
+    "name": "Aunt Fanny's Farm Shop & Café",
     "slug": "aunt-fanny-s-farm-shop-cafe",
     "location": {
       "lat": 50.8208199,
@@ -22017,7 +22042,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Cranborne Rd Aunt Fanny's Farm Shop & Caf\u00e9 offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Cranborne Rd Aunt Fanny's Farm Shop & Café offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.220716+00:00"
@@ -22069,10 +22094,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Cholderton Cholderton Farm Shop & Cafe provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Cholderton Cholderton Farm Shop & Cafe provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.220744+00:00"
@@ -22138,7 +22163,7 @@
     "location": {
       "lat": 50.7882273,
       "lng": -2.0126006,
-      "address": "Candy\u2019s Farm",
+      "address": "Candy’s Farm",
       "city": "Wimborne BH21 3EF",
       "county": "",
       "postcode": "UK"
@@ -22216,7 +22241,7 @@
   },
   {
     "id": "farm_6xg7avx30v",
-    "name": "Hamish's Farm Shop & Caf\u00e9",
+    "name": "Hamish's Farm Shop & Café",
     "slug": "hamish-s-farm-shop-cafe",
     "location": {
       "lat": 50.8970444,
@@ -22236,7 +22261,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of 637 Prowles Cross Hamish's Farm Shop & Caf\u00e9 offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 637 Prowles Cross Hamish's Farm Shop & Café offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.220836+00:00"
@@ -22614,10 +22639,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Firle Middle Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Firle Middle Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.221361+00:00"
@@ -22914,10 +22939,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Catsfield Mantel Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Catsfield Mantel Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.221515+00:00"
@@ -23105,10 +23130,10 @@
       "organic produce",
       "grocery",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of 44B Pimlico Rd Daylesford Organic provides fresh produce, organic produce, grocery, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 44B Pimlico Rd Daylesford Organic provides fresh produce, organic produce, grocery, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.221613+00:00"
@@ -23133,10 +23158,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Oxted Rd Flower Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Oxted Rd Flower Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.221624+00:00"
@@ -23351,10 +23376,10 @@
       "fresh produce",
       "farm shop",
       "eggs",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Hurst Green Eggs to Apples Farm Shop provides fresh produce, farm shop, eggs and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Hurst Green Eggs to Apples Farm Shop provides fresh produce, farm shop, eggs and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.221734+00:00"
@@ -23604,7 +23629,7 @@
   },
   {
     "id": "farm_3fw0f2ym0k",
-    "name": "Newlyns Farm Shop, Caf\u00e9 & Cookery School",
+    "name": "Newlyns Farm Shop, Café & Cookery School",
     "slug": "newlyns-farm-shop-cafe-cookery-school",
     "location": {
       "lat": 51.2656138,
@@ -23624,7 +23649,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of North Warnborough Newlyns Farm Shop, Caf\u00e9 & Cookery School offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of North Warnborough Newlyns Farm Shop, Café & Cookery School offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.221880+00:00"
@@ -24028,10 +24053,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Bramley The Barn Farm Shop and Bistro provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Bramley The Barn Farm Shop and Bistro provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.222102+00:00"
@@ -24137,10 +24162,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Selsey The Old Piggery Farm Shop and Tearoom provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Selsey The Old Piggery Farm Shop and Tearoom provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.222163+00:00"
@@ -24219,10 +24244,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Sky Park Farm Sky Park Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Sky Park Farm Sky Park Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.222206+00:00"
@@ -24436,10 +24461,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Honingham Goat Shed Farm Shop & Kitchen provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Honingham Goat Shed Farm Shop & Kitchen provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.222353+00:00"
@@ -24492,11 +24517,11 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9",
+      "café",
       "meat"
     ],
     "hours": [],
-    "description": "Located in the heart of Friday Street Friday Street Farm Shop, Butchery, Cheese Room, Deli & Kitchen provides fresh produce, farm shop, caf\u00e9 and meat. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal prod...",
+    "description": "Located in the heart of Friday Street Friday Street Farm Shop, Butchery, Cheese Room, Deli & Kitchen provides fresh produce, farm shop, café and meat. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal prod...",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.222392+00:00"
@@ -24604,17 +24629,17 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Norwich Rd Old Hall Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Norwich Rd Old Hall Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.222444+00:00"
   },
   {
     "id": "farm_604i1c8ncv",
-    "name": "La Hogue Farm Shop & Caf\u00e9",
+    "name": "La Hogue Farm Shop & Café",
     "slug": "la-hogue-farm-shop-cafe",
     "location": {
       "lat": 52.2838553,
@@ -24632,10 +24657,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Chippenham La Hogue Farm Shop & Caf\u00e9 provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Chippenham La Hogue Farm Shop & Café provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.222459+00:00"
@@ -24768,10 +24793,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Dereham Rd Norfolk Food Hall provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Dereham Rd Norfolk Food Hall provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.222529+00:00"
@@ -25201,10 +25226,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Marlesford Farm cafe + shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Marlesford Farm cafe + shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.222755+00:00"
@@ -25229,10 +25254,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Wood Ln Goodies Food Hall provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Wood Ln Goodies Food Hall provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.222767+00:00"
@@ -25283,10 +25308,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Lynn Rd Norfolk Lavender provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Lynn Rd Norfolk Lavender provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.222797+00:00"
@@ -25392,10 +25417,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Stalham A.G. Meale & Sons provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Stalham A.G. Meale & Sons provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.222848+00:00"
@@ -26041,10 +26066,10 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Glemsford Willow Tree Farm Shop & Cafe provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Glemsford Willow Tree Farm Shop & Cafe provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.223185+00:00"
@@ -26096,10 +26121,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Stratford St Mary Hall Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Stratford St Mary Hall Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.223237+00:00"
@@ -26125,10 +26150,10 @@
       "bakery",
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Howe Street THE HUB - Farm Shop and Light Bites provides bakery, fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Howe Street THE HUB - Farm Shop and Light Bites provides bakery, fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.223256+00:00"
@@ -26155,10 +26180,10 @@
       "fresh produce",
       "grocery",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Situated in Ipswich IP9 2AB Suffolk Food Hall provides bakery, fresh produce, grocery, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Situated in Ipswich IP9 2AB Suffolk Food Hall provides bakery, fresh produce, grocery, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.223268+00:00"
@@ -26453,10 +26478,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Bergh Apton Green Pastures Plant Centre, Farm Shop & Restaurant provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Bergh Apton Green Pastures Plant Centre, Farm Shop & Restaurant provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.223423+00:00"
@@ -26481,10 +26506,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Wherstead Jimmy's Farm & Wildlife Park provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Wherstead Jimmy's Farm & Wildlife Park provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.223437+00:00"
@@ -27009,7 +27034,7 @@
   },
   {
     "id": "farm_is14vscd55",
-    "name": "Woodview Farm Shop & Caf\u00e9",
+    "name": "Woodview Farm Shop & Café",
     "slug": "woodview-farm-shop-cafe",
     "location": {
       "lat": 52.1436012,
@@ -27029,7 +27054,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Gamlingay Woodview Farm Shop & Caf\u00e9 offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Gamlingay Woodview Farm Shop & Café offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.223719+00:00"
@@ -27137,11 +27162,11 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9",
+      "café",
       "meat"
     ],
     "hours": [],
-    "description": "Located in the heart of London Rd Foxholes Farm Shop & Butchery provides fresh produce, farm shop, caf\u00e9 and meat. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of London Rd Foxholes Farm Shop & Butchery provides fresh produce, farm shop, café and meat. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.223772+00:00"
@@ -27355,10 +27380,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Westoning Nuyard Garden Centre & Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Westoning Nuyard Garden Centre & Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.223892+00:00"
@@ -27843,10 +27868,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Little Meadle Orchard View Farm LTD provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Little Meadle Orchard View Farm LTD provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.224160+00:00"
@@ -28197,10 +28222,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Old Hurst Johnsons of Old Hurst - Johnsons Zoo provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Old Hurst Johnsons of Old Hurst - Johnsons Zoo provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.224349+00:00"
@@ -28359,10 +28384,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Frilford Millets Farm Centre provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Frilford Millets Farm Centre provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.224439+00:00"
@@ -28715,10 +28740,10 @@
       "organic produce",
       "grocery",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Daylesford Near Daylesford Organic provides fresh produce, organic produce, grocery, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Daylesford Near Daylesford Organic provides fresh produce, organic produce, grocery, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.224625+00:00"
@@ -28797,10 +28822,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Chiseldon Three Trees Farm Shop & Cafe provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Chiseldon Three Trees Farm Shop & Cafe provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.224666+00:00"
@@ -29395,10 +29420,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Upton Downs Farm Upton Smokery Farm Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Upton Downs Farm Upton Smokery Farm Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.224992+00:00"
@@ -29615,10 +29640,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Tortworth Tortworth Estate Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Tortworth Tortworth Estate Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.225139+00:00"
@@ -29697,10 +29722,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Worton Worton Kitchen Garden provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Worton Worton Kitchen Garden provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.225181+00:00"
@@ -29725,10 +29750,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Newchurch The Garlic Farm Shop And Restaurant provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Newchurch The Garlic Farm Shop And Restaurant provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.225199+00:00"
@@ -30302,12 +30327,12 @@
   },
   {
     "id": "farm_ziyk87u4ys",
-    "name": "Bradshaw's Farm Shop & Caf\u00e9",
+    "name": "Bradshaw's Farm Shop & Café",
     "slug": "bradshaw-s-farm-shop-cafe",
     "location": {
       "lat": 52.6918234,
       "lng": -1.9421222,
-      "address": "Bradshaw's Farm Shop and Caf\u00e9",
+      "address": "Bradshaw's Farm Shop and Café",
       "city": "Burntwood WS7 1YL",
       "county": "",
       "postcode": "UK"
@@ -30322,7 +30347,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Ironstone Rd Bradshaw's Farm Shop & Caf\u00e9 offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Ironstone Rd Bradshaw's Farm Shop & Café offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.225536+00:00"
@@ -30511,10 +30536,10 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Bromfield Ludlow Farm Shop provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Bromfield Ludlow Farm Shop provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.225642+00:00"
@@ -30622,10 +30647,10 @@
       "bakery",
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Charlton Kings Dunkertons Park provides bakery, fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Charlton Kings Dunkertons Park provides bakery, fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.225701+00:00"
@@ -30759,10 +30784,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Hanbury Jinney Ring Craft Centre provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Hanbury Jinney Ring Craft Centre provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.225790+00:00"
@@ -30786,10 +30811,10 @@
     },
     "offerings": [
       "fresh produce",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Tenbury Rd The Colliers Farm Shop and Cafe offers fresh produce and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Tenbury Rd The Colliers Farm Shop and Cafe offers fresh produce and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.225803+00:00"
@@ -30924,10 +30949,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Upper Battlefield Battlefield 1403 provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Upper Battlefield Battlefield 1403 provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.225878+00:00"
@@ -31277,10 +31302,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Forsbrook Heath House Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Forsbrook Heath House Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.226095+00:00"
@@ -31764,10 +31789,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Swineshead Ivy Farm restaurant provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Swineshead Ivy Farm restaurant provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.226346+00:00"
@@ -31928,10 +31953,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Tealby Rd The Wolds Edge provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Tealby Rd The Wolds Edge provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.226439+00:00"
@@ -32264,7 +32289,7 @@
   },
   {
     "id": "farm_11rex9ozxk",
-    "name": "Robinson\u2019s Farm Shop",
+    "name": "Robinson’s Farm Shop",
     "slug": "robinsons-farm-shop",
     "location": {
       "lat": 53.5199422,
@@ -32284,7 +32309,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Waltham Robinson\u2019s Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Waltham Robinson’s Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.226639+00:00"
@@ -32454,7 +32479,7 @@
   },
   {
     "id": "farm_fswcaf53jd",
-    "name": "Jade\u2019s Farm Shop",
+    "name": "Jade’s Farm Shop",
     "slug": "jades-farm-shop",
     "location": {
       "lat": 52.8213695,
@@ -32474,7 +32499,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Burton Coggles Jade\u2019s Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Burton Coggles Jade’s Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.226745+00:00"
@@ -33012,10 +33037,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Newton-le-Willows Rock House Farm provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Newton-le-Willows Rock House Farm provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.227055+00:00"
@@ -33104,7 +33129,7 @@
   },
   {
     "id": "farm_lf8xwxyn7r",
-    "name": "Spring House Farm Shop and Caf\u00e9",
+    "name": "Spring House Farm Shop and Café",
     "slug": "spring-house-farm-shop-and-cafe",
     "location": {
       "lat": 54.312526,
@@ -33124,7 +33149,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Scruton Spring House Farm Shop and Caf\u00e9 offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Scruton Spring House Farm Shop and Café offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.227120+00:00"
@@ -33150,10 +33175,10 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of The Drewton Estate Drewton's Farm Shop provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of The Drewton Estate Drewton's Farm Shop provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.227132+00:00"
@@ -33232,10 +33257,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Otley Old Rd Caring For Life Garden Nurseries provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Otley Old Rd Caring For Life Garden Nurseries provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.227178+00:00"
@@ -33405,7 +33430,7 @@
   },
   {
     "id": "farm_eb0bi29zwf",
-    "name": "Southward\u2019s Farm Shop",
+    "name": "Southward’s Farm Shop",
     "slug": "southwards-farm-shop",
     "location": {
       "lat": 54.1890846,
@@ -33425,7 +33450,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Station Yard Southward\u2019s Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Station Yard Southward’s Farm Shop offers fresh produce and farm shop. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.227272+00:00"
@@ -33894,7 +33919,7 @@
   },
   {
     "id": "farm_msu99ld8le",
-    "name": "Low Sizergh Barn Farm Shop & Caf\u00e9",
+    "name": "Low Sizergh Barn Farm Shop & Café",
     "slug": "low-sizergh-barn-farm-shop-cafe",
     "location": {
       "lat": 54.2818845,
@@ -33915,7 +33940,7 @@
       "grocery"
     ],
     "hours": [],
-    "description": "Located in the heart of Sizergh Low Sizergh Barn Farm Shop & Caf\u00e9 provides fresh produce, farm shop and grocery. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Sizergh Low Sizergh Barn Farm Shop & Café provides fresh produce, farm shop and grocery. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.227542+00:00"
@@ -34426,10 +34451,10 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of 64 High St Farm Direct provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 64 High St Farm Direct provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.227824+00:00"
@@ -34454,10 +34479,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Gretna Green Gretna Green Famous Blacksmiths Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Gretna Green Gretna Green Famous Blacksmiths Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.227846+00:00"
@@ -34590,10 +34615,10 @@
     },
     "offerings": [
       "fresh produce",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Cowan Bridge Ireby Green Farm Cafe & Caravan Site offers fresh produce and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Cowan Bridge Ireby Green Farm Cafe & Caravan Site offers fresh produce and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.227918+00:00"
@@ -34808,10 +34833,10 @@
       "fresh produce",
       "farm shop",
       "grocery",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of South Rd Sunnyhills of Belford provides fresh produce, farm shop, grocery and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of South Rd Sunnyhills of Belford provides fresh produce, farm shop, grocery and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.228053+00:00"
@@ -34872,7 +34897,7 @@
   },
   {
     "id": "farm_f4evcitifc",
-    "name": "The Homestead Caf\u00e9 & Farm Shop",
+    "name": "The Homestead Café & Farm Shop",
     "slug": "the-homestead-cafe-farm-shop",
     "location": {
       "lat": 55.6552665,
@@ -34891,7 +34916,7 @@
       "fresh produce"
     ],
     "hours": [],
-    "description": "Located in the heart of The Homestead Cafe The Homestead Caf\u00e9 & Farm Shop specializes in fresh produce. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of The Homestead Cafe The Homestead Café & Farm Shop specializes in fresh produce. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.228103+00:00"
@@ -35158,11 +35183,11 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9",
+      "café",
       "meat"
     ],
     "hours": [],
-    "description": "Located in the heart of 549 Cowpen Rd Signature Farm Meats provides fresh produce, farm shop, caf\u00e9 and meat. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of 549 Cowpen Rd Signature Farm Meats provides fresh produce, farm shop, café and meat. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.228231+00:00"
@@ -35565,10 +35590,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Great Ayton Fletchers Farm Coffee Shop provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Great Ayton Fletchers Farm Coffee Shop provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.228453+00:00"
@@ -35593,10 +35618,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of East Rounton Roots Farm Shop & Cafe provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of East Rounton Roots Farm Shop & Cafe provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.228467+00:00"
@@ -35757,10 +35782,10 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Greta Bridge Thorpe Farm Centre. provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Greta Bridge Thorpe Farm Centre. provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.228548+00:00"
@@ -36108,10 +36133,10 @@
     },
     "offerings": [
       "fresh produce",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Located in the heart of Holme Ln The Pink Pig Farm offers fresh produce and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Holme Ln The Pink Pig Farm offers fresh produce and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.228717+00:00"
@@ -36271,17 +36296,17 @@
     "offerings": [
       "fresh produce",
       "farm shop",
-      "caf\u00e9"
+      "café"
     ],
     "hours": [],
-    "description": "Situated in Selby YO8 6EL Spuds & Berries provides fresh produce, farm shop and caf\u00e9. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Situated in Selby YO8 6EL Spuds & Berries provides fresh produce, farm shop and café. Known for their high-quality, locally-sourced products. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.228801+00:00"
   },
   {
     "id": "farm_as067yodhb",
-    "name": "Gemma\u2019s Farm Shop",
+    "name": "Gemma’s Farm Shop",
     "slug": "gemmas-farm-shop",
     "location": {
       "lat": 53.40880749999999,
@@ -36301,7 +36326,7 @@
       "farm shop"
     ],
     "hours": [],
-    "description": "Located in the heart of Styrrup Gemma\u2019s Farm Shop offers fresh produce and farm shop. Supporting local farmers and sustainable agriculture. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
+    "description": "Located in the heart of Styrrup Gemma’s Farm Shop offers fresh produce and farm shop. Supporting local farmers and sustainable agriculture. Perfect for those looking to support local businesses and enjoy the freshest seasonal produce.",
     "verified": false,
     "adsenseEligible": true,
     "updatedAt": "2025-08-17T22:34:09.228813+00:00"

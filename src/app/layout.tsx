@@ -2,6 +2,7 @@ import './globals.css'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import type { Metadata } from 'next'
 import ConsentBanner from '@/components/ConsentBanner'
+import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
@@ -82,12 +83,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Consent */}
         <ConsentBanner />
 
-        {/* Simple footer */}
-        <footer className="mt-16 border-t dark:border-gray-700">
-          <div className="mx-auto max-w-6xl px-4 py-6 text-sm text-gray-600 dark:text-[#E4E2DD]/80">
-            © {new Date().getFullYear()} Farm Companion · <Link href="/privacy" className="underline">Privacy</Link> · <Link href="/terms" className="underline">Terms</Link>
-          </div>
-        </footer>
+        {/* Footer */}
+        <Footer />
 
 
       </body>
