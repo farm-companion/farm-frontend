@@ -37,15 +37,16 @@ export default async function CountyPage({ params }: { params: Promise<{ slug: s
   )
 }
 
-export async function generateStaticParams() {
-  const farms = await readFarms()
-  const slugs = Array.from(new Set(
-    farms
-      .filter(f => f.location?.county)
-      .map(f => slugify(f.location.county))
-  ))
-  return slugs.map(slug => ({ slug }))
-}
+// Remove generateStaticParams to make this dynamic
+// export async function generateStaticParams() {
+//   const farms = await readFarms()
+//   const slugs = Array.from(new Set(
+//     farms
+//       .filter(f => f.location?.county)
+//       .map(f => slugify(f.location.county))
+//   ))
+//   return slugs.map(slug => ({ slug }))
+// }
 
 async function readFarms(): Promise<FarmShop[]> {
   const res = await fetch(`${site}/data/farms.uk.json`, { next: { revalidate } })
