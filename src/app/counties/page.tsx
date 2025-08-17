@@ -41,7 +41,7 @@ export default async function CountiesIndex() {
 }
 
 async function readFarms(): Promise<FarmShop[]> {
-  const res = await fetch(`${site}/data/farms.uk.json`, { next: { revalidate } })
+  const res = await fetch(`${site}/data/farms.uk.json`, { next: { revalidate: 3600 } })
   if (!res.ok) throw new Error('Failed to load farms.uk.json')
   return (await res.json()) as FarmShop[]
 }
