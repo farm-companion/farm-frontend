@@ -38,13 +38,27 @@ export default async function AdminClaimsPage() {
 async function loadClaims() {
   try {
     const claimsDir = path.join(process.cwd(), 'data', 'claims')
+    
+    // Check if directory exists
+    try {
+      await fs.access(claimsDir)
+    } catch {
+      // Directory doesn't exist, return empty array
+      return []
+    }
+    
     const files = await fs.readdir(claimsDir)
     
     const claims = []
     for (const file of files) {
       if (file.endsWith('.json')) {
-        const content = await fs.readFile(path.join(claimsDir, file), 'utf-8')
-        claims.push(JSON.parse(content))
+        try {
+          const content = await fs.readFile(path.join(claimsDir, file), 'utf-8')
+          claims.push(JSON.parse(content))
+        } catch (fileError) {
+          console.error(`Error reading claim file ${file}:`, fileError)
+          // Continue with other files
+        }
       }
     }
     
