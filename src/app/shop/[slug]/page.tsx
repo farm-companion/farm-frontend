@@ -28,9 +28,55 @@ export default async function ShopPage({ params }: { params: { slug: string } })
 
   const { name, location, contact, offerings, verified } = shop
   const directionsUrl = `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${location.lat},${location.lng}`
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
+
+  // JSON-LD (LocalBusiness/GroceryStore)
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'GroceryStore',
+    '@id': `${base}/shop/${encodeURIComponent(shop.slug)}#store`,
+    name: shop.name,
+    url: `${base}/shop/${encodeURIComponent(shop.slug)}`,
+    image: Array.isArray(shop.images) && shop.images.length > 0 ? shop.images : undefined,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: shop.location?.address || undefined,
+      addressLocality: shop.location?.county || undefined,
+      postalCode: shop.location?.postcode || undefined,
+      addressCountry: 'GB'
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: shop.location.lat,
+      longitude: shop.location.lng
+    },
+    telephone: contact?.phone || undefined,
+    email: contact?.email || undefined,
+    sameAs: contact?.website ? [contact.website] : undefined,
+    // Opening hours, if provided
+    openingHoursSpecification:
+      Array.isArray(shop.hours) && shop.hours.length
+        ? shop.hours
+            .filter(h => h.open && h.close && h.day)
+            .map(h => ({
+              '@type': 'OpeningHoursSpecification',
+              dayOfWeek: dayToSchema(h.day),
+              opens: h.open,
+              closes: h.close
+            }))
+        : undefined,
+    // What they offer (keywords help discovery)
+    keywords: Array.isArray(offerings) && offerings.length ? offerings.join(', ') : undefined
+  }
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-8">
+      {/* SEO: LocalBusiness JSON-LD */}
+      <script
+        type="application/ld+json"
+        // stringify on server to avoid hydration diff; remove undefineds for cleanliness
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON.parse(JSON.stringify(jsonLd))) }}
+      />
       <a href="/map" className="text-sm underline hover:no-underline">← Back to map</a>
 
       <header className="mt-3 flex items-start justify-between gap-3">
@@ -84,4 +130,18 @@ export default async function ShopPage({ params }: { params: { slug: string } })
       )}
     </main>
   )
+}
+
+function dayToSchema(day: string) {
+  // Map our "Mon" → "Monday" etc., fallback to undefined
+  switch (day) {
+    case 'Mon': return 'https://schema.org/Monday'
+    case 'Tue': return 'https://schema.org/Tuesday'
+    case 'Wed': return 'https://schema.org/Wednesday'
+    case 'Thu': return 'https://schema.org/Thursday'
+    case 'Fri': return 'https://schema.org/Friday'
+    case 'Sat': return 'https://schema.org/Saturday'
+    case 'Sun': return 'https://schema.org/Sunday'
+    default: return undefined
+  }
 }
