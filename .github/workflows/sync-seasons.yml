@@ -6,6 +6,9 @@ on:
     - cron: '15 3 * * *'
   # Allow manual runs
   workflow_dispatch: {}
+  # Allow farm-pipeline to push a signal when new data is ready
+  repository_dispatch:
+    types: [seasons-updated]
 
 permissions:
   contents: write
