@@ -76,11 +76,14 @@ async function sendNotificationEmail(claim: any) {
   // This would integrate with your email service (SendGrid, AWS SES, etc.)
   // For now, we'll just log it
   console.log('📧 CLAIM NOTIFICATION:', {
-    to: process.env.ADMIN_EMAIL || 'admin@farmcompanion.co.uk',
+    to: 'claims@farmcompanion.co.uk',
     subject: `New Claim: ${claim.shopName}`,
     claimId: claim.id,
     claimant: claim.claimantName,
-    claimType: claim.claimType
+    claimType: claim.claimType,
+    shopAddress: claim.shopAddress,
+    claimantEmail: claim.claimantEmail,
+    claimantPhone: claim.claimantPhone
   })
 }
 
@@ -88,7 +91,9 @@ async function sendConfirmationEmail(claim: any) {
   // This would send a confirmation email to the claimant
   console.log('📧 CLAIM CONFIRMATION:', {
     to: claim.claimantEmail,
+    from: 'hello@farmcompanion.co.uk',
     subject: `Claim Submitted: ${claim.shopName}`,
-    claimId: claim.id
+    claimId: claim.id,
+    message: `Thank you for claiming ${claim.shopName}. We'll review your submission and contact you within 2-3 business days.`
   })
 }

@@ -128,7 +128,7 @@ export default function ClaimForm({ shop }: ClaimFormProps) {
             </h3>
             <div className="mt-2 text-sm text-green-700 dark:text-green-300">
               <p>Thank you for your claim. We&apos;ll review your submission and contact you within 2-3 business days.</p>
-              <p className="mt-2">You&apos;ll receive a confirmation email shortly.</p>
+              <p className="mt-2">You&apos;ll receive a confirmation email from hello@farmcompanion.co.uk shortly.</p>
             </div>
           </div>
         </div>
