@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: `${shop.location.address}, ${shop.location.county} ${shop.location.postcode}`,
     alternates: { canonical: url },
     openGraph: {
-      type: 'place',
+      type: 'website',
       url: `${base}${url}`,
       title: shop.name,
       description: `${shop.location.address}, ${shop.location.county} ${shop.location.postcode}`,
