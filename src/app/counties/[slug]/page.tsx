@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 
 const site = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
-export const revalidate = 3600
+export const dynamic = 'force-dynamic' // Make this dynamic to avoid build-time data fetching
 
 export default async function CountyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
