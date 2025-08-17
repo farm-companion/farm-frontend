@@ -46,6 +46,44 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
   const { name, location, contact, offerings, verified } = shop
   const directionsUrl = `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${location.lat},${location.lng}`
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
+  const ghOwner = process.env.NEXT_PUBLIC_GH_OWNER || 'farm-companion'
+  const ghRepo  = process.env.NEXT_PUBLIC_GH_REPO  || 'farm-frontend'
+  const pageUrl = `${base}/shop/${encodeURIComponent(shop.slug)}`
+  const issueTitle = `Data fix: ${shop.name} (${shop.slug})`
+  const issueBody = [
+    `**Page:** ${pageUrl}`,
+    ``,
+    `**What needs fixing?**`,
+    `- [ ] Name`,
+    `- [ ] Address/Postcode`,
+    `- [ ] Opening hours`,
+    `- [ ] Phone/Email/Website`,
+    `- [ ] Map location (pin)`,
+    `- [ ] Other: ...`,
+    ``,
+    `**Correct details (please paste):**`,
+    ``,
+    `**Reference (for maintainers):**`,
+    '```json',
+    JSON.stringify({
+      id: shop.id,
+      slug: shop.slug,
+      name: shop.name,
+      location: {
+        lat: shop.location.lat,
+        lng: shop.location.lng,
+        address: shop.location.address,
+        county: shop.location.county,
+        postcode: shop.location.postcode
+      }
+    }, null, 2),
+    '```'
+  ].join('\n')
+  const issueUrl =
+    `https://github.com/${ghOwner}/${ghRepo}/issues/new?` +
+    `title=${encodeURIComponent(issueTitle)}` +
+    `&labels=${encodeURIComponent('data,report')}` +
+    `&body=${encodeURIComponent(issueBody)}`
 
   // JSON-LD (LocalBusiness/GroceryStore)
   const jsonLd = {
@@ -132,6 +170,19 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
           🧭 Directions (OpenStreetMap)
         </a>
       </section>
+
+      {/* Slim report fix link */}
+      <p className="mt-6 text-xs text-gray-600 dark:text-[#E4E2DD]/70">
+        Spot an issue with this listing?{' '}
+        <a
+          className="underline hover:no-underline"
+          href={issueUrl}
+          target="_blank"
+          rel="nofollow ugc noopener noreferrer"
+        >
+          Report a fix ↗
+        </a>
+      </p>
 
       {offerings && offerings.length > 0 && (
         <section className="mt-8">
