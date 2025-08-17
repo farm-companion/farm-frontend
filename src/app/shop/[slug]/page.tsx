@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import type { FarmShop } from '@/types/farm'

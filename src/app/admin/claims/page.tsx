@@ -1,10 +1,6 @@
-import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import fs from 'fs/promises'
 import path from 'path'
-
-// Simple admin check - in production, use proper authentication
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@farmcompanion.co.uk'
 
 export default async function AdminClaimsPage() {
   // In production, check if user is authenticated and has admin access
@@ -25,7 +21,7 @@ export default async function AdminClaimsPage() {
         <div className="rounded-lg border border-gray-200 bg-gray-50 p-8 text-center dark:border-gray-700 dark:bg-gray-800/50">
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">No claims yet</h3>
           <p className="mt-2 text-gray-600 dark:text-gray-400">
-            When farm owners submit claims, they'll appear here for review.
+            When farm owners submit claims, they&apos;ll appear here for review.
           </p>
         </div>
       ) : (

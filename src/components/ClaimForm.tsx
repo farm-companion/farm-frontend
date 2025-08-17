@@ -101,11 +101,11 @@ export default function ClaimForm({ shop }: ClaimFormProps) {
           consent: false
         }))
       } else {
-        const error = await response.text()
-        setErrorMessage(error || 'Failed to submit claim. Please try again.')
+        const errorText = await response.text()
+        setErrorMessage(errorText || 'Failed to submit claim. Please try again.')
         setSubmitStatus('error')
       }
-    } catch (error) {
+    } catch {
       setErrorMessage('Network error. Please check your connection and try again.')
       setSubmitStatus('error')
     } finally {
@@ -127,8 +127,8 @@ export default function ClaimForm({ shop }: ClaimFormProps) {
               Claim Submitted Successfully!
             </h3>
             <div className="mt-2 text-sm text-green-700 dark:text-green-300">
-              <p>Thank you for your claim. We'll review your submission and contact you within 2-3 business days.</p>
-              <p className="mt-2">You'll receive a confirmation email shortly.</p>
+              <p>Thank you for your claim. We&apos;ll review your submission and contact you within 2-3 business days.</p>
+              <p className="mt-2">You&apos;ll receive a confirmation email shortly.</p>
             </div>
           </div>
         </div>
