@@ -49,7 +49,6 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
   const ghOwner = process.env.NEXT_PUBLIC_GH_OWNER || 'farm-companion'
   const ghRepo  = process.env.NEXT_PUBLIC_GH_REPO  || 'farm-frontend'
   const pageUrl = `${base}/shop/${encodeURIComponent(shop.slug)}`
-  const claimsEmail = process.env.NEXT_PUBLIC_CLAIMS_EMAIL || 'claims@farmcompanion.co.uk'
   // Include page URL in the title so it's captured even when using forms
   const issueTitle = `Data fix: ${shop.name} (${shop.slug}) — ${pageUrl}`
   const issueUrl =
@@ -57,30 +56,6 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
     `title=${encodeURIComponent(issueTitle)}` +
     `&labels=${encodeURIComponent('data,report')}` +
     `&template=data_fix.yml`
-
-  // Prefilled claim email
-  const claimSubject = encodeURIComponent(`Claim listing: ${shop.name} (${shop.slug})`)
-  const claimBody = encodeURIComponent(
-`Hello Farm Companion,
-
-I would like to claim or update the listing for:
-- Name: ${shop.name}
-- URL: ${pageUrl}
-- Address: ${shop.location.address}, ${shop.location.county} ${shop.location.postcode}
-
-I am the (owner/manager/representative). Please advise next steps.
-
-My details:
-- Name:
-- Role:
-- Email:
-- Phone:
-
-Corrections (if any):
-- 
-
-Consent: I consent to you contacting me about this listing.`)
-  const claimMailto = `mailto:${claimsEmail}?subject=${claimSubject}&body=${claimBody}`
 
   // JSON-LD (LocalBusiness/GroceryStore)
   const jsonLd = {
@@ -176,13 +151,12 @@ Consent: I consent to you contacting me about this listing.`)
           🧭 Directions (OpenStreetMap)
         </a>
         {/* Claim this shop */}
-        <a
+        <Link
+          href={`/claim/${shop.slug}`}
           className="rounded border px-4 py-2 hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-[#E4E2DD]/10"
-          href={claimMailto}
-          rel="nofollow ugc noopener noreferrer"
         >
           ✅ Claim this shop
-        </a>
+        </Link>
       </section>
 
       {/* Slim report fix link */}
