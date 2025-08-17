@@ -25,7 +25,6 @@ export default function AddFarmPage() {
   const [hours, setHours] = useState<Hours[]>(DAYS.map(d => ({ day: d })))
   const [touched, setTouched] = useState(false)
   // Hydration-safe flags/values
-  const [mounted, setMounted] = useState(false)
   const [draftId, setDraftId] = useState<string | null>(null)
   const [updatedAtClient, setUpdatedAtClient] = useState<string | null>(null)
   // Anti-spam
@@ -46,7 +45,6 @@ export default function AddFarmPage() {
   const slug = useMemo(() => slugify(form.name), [form.name])
 
   useEffect(() => {
-    setMounted(true) // first client render after SSR
     setDraftId(genId())
     setUpdatedAtClient(new Date().toISOString())
     // record start time (used to block instant bot submissions)

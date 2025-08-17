@@ -9,6 +9,17 @@ export type FarmShop = {
     county: string
     postcode: string
   }
+  contact?: {
+    phone?: string
+    email?: string
+    website?: string
+  }
+  hours?: Array<{
+    day: string
+    open: string
+    close: string
+  }>
   offerings?: string[]
+  images?: string[]
   verified: boolean
 }

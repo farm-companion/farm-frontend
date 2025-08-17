@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import maplibregl, { Map } from 'maplibre-gl'
 import type { FarmShop } from '@/types/farm'
+import AdSlot from '@/components/AdSlot'
 
 // Ensure this route is always rendered client-side
 export const dynamic = 'force-dynamic'
@@ -256,90 +257,104 @@ export default function MapPage() {
   }
 
   return (
-    // Give the map a guaranteed height; subtract header so it isn’t hidden
-    <main className="relative w-screen h-[calc(100vh-56px)] mt-14">
-      {/* Search overlay */}
-      <div className="pointer-events-auto absolute left-3 top-3 z-50">
-        <label className="sr-only" htmlFor="map-search">Search farm shops</label>
-        <input
-          id="map-search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search name, postcode, county…"
-          className="w-[260px] rounded-lg border border-gray-300 bg-white/95 px-3 py-2 text-sm shadow
-                     backdrop-blur placeholder:text-gray-500
-                     dark:border-gray-600 dark:bg-[#1E1F23]/95 dark:text-[#E4E2DD]"
-        />
-      </div>
-      {/* County selector (typeahead) */}
-      <div className="pointer-events-auto absolute left-3 top-14 z-50 mt-2 flex items-center gap-2">
-        <label htmlFor="county-select" className="sr-only">Filter by county</label>
-        <input
-          id="county-select"
-          list="county-list"
-          value={selectedCounty}
-          onChange={(e) => setSelectedCounty(e.target.value)}
-          placeholder="Filter by county…"
-          className="w-[260px] rounded-lg border border-gray-300 bg-white/95 px-3 py-2 text-sm shadow
-                     backdrop-blur placeholder:text-gray-500
-                     dark:border-gray-600 dark:bg-[#1E1F23]/95 dark:text-[#E4E2DD]"
-        />
-        <datalist id="county-list">
-          <option value=""></option>
-          {counties.map((c) => <option key={c} value={c} />)}
-        </datalist>
-        {selectedCounty && (
-          <button
-            type="button"
-            onClick={() => setSelectedCounty('')}
-            className="rounded border px-2 py-1 text-xs hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-[#1E1F23]"
-            aria-label="Clear county filter"
-          >
-            Clear
-          </button>
-        )}
-      </div>
-      {/* Results list (live, compact) */}
-      <div
-        className="pointer-events-auto absolute left-3 top-28 z-50 mt-2 max-h-[40vh] w-[300px] overflow-auto
-                   rounded-lg border bg-white/95 text-sm shadow backdrop-blur
-                   dark:border-gray-600 dark:bg-[#121D2B]/95 dark:text-[#E4E2DD]"
-        role="region"
-        aria-label="Search results"
+    <>
+      {/* Give the map a guaranteed height; subtract header so it isn't hidden */}
+      <main className="relative w-screen h-[calc(100vh-56px)] mt-14">
+        {/* Search overlay */}
+        <div className="pointer-events-auto absolute left-3 top-3 z-50">
+          <label className="sr-only" htmlFor="map-search">Search farm shops</label>
+          <input
+            id="map-search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search name, postcode, county…"
+            className="w-[260px] rounded-lg border border-gray-300 bg-white/95 px-3 py-2 text-sm shadow
+                       backdrop-blur placeholder:text-gray-500
+                       dark:border-gray-600 dark:bg-[#1E1F23]/95 dark:text-[#E4E2DD]"
+          />
+        </div>
+        {/* County selector (typeahead) */}
+        <div className="pointer-events-auto absolute left-3 top-14 z-50 mt-2 flex items-center gap-2">
+          <label htmlFor="county-select" className="sr-only">Filter by county</label>
+          <input
+            id="county-select"
+            list="county-list"
+            value={selectedCounty}
+            onChange={(e) => setSelectedCounty(e.target.value)}
+            placeholder="Filter by county…"
+            className="w-[260px] rounded-lg border border-gray-300 bg-white/95 px-3 py-2 text-sm shadow
+                       backdrop-blur placeholder:text-gray-500
+                       dark:border-gray-600 dark:bg-[#1E1F23]/95 dark:text-[#E4E2DD]"
+          />
+          <datalist id="county-list">
+            <option value=""></option>
+            {counties.map((c) => <option key={c} value={c} />)}
+          </datalist>
+          {selectedCounty && (
+            <button
+              type="button"
+              onClick={() => setSelectedCounty('')}
+              className="rounded border px-2 py-1 text-xs hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-[#1E1F23]"
+              aria-label="Clear county filter"
+            >
+              Clear
+            </button>
+          )}
+        </div>
+        {/* Results list (live, compact) */}
+        <div
+          className="pointer-events-auto absolute left-3 top-28 z-50 mt-2 max-h-[40vh] w-[300px] overflow-auto
+                     rounded-lg border bg-white/95 text-sm shadow backdrop-blur
+                     dark:border-gray-600 dark:bg-[#121D2B]/95 dark:text-[#E4E2DD]"
+          role="region"
+          aria-label="Search results"
+        >
+          {filteredFarms.length === 0 ? (
+            <div className="px-3 py-2 text-gray-600 dark:text-[#E4E2DD]/70">No results</div>
+          ) : (
+            <ul className="divide-y dark:divide-gray-700">
+              {filteredFarms.slice(0, 20).map((f) => (
+                <li key={f.id}>
+                  <button
+                    type="button"
+                    onClick={() => flyToFarm(f)}
+                    className="block w-full text-left px-3 py-2 hover:bg-gray-50 dark:hover:bg-[#1E1F23]"
+                  >
+                    <div className="font-medium">{f.name}</div>
+                    <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-[#E4E2DD]/70">
+                      <span>{f.location.county} · {f.location.postcode}</span>
+                      {userLoc && (
+                        <span className="rounded-full border px-2 py-[1px] text-[11px] dark:border-gray-700">
+                          {haversineMi(userLoc.lat, userLoc.lng, f.location.lat, f.location.lng).toFixed(1)} mi
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                </li>
+              ))}
+              {filteredFarms.length > 20 && (
+                <li className="px-3 py-2 text-xs text-gray-600 dark:text-[#E4E2DD]/70">
+                  Showing first 20 of {filteredFarms.length}. Narrow your search to see more.
+                </li>
+              )}
+            </ul>
+          )}
+        </div>
+        <div ref={mapContainer} className="w-full h-full" />
+      </main>
+
+      {/* Sponsored section JUST above the footer (consent-aware) */}
+      <section
+        aria-label="Sponsored content"
+        className="mx-auto max-w-3xl px-3 sm:px-6 py-4 sm:py-6"
       >
-        {filteredFarms.length === 0 ? (
-          <div className="px-3 py-2 text-gray-600 dark:text-[#E4E2DD]/70">No results</div>
-        ) : (
-          <ul className="divide-y dark:divide-gray-700">
-            {filteredFarms.slice(0, 20).map((f) => (
-              <li key={f.id}>
-                <button
-                  type="button"
-                  onClick={() => flyToFarm(f)}
-                  className="block w-full text-left px-3 py-2 hover:bg-gray-50 dark:hover:bg-[#1E1F23]"
-                >
-                  <div className="font-medium">{f.name}</div>
-                  <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-[#E4E2DD]/70">
-                    <span>{f.location.county} · {f.location.postcode}</span>
-                    {userLoc && (
-                      <span className="rounded-full border px-2 py-[1px] text-[11px] dark:border-gray-700">
-                        {haversineMi(userLoc.lat, userLoc.lng, f.location.lat, f.location.lng).toFixed(1)} mi
-                      </span>
-                    )}
-                  </div>
-                </button>
-              </li>
-            ))}
-            {filteredFarms.length > 20 && (
-              <li className="px-3 py-2 text-xs text-gray-600 dark:text-[#E4E2DD]/70">
-                Showing first 20 of {filteredFarms.length}. Narrow your search to see more.
-              </li>
-            )}
-          </ul>
-        )}
-      </div>
-      <div ref={mapContainer} className="w-full h-full" />
-    </main>
+        <div className="rounded-lg border bg-white p-2 sm:p-3 text-xs sm:text-sm shadow-sm
+                        dark:border-gray-700 dark:bg-[#121D2B] dark:text-[#E4E2DD]">
+          <div className="mb-1 text-[10px] uppercase tracking-wide opacity-70">Sponsored</div>
+          <AdSlot />
+        </div>
+      </section>
+    </>
   )
 }
 

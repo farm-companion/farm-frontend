@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Farm Companion',
-  description: 'The UK’s premium guide to real food, real people, and real places.',
+  description: 'The UK&apos;s premium guide to real food, real people, and real places.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

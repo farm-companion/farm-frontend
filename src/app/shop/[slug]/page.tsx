@@ -11,9 +11,10 @@ async function readFarms(): Promise<FarmShop[]> {
   return JSON.parse(raw) as FarmShop[]
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
   const farms = await readFarms()
-  const shop = farms.find((f) => f.slug === params.slug)
+  const shop = farms.find((f) => f.slug === slug)
   if (!shop) return { title: 'Farm shop not found' }
   return {
     title: `${shop.name} · Farm Companion`,
@@ -21,9 +22,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function ShopPage({ params }: { params: { slug: string } }) {
+export default async function ShopPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const farms = await readFarms()
-  const shop = farms.find((f) => f.slug === params.slug)
+  const shop = farms.find((f) => f.slug === slug)
   if (!shop) notFound()
 
   const { name, location, contact, offerings, verified } = shop
