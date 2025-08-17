@@ -1,4 +1,5 @@
 import type { FarmShop } from '@/types/farm'
+import Link from 'next/link'
 
 const site = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
 
@@ -25,13 +26,13 @@ export default async function CountiesIndex() {
       <ul className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
         {counties.map(c => (
           <li key={c.slug}>
-            <a
+            <Link
               href={`/counties/${c.slug}`}
               className="flex items-center justify-between rounded border px-4 py-2 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-[#1E1F23]"
             >
               <span>{c.name}</span>
               <span className="text-xs text-gray-600 dark:text-[#E4E2DD]/70">{c.count}</span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

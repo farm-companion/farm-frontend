@@ -1,5 +1,6 @@
 import type { FarmShop } from '@/types/farm'
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 
 const site = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
 export const revalidate = 3600
@@ -14,7 +15,7 @@ export default async function CountyPage({ params }: { params: { slug: string } 
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-10">
-      <a href="/counties" className="text-sm underline hover:no-underline">← All counties</a>
+      <Link href="/counties" className="text-sm underline hover:no-underline">← All counties</Link>
       <h1 className="mt-2 text-3xl font-semibold">{countyName}</h1>
       <p className="mt-2 text-gray-700 dark:text-[#E4E2DD]/80">
         {list.length} farm shop{list.length === 1 ? '' : 's'} listed.
@@ -24,7 +25,7 @@ export default async function CountyPage({ params }: { params: { slug: string } 
         {list.map(f => (
           <li key={f.id} className="px-4 py-3">
             <div className="flex items-baseline justify-between gap-4">
-              <a className="font-medium hover:underline" href={`/shop/${f.slug}`}>{f.name}</a>
+              <Link className="font-medium hover:underline" href={`/shop/${f.slug}`}>{f.name}</Link>
               <span className="text-xs text-gray-600 dark:text-[#E4E2DD]/70">{f.location.postcode}</span>
             </div>
             <div className="text-sm text-gray-700 dark:text-[#E4E2DD]/80">{f.location.address}</div>
