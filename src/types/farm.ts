@@ -6,6 +6,7 @@ export type FarmShop = {
     lat: number
     lng: number
     address: string
+    city: string
     county: string
     postcode: string
   }
@@ -20,6 +21,9 @@ export type FarmShop = {
     close: string
   }>
   offerings?: string[]
+  description?: string
   images?: string[]
   verified: boolean
+  adsenseEligible?: boolean
+  updatedAt?: string
 }

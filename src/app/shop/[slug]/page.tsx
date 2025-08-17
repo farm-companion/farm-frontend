@@ -144,6 +144,15 @@ Consent: I consent to you contacting me about this listing.`)
         {location.address}, {location.county} {location.postcode}
       </p>
 
+      {/* Description */}
+      {shop.description && (
+        <section className="mt-6">
+          <p className="text-gray-700 dark:text-[#E4E2DD]/80 leading-relaxed">
+            {shop.description}
+          </p>
+        </section>
+      )}
+
       <section className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {contact?.phone && <ObfuscatedPhone phone={contact.phone} />}
         {contact?.email && <ObfuscatedEmail email={contact.email} />}
