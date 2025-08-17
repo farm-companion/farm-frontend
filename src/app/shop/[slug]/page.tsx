@@ -49,41 +49,13 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
   const ghOwner = process.env.NEXT_PUBLIC_GH_OWNER || 'farm-companion'
   const ghRepo  = process.env.NEXT_PUBLIC_GH_REPO  || 'farm-frontend'
   const pageUrl = `${base}/shop/${encodeURIComponent(shop.slug)}`
-  const issueTitle = `Data fix: ${shop.name} (${shop.slug})`
-  const issueBody = [
-    `**Page:** ${pageUrl}`,
-    ``,
-    `**What needs fixing?**`,
-    `- [ ] Name`,
-    `- [ ] Address/Postcode`,
-    `- [ ] Opening hours`,
-    `- [ ] Phone/Email/Website`,
-    `- [ ] Map location (pin)`,
-    `- [ ] Other: ...`,
-    ``,
-    `**Correct details (please paste):**`,
-    ``,
-    `**Reference (for maintainers):**`,
-    '```json',
-    JSON.stringify({
-      id: shop.id,
-      slug: shop.slug,
-      name: shop.name,
-      location: {
-        lat: shop.location.lat,
-        lng: shop.location.lng,
-        address: shop.location.address,
-        county: shop.location.county,
-        postcode: shop.location.postcode
-      }
-    }, null, 2),
-    '```'
-  ].join('\n')
+  // Include page URL in the title so it's captured even when using forms
+  const issueTitle = `Data fix: ${shop.name} (${shop.slug}) — ${pageUrl}`
   const issueUrl =
     `https://github.com/${ghOwner}/${ghRepo}/issues/new?` +
     `title=${encodeURIComponent(issueTitle)}` +
     `&labels=${encodeURIComponent('data,report')}` +
-    `&body=${encodeURIComponent(issueBody)}`
+    `&template=data_fix.yml`
 
   // JSON-LD (LocalBusiness/GroceryStore)
   const jsonLd = {
