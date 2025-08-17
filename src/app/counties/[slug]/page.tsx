@@ -5,12 +5,13 @@ import Link from 'next/link'
 const site = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
 export const revalidate = 3600
 
-export default async function CountyPage({ params }: { params: { slug: string } }) {
+export default async function CountyPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const farms = await readFarms()
-  const countyName = unslugify(params.slug, farms)
+  const countyName = unslugify(slug, farms)
   if (!countyName) return notFound()
   const list = farms
-    .filter(f => f.location?.county && slugify(f.location.county) === params.slug)
+    .filter(f => f.location?.county && slugify(f.location.county) === slug)
     .sort((a, b) => a.name.localeCompare(b.name))
 
   return (
