@@ -1,7 +1,7 @@
 import type { FarmShop } from '@/types/farm'
 import Link from 'next/link'
-
-const site = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
+import fs from 'node:fs/promises'
+import path from 'node:path'
 
 export const dynamic = 'force-dynamic' // Make this dynamic to avoid build-time data fetching
 
@@ -41,9 +41,9 @@ export default async function CountiesIndex() {
 }
 
 async function readFarms(): Promise<FarmShop[]> {
-  const res = await fetch(`${site}/data/farms.uk.json`, { next: { revalidate: 3600 } })
-  if (!res.ok) throw new Error('Failed to load farms.uk.json')
-  return (await res.json()) as FarmShop[]
+  const file = path.join(process.cwd(), 'public', 'data', 'farms.uk.json')
+  const raw = await fs.readFile(file, 'utf8')
+  return JSON.parse(raw) as FarmShop[]
 }
 
 function slugify(s: string) {

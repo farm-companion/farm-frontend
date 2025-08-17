@@ -37,6 +37,23 @@ const headersCommon = [
 ]
 
 const nextConfig: NextConfig = {
+  // Configure image domains for external images
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
   // Add strong headers for every route
   async headers() {
     const base = [
