@@ -4,6 +4,7 @@ import path from 'path'
 import Image from 'next/image'
 
 interface PhotoSubmission {
+  id?: string
   farmSlug: string
   farmName: string
   submitterName: string
