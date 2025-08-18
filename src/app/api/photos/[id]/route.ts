@@ -20,6 +20,19 @@ export async function GET(
       )
     }
     
+    // Check if we're in a Vercel environment
+    const isVercel = process.env.VERCEL === '1'
+    
+    if (isVercel) {
+      // In Vercel, photos would be served from cloud storage
+      // For now, return a placeholder response
+      return NextResponse.json(
+        { error: 'Photo serving not available in production yet' },
+        { status: 404 }
+      )
+    }
+    
+    // Local development - serve from file system
     // Check if photo is approved
     const submissionsDir = path.join(process.cwd(), 'data', 'photo-submissions')
     const submissionPath = path.join(submissionsDir, `${photoId}.json`)

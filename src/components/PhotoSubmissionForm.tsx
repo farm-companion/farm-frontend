@@ -139,11 +139,23 @@ export default function PhotoSubmissionForm({
           onSuccess()
         }
       } else {
-        setErrors(result.details || [result.error || 'Submission failed'])
+        // Handle specific error cases
+        if (result.error === 'Validation failed' && result.details) {
+          setErrors(result.details)
+        } else if (result.error) {
+          setErrors([result.error])
+        } else {
+          setErrors(['Submission failed. Please try again.'])
+        }
       }
     } catch (error) {
       console.error('Photo submission error:', error)
-      setErrors(['Network error. Please try again.'])
+      // Check if it's a network error
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        setErrors(['Network error. Please check your internet connection and try again.'])
+      } else {
+        setErrors(['An unexpected error occurred. Please try again.'])
+      }
     } finally {
       setIsSubmitting(false)
     }
@@ -173,8 +185,11 @@ export default function PhotoSubmissionForm({
         <p className="text-text-muted mb-4">
           Thank you for your submission. We&apos;ll review your photo and add it to {farmName} if approved.
         </p>
-        <p className="text-sm text-text-muted">
+        <p className="text-sm text-text-muted mb-2">
           You&apos;ll receive an email confirmation shortly.
+        </p>
+        <p className="text-xs text-text-muted">
+          Note: Photo processing may take a few minutes in production.
         </p>
       </div>
     )
