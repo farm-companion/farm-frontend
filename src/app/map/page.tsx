@@ -351,7 +351,7 @@ export default function MapPage() {
             </label>
           </div>
           {filteredFarms.length === 0 ? (
-            <div className="px-3 py-2 text-xs opacity-70">No results in view. Try zooming or turn off "In-view only".</div>
+            <div className="px-3 py-2 text-xs opacity-70">No results in view. Try zooming or turn off &quot;In-view only&quot;.</div>
           ) : (
             <ul className="divide-y dark:divide-gray-700">
               {filteredFarms.slice(0, 50).map((f) => (
