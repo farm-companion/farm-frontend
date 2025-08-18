@@ -22,6 +22,8 @@ export default function MapPage() {
   const [query, setQuery] = useState('')
   const [userLoc, setUserLoc] = useState<{ lat: number; lng: number } | null>(null)
   const [selectedCounty, setSelectedCounty] = useState<string>('') // '' = All
+  const [bounds, setBounds] = useState<{ west:number; south:number; east:number; north:number } | null>(null)
+  const [inViewOnly, setInViewOnly] = useState<boolean>(true)
 
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return
@@ -36,6 +38,14 @@ export default function MapPage() {
         center: [-2.5, 54.5], // UK
         zoom: 5
       })
+
+      // Keep track of bounds for in-view filtering
+      const updateBounds = () => {
+        const b = map.getBounds()
+        setBounds({ west: b.getWest(), south: b.getSouth(), east: b.getEast(), north: b.getNorth() })
+      }
+      map.on('load', updateBounds)
+      map.on('moveend', updateBounds)
 
       map.addControl(new maplibregl.NavigationControl({ showCompass: true }), 'top-right')
       map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left')
@@ -201,7 +211,7 @@ export default function MapPage() {
   }, [farms])
 
   // Compute filtered farms for the list and for the data source
-  const filteredFarms = useMemo(() => {
+  const filteredFarmsBase = useMemo(() => {
     if (!farms) return []
     const q = query.trim().toLowerCase()
     let base = !q ? farms : farms.filter(f => {
@@ -213,16 +223,28 @@ export default function MapPage() {
     if (selectedCounty) {
       base = base.filter(f => f.location.county === selectedCounty)
     }
-    // If we have user's location, sort by nearest first
+    return base
+  }, [farms, query, selectedCounty])
+
+  const filteredFarms = useMemo(() => {
+    let list = filteredFarmsBase
+    // Limit to current viewport if enabled
+    if (inViewOnly && bounds) {
+      list = list.filter(f => {
+        const { lat, lng } = f.location
+        return lat >= bounds.south && lat <= bounds.north && lng >= bounds.west && lng <= bounds.east
+      })
+    }
+    // Sort by nearest if we know the user location
     if (userLoc) {
-      return [...base].sort((a, b) => {
+      list = [...list].sort((a, b) => {
         const da = haversineMi(userLoc.lat, userLoc.lng, a.location.lat, a.location.lng)
         const db = haversineMi(userLoc.lat, userLoc.lng, b.location.lat, b.location.lng)
         return da - db
       })
     }
-    return base
-  }, [farms, query, selectedCounty, userLoc])
+    return list
+  }, [filteredFarmsBase, inViewOnly, bounds, userLoc])
 
   // Update the clustered source whenever the filtered list changes
   useEffect(() => {
@@ -309,11 +331,30 @@ export default function MapPage() {
           role="region"
           aria-label="Search results"
         >
+          <div className="sticky top-0 z-[1] flex items-center justify-between gap-2 border-b bg-white/90 px-3 py-2 text-xs backdrop-blur
+                          dark:border-gray-700 dark:bg-[#121D2B]/90">
+            <span className="opacity-75">
+              Showing <strong>{filteredFarms.length}</strong>
+              {inViewOnly && filteredFarmsBase.length !== filteredFarms.length
+                ? <> in view</>
+                : null}
+              {' '}of <strong>{filteredFarmsBase.length}</strong>
+            </span>
+            <label className="flex items-center gap-1">
+              <input
+                type="checkbox"
+                checked={inViewOnly}
+                onChange={(e) => setInViewOnly(e.target.checked)}
+                className="h-3 w-3 accent-[#00C2B2]"
+              />
+              <span>In-view only</span>
+            </label>
+          </div>
           {filteredFarms.length === 0 ? (
-            <div className="px-3 py-2 text-gray-600 dark:text-[#E4E2DD]/70">No results</div>
+            <div className="px-3 py-2 text-xs opacity-70">No results in view. Try zooming or turn off "In-view only".</div>
           ) : (
             <ul className="divide-y dark:divide-gray-700">
-              {filteredFarms.slice(0, 20).map((f) => (
+              {filteredFarms.slice(0, 50).map((f) => (
                 <li key={f.id}>
                   <button
                     type="button"
@@ -332,9 +373,9 @@ export default function MapPage() {
                   </button>
                 </li>
               ))}
-              {filteredFarms.length > 20 && (
+              {filteredFarms.length > 50 && (
                 <li className="px-3 py-2 text-xs text-gray-600 dark:text-[#E4E2DD]/70">
-                  Showing first 20 of {filteredFarms.length}. Narrow your search to see more.
+                  Showing first 50 of {filteredFarms.length}. Narrow your search to see more.
                 </li>
               )}
             </ul>
