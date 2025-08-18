@@ -10,7 +10,7 @@ export default function PrivacyPage() {
         <h2 className="text-xl font-semibold">Who we are</h2>
         <p>
           Farm Companion helps people find farm shops across the UK. You can contact us at
-          <a className="underline ml-1" href="mailto:hello@example.org">hello@example.org</a>.
+          <a className="underline ml-1" href="mailto:hello@farmcompanion.co.uk">hello@farmcompanion.co.uk</a>.
         </p>
       </section>
 
@@ -46,7 +46,7 @@ export default function PrivacyPage() {
         <h2 className="text-xl font-semibold">Your rights</h2>
         <p>
           You can request access, correction, or deletion of your personal data by emailing
-          <a className="underline ml-1" href="mailto:hello@example.org">hello@example.org</a>.
+          <a className="underline ml-1" href="mailto:hello@farmcompanion.co.uk">hello@farmcompanion.co.uk</a>.
         </p>
       </section>
 

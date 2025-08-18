@@ -1,8 +1,241 @@
 @import "tailwindcss";
 
+/* PuredgeOS 3.0 Design Tokens */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand Color Palette */
+  --obsidian-graphite: #1E1F23;
+  --serum-teal: #00C2B2;
+  --sandstone-fog: #E4E2DD;
+  --solar-lime: #D4FF4F;
+  --midnight-navy: #121D2B;
+  
+  /* Semantic Colors - Light Mode */
+  --background-canvas: #FFFFFF;
+  --background-surface: #F9F9F7;
+  --text-body: #1E1F23;
+  --text-heading: #1E1F23;
+  --text-muted: #6F6F6F;
+  --text-link: #00C2B2;
+  --border-default: #D1D1D1;
+  --border-focus: #D4FF4F;
+  --brand-primary: #00C2B2;
+  --brand-accent: #D4FF4F;
+  --brand-danger: #FF5A5F;
+  
+  /* Typography */
+  --font-family-heading: "Satoshi", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-family-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  /* Spacing Scale (4px baseline) */
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  
+  /* Border Radius */
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  
+  /* Motion */
+  --motion-duration-instant: 50ms;
+  --motion-duration-fast: 150ms;
+  --motion-duration-base: 250ms;
+  --motion-duration-slow: 400ms;
+  --motion-easing-gentle-spring: cubic-bezier(0.2, 0.8, 0.2, 1);
+  
+  /* Accessibility */
+  --a11y-focus-ring-width: 3px;
+  --a11y-focus-ring-color: #D4FF4F;
+  --a11y-min-contrast: 4.5;
+  --a11y-target-size: 48px;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-canvas: #1E1F23;
+    --background-surface: #121D2B;
+    --text-body: #E4E2DD;
+    --text-heading: #E4E2DD;
+    --text-muted: #A0A0A0;
+    --text-link: #00C2B2;
+    --border-default: #383838;
+    --border-focus: #D4FF4F;
+  }
+}
+
+/* Manual Dark Mode Toggle */
+.dark {
+  --background-canvas: #1E1F23;
+  --background-surface: #121D2B;
+  --text-body: #E4E2DD;
+  --text-heading: #E4E2DD;
+  --text-muted: #A0A0A0;
+  --text-link: #00C2B2;
+  --border-default: #383838;
+  --border-focus: #D4FF4F;
+}
+
+/* Base Styles */
+body {
+  background: var(--background-canvas);
+  color: var(--text-body);
+  font-family: var(--font-family-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus Management */
+*:focus-visible {
+  outline: var(--a11y-focus-ring-width) solid var(--a11y-focus-ring-color);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Typography Scale */
+.text-xs { font-size: 0.75rem; line-height: 1.4; }
+.text-sm { font-size: 0.875rem; line-height: 1.5; }
+.text-base { font-size: 1rem; line-height: 1.5; }
+.text-lg { font-size: 1.125rem; line-height: 1.6; }
+.text-xl { font-size: 1.25rem; line-height: 1.5; }
+.text-2xl { font-size: 1.5rem; line-height: 1.4; }
+.text-3xl { font-size: 1.875rem; line-height: 1.3; }
+.text-4xl { font-size: 2.25rem; line-height: 1.2; }
+
+/* Font Weights */
+.font-regular { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-bold { font-weight: 700; }
+
+/* Utility Classes for PuredgeOS Components */
+.btn-primary {
+  background: var(--brand-primary);
+  color: #000000;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3) var(--spacing-4);
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--motion-duration-fast) var(--motion-easing-gentle-spring);
+  min-height: var(--a11y-target-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary:hover {
+  background: #00B3A3;
+  transform: translateY(-1px);
+}
+
+.btn-primary:focus-visible {
+  outline: var(--a11y-focus-ring-width) solid var(--a11y-focus-ring-color);
+  outline-offset: 2px;
+}
+
+.btn-secondary {
+  background: var(--background-surface);
+  color: var(--text-body);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3) var(--spacing-4);
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--motion-duration-fast) var(--motion-easing-gentle-spring);
+  min-height: var(--a11y-target-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-secondary:hover {
+  background: var(--border-default);
+  border-color: var(--text-muted);
+}
+
+/* Card Component */
+.card {
+  background: var(--background-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Inputs */
+.input {
+  background: var(--background-canvas);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3) var(--spacing-4);
+  color: var(--text-body);
+  font-size: 0.875rem;
+  transition: border-color var(--motion-duration-fast) var(--motion-easing-gentle-spring);
+  min-height: var(--a11y-target-size);
+}
+
+.input:focus {
+  border-color: var(--brand-primary);
+  outline: none;
+}
+
+.input:focus-visible {
+  border-color: var(--brand-primary);
+  outline: var(--a11y-focus-ring-width) solid var(--a11y-focus-ring-color);
+  outline-offset: 2px;
+}
+
+/* Link Styles */
+.link {
+  color: var(--text-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color var(--motion-duration-fast) var(--motion-easing-gentle-spring);
+}
+
+.link:hover {
+  color: #00B3A3;
+  text-decoration-thickness: 2px;
+}
+
+/* Skip Link for Accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--brand-primary);
+  color: #000000;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 6px;
 }
 
 /* Visible watermark utility (overlay) — use on a wrapper */
@@ -26,21 +259,8 @@
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --color-background: var(--background-canvas);
+  --color-foreground: var(--text-body);
+  --font-sans: var(--font-family-body);
+  --font-mono: var(--font-family-body);
 }

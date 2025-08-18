@@ -120,7 +120,7 @@ export default function AboutPage() {
       <section className="mt-10 space-y-2">
         <h2 className="text-2xl font-semibold">Contact</h2>
         <p>
-          Suggestions or corrections? Email <a className="underline" href="mailto:hello@example.org">hello@example.org</a>.
+          Suggestions or corrections? Email <a className="underline" href="mailto:hello@farmcompanion.co.uk">hello@farmcompanion.co.uk</a>.
         </p>
       </section>
 

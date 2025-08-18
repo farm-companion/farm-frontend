@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useEffect, useRef } from 'react'
 import type { ChangeEvent } from 'react'
+import PhotoSubmissionForm from '@/components/PhotoSubmissionForm'
 
 type Hours = { day: 'Mon'|'Tue'|'Wed'|'Thu'|'Fri'|'Sat'|'Sun'; open?: string; close?: string }
 type FarmForm = {
@@ -257,6 +258,24 @@ export default function AddFarmPage() {
           By submitting, you confirm the details are accurate and you have permission to share them.
         </p>
       </section>
+
+      {/* Photo Submission Section */}
+      {form.name && (
+        <section className="mt-12 border-t border-gray-200 dark:border-gray-700 pt-8">
+          <h2 className="text-2xl font-semibold mb-4">Add Photos (Optional)</h2>
+          <p className="text-gray-700 dark:text-[#E4E2DD]/80 mb-6">
+            Help showcase your farm shop by adding photos. These will be reviewed before being added to your listing.
+          </p>
+          <PhotoSubmissionForm 
+            farmSlug={slug}
+            farmName={form.name}
+            onSuccess={() => {
+              // Show success message or update form state
+              console.log('Photo submitted successfully for new farm shop')
+            }}
+          />
+        </section>
+      )}
     </main>
   )
 }

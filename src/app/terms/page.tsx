@@ -10,7 +10,7 @@ export default function TermsPage() {
         <h2 className="text-xl font-semibold">Who we are</h2>
         <p>
           Farm Companion is a UK directory helping people find farm shops. Contact:
-          <a className="underline ml-1" href="mailto:hello@example.org">hello@example.org</a>.
+          <a className="underline ml-1" href="mailto:hello@farmcompanion.co.uk">hello@farmcompanion.co.uk</a>.
         </p>
       </section>
 

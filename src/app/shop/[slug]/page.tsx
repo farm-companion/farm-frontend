@@ -6,6 +6,7 @@ import path from 'node:path'
 import type { FarmShop } from '@/types/farm'
 import { ObfuscatedEmail, ObfuscatedPhone } from '@/components/ObfuscatedContact'
 import ShopImageGallery from '@/components/ShopImageGallery'
+import PhotoSubmissionForm from '@/components/PhotoSubmissionForm'
 
 async function readFarms(): Promise<FarmShop[]> {
   const file = path.join(process.cwd(), 'public', 'data', 'farms.uk.json')
@@ -123,6 +124,21 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
 
       {/* Image Gallery */}
       <ShopImageGallery images={shop.images} shopName={shop.name} shopSlug={shop.slug} />
+
+      {/* Photo Submission Section */}
+      <section className="mt-8">
+        <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+          <h2 className="text-xl font-semibold mb-4">Add Photos</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">
+            Help other visitors by sharing photos of this farm shop. 
+            Your photos will be reviewed before being added to the page.
+          </p>
+          <PhotoSubmissionForm 
+            farmSlug={shop.slug} 
+            farmName={shop.name}
+          />
+        </div>
+      </section>
 
       {/* Description */}
       {shop.description && (

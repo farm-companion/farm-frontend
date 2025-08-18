@@ -31,6 +31,16 @@ export default async function AdminClaimsPage() {
           ))}
         </div>
       )}
+
+      {/* Navigation */}
+      <div className="mt-8 flex justify-between items-center">
+        <Link href="/admin" className="btn-secondary">
+          ← Back to Admin
+        </Link>
+        <Link href="/admin/photos" className="btn-secondary">
+          Photo Submissions →
+        </Link>
+      </div>
     </main>
   )
 }
