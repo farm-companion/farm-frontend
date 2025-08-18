@@ -45,9 +45,9 @@ export default async function ClaimPage() {
         <h2 className="text-xl font-semibold mb-4">How to Claim Your Listing</h2>
         <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-[#E4E2DD]/80">
           <li>Find your farm shop in the list below (organized by county)</li>
-          <li>Click "Claim This Shop" next to your listing</li>
+          <li>Click &quot;Claim This Shop&quot; next to your listing</li>
           <li>Fill out the claim form with your contact information</li>
-          <li>We'll verify your ownership and grant you access to manage your listing</li>
+          <li>We&apos;ll verify your ownership and grant you access to manage your listing</li>
         </ol>
       </div>
 
@@ -97,9 +97,9 @@ export default async function ClaimPage() {
 
       {/* Add new farm section */}
       <div className="mt-12 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-        <h2 className="text-xl font-semibold mb-2">Don't See Your Farm Shop?</h2>
+        <h2 className="text-xl font-semibold mb-2">Don&apos;t See Your Farm Shop?</h2>
         <p className="text-gray-700 dark:text-[#E4E2DD]/80 mb-4">
-          If your farm shop isn't listed above, you can add it to our directory.
+          If your farm shop isn&apos;t listed above, you can add it to our directory.
         </p>
         <Link
           href="/add"
