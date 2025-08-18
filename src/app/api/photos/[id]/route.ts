@@ -7,10 +7,10 @@ import path from 'path'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const photoId = params.id
+    const { id: photoId } = await params
     
     // Validate photo ID format
     if (!photoId || !photoId.startsWith('photo_')) {

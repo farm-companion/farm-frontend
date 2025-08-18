@@ -176,7 +176,6 @@ export async function GET(request: NextRequest) {
     }
     
     // Get approved photos for the farm
-    const photosDir = path.join(process.cwd(), 'data', 'photos')
     const submissionsDir = path.join(process.cwd(), 'data', 'photo-submissions')
     
     try {
