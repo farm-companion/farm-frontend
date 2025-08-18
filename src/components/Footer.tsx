@@ -90,7 +90,7 @@ export default function Footer() {
               </li>
               <li>
                 <a 
-                  href="https://github.com/farm-companion/farm-frontend/issues" 
+                  href="https://github.com/farm-companion/farm-frontend/issues/new?title=Data%20fix%3A%20%5Bfarm%20name%5D%20(%5Bslug%5D)%20%E2%80%94%20%5Burl%5D&labels=data%2Creport&template=data_fix.yml" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
