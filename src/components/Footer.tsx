@@ -67,9 +67,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:hello@farmcompanion.co.uk" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
+                <Link href="/contact" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
                   Contact Us
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
