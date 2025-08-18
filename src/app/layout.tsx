@@ -1,6 +1,7 @@
 import './globals.css'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import ConsentBanner from '@/components/ConsentBanner'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
@@ -86,6 +87,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Footer */}
         <Footer />
 
+        {/* Vercel Analytics */}
+        <Analytics />
 
       </body>
     </html>
