@@ -24,6 +24,10 @@ export default function MapPage() {
   const [selectedCounty, setSelectedCounty] = useState<string>('') // '' = All
   const [bounds, setBounds] = useState<{ west:number; south:number; east:number; north:number } | null>(null)
   const [inViewOnly, setInViewOnly] = useState<boolean>(true)
+  const sourceId = 'farms-src'
+  const clusterLayerId = 'clusters'
+  const clusterCountLayerId = 'cluster-count'
+  const unclusteredLayerId = 'unclustered-point'
 
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return
@@ -35,17 +39,10 @@ export default function MapPage() {
       const map = new maplibregl.Map({
         container: mapContainer.current,
         style: styleUrl,
-        center: [-2.5, 54.5], // UK
-        zoom: 5
+        center: [-3.5, 54.5],
+        zoom: 5,
       })
-
-      // Keep track of bounds for in-view filtering
-      const updateBounds = () => {
-        const b = map.getBounds()
-        setBounds({ west: b.getWest(), south: b.getSouth(), east: b.getEast(), north: b.getNorth() })
-      }
-      map.on('load', updateBounds)
-      map.on('moveend', updateBounds)
+      mapRef.current = map
 
       map.addControl(new maplibregl.NavigationControl({ showCompass: true }), 'top-right')
       map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left')
@@ -63,7 +60,132 @@ export default function MapPage() {
         }
       })
 
-      // When style/tiles are ready, resize and add a clustered GeoJSON source
+      // --- Cluster source & layers
+      map.on('load', () => {
+        if (!map.getSource(sourceId)) {
+          map.addSource(sourceId, {
+            type: 'geojson',
+            data: { type: 'FeatureCollection', features: [] },
+            cluster: true,
+            clusterRadius: 55,     // px — tune for how aggressively to cluster
+            clusterMaxZoom: 14,    // stop clustering beyond this zoom
+          })
+        }
+
+        if (!map.getLayer(clusterLayerId)) {
+          map.addLayer({
+            id: clusterLayerId,
+            type: 'circle',
+            source: sourceId,
+            filter: ['has', 'point_count'],
+            paint: {
+              // Bigger cluster when more points
+              'circle-radius': [
+                'step',
+                ['get', 'point_count'],
+                16, 10,
+                20, 25,
+                26
+              ],
+              // Brand palette: Serum Teal (default), Solar Lime (bigger)
+              'circle-color': [
+                'step',
+                ['get', 'point_count'],
+                '#00C2B2', 10,
+                '#00C2B2', 25,
+                '#D4FF4F'
+              ],
+              'circle-opacity': 0.9,
+              'circle-stroke-width': 2,
+              'circle-stroke-color': '#121D2B'
+            }
+          })
+        }
+
+        if (!map.getLayer(clusterCountLayerId)) {
+          map.addLayer({
+            id: clusterCountLayerId,
+            type: 'symbol',
+            source: sourceId,
+            filter: ['has', 'point_count'],
+            layout: {
+              'text-field': ['get', 'point_count_abbreviated'],
+              'text-font': ['Inter', 'Open Sans Regular', 'Arial Unicode MS Regular'],
+              'text-size': 12
+            },
+            paint: {
+              'text-color': '#121D2B'
+            }
+          })
+        }
+
+        if (!map.getLayer(unclusteredLayerId)) {
+          map.addLayer({
+            id: unclusteredLayerId,
+            type: 'circle',
+            source: sourceId,
+            filter: ['!', ['has', 'point_count']],
+            paint: {
+              'circle-radius': 6,
+              'circle-color': '#00C2B2',
+              'circle-stroke-width': 2,
+              'circle-stroke-color': '#121D2B'
+            }
+          })
+        }
+      })
+
+      // Interactions
+      map.on('click', clusterLayerId, (e) => {
+        const features = map.queryRenderedFeatures(e.point, { layers: [clusterLayerId] })
+        const clusterId = features[0]?.properties?.cluster_id
+        const src = map.getSource(sourceId) as any
+        if (!src || clusterId == null) return
+        src.getClusterExpansionZoom(clusterId, (err: any, zoom: number) => {
+          if (err) return
+          map.easeTo({ center: (features[0].geometry as any).coordinates, zoom })
+        })
+      })
+
+      map.on('mouseenter', clusterLayerId, () => { map.getCanvas().style.cursor = 'pointer' })
+      map.on('mouseleave', clusterLayerId, () => { map.getCanvas().style.cursor = '' })
+
+      // Click unclustered point to show a popup with a details link
+      map.on('click', unclusteredLayerId, (e) => {
+        const f = e.features && e.features[0]
+        if (!f) return
+        const p = f.properties as any
+        const coords = (f.geometry as any).coordinates
+        const html = `
+          <div style="font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:260px;">
+            <strong style="font-size:14px;display:block;margin-bottom:2px;">${escapeHtml(p.name)}</strong>
+            <span style="color:#555;display:block;">${escapeHtml(p.address)}</span>
+            <small style="color:#666;">${escapeHtml(p.county)} • ${escapeHtml(p.postcode)}</small>
+            <div style="margin-top:8px;">
+              <a
+                href="/shop/${encodeURIComponent(p.slug)}"
+                style="display:inline-block;padding:6px 10px;border-radius:8px;background:#00C2B2;color:#121D2B;text-decoration:none;font-weight:600;"
+                aria-label="View details for ${escapeHtml(p.name)}"
+              >View details</a>
+            </div>
+          </div>
+        `
+        new maplibregl.Popup({ offset: 12 }).setLngLat(coords).setHTML(html).addTo(map)
+      })
+
+      // Pointer cursor on unclustered points
+      map.on('mouseenter', unclusteredLayerId, () => map.getCanvas().style.cursor = 'pointer')
+      map.on('mouseleave', unclusteredLayerId, () => map.getCanvas().style.cursor = '')
+
+      // Keep track of bounds for in-view filtering
+      const updateBounds = () => {
+        const b = map.getBounds()
+        setBounds({ west: b.getWest(), south: b.getSouth(), east: b.getEast(), north: b.getNorth() })
+      }
+      map.on('load', updateBounds)
+      map.on('moveend', updateBounds)
+
+      // When style/tiles are ready, resize and load farm data
       map.once('load', async () => {
         map.resize()
         try {
@@ -71,102 +193,6 @@ export default function MapPage() {
           const farms: FarmShop[] = await res.json()
           farmsRef.current = farms
           setFarms(farms)
-          const features = toFeatures(farms)
-
-          map.addSource('farms', {
-            type: 'geojson',
-            data: { type: 'FeatureCollection', features } as any,
-            cluster: true,
-            clusterRadius: 50,
-            clusterMaxZoom: 14,
-          } as any)
-
-          // Cluster circles
-          map.addLayer({
-            id: 'clusters',
-            type: 'circle',
-            source: 'farms',
-            filter: ['has', 'point_count'],
-            paint: {
-              'circle-color': '#00C2B2',
-              'circle-stroke-color': '#ffffff',
-              'circle-stroke-width': 2,
-              'circle-radius': [
-                'step',
-                ['get', 'point_count'],
-                12,   10, 16,
-                30,   20
-              ]
-            }
-          } as any)
-
-          // Cluster count
-          map.addLayer({
-            id: 'cluster-count',
-            type: 'symbol',
-            source: 'farms',
-            filter: ['has', 'point_count'],
-            layout: {
-              'text-field': ['to-string', ['get', 'point_count']],
-              'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-              'text-size': 12
-            },
-            paint: { 'text-color': '#121D2B' }
-          } as any)
-
-          // Unclustered points
-          map.addLayer({
-            id: 'unclustered-point',
-            type: 'circle',
-            source: 'farms',
-            filter: ['!', ['has', 'point_count']],
-            paint: {
-              'circle-color': '#00C2B2',
-              'circle-stroke-color': '#ffffff',
-              'circle-stroke-width': 2,
-              'circle-radius': 6
-            }
-          } as any)
-
-          // Click cluster to zoom in
-          map.on('click', 'clusters', (e) => {
-            const features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] })
-            const clusterId = features[0].properties && (features[0].properties as any).cluster_id
-            ;(map.getSource('farms') as any).getClusterExpansionZoom(clusterId, (err: any, zoom: number) => {
-              if (err) return
-              const [lng, lat] = (features[0].geometry as any).coordinates
-              map.easeTo({ center: [lng, lat], zoom })
-            })
-          })
-
-          // Click unclustered point to show a popup with a details link
-          map.on('click', 'unclustered-point', (e) => {
-            const f = e.features && e.features[0]
-            if (!f) return
-            const p = f.properties as any
-            const coords = (f.geometry as any).coordinates
-            const html = `
-              <div style="font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:260px;">
-                <strong style="font-size:14px;display:block;margin-bottom:2px;">${escapeHtml(p.name)}</strong>
-                <span style="color:#555;display:block;">${escapeHtml(p.address)}</span>
-                <small style="color:#666;">${escapeHtml(p.county)} • ${escapeHtml(p.postcode)}</small>
-                <div style="margin-top:8px;">
-                  <a
-                    href="/shop/${encodeURIComponent(p.slug)}"
-                    style="display:inline-block;padding:6px 10px;border-radius:8px;background:#00C2B2;color:#121D2B;text-decoration:none;font-weight:600;"
-                    aria-label="View details for ${escapeHtml(p.name)}"
-                  >View details</a>
-                </div>
-              </div>
-            `
-            new maplibregl.Popup({ offset: 12 }).setLngLat(coords).setHTML(html).addTo(map)
-          })
-
-          // Pointer cursor on interactive layers
-          map.on('mouseenter', 'clusters', () => map.getCanvas().style.cursor = 'pointer')
-          map.on('mouseleave', 'clusters', () => map.getCanvas().style.cursor = '')
-          map.on('mouseenter', 'unclustered-point', () => map.getCanvas().style.cursor = 'pointer')
-          map.on('mouseleave', 'unclustered-point', () => map.getCanvas().style.cursor = '')
         } catch (e) {
           console.error('Failed to load farms.uk.json', e)
         }
@@ -246,14 +272,25 @@ export default function MapPage() {
     return list
   }, [filteredFarmsBase, inViewOnly, bounds, userLoc])
 
-  // Update the clustered source whenever the filtered list changes
+  // Push filtered farms to the GeoJSON source so clusters update live
   useEffect(() => {
     const map = mapRef.current
-    if (!map) return
-    const src = map.getSource('farms') as any
+    if (!map || !map.isStyleLoaded()) return
+    const src = map.getSource(sourceId) as any
     if (!src) return
-    src.setData({ type: 'FeatureCollection', features: toFeatures(filteredFarms) })
-  }, [filteredFarms])
+    const features = (filteredFarmsBase || []).map((f) => ({
+      type: 'Feature' as const,
+      geometry: { type: 'Point' as const, coordinates: [f.location.lng, f.location.lat] },
+      properties: {
+        id: f.id,
+        name: f.name,
+        slug: f.slug,
+        county: f.location.county,
+        postcode: f.location.postcode
+      }
+    }))
+    src.setData({ type: 'FeatureCollection', features })
+  }, [filteredFarmsBase])
 
   // Fly to a farm and open a popup
   function flyToFarm(f: FarmShop) {
