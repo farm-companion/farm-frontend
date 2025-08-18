@@ -21,21 +21,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!shop) return { title: 'Farm shop not found' }
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
   const url = `/shop/${encodeURIComponent(shop.slug)}`
+  // Use comprehensive description if available, otherwise fallback to address
+  const description = shop.description 
+    ? `${shop.description.substring(0, 160)}...` 
+    : `${shop.location.address}, ${shop.location.county} ${shop.location.postcode}`
+
   return {
     title: `${shop.name} · Farm Companion`,
-    description: `${shop.location.address}, ${shop.location.county} ${shop.location.postcode}`,
+    description: description,
     alternates: { canonical: url },
     openGraph: {
       type: 'website',
       url: `${base}${url}`,
       title: shop.name,
-      description: `${shop.location.address}, ${shop.location.county} ${shop.location.postcode}`,
+      description: description,
       // If you later add images per shop, list them here
     },
     twitter: {
       card: 'summary_large_image',
       title: shop.name,
-      description: `${shop.location.address}, ${shop.location.county} ${shop.location.postcode}`,
+      description: description,
     },
   }
 }
@@ -125,30 +130,21 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
       {/* Image Gallery */}
       <ShopImageGallery images={shop.images} shopName={shop.name} shopSlug={shop.slug} />
 
-      {/* Photo Submission Section */}
-      <section className="mt-8">
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-          <h2 className="text-xl font-semibold mb-4">Add Photos</h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">
-            Help other visitors by sharing photos of this farm shop. 
-            Your photos will be reviewed before being added to the page.
-          </p>
-          <PhotoSubmissionForm 
-            farmSlug={shop.slug} 
-            farmName={shop.name}
-          />
-        </div>
-      </section>
-
-      {/* Description */}
+      {/* Enhanced Description Section */}
       {shop.description && (
-        <section className="mt-6">
-          <p className="text-gray-700 dark:text-[#E4E2DD]/80 leading-relaxed">
-            {shop.description}
-          </p>
+        <section className="mt-8">
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+            <h2 className="text-xl font-semibold mb-4">About {shop.name}</h2>
+            <div className="prose prose-gray dark:prose-invert max-w-none">
+              <p className="text-gray-700 dark:text-[#E4E2DD]/80 leading-relaxed text-base">
+                {shop.description}
+              </p>
+            </div>
+          </div>
         </section>
       )}
 
+      {/* Contact & Actions Section */}
       <section className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {contact?.phone && <ObfuscatedPhone phone={contact.phone} />}
         {contact?.email && <ObfuscatedEmail email={contact.email} />}
@@ -180,19 +176,7 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
         </Link>
       </section>
 
-      {/* Slim report fix link */}
-      <p className="mt-6 text-xs text-gray-600 dark:text-[#E4E2DD]/70">
-        Spot an issue with this listing?{' '}
-        <a
-          className="underline hover:no-underline"
-          href={issueUrl}
-          target="_blank"
-          rel="nofollow ugc noopener noreferrer"
-        >
-          Report a fix ↗
-        </a>
-      </p>
-
+      {/* Offerings Section */}
       {offerings && offerings.length > 0 && (
         <section className="mt-8">
           <h2 className="text-xl font-semibold">What they offer</h2>
@@ -205,6 +189,44 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
           </ul>
         </section>
       )}
+
+      {/* Collapsible Photo Submission Section */}
+      <section className="mt-8">
+        <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+          <details className="group">
+            <summary className="cursor-pointer list-none">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold">Add Photos</h2>
+                <span className="text-sm text-gray-500 group-open:hidden">▼</span>
+                <span className="text-sm text-gray-500 hidden group-open:inline">▲</span>
+              </div>
+            </summary>
+            <div className="mt-4">
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Help other visitors by sharing photos of this farm shop. 
+                Your photos will be reviewed before being added to the page.
+              </p>
+              <PhotoSubmissionForm 
+                farmSlug={shop.slug} 
+                farmName={shop.name}
+              />
+            </div>
+          </details>
+        </div>
+      </section>
+
+      {/* Slim report fix link */}
+      <p className="mt-6 text-xs text-gray-600 dark:text-[#E4E2DD]/70">
+        Spot an issue with this listing?{' '}
+        <a
+          className="underline hover:no-underline"
+          href={issueUrl}
+          target="_blank"
+          rel="nofollow ugc noopener noreferrer"
+        >
+          Report a fix ↗
+        </a>
+      </p>
     </main>
   )
 }
