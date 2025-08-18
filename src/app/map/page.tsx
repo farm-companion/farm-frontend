@@ -67,8 +67,40 @@ export default function MapPage() {
             type: 'geojson',
             data: { type: 'FeatureCollection', features: [] },
             cluster: true,
-            clusterRadius: 55,     // px — tune for how aggressively to cluster
+            clusterRadius: 65,     // px — increased for earlier clustering
             clusterMaxZoom: 14,    // stop clustering beyond this zoom
+          })
+        }
+
+        // Heat circle layer for density visualization (behind clusters)
+        if (!map.getLayer('cluster-heat')) {
+          map.addLayer({
+            id: 'cluster-heat',
+            type: 'circle',
+            source: sourceId,
+            filter: ['has', 'point_count'],
+            paint: {
+              // Larger, more transparent heat circles
+              'circle-radius': [
+                'step',
+                ['get', 'point_count'],
+                25, 5,
+                35, 15,
+                45, 30,
+                55
+              ],
+              // Heat gradient: light teal to darker teal based on density
+              'circle-color': [
+                'step',
+                ['get', 'point_count'],
+                'rgba(0, 194, 178, 0.15)', 5,   // Light teal
+                'rgba(0, 194, 178, 0.25)', 15,  // Medium teal
+                'rgba(0, 194, 178, 0.35)', 30,  // Darker teal
+                'rgba(0, 194, 178, 0.45)'       // Darkest teal
+              ],
+              'circle-opacity': 0.8,
+              'circle-stroke-width': 0
+            }
           })
         }
 
@@ -115,6 +147,22 @@ export default function MapPage() {
             },
             paint: {
               'text-color': '#121D2B'
+            }
+          })
+        }
+
+        // Heat layer for individual points (behind unclustered points)
+        if (!map.getLayer('point-heat')) {
+          map.addLayer({
+            id: 'point-heat',
+            type: 'circle',
+            source: sourceId,
+            filter: ['!', ['has', 'point_count']],
+            paint: {
+              'circle-radius': 12,
+              'circle-color': 'rgba(0, 194, 178, 0.2)',
+              'circle-opacity': 0.6,
+              'circle-stroke-width': 0
             }
           })
         }
@@ -446,20 +494,7 @@ function escapeHtml(s: string) {
     .replaceAll("'",'&#039;')
 }
 
-// Convert farms to GeoJSON features
-function toFeatures(farms: FarmShop[]) {
-  return farms.map((f) => ({
-    type: 'Feature',
-    geometry: { type: 'Point', coordinates: [f.location.lng, f.location.lat] },
-    properties: {
-      name: f.name,
-      slug: f.slug,
-      address: f.location.address,
-      county: f.location.county,
-      postcode: f.location.postcode,
-    }
-  }))
-}
+
 
 // Haversine distance (miles)
 function haversineMi(lat1: number, lon1: number, lat2: number, lon2: number) {
