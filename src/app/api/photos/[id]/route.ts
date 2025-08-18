@@ -48,7 +48,7 @@ export async function GET(
     try {
       const photoBuffer = await fs.readFile(photoPath)
       
-      return new NextResponse(photoBuffer, {
+      return new NextResponse(photoBuffer as any, {
         headers: {
           'Content-Type': 'image/jpeg',
           'Cache-Control': 'public, max-age=31536000, immutable', // 1 year cache
