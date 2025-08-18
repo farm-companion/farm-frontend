@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
+import Link from 'next/link'
 
 type ContactForm = {
   name: string
@@ -189,12 +190,12 @@ export default function ContactPage() {
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                 Need to update your listing or claim ownership?
               </p>
-              <a 
+              <Link 
                 href="/claim" 
                 className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm"
               >
                 Claim Your Listing →
-              </a>
+              </Link>
             </div>
           </div>
 
