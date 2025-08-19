@@ -4,8 +4,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { 
   savePhotoSubmission, 
-  getFarmPhotos, 
-  getFarmPhotoCount 
+  getFarmPhotos
 } from '@/lib/photo-storage'
 
 // POST - Submit New Photo
