@@ -40,7 +40,7 @@ export function getFarmPhotosApiUrl(endpoint: string): string {
 // Helper function to validate photo file
 export function validatePhotoFile(file: File): { isValid: boolean; error?: string } {
   // Check file type
-  if (!FARM_PHOTOS_CONFIG.ALLOWED_TYPES.includes(file.type)) {
+  if (!FARM_PHOTOS_CONFIG.ALLOWED_TYPES.includes(file.type as any)) {
     return {
       isValid: false,
       error: `File type not supported. Allowed types: ${FARM_PHOTOS_CONFIG.ALLOWED_TYPES.join(', ')}`
