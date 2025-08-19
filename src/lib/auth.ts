@@ -80,13 +80,23 @@ export async function getCurrentUser(): Promise<AdminUser | null> {
 // Authenticate admin user
 export async function authenticateAdmin(email: string, password: string): Promise<{ success: boolean; error?: string }> {
   try {
+    console.log('=== AUTHENTICATION DEBUG ===')
     console.log('Attempting authentication for:', email)
     console.log('Expected email:', ADMIN_CREDENTIALS.email)
+    console.log('Email match:', email === ADMIN_CREDENTIALS.email)
+    console.log('Password length received:', password.length)
+    console.log('Expected password length:', ADMIN_CREDENTIALS.password.length)
     console.log('Password match:', password === ADMIN_CREDENTIALS.password)
+    console.log('Environment variables:')
+    console.log('- ADMIN_EMAIL:', process.env.ADMIN_EMAIL)
+    console.log('- ADMIN_PASSWORD:', process.env.ADMIN_PASSWORD ? '[SET]' : '[NOT SET]')
+    console.log('============================')
     
     // Validate credentials
     if (email !== ADMIN_CREDENTIALS.email || password !== ADMIN_CREDENTIALS.password) {
       console.log('Authentication failed: Invalid credentials')
+      console.log('Email comparison:', `"${email}" === "${ADMIN_CREDENTIALS.email}"`)
+      console.log('Password comparison:', `"${password}" === "${ADMIN_CREDENTIALS.password}"`)
       return {
         success: false,
         error: 'Invalid email or password'
