@@ -1,8 +1,4 @@
 {
-  "env": {
-    "RESEND_API_KEY": "@resend_api_key",
-    "ADMIN_EMAIL": "@admin_email"
-  },
   "functions": {
     "src/app/api/photos/route.ts": {
       "maxDuration": 30
