@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 interface ShopImageGalleryProps {
@@ -9,12 +9,61 @@ interface ShopImageGalleryProps {
   shopSlug: string
 }
 
+interface PhotoSubmission {
+  id: string
+  photoUrl: string
+  thumbnailUrl: string
+  description: string
+  submittedBy: string
+  submittedAt: string
+}
+
 export default function ShopImageGallery({ images, shopName, shopSlug }: ShopImageGalleryProps) {
+  const [approvedPhotos, setApprovedPhotos] = useState<PhotoSubmission[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const [selectedImage, setSelectedImage] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  // Fetch approved photos from farm-photos system
+  useEffect(() => {
+    async function fetchApprovedPhotos() {
+      try {
+        const response = await fetch(`/api/photos?farmSlug=${shopSlug}&status=approved`)
+        if (response.ok) {
+          const result = await response.json()
+          setApprovedPhotos(result.photos || [])
+        }
+      } catch (error) {
+        console.error('Error fetching approved photos:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchApprovedPhotos()
+  }, [shopSlug])
+
+  // Combine static images with approved user submissions
+  const allImages = [
+    ...(images || []),
+    ...approvedPhotos.map(photo => photo.photoUrl)
+  ]
+
+  // If no images and still loading, show loading state
+  if (isLoading) {
+    return (
+      <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-8 text-center dark:border-gray-700 dark:bg-gray-800/50">
+        <div className="animate-pulse">
+          <div className="mx-auto mb-4 h-16 w-16 bg-gray-300 dark:bg-gray-600 rounded"></div>
+          <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-32 mx-auto mb-2"></div>
+          <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-48 mx-auto"></div>
+        </div>
+      </div>
+    )
+  }
+
   // If no images, show a placeholder
-  if (!images || images.length === 0) {
+  if (allImages.length === 0) {
     return (
       <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-8 text-center dark:border-gray-700 dark:bg-gray-800/50">
         <div className="mx-auto mb-4 h-16 w-16 text-gray-400">
@@ -43,7 +92,7 @@ export default function ShopImageGallery({ images, shopName, shopSlug }: ShopIma
         {/* Main large image */}
         <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
           <Image
-            src={images[selectedImage]}
+            src={allImages[selectedImage]}
             alt={`${shopName} - Photo ${selectedImage + 1}`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -63,96 +112,98 @@ export default function ShopImageGallery({ images, shopName, shopSlug }: ShopIma
         </div>
 
         {/* Thumbnail navigation */}
-        {images.length > 1 && (
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            {images.map((image, index) => (
+        {allImages.length > 1 && (
+          <div className="grid grid-cols-5 gap-2">
+            {allImages.map((image, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedImage(index)}
-                className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded border-2 transition-colors ${
+                className={`relative aspect-square overflow-hidden rounded-lg border-2 transition-colors ${
                   selectedImage === index
-                    ? 'border-[#00C2B2] dark:border-[#D4FF4F]'
+                    ? 'border-brand-primary'
                     : 'border-gray-200 hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600'
                 }`}
-                aria-label={`View photo ${index + 1} of ${images.length}`}
               >
                 <Image
                   src={image}
                   alt={`${shopName} thumbnail ${index + 1}`}
                   fill
+                  sizes="(max-width: 768px) 20vw, 15vw"
                   className="object-cover"
-                  sizes="80px"
                 />
               </button>
             ))}
           </div>
         )}
 
-        {/* Image count */}
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          {images.length} photo{images.length !== 1 ? 's' : ''}
-        </p>
+        {/* Photo credits for user submissions */}
+        {approvedPhotos.length > 0 && (
+          <div className="text-xs text-gray-500 dark:text-gray-400">
+            <p>
+              {approvedPhotos.length === 1 ? (
+                <>Photo by {approvedPhotos[0].submittedBy}</>
+              ) : (
+                <>Photos by {approvedPhotos.map(p => p.submittedBy).join(', ')}</>
+              )}
+            </p>
+          </div>
+        )}
       </section>
 
       {/* Full-screen modal */}
       {isModalOpen && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
-          onClick={() => setIsModalOpen(false)}
-        >
-          <div className="relative max-h-full max-w-full">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
+          <div className="relative max-h-full max-w-full p-4">
+            {/* Close button */}
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300"
-              aria-label="Close image viewer"
+              className="absolute -top-4 -right-4 z-10 rounded-full bg-white p-2 text-gray-800 hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+              aria-label="Close modal"
             >
-              <svg className="h-8 w-8" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            
-            <Image
-              src={images[selectedImage]}
-              alt={`${shopName} - Photo ${selectedImage + 1}`}
-              width={800}
-              height={600}
-              className="max-h-[80vh] max-w-full object-contain"
-              onClick={(e) => e.stopPropagation()}
-            />
-            
+
+            {/* Main image */}
+            <div className="relative max-h-[90vh] max-w-[90vw]">
+              <Image
+                src={allImages[selectedImage]}
+                alt={`${shopName} - Photo ${selectedImage + 1}`}
+                width={1200}
+                height={800}
+                className="max-h-[90vh] max-w-[90vw] object-contain"
+                priority
+              />
+            </div>
+
             {/* Navigation arrows */}
-            {images.length > 1 && (
+            {allImages.length > 1 && (
               <>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setSelectedImage((prev) => (prev === 0 ? images.length - 1 : prev - 1))
-                  }}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
-                  aria-label="Previous photo"
+                  onClick={() => setSelectedImage((prev) => (prev === 0 ? allImages.length - 1 : prev - 1))}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 text-gray-800 hover:bg-white dark:bg-gray-800/80 dark:text-white dark:hover:bg-gray-800"
+                  aria-label="Previous image"
                 >
-                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setSelectedImage((prev) => (prev === images.length - 1 ? 0 : prev + 1))
-                  }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
-                  aria-label="Next photo"
+                  onClick={() => setSelectedImage((prev) => (prev === allImages.length - 1 ? 0 : prev + 1))}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 text-gray-800 hover:bg-white dark:bg-gray-800/80 dark:text-white dark:hover:bg-gray-800"
+                  aria-label="Next image"
                 >
-                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
               </>
             )}
-            
+
             {/* Image counter */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-sm text-white">
-              {selectedImage + 1} of {images.length}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-4 py-2 text-white">
+              {selectedImage + 1} of {allImages.length}
             </div>
           </div>
         </div>

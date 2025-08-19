@@ -1,250 +1,266 @@
-import Link from 'next/link'
-import fs from 'fs/promises'
-import path from 'path'
+import type { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
+
+import { getFarmPhotosApiUrl } from '@/config/farm-photos'
 
 interface PhotoSubmission {
-  id?: string
+  id: string
   farmSlug: string
   farmName: string
   submitterName: string
   submitterEmail: string
-  photoDescription: string
-  photoData: string
-  submittedAt: string
+  photoUrl: string
+  thumbnailUrl: string
+  description: string
   status: 'pending' | 'approved' | 'rejected'
-  adminNotes?: string
+  qualityScore: number
+  submittedAt: string
+  reviewedAt?: string
+  reviewedBy?: string
+  rejectionReason?: string
+  aiAnalysis?: {
+    qualityScore: number
+    isAppropriate: boolean
+    tags: string[]
+  }
+  fileSize: number
+  contentType: string
+  dimensions: {
+    width: number
+    height: number
+  }
 }
 
+// Load photo submissions from farm-photos system
 async function loadPhotoSubmissions(): Promise<PhotoSubmission[]> {
   try {
-    const submissionsDir = path.join(process.cwd(), 'data', 'photo-submissions')
+    const response = await fetch(`${getFarmPhotosApiUrl('api/photos')}?status=pending`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store' // Always fetch fresh data
+    })
     
-    // Check if directory exists
-    try {
-      await fs.access(submissionsDir)
-    } catch {
-      // Directory doesn't exist, return empty array
+    if (!response.ok) {
+      console.error('Failed to fetch photo submissions:', response.status)
       return []
     }
     
-    const files = await fs.readdir(submissionsDir)
+    const result = await response.json()
+    return result.photos || []
     
-    const submissions = []
-    for (const file of files) {
-      if (file.endsWith('.json')) {
-        try {
-          const content = await fs.readFile(path.join(submissionsDir, file), 'utf-8')
-          const submission = JSON.parse(content)
-          submission.id = file.replace('.json', '')
-          submissions.push(submission)
-        } catch (fileError) {
-          console.error(`Error reading submission file ${file}:`, fileError)
-          // Continue with other files
-        }
-      }
-    }
-    
-    // Sort by submission date (newest first)
-    return submissions.sort((a, b) => 
-      new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime()
-    )
   } catch (error) {
     console.error('Error loading photo submissions:', error)
     return []
   }
 }
 
+// Approve or reject a photo submission
+async function updatePhotoStatus(photoId: string, status: 'approved' | 'rejected', rejectionReason?: string) {
+  try {
+    const response = await fetch(getFarmPhotosApiUrl(`api/photos/${photoId}`), {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        status,
+        rejectionReason,
+        reviewedAt: new Date().toISOString(),
+        reviewedBy: 'admin' // In a real app, this would be the actual admin user
+      })
+    })
+    
+    return response.ok
+  } catch (error) {
+    console.error('Error updating photo status:', error)
+    return false
+  }
+}
+
+export const metadata: Metadata = {
+  title: 'Photo Submissions - Farm Companion Admin',
+  description: 'Review and manage user-submitted photos for farm shops',
+}
+
 export default async function AdminPhotosPage() {
   const submissions = await loadPhotoSubmissions()
-  
   const pendingSubmissions = submissions.filter(s => s.status === 'pending')
-  const approvedSubmissions = submissions.filter(s => s.status === 'approved')
-  const rejectedSubmissions = submissions.filter(s => s.status === 'rejected')
 
   return (
-    <main className="mx-auto max-w-6xl px-6 py-12">
+    <main className="mx-auto max-w-6xl px-6 py-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold text-text-heading">Photo Submissions</h1>
-        <p className="mt-2 text-text-muted">
+        <p className="text-text-muted mt-2">
           Review and manage user-submitted photos for farm shops
         </p>
       </header>
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-brand-primary mb-1">
-            {pendingSubmissions.length}
-          </div>
-          <div className="text-text-muted">Pending Review</div>
+        <div className="card">
+          <h3 className="text-lg font-semibold text-text-heading">Pending Review</h3>
+          <p className="text-3xl font-bold text-brand-primary">{pendingSubmissions.length}</p>
         </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-green-600 mb-1">
-            {approvedSubmissions.length}
-          </div>
-          <div className="text-text-muted">Approved</div>
+        <div className="card">
+          <h3 className="text-lg font-semibold text-text-heading">Total Submissions</h3>
+          <p className="text-3xl font-bold text-text-heading">{submissions.length}</p>
         </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-red-600 mb-1">
-            {rejectedSubmissions.length}
-          </div>
-          <div className="text-text-muted">Rejected</div>
+        <div className="card">
+          <h3 className="text-lg font-semibold text-text-heading">Approved Today</h3>
+          <p className="text-3xl font-bold text-emerald-600">
+            {submissions.filter(s => 
+              s.status === 'approved' && 
+              new Date(s.reviewedAt || '').toDateString() === new Date().toDateString()
+            ).length}
+          </p>
         </div>
       </div>
 
-      {/* Pending Submissions */}
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold text-text-heading mb-6">
-          Pending Review ({pendingSubmissions.length})
-        </h2>
-        
-        {pendingSubmissions.length === 0 ? (
-          <div className="card text-center py-12">
-            <div className="text-text-muted">
-              <svg className="w-16 h-16 mx-auto mb-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <p className="text-lg font-medium">No photos pending review</p>
-              <p className="text-sm">New photo submissions will appear here</p>
-            </div>
+      {/* Submissions List */}
+      {pendingSubmissions.length === 0 ? (
+        <div className="card text-center">
+          <div className="mb-4">
+            <svg className="w-16 h-16 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
           </div>
-        ) : (
-          <div className="grid gap-6">
-            {pendingSubmissions.map((submission) => (
-              <div key={submission.id} className="card">
-                <div className="grid md:grid-cols-2 gap-6">
-                  {/* Photo Preview */}
-                  <div>
-                    <h3 className="font-semibold text-text-heading mb-2">Photo Preview</h3>
-                    <div className="relative aspect-video bg-background-surface rounded-lg overflow-hidden">
-                      <Image
-                        src={submission.photoData}
-                        alt={submission.photoDescription}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                  
-                  {/* Submission Details */}
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="font-semibold text-text-heading mb-2">Submission Details</h3>
-                      <dl className="space-y-2 text-sm">
-                        <div>
-                          <dt className="font-medium text-text-muted">Farm:</dt>
-                          <dd className="text-text-heading">
-                            <Link href={`/shop/${submission.farmSlug}`} className="link">
-                              {submission.farmName}
-                            </Link>
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="font-medium text-text-muted">Submitted by:</dt>
-                          <dd className="text-text-heading">{submission.submitterName}</dd>
-                        </div>
-                        <div>
-                          <dt className="font-medium text-text-muted">Email:</dt>
-                          <dd className="text-text-heading">
-                            <a href={`mailto:${submission.submitterEmail}`} className="link">
-                              {submission.submitterEmail}
-                            </a>
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="font-medium text-text-muted">Submitted:</dt>
-                          <dd className="text-text-heading">
-                            {new Date(submission.submittedAt).toLocaleDateString('en-GB', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                              hour: '2-digit',
-                              minute: '2-digit'
-                            })}
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="font-medium text-text-muted">Description:</dt>
-                          <dd className="text-text-heading">{submission.photoDescription}</dd>
-                        </div>
-                      </dl>
-                    </div>
-                    
-                    {/* Action Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <button
-                        className="btn-primary"
-                        onClick={() => {
-                          // TODO: Implement approve functionality
-                          console.log('Approve submission:', submission.id)
-                        }}
-                      >
-                        Approve Photo
-                      </button>
-                      <button
-                        className="btn-secondary"
-                        onClick={() => {
-                          // TODO: Implement reject functionality
-                          console.log('Reject submission:', submission.id)
-                        }}
-                      >
-                        Reject Photo
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* Approved Submissions */}
-      {approvedSubmissions.length > 0 && (
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-text-heading mb-6">
-            Recently Approved ({approvedSubmissions.length})
-          </h2>
-          <div className="grid gap-4">
-            {approvedSubmissions.slice(0, 5).map((submission) => (
-              <div key={submission.id} className="card">
-                <div className="flex items-center gap-4">
-                  <div className="relative w-20 h-20 bg-background-surface rounded-lg overflow-hidden flex-shrink-0">
+          <h3 className="text-xl font-bold text-text-heading mb-2">No Pending Submissions</h3>
+          <p className="text-text-muted">
+            All photo submissions have been reviewed. Check back later for new submissions.
+          </p>
+        </div>
+      ) : (
+        <div className="grid gap-6">
+          {pendingSubmissions.map((submission) => (
+            <div key={submission.id} className="card">
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Photo Preview */}
+                <div>
+                  <h3 className="font-semibold text-text-heading mb-2">Photo Preview</h3>
+                  <div className="relative aspect-video bg-background-surface rounded-lg overflow-hidden">
                     <Image
-                      src={submission.photoData}
-                      alt={submission.photoDescription}
+                      src={submission.photoUrl}
+                      alt={submission.description}
                       fill
                       className="object-cover"
                     />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-text-heading truncate">
-                      {submission.farmName}
-                    </h3>
-                    <p className="text-sm text-text-muted truncate">
-                      {submission.photoDescription}
+                  
+                  {/* AI Analysis */}
+                  {submission.aiAnalysis && (
+                    <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <h4 className="font-medium text-text-heading mb-2">AI Analysis</h4>
+                      <div className="space-y-1 text-sm">
+                        <div className="flex justify-between">
+                          <span>Quality Score:</span>
+                          <span className="font-medium">{submission.aiAnalysis.qualityScore}/100</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Appropriate:</span>
+                          <span className={`font-medium ${submission.aiAnalysis.isAppropriate ? 'text-emerald-600' : 'text-red-600'}`}>
+                            {submission.aiAnalysis.isAppropriate ? 'Yes' : 'No'}
+                          </span>
+                        </div>
+                        {submission.aiAnalysis.tags && submission.aiAnalysis.tags.length > 0 && (
+                          <div>
+                            <span>Tags:</span>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {submission.aiAnalysis.tags.map((tag, index) => (
+                                <span key={index} className="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Submission Details */}
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="font-semibold text-text-heading mb-2">Submission Details</h3>
+                    <div className="space-y-2 text-sm">
+                      <div>
+                        <span className="font-medium">Farm:</span>
+                        <Link href={`/shop/${submission.farmSlug}`} className="ml-2 text-brand-primary hover:underline">
+                          {submission.farmName}
+                        </Link>
+                      </div>
+                      <div>
+                        <span className="font-medium">Submitted by:</span>
+                        <span className="ml-2">{submission.submitterName}</span>
+                      </div>
+                      <div>
+                        <span className="font-medium">Email:</span>
+                        <span className="ml-2">{submission.submitterEmail}</span>
+                      </div>
+                      <div>
+                        <span className="font-medium">Submitted:</span>
+                        <span className="ml-2">{new Date(submission.submittedAt).toLocaleDateString()}</span>
+                      </div>
+                      <div>
+                        <span className="font-medium">File size:</span>
+                        <span className="ml-2">{(submission.fileSize / 1024 / 1024).toFixed(2)} MB</span>
+                      </div>
+                      <div>
+                        <span className="font-medium">Dimensions:</span>
+                        <span className="ml-2">{submission.dimensions.width} × {submission.dimensions.height}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-medium text-text-heading mb-2">Description</h4>
+                    <p className="text-sm text-text-muted bg-background-surface p-3 rounded">
+                      {submission.description}
                     </p>
-                    <p className="text-xs text-text-muted">
-                      By {submission.submitterName} • {new Date(submission.submittedAt).toLocaleDateString()}
-                    </p>
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex gap-3">
+                    <form action={async () => {
+                      'use server'
+                      await updatePhotoStatus(submission.id, 'approved')
+                    }}>
+                      <button
+                        type="submit"
+                        className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                      >
+                        Approve
+                      </button>
+                    </form>
+                    
+                    <form action={async (formData: FormData) => {
+                      'use server'
+                      const reason = formData.get('reason') as string
+                      await updatePhotoStatus(submission.id, 'rejected', reason)
+                    }}>
+                      <input
+                        type="text"
+                        name="reason"
+                        placeholder="Rejection reason (optional)"
+                        className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg mr-2 text-sm"
+                      />
+                      <button
+                        type="submit"
+                        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                      >
+                        Reject
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
+            </div>
+          ))}
+        </div>
       )}
-
-      {/* Navigation */}
-      <div className="mt-8 flex justify-between items-center">
-        <Link href="/admin" className="btn-secondary">
-          ← Back to Admin
-        </Link>
-        <Link href="/admin/claims" className="btn-secondary">
-          View Claims →
-        </Link>
-      </div>
     </main>
   )
 }

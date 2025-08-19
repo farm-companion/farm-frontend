@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server'
-import fs from 'fs/promises'
-import path from 'path'
+// Farm Photos API - Individual Photo Endpoint
+// PuredgeOS 3.0 Compliant Photo Management
 
-// PuredgeOS 3.0 Photo Serving API
-// Serves approved user-submitted photos with security and performance optimizations
+import { NextRequest, NextResponse } from 'next/server'
+
+import { getFarmPhotosApiUrl } from '@/config/farm-photos'
 
 export async function GET(
   request: NextRequest,
@@ -20,64 +20,35 @@ export async function GET(
       )
     }
     
-    // Check if we're in a Vercel environment
-    const isVercel = process.env.VERCEL === '1'
+    // Forward the request to the farm-photos system
+    const response = await fetch(getFarmPhotosApiUrl(`api/photos/${photoId}`), {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
     
-    if (isVercel) {
-      // In Vercel, photos would be served from cloud storage
-      // For now, return a placeholder response
-      return NextResponse.json(
-        { error: 'Photo serving not available in production yet' },
-        { status: 404 }
-      )
-    }
-    
-    // Local development - serve from file system
-    // Check if photo is approved
-    const submissionsDir = path.join(process.cwd(), 'data', 'photo-submissions')
-    const submissionPath = path.join(submissionsDir, `${photoId}.json`)
-    
-    try {
-      const submissionContent = await fs.readFile(submissionPath, 'utf-8')
-      const submission = JSON.parse(submissionContent)
-      
-      if (submission.status !== 'approved') {
-        return NextResponse.json(
-          { error: 'Photo not approved' },
-          { status: 403 }
-        )
-      }
-    } catch {
+    if (!response.ok) {
       return NextResponse.json(
         { error: 'Photo not found' },
-        { status: 404 }
+        { status: response.status }
       )
     }
     
-    // Serve the photo file
-    const photosDir = path.join(process.cwd(), 'data', 'photos')
-    const photoPath = path.join(photosDir, `${photoId}.jpg`)
+    // Get the image data
+    const imageBuffer = await response.arrayBuffer()
     
-    try {
-      const photoBuffer = await fs.readFile(photoPath)
-      
-      return new NextResponse(photoBuffer as any, {
-        headers: {
-          'Content-Type': 'image/jpeg',
-          'Cache-Control': 'public, max-age=31536000, immutable', // 1 year cache
-          'X-Content-Type-Options': 'nosniff',
-          'X-Frame-Options': 'DENY',
-        },
-      })
-    } catch {
-      return NextResponse.json(
-        { error: 'Photo file not found' },
-        { status: 404 }
-      )
-    }
+    // Return the image with appropriate headers
+    return new NextResponse(imageBuffer, {
+      headers: {
+        'Content-Type': 'image/jpeg',
+        'Cache-Control': 'public, max-age=31536000', // Cache for 1 year
+      },
+    })
     
   } catch (error) {
-    console.error('❌ Error serving photo:', error)
+    console.error('Error serving photo:', error)
+    
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
