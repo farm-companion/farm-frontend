@@ -11,18 +11,19 @@ export const metadata: Metadata = {
 export default async function AdminLoginPage({
   searchParams,
 }: {
-  searchParams: { error?: string }
+  searchParams: Promise<{ error?: string }>
 }) {
   // Redirect if already authenticated
   if (await isAuthenticated()) {
     redirect('/admin')
   }
 
-  const errorMessage = searchParams.error ? {
+  const params = await searchParams
+  const errorMessage = params.error ? {
     'missing-credentials': 'Please enter both email and password.',
     'invalid-credentials': 'Invalid email or password. Please try again.',
     'server-error': 'Server error. Please try again later.',
-  }[searchParams.error] || 'An error occurred. Please try again.' : null
+  }[params.error] || 'An error occurred. Please try again.' : null
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
