@@ -95,7 +95,7 @@ export async function sendPhotoSubmissionConfirmation(
       replyTo: EMAIL_CONFIG.replyTo
     })
 
-    console.log(`✅ Email sent successfully: ${result.id}`)
+    console.log(`✅ Email sent successfully: ${result.data?.id || 'unknown'}`)
     return true
 
   } catch (error) {
@@ -158,7 +158,7 @@ export async function sendAdminPhotoNotification(
       replyTo: EMAIL_CONFIG.replyTo
     })
 
-    console.log(`✅ Admin notification sent successfully: ${result.id}`)
+    console.log(`✅ Admin notification sent successfully: ${result.data?.id || 'unknown'}`)
     return true
 
   } catch (error) {
@@ -221,7 +221,7 @@ export async function sendApprovalNotification(
       replyTo: EMAIL_CONFIG.replyTo
     })
 
-    console.log(`✅ Approval notification sent successfully: ${result.id}`)
+    console.log(`✅ Approval notification sent successfully: ${result.data?.id || 'unknown'}`)
     return true
 
   } catch (error) {
@@ -290,7 +290,7 @@ export async function sendRejectionNotification(
       replyTo: EMAIL_CONFIG.replyTo
     })
 
-    console.log(`✅ Rejection notification sent successfully: ${result.id}`)
+    console.log(`✅ Rejection notification sent successfully: ${result.data?.id || 'unknown'}`)
     return true
 
   } catch (error) {
