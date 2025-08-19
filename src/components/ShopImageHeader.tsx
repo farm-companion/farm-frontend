@@ -89,7 +89,7 @@ export default function ShopImageHeader({ images, shopName, shopSlug }: ShopImag
             </svg>
             <h3 className="text-lg font-medium mb-2">No images yet</h3>
             <p className="text-sm max-w-md mx-auto">
-              We don't have photos of {shopName} yet. 
+              We don&apos;t have photos of {shopName} yet. 
               <br />
               <span className="text-xs">
                 Own this shop? <a href={`/claim/${shopSlug}`} className="underline hover:no-underline">Claim it</a> to add photos.
