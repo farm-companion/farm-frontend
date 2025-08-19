@@ -6,8 +6,8 @@ import { redirect } from 'next/navigation'
 
 // Admin credentials (in production, use environment variables)
 const ADMIN_CREDENTIALS = {
-  email: process.env.ADMIN_EMAIL || 'admin@farmcompanion.co.uk',
-  password: process.env.ADMIN_PASSWORD || 'admin123' // Change this in production!
+  email: (process.env.ADMIN_EMAIL || 'admin@farmcompanion.co.uk').trim(),
+  password: (process.env.ADMIN_PASSWORD || 'admin123').trim() // Change this in production!
 }
 
 // Session management
@@ -92,11 +92,14 @@ export async function authenticateAdmin(email: string, password: string): Promis
     console.log('- ADMIN_PASSWORD:', process.env.ADMIN_PASSWORD ? '[SET]' : '[NOT SET]')
     console.log('============================')
     
-    // Validate credentials
-    if (email !== ADMIN_CREDENTIALS.email || password !== ADMIN_CREDENTIALS.password) {
+    // Validate credentials (trim both submitted and expected values)
+    const trimmedEmail = email.trim()
+    const trimmedPassword = password.trim()
+    
+    if (trimmedEmail !== ADMIN_CREDENTIALS.email || trimmedPassword !== ADMIN_CREDENTIALS.password) {
       console.log('Authentication failed: Invalid credentials')
-      console.log('Email comparison:', `"${email}" === "${ADMIN_CREDENTIALS.email}"`)
-      console.log('Password comparison:', `"${password}" === "${ADMIN_CREDENTIALS.password}"`)
+      console.log('Email comparison:', `"${trimmedEmail}" === "${ADMIN_CREDENTIALS.email}"`)
+      console.log('Password comparison:', `"${trimmedPassword}" === "${ADMIN_CREDENTIALS.password}"`)
       return {
         success: false,
         error: 'Invalid email or password'
