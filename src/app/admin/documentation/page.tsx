@@ -17,7 +17,7 @@ export default function AdminDocumentationPage() {
               Farm Companion Admin Documentation
             </h1>
             <p className="text-xl mb-8 max-w-3xl mx-auto">
-              Your complete guide to managing the UK's premium farm shop platform. 
+              Your complete guide to managing the UK&apos;s premium farm shop platform. 
               From authentication to advanced troubleshooting, everything you need to know.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
@@ -89,12 +89,12 @@ export default function AdminDocumentationPage() {
                 <h3>Step 1: Access the Admin Panel</h3>
                 <ol className="list-decimal list-inside space-y-2">
                   <li>Navigate to <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">https://www.farmcompanion.co.uk/admin</code></li>
-                  <li>You'll be redirected to the login page if not authenticated</li>
+                  <li>You&apos;ll be redirected to the login page if not authenticated</li>
                   <li>Enter your admin credentials</li>
                 </ol>
 
                 <h3>Step 2: Review Dashboard</h3>
-                <p>Upon login, you'll see the main dashboard with:</p>
+                <p>Upon login, you&apos;ll see the main dashboard with:</p>
                 <ul className="list-disc list-inside space-y-1">
                   <li>Overview statistics (total photos, pending reviews, claims)</li>
                   <li>Recent activity feed</li>
@@ -513,7 +513,7 @@ export default function AdminDocumentationPage() {
                 <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-8">
                   <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-3">📝 Claim Form</h4>
                   <p className="text-blue-800 dark:text-blue-200 text-sm">
-                    Users can submit a claim form on the farm's page, providing evidence of ownership.
+                    Users can submit a claim form on the farm&apos;s page, providing evidence of ownership.
                   </p>
                 </div>
 
@@ -522,7 +522,7 @@ export default function AdminDocumentationPage() {
                   <h4 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-3">🔄 Verification Steps</h4>
                   <ul className="text-yellow-800 dark:text-yellow-200 text-sm space-y-2">
                     <li>Admins review the claim form and supporting evidence</li>
-                    <li>Verify the user's identity and ownership</li>
+                    <li>Verify the user&apos;s identity and ownership</li>
                     <li>Check for duplicate claims</li>
                     <li>Assess the legitimacy of the claim</li>
                   </ul>
@@ -533,7 +533,7 @@ export default function AdminDocumentationPage() {
                   <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
                     <h4 className="font-semibold text-green-900 dark:text-green-100 mb-3">✅ Approved</h4>
                     <p className="text-green-800 dark:text-green-200 text-sm">
-                      The user's claim is verified, and they are granted ownership of the farm.
+                      The user&apos;s claim is verified, and they are granted ownership of the farm.
                     </p>
                   </div>
                   <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
@@ -574,7 +574,7 @@ export default function AdminDocumentationPage() {
                     <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
                       <h4 className="font-semibold text-blue-600 dark:text-blue-400 mb-2">🗑️ Delete</h4>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Remove a claim permanently if it's fraudulent or malicious.
+                        Remove a claim permanently if it&apos;s fraudulent or malicious.
                       </p>
                     </div>
                   </div>
@@ -824,8 +824,8 @@ export default function AdminDocumentationPage() {
                   <h4 className="font-semibold text-red-900 dark:text-red-100 mb-3">🔑 API Key Problems</h4>
                   <ul className="text-red-800 dark:text-red-200 text-sm space-y-2">
                     <li>Check if your API key is correct and active.</li>
-                    <li>Ensure it's included in the Authorization header.</li>
-                    <li>Regenerate your API key if you suspect it's compromised.</li>
+                    <li>Ensure it&apos;s included in the Authorization header.</li>
+                    <li>Regenerate your API key if you suspect it&apos;s compromised.</li>
                     <li>Check for typos in the header.</li>
                   </ul>
                 </div>
@@ -912,10 +912,10 @@ export default function AdminDocumentationPage() {
                 <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-8">
                   <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-3">🤔 General Questions</h4>
                   <ul className="text-blue-800 dark:text-blue-200 text-sm space-y-2">
-                    <li><strong>What is Farm Companion?</strong> Farm Companion is the UK's premium farm shop platform, connecting consumers with local farms.</li>
+                    <li><strong>What is Farm Companion?</strong> Farm Companion is the UK&apos;s premium farm shop platform, connecting consumers with local farms.</li>
                     <li><strong>Who can use Farm Companion?</strong> Anyone interested in buying from local farms can use the platform.</li>
                     <li><strong>How do I become a farm on Farm Companion?</strong> Farms can apply to join the platform through our website.</li>
-                    <li><strong>How do I manage my farm listing?</strong> You can update your farm's details, photos, and availability on the platform.</li>
+                    <li><strong>How do I manage my farm listing?</strong> You can update your farm&apos;s details, photos, and availability on the platform.</li>
                     <li><strong>How do I process claims?</strong> You can review and approve/reject claims from users on the platform.</li>
                   </ul>
                 </div>
@@ -925,9 +925,9 @@ export default function AdminDocumentationPage() {
                   <h4 className="font-semibold text-green-900 dark:text-green-100 mb-3">👨‍💻 Admin Panel Questions</h4>
                   <ul className="text-green-800 dark:text-green-200 text-sm space-y-2">
                     <li><strong>How do I access the admin panel?</strong> You can access the admin panel by navigating to <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">https://www.farmcompanion.co.uk/admin</code>.</li>
-                    <li><strong>What credentials do I need?</strong> You'll need your admin email and password.</li>
+                    <li><strong>What credentials do I need?</strong> You&apos;ll need your admin email and password.</li>
                     <li><strong>How do I change my password?</strong> Go to your profile settings in the admin panel.</li>
-                    <li><strong>How do I log out?</strong> Click on your profile picture and select "Logout" from the dropdown menu.</li>
+                    <li><strong>How do I log out?</strong> Click on your profile picture and select &quot;Logout&quot; from the dropdown menu.</li>
                   </ul>
                 </div>
 
@@ -935,11 +935,11 @@ export default function AdminDocumentationPage() {
                 <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-6 mb-8">
                   <h4 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-3">📸 Photo Management Questions</h4>
                   <ul className="text-yellow-800 dark:text-yellow-200 text-sm space-y-2">
-                    <li><strong>How do I upload photos for my farm?</strong> You can upload photos directly on the farm's page or via the admin panel.</li>
+                    <li><strong>How do I upload photos for my farm?</strong> You can upload photos directly on the farm&apos;s page or via the admin panel.</li>
                     <li><strong>What are the photo requirements?</strong> Photos must be high-quality, relevant to your farm, and appropriate for all audiences.</li>
                     <li><strong>How long does it take for photos to appear on my farm page?</strong> Once approved, photos typically appear within 24 hours.</li>
-                    <li><strong>What happens if my photo is rejected?</strong> You'll receive feedback and can request changes or resubmit.</li>
-                    <li><strong>Can I delete a photo?</strong> Yes, you can soft delete a photo, which will remove it from the system for 4 hours. After that, it's permanently deleted.</li>
+                    <li><strong>What happens if my photo is rejected?</strong> You&apos;ll receive feedback and can request changes or resubmit.</li>
+                    <li><strong>Can I delete a photo?</strong> Yes, you can soft delete a photo, which will remove it from the system for 4 hours. After that, it&apos;s permanently deleted.</li>
                   </ul>
                 </div>
 
@@ -948,9 +948,9 @@ export default function AdminDocumentationPage() {
                   <h4 className="font-semibold text-red-900 dark:text-red-100 mb-3">🏪 Claims Questions</h4>
                   <ul className="text-red-800 dark:text-red-200 text-sm space-y-2">
                     <li><strong>How do I process a claim?</strong> You can review claims on the claims management page and approve or reject them.</li>
-                    <li><strong>What evidence do I need to verify a claim?</strong> You'll need to provide evidence of your farm's ownership, such as tax documents, bank statements, or official correspondence.</li>
+                    <li><strong>What evidence do I need to verify a claim?</strong> You&apos;ll need to provide evidence of your farm&apos;s ownership, such as tax documents, bank statements, or official correspondence.</li>
                     <li><strong>What happens if a claim is rejected?</strong> The user will receive a notification explaining the reason and can resubmit with new evidence.</li>
-                    <li><strong>Can I delete a claim?</strong> Yes, you can permanently delete a claim if it's fraudulent or malicious.</li>
+                    <li><strong>Can I delete a claim?</strong> Yes, you can permanently delete a claim if it&apos;s fraudulent or malicious.</li>
                   </ul>
                 </div>
               </div>
