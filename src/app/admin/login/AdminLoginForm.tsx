@@ -24,17 +24,38 @@ export function AdminLoginForm({ errorMessage }: { errorMessage?: string | null 
     setDebugInfo(`Submitting: ${email} (password length: ${password.length})`)
     
     try {
-      const response = await fetch('/api/admin/login', {
+      // First, test the authentication
+      const testResponse = await fetch('/api/admin/test-auth', {
         method: 'POST',
         body: formData
       })
       
-      if (response.redirected) {
-        window.location.href = response.url
+      if (testResponse.ok) {
+        const testResult = await testResponse.json()
+        console.log('Auth test result:', testResult)
+        setDebugInfo(`Test: Email match: ${testResult.match.email}, Password match: ${testResult.match.password}`)
+        
+        // If test passes, proceed with actual login
+        if (testResult.match.email && testResult.match.password) {
+          const loginResponse = await fetch('/api/admin/login', {
+            method: 'POST',
+            body: formData
+          })
+          
+          if (loginResponse.redirected) {
+            window.location.href = loginResponse.url
+          } else {
+            const result = await loginResponse.text()
+            console.log('Login response:', result)
+            setDebugInfo(`Login response: ${result}`)
+          }
+        } else {
+          setDebugInfo(`Authentication failed: Email match: ${testResult.match.email}, Password match: ${testResult.match.password}`)
+        }
       } else {
-        const result = await response.text()
-        console.log('Login response:', result)
-        setDebugInfo(`Response: ${result}`)
+        const testError = await testResponse.text()
+        console.log('Test error:', testError)
+        setDebugInfo(`Test error: ${testError}`)
       }
     } catch (error) {
       console.error('Login error:', error)
