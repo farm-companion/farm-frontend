@@ -7,7 +7,7 @@ export const FARM_PHOTOS_CONFIG = {
   
   // Photo submission settings
   MAX_FILE_SIZE: 5 * 1024 * 1024, // 5MB
-  ALLOWED_TYPES: ['image/jpeg', 'image/png', 'image/webp'],
+  ALLOWED_TYPES: ['image/jpeg', 'image/png', 'image/webp'] as const,
   MAX_DESCRIPTION_LENGTH: 500,
   
   // Gallery settings
