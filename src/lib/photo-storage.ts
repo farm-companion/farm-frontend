@@ -1,6 +1,13 @@
 // Simple Photo Storage for Farm Frontend
 // This provides basic photo functionality until the full farm-photos system is deployed
 
+import { 
+  sendPhotoSubmissionConfirmation, 
+  sendAdminPhotoNotification,
+  sendApprovalNotification,
+  sendRejectionNotification
+} from './email'
+
 interface PhotoSubmission {
   id: string
   farmSlug: string
@@ -98,6 +105,38 @@ export async function savePhotoSubmission(data: {
     
     console.log(`💾 Saved photo submission: ${submissionId}`)
     
+    // Send confirmation email to submitter
+    try {
+      await sendPhotoSubmissionConfirmation({
+        submissionId,
+        farmSlug: data.farmSlug,
+        farmName: data.farmName,
+        submitterName: data.submitterName,
+        submitterEmail: data.submitterEmail,
+        description: data.description,
+        submittedAt: submission.submittedAt
+      })
+      console.log(`📧 Confirmation email sent to ${data.submitterEmail}`)
+    } catch (error) {
+      console.error('Failed to send confirmation email:', error)
+    }
+    
+    // Send admin notification
+    try {
+      await sendAdminPhotoNotification({
+        submissionId,
+        farmSlug: data.farmSlug,
+        farmName: data.farmName,
+        submitterName: data.submitterName,
+        submitterEmail: data.submitterEmail,
+        description: data.description,
+        submittedAt: submission.submittedAt
+      })
+      console.log(`📧 Admin notification sent`)
+    } catch (error) {
+      console.error('Failed to send admin notification:', error)
+    }
+    
     return {
       success: true,
       submissionId
@@ -174,6 +213,30 @@ export async function updatePhotoStatus(
     
     photoSubmissions.set(submissionId, submission)
     console.log(`📝 Updated photo status: ${submissionId} -> ${status}`)
+    
+    // Send notification email based on status
+    try {
+      const submissionData = {
+        submissionId,
+        farmSlug: submission.farmSlug,
+        farmName: submission.farmName,
+        submitterName: submission.submitterName,
+        submitterEmail: submission.submitterEmail,
+        description: submission.description,
+        submittedAt: submission.submittedAt
+      }
+      
+      if (status === 'approved') {
+        await sendApprovalNotification(submissionData)
+        console.log(`📧 Approval notification sent to ${submission.submitterEmail}`)
+      } else if (status === 'rejected') {
+        await sendRejectionNotification(submissionData, rejectionReason || 'Photo does not meet our guidelines')
+        console.log(`📧 Rejection notification sent to ${submission.submitterEmail}`)
+      }
+    } catch (error) {
+      console.error('Failed to send status notification email:', error)
+    }
+    
     return true
   } catch (error) {
     console.error('Failed to update photo status:', error)
