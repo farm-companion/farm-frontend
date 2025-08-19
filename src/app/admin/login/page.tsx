@@ -8,11 +8,21 @@ export const metadata: Metadata = {
   description: 'Secure admin access for Farm Companion',
 }
 
-export default async function AdminLoginPage() {
+export default async function AdminLoginPage({
+  searchParams,
+}: {
+  searchParams: { error?: string }
+}) {
   // Redirect if already authenticated
   if (await isAuthenticated()) {
     redirect('/admin')
   }
+
+  const errorMessage = searchParams.error ? {
+    'missing-credentials': 'Please enter both email and password.',
+    'invalid-credentials': 'Invalid email or password. Please try again.',
+    'server-error': 'Server error. Please try again later.',
+  }[searchParams.error] || 'An error occurred. Please try again.' : null
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -31,7 +41,7 @@ export default async function AdminLoginPage() {
           </p>
         </div>
         
-        <AdminLoginForm />
+        <AdminLoginForm errorMessage={errorMessage} />
         
         <div className="text-center">
           <Link 
@@ -46,9 +56,29 @@ export default async function AdminLoginPage() {
   )
 }
 
-function AdminLoginForm() {
+function AdminLoginForm({ errorMessage }: { errorMessage?: string | null }) {
   return (
     <form action="/api/admin/login" method="POST" className="mt-8 space-y-6">
+      {errorMessage && (
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-red-800 dark:text-red-200">
+                Login Error
+              </h3>
+              <p className="mt-1 text-sm text-red-700 dark:text-red-300">
+                {errorMessage}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="space-y-4">
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -61,7 +91,8 @@ function AdminLoginForm() {
             autoComplete="email"
             required
             className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-800 rounded-md focus:outline-none focus:ring-brand-primary focus:border-brand-primary focus:z-10 sm:text-sm"
-            placeholder="admin@farmcompanion.co.uk"
+            placeholder="hello@farmcompanion.co.uk"
+            defaultValue="hello@farmcompanion.co.uk"
           />
         </div>
         
@@ -93,6 +124,25 @@ function AdminLoginForm() {
           </span>
           Sign in to Admin Panel
         </button>
+      </div>
+
+      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+        <div className="flex">
+          <div className="flex-shrink-0">
+            <svg className="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div className="ml-3">
+            <h3 className="text-sm font-medium text-blue-800 dark:text-blue-200">
+              Admin Credentials
+            </h3>
+            <p className="mt-1 text-sm text-blue-700 dark:text-blue-300">
+              Email: <strong>hello@farmcompanion.co.uk</strong><br/>
+              Password: <strong>mifxa2-ziwdyc-vEbkov</strong>
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">

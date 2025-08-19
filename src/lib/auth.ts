@@ -27,16 +27,21 @@ export async function isAuthenticated(): Promise<boolean> {
     const cookieStore = await cookies()
     const session = cookieStore.get(SESSION_COOKIE)
     
-    if (!session) return false
+    if (!session) {
+      console.log('No session cookie found')
+      return false
+    }
     
     const sessionData = JSON.parse(session.value)
     const now = Date.now()
     
     // Check if session is expired
     if (sessionData.expiresAt < now) {
+      console.log('Session expired')
       return false
     }
     
+    console.log('User is authenticated:', sessionData.email)
     return true
   } catch (error) {
     console.error('Authentication check failed:', error)
@@ -75,8 +80,13 @@ export async function getCurrentUser(): Promise<AdminUser | null> {
 // Authenticate admin user
 export async function authenticateAdmin(email: string, password: string): Promise<{ success: boolean; error?: string }> {
   try {
+    console.log('Attempting authentication for:', email)
+    console.log('Expected email:', ADMIN_CREDENTIALS.email)
+    console.log('Password match:', password === ADMIN_CREDENTIALS.password)
+    
     // Validate credentials
     if (email !== ADMIN_CREDENTIALS.email || password !== ADMIN_CREDENTIALS.password) {
+      console.log('Authentication failed: Invalid credentials')
       return {
         success: false,
         error: 'Invalid email or password'
@@ -90,6 +100,8 @@ export async function authenticateAdmin(email: string, password: string): Promis
       expiresAt: Date.now() + SESSION_DURATION
     }
     
+    console.log('Creating session for:', sessionData.email)
+    
     // Set session cookie
     const cookieStore = await cookies()
     cookieStore.set(SESSION_COOKIE, JSON.stringify(sessionData), {
@@ -99,6 +111,7 @@ export async function authenticateAdmin(email: string, password: string): Promis
       maxAge: SESSION_DURATION / 1000
     })
     
+    console.log('Session created successfully')
     return { success: true }
   } catch (error) {
     console.error('Authentication failed:', error)
@@ -124,6 +137,7 @@ export async function requireAuth(): Promise<AdminUser> {
   const user = await getCurrentUser()
   
   if (!user) {
+    console.log('No authenticated user found, redirecting to login')
     redirect('/admin/login')
   }
   
