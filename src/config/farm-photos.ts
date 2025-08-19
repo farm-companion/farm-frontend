@@ -3,7 +3,11 @@
 
 export const FARM_PHOTOS_CONFIG = {
   // API URL for the farm-photos system
-  API_URL: process.env.FARM_PHOTOS_API_URL || 'http://localhost:3001',
+  // For now, we'll use the same domain as the frontend
+  // This avoids cross-origin issues and simplifies deployment
+  API_URL: process.env.NODE_ENV === 'production' 
+    ? 'https://farmcompanion.co.uk' // Use the same domain
+    : (process.env.FARM_PHOTOS_API_URL || 'http://localhost:3002'),
   
   // Photo submission settings
   MAX_FILE_SIZE: 5 * 1024 * 1024, // 5MB

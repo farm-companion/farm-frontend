@@ -1,47 +1,58 @@
-// Farm Photos API - Connected to farm-photos system
+// Farm Photos API - Local Storage Implementation
 // PuredgeOS 3.0 Compliant Photo Management
 
 import { NextRequest, NextResponse } from 'next/server'
+import { 
+  savePhotoSubmission, 
+  getFarmPhotos, 
+  getFarmPhotoCount 
+} from '@/lib/photo-storage'
 
-import { getFarmPhotosApiUrl } from '@/config/farm-photos'
-
-// POST - Submit New Photo (Proxy to farm-photos system)
+// POST - Submit New Photo
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     
-    // Forward the request to the farm-photos system
-    const response = await fetch(getFarmPhotosApiUrl('api/photos'), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
+    // Validate required fields
+    if (!body.farmSlug || !body.farmName || !body.submitterName || 
+        !body.submitterEmail || !body.photoData || !body.description) {
+      return NextResponse.json(
+        { error: 'Missing required fields' },
+        { status: 400 }
+      )
+    }
     
-    const result = await response.json()
+    // Save photo submission
+    const result = await savePhotoSubmission(body)
     
-    return NextResponse.json(result, { status: response.status })
+    if (result.success) {
+      return NextResponse.json({
+        success: true,
+        submissionId: result.submissionId,
+        message: 'Photo submitted successfully! It will be reviewed by our team.'
+      })
+    } else {
+      return NextResponse.json({
+        success: false,
+        error: result.error
+      }, { status: 400 })
+    }
     
   } catch (error) {
     console.error('Photo submission error:', error)
-    
     return NextResponse.json(
-      { 
-        error: 'Internal server error',
-        message: 'Failed to process photo submission. Please try again.'
-      },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }
 }
 
-// GET - Get Photos for a Farm (Proxy to farm-photos system)
+// GET - Get Photos for a Farm
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const farmSlug = searchParams.get('farmSlug')
-    const status = searchParams.get('status')
+    const status = searchParams.get('status') as 'pending' | 'approved' | 'rejected' | undefined
     
     if (!farmSlug) {
       return NextResponse.json(
@@ -50,27 +61,18 @@ export async function GET(request: NextRequest) {
       )
     }
     
-    // Build query string
-    const queryParams = new URLSearchParams({ farmSlug })
-    if (status) {
-      queryParams.append('status', status)
-    }
+    // Get photos for the farm
+    const photos = await getFarmPhotos(farmSlug, status)
     
-    // Forward the request to the farm-photos system
-    const response = await fetch(`${getFarmPhotosApiUrl('api/photos')}?${queryParams}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    return NextResponse.json({
+      photos,
+      total: photos.length,
+      farmSlug,
+      status: status || 'all'
     })
-    
-    const result = await response.json()
-    
-    return NextResponse.json(result, { status: response.status })
     
   } catch (error) {
     console.error('Error fetching photos:', error)
-    
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
