@@ -43,51 +43,8 @@ function generateSubmissionId(): string {
   return `photo_${timestamp}_${random}`
 }
 
-// Create a thumbnail from base64 image data
-function createThumbnail(base64Data: string, maxWidth: number = 400, maxHeight: number = 400): string {
-  return new Promise<string>((resolve) => {
-    const img = new Image()
-    img.onload = () => {
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
-      
-      if (!ctx) {
-        resolve(base64Data) // Fallback to original
-        return
-      }
-      
-      // Calculate new dimensions
-      let { width, height } = img
-      if (width > height) {
-        if (width > maxWidth) {
-          height = (height * maxWidth) / width
-          width = maxWidth
-        }
-      } else {
-        if (height > maxHeight) {
-          width = (width * maxHeight) / height
-          height = maxHeight
-        }
-      }
-      
-      canvas.width = width
-      canvas.height = height
-      
-      // Draw resized image
-      ctx.drawImage(img, 0, 0, width, height)
-      
-      // Convert to base64
-      const thumbnailData = canvas.toDataURL('image/jpeg', 0.8)
-      resolve(thumbnailData)
-    }
-    
-    img.onerror = () => {
-      resolve(base64Data) // Fallback to original
-    }
-    
-    img.src = base64Data
-  })
-}
+// Note: Thumbnail generation would be implemented here in production
+// For now, we use the same image for both full and thumbnail views
 
 // Save photo submission
 export async function savePhotoSubmission(data: {
