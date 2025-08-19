@@ -4,7 +4,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { 
   savePhotoSubmission, 
-  getFarmPhotos
+  getFarmPhotos,
+  getPendingPhotos
 } from '@/lib/photo-storage'
 
 // POST - Submit New Photo
@@ -52,13 +53,24 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// GET - Get Photos for a Farm
+// GET - Get Photos for a Farm or All Pending Photos
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const farmSlug = searchParams.get('farmSlug')
     const status = searchParams.get('status') as 'pending' | 'approved' | 'rejected' | undefined
     
+    // If no farm slug but status is pending, get all pending photos for admin
+    if (!farmSlug && status === 'pending') {
+      const pendingPhotos = await getPendingPhotos()
+      return NextResponse.json({
+        photos: pendingPhotos,
+        total: pendingPhotos.length,
+        status: 'pending'
+      })
+    }
+    
+    // Farm slug is required for other queries
     if (!farmSlug) {
       return NextResponse.json(
         { error: 'Farm slug is required' },
