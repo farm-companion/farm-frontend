@@ -55,15 +55,7 @@ const nextConfig: NextConfig = {
     ],
   },
   // Configure API routes for larger file uploads
-  experimental: {
-    serverComponentsExternalPackages: [],
-  },
-  // Increase body size limit for API routes
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
-  },
+  serverExternalPackages: [],
   // Add strong headers for every route
   async headers() {
     const base = [
