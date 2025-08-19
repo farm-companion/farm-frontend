@@ -127,9 +127,9 @@ export default function AdminDocumentationPage() {
                 <h3>Photo Review Process</h3>
                 <ol>
                   <li><strong>Submission:</strong> Users submit photos via the main site</li>
-                  <li><strong>Pending Review:</strong> Photos appear in admin panel under "Pending"</li>
+                  <li><strong>Pending Review:</strong> Photos appear in admin panel under &quot;Pending&quot;</li>
                   <li><strong>Approval:</strong> Admins can approve, reject, or request changes</li>
-                  <li><strong>Publication:</strong> Approved photos appear on the farm's page</li>
+                  <li><strong>Publication:</strong> Approved photos appear on the farm&apos;s page</li>
                 </ol>
 
                 <h3>Photo Actions</h3>
@@ -165,7 +165,7 @@ export default function AdminDocumentationPage() {
               </h2>
               <div className="prose dark:prose-invert max-w-none">
                 <h3>Farm Ownership Claims</h3>
-                <p>Users can claim ownership of farm listings that don't have verified owners.</p>
+                <p>Users can claim ownership of farm listings that don&apos;t have verified owners.</p>
                 
                 <h3>Claim Process</h3>
                 <ol>
@@ -334,7 +334,7 @@ export default function AdminDocumentationPage() {
                 <h4>Photo Management Issues</h4>
                 <ul>
                   <li><strong>Photos not loading:</strong> Check internet connection and refresh page</li>
-                  <li><strong>Actions not working:</strong> Ensure you're logged in and have proper permissions</li>
+                  <li><strong>Actions not working:</strong> Ensure you&apos;re logged in and have proper permissions</li>
                   <li><strong>Email notifications:</strong> Verify email service is configured correctly</li>
                 </ul>
 
