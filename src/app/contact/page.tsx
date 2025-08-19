@@ -55,7 +55,7 @@ export default function ContactPage() {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Contact Us
+              Share your feedback
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400">
               Have a question, suggestion, or need help? We&apos;d love to hear from you.
@@ -145,7 +145,7 @@ export default function ContactPage() {
                            hover:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-solar focus:ring-offset-2
                            disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                  {isSubmitting ? 'Sending...' : 'Send feedback'}
                 </button>
 
                 {submitStatus === 'success' && (
