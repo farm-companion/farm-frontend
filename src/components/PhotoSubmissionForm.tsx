@@ -81,6 +81,29 @@ export default function PhotoSubmissionForm({
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
+      // Check file size before processing (5MB limit)
+      const maxSize = 5 * 1024 * 1024 // 5MB
+      if (file.size > maxSize) {
+        setErrors(['File too large. Please select an image smaller than 5MB.'])
+        // Clear the file input
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''
+        }
+        return
+      }
+      
+      // Check file type
+      if (!file.type.startsWith('image/')) {
+        setErrors(['Please select a valid image file (JPEG, PNG, or WebP).'])
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''
+        }
+        return
+      }
+      
+      // Clear any previous errors
+      setErrors([])
+      
       setFormData(prev => ({ ...prev, photoFile: file }))
       
       // Create preview
@@ -131,9 +154,25 @@ export default function PhotoSubmissionForm({
         body: JSON.stringify(submissionData),
       })
       
+      // Check for specific HTTP status codes before parsing JSON
+      if (response.status === 413) {
+        setErrors(['File too large. Please select a smaller image (under 5MB).'])
+        return
+      }
+      
+      if (response.status === 429) {
+        setErrors(['Too many requests. Please wait a moment and try again.'])
+        return
+      }
+      
+      if (!response.ok) {
+        setErrors([`Server error (${response.status}). Please try again.`])
+        return
+      }
+      
       const result = await response.json()
       
-      if (response.ok) {
+      if (result.success) {
         setSuccess(true)
         if (onSuccess) {
           onSuccess()
@@ -150,11 +189,23 @@ export default function PhotoSubmissionForm({
       }
     } catch (error) {
       console.error('Photo submission error:', error)
+      
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+      const errorName = error instanceof Error ? error.name : 'Unknown'
+      
+      console.error('Error details:', {
+        name: errorName,
+        message: errorMessage,
+        stack: error instanceof Error ? error.stack : undefined
+      })
+      
       // Check if it's a network error
-      if (error instanceof TypeError && error.message.includes('fetch')) {
+      if (error instanceof TypeError && errorMessage.includes('fetch')) {
         setErrors(['Network error. Please check your internet connection and try again.'])
+      } else if (error instanceof TypeError && errorMessage.includes('Failed to fetch')) {
+        setErrors(['Unable to connect to server. Please try again.'])
       } else {
-        setErrors(['An unexpected error occurred. Please try again.'])
+        setErrors([`An unexpected error occurred: ${errorMessage}`])
       }
     } finally {
       setIsSubmitting(false)
