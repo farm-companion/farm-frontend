@@ -43,6 +43,52 @@ function generateSubmissionId(): string {
   return `photo_${timestamp}_${random}`
 }
 
+// Create a thumbnail from base64 image data
+function createThumbnail(base64Data: string, maxWidth: number = 400, maxHeight: number = 400): string {
+  return new Promise<string>((resolve) => {
+    const img = new Image()
+    img.onload = () => {
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      
+      if (!ctx) {
+        resolve(base64Data) // Fallback to original
+        return
+      }
+      
+      // Calculate new dimensions
+      let { width, height } = img
+      if (width > height) {
+        if (width > maxWidth) {
+          height = (height * maxWidth) / width
+          width = maxWidth
+        }
+      } else {
+        if (height > maxHeight) {
+          width = (width * maxHeight) / height
+          height = maxHeight
+        }
+      }
+      
+      canvas.width = width
+      canvas.height = height
+      
+      // Draw resized image
+      ctx.drawImage(img, 0, 0, width, height)
+      
+      // Convert to base64
+      const thumbnailData = canvas.toDataURL('image/jpeg', 0.8)
+      resolve(thumbnailData)
+    }
+    
+    img.onerror = () => {
+      resolve(base64Data) // Fallback to original
+    }
+    
+    img.src = base64Data
+  })
+}
+
 // Save photo submission
 export async function savePhotoSubmission(data: {
   farmSlug: string
@@ -75,6 +121,11 @@ export async function savePhotoSubmission(data: {
       }
     }
     
+    // For now, use the same image for both full and thumbnail
+    // In production, you'd generate a proper thumbnail
+    const photoUrl = data.photoData
+    const thumbnailUrl = data.photoData // Same as full image for now
+    
     // Create submission
     const submission: PhotoSubmission = {
       id: submissionId,
@@ -82,8 +133,8 @@ export async function savePhotoSubmission(data: {
       farmName: data.farmName,
       submitterName: data.submitterName,
       submitterEmail: data.submitterEmail,
-      photoUrl: data.photoData, // Store base64 data directly for now
-      thumbnailUrl: data.photoData, // Same as full image for now
+      photoUrl: photoUrl,
+      thumbnailUrl: thumbnailUrl,
       description: data.description,
       status: 'pending',
       qualityScore: Math.floor(Math.random() * 40) + 60, // 60-100
