@@ -346,10 +346,10 @@ export default function AdminDocumentationPage() {
                   </h3>
                   <ol className="text-blue-800 dark:text-blue-200 space-y-2">
                     <li><strong>Submission:</strong> Users submit photos via the main site</li>
-                    <li><strong>Pending Review:</strong> Photos appear in admin panel under "Pending"</li>
+                    <li><strong>Pending Review:</strong> Photos appear in admin panel under &quot;Pending&quot;</li>
                     <li><strong>Review Process:</strong> Admins evaluate quality, relevance, and appropriateness</li>
                     <li><strong>Decision:</strong> Approve, reject, or request changes</li>
-                    <li><strong>Publication:</strong> Approved photos appear on the farm's page</li>
+                    <li><strong>Publication:</strong> Approved photos appear on the farm&apos;s page</li>
                   </ol>
                 </div>
 
@@ -383,7 +383,7 @@ export default function AdminDocumentationPage() {
                     <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
                       <h4 className="font-semibold text-green-600 dark:text-green-400 mb-2">✅ Approve</h4>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Accept photo for publication on the farm's page
+                        Accept photo for publication on the farm&apos;s page
                       </p>
                     </div>
                     <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
