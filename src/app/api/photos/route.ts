@@ -14,15 +14,21 @@ export async function POST(request: NextRequest) {
     
     // Validate required fields
     if (!body.farmSlug || !body.farmName || !body.submitterName || 
-        !body.submitterEmail || !body.photoData || !body.description) {
+        !body.submitterEmail || !body.photoData || (!body.description && !body.photoDescription)) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       )
     }
     
+    // Normalize field names
+    const submissionData = {
+      ...body,
+      description: body.description || body.photoDescription
+    }
+    
     // Save photo submission
-    const result = await savePhotoSubmission(body)
+    const result = await savePhotoSubmission(submissionData)
     
     if (result.success) {
       return NextResponse.json({
