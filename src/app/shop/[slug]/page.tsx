@@ -5,7 +5,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import type { FarmShop } from '@/types/farm'
 import { ObfuscatedEmail, ObfuscatedPhone } from '@/components/ObfuscatedContact'
-import ShopImageGallery from '@/components/ShopImageGallery'
+import ShopImageHeader from '@/components/ShopImageHeader'
 import PhotoSubmissionForm from '@/components/PhotoSubmissionForm'
 
 async function readFarms(): Promise<FarmShop[]> {
@@ -123,12 +123,12 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
         ) : null}
       </header>
 
-      <p className="mt-2 text-gray-700 dark:text-[#E4E2DD]/80">
+      {/* Header Image Gallery */}
+      <ShopImageHeader images={shop.images} shopName={shop.name} shopSlug={shop.slug} />
+
+      <p className="mt-4 text-gray-700 dark:text-[#E4E2DD]/80">
         {location.address}, {location.county} {location.postcode}
       </p>
-
-      {/* Image Gallery */}
-      <ShopImageGallery images={shop.images} shopName={shop.name} shopSlug={shop.slug} />
 
       {/* Enhanced Description Section */}
       {shop.description && (
