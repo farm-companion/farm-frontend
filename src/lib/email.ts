@@ -3,7 +3,7 @@
 
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY || '')
 
 // Email Configuration
 const EMAIL_CONFIG = {
@@ -27,6 +27,12 @@ export async function sendPhotoSubmissionConfirmation(
   submission: PhotoSubmissionData
 ): Promise<boolean> {
   try {
+    // Check if Resend is configured
+    if (!process.env.RESEND_API_KEY) {
+      console.log('📧 Resend API key not configured, skipping email')
+      return true
+    }
+    
     console.log(`📧 Sending confirmation email to ${submission.submitterEmail}`)
     
     const emailContent = `
@@ -109,6 +115,12 @@ export async function sendAdminPhotoNotification(
   submission: PhotoSubmissionData
 ): Promise<boolean> {
   try {
+    // Check if Resend is configured
+    if (!process.env.RESEND_API_KEY) {
+      console.log('📧 Resend API key not configured, skipping admin notification')
+      return true
+    }
+    
     console.log(`📧 Sending admin notification for photo submission: ${submission.submissionId}`)
     
     const emailContent = `
@@ -172,6 +184,12 @@ export async function sendApprovalNotification(
   submission: PhotoSubmissionData
 ): Promise<boolean> {
   try {
+    // Check if Resend is configured
+    if (!process.env.RESEND_API_KEY) {
+      console.log('📧 Resend API key not configured, skipping approval notification')
+      return true
+    }
+    
     console.log(`📧 Sending approval notification to ${submission.submitterEmail}`)
     
     const emailContent = `
@@ -236,6 +254,12 @@ export async function sendRejectionNotification(
   rejectionReason: string
 ): Promise<boolean> {
   try {
+    // Check if Resend is configured
+    if (!process.env.RESEND_API_KEY) {
+      console.log('📧 Resend API key not configured, skipping rejection notification')
+      return true
+    }
+    
     console.log(`📧 Sending rejection notification to ${submission.submitterEmail}`)
     
     const emailContent = `
