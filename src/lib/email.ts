@@ -92,7 +92,7 @@ export async function sendPhotoSubmissionConfirmation(
       to: [submission.submitterEmail],
       subject: `Photo Submitted Successfully - ${submission.farmName}`,
       html: emailContent,
-      reply_to: EMAIL_CONFIG.replyTo
+      replyTo: EMAIL_CONFIG.replyTo
     })
 
     console.log(`✅ Email sent successfully: ${result.id}`)
@@ -155,7 +155,7 @@ export async function sendAdminPhotoNotification(
       to: [EMAIL_CONFIG.adminEmail],
       subject: `[Farm Photos] New Submission: ${submission.farmName}`,
       html: emailContent,
-      reply_to: EMAIL_CONFIG.replyTo
+      replyTo: EMAIL_CONFIG.replyTo
     })
 
     console.log(`✅ Admin notification sent successfully: ${result.id}`)
@@ -218,7 +218,7 @@ export async function sendApprovalNotification(
       to: [submission.submitterEmail],
       subject: `Photo Approved - ${submission.farmName}`,
       html: emailContent,
-      reply_to: EMAIL_CONFIG.replyTo
+      replyTo: EMAIL_CONFIG.replyTo
     })
 
     console.log(`✅ Approval notification sent successfully: ${result.id}`)
@@ -287,7 +287,7 @@ export async function sendRejectionNotification(
       to: [submission.submitterEmail],
       subject: `Photo Not Approved - ${submission.farmName}`,
       html: emailContent,
-      reply_to: EMAIL_CONFIG.replyTo
+      replyTo: EMAIL_CONFIG.replyTo
     })
 
     console.log(`✅ Rejection notification sent successfully: ${result.id}`)

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import PhotoViewer from '@/components/PhotoViewer'
 
 import { getFarmPhotosApiUrl } from '@/config/farm-photos'
 
