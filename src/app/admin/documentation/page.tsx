@@ -744,14 +744,14 @@ export default function AdminDocumentationPage() {
                   <h4 className="font-semibold text-green-900 dark:text-green-100 mb-3">📦 API Endpoints</h4>
                   <ul className="text-green-800 dark:text-green-200 text-sm space-y-2">
                     <li><strong>GET /api/photos</strong> - List all photos</li>
-                    <li><strong>GET /api/photos/{id}</strong> - Get a specific photo by ID</li>
+                                            <li><strong>GET /api/photos/[id]</strong> - Get a specific photo by ID</li>
                     <li><strong>POST /api/photos</strong> - Upload a new photo</li>
-                    <li><strong>PUT /api/photos/{id}</strong> - Update a photo</li>
-                    <li><strong>DELETE /api/photos/{id}</strong> - Delete a photo</li>
-                    <li><strong>POST /api/photos/{id}/approve</strong> - Approve a photo</li>
-                    <li><strong>POST /api/photos/{id}/reject</strong> - Reject a photo</li>
-                    <li><strong>POST /api/photos/{id}/request-changes</strong> - Request changes for a photo</li>
-                    <li><strong>POST /api/photos/{id}/delete</strong> - Soft delete a photo</li>
+                                            <li><strong>PUT /api/photos/[id]</strong> - Update a photo</li>
+                                            <li><strong>DELETE /api/photos/[id]</strong> - Delete a photo</li>
+                                            <li><strong>POST /api/photos/[id]/approve</strong> - Approve a photo</li>
+                                            <li><strong>POST /api/photos/[id]/reject</strong> - Reject a photo</li>
+                                            <li><strong>POST /api/photos/[id]/request-changes</strong> - Request changes for a photo</li>
+                                            <li><strong>POST /api/photos/[id]/delete</strong> - Soft delete a photo</li>
                   </ul>
                 </div>
 
