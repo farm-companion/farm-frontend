@@ -8,6 +8,18 @@ import {
   getPendingPhotos
 } from '@/lib/photo-storage'
 
+// CORS headers for cross-origin requests
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+}
+
+// Handle OPTIONS requests for CORS
+export async function OPTIONS() {
+  return new NextResponse(null, { headers: corsHeaders })
+}
+
 // POST - Submit New Photo
 export async function POST(request: NextRequest) {
   try {
@@ -18,7 +30,7 @@ export async function POST(request: NextRequest) {
         !body.submitterEmail || !body.photoData || (!body.description && !body.photoDescription)) {
       return NextResponse.json(
         { error: 'Missing required fields' },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       )
     }
     
@@ -36,19 +48,19 @@ export async function POST(request: NextRequest) {
         success: true,
         submissionId: result.submissionId,
         message: 'Photo submitted successfully! It will be reviewed by our team.'
-      })
+      }, { headers: corsHeaders })
     } else {
       return NextResponse.json({
         success: false,
         error: result.error
-      }, { status: 400 })
+      }, { status: 400, headers: corsHeaders })
     }
     
   } catch (error) {
     console.error('Photo submission error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     )
   }
 }
@@ -67,14 +79,14 @@ export async function GET(request: NextRequest) {
         photos: pendingPhotos,
         total: pendingPhotos.length,
         status: 'pending'
-      })
+      }, { headers: corsHeaders })
     }
     
     // Farm slug is required for other queries
     if (!farmSlug) {
       return NextResponse.json(
         { error: 'Farm slug is required' },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       )
     }
     
@@ -86,13 +98,13 @@ export async function GET(request: NextRequest) {
       total: photos.length,
       farmSlug,
       status: status || 'all'
-    })
+    }, { headers: corsHeaders })
     
   } catch (error) {
     console.error('Error fetching photos:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     )
   }
 }
