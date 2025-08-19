@@ -5,17 +5,21 @@ import { Resend } from 'resend'
 
 // Initialize Resend only when API key is available
 function getResend() {
-  if (!process.env.RESEND_API_KEY) {
+  const apiKey = process.env.RESEND_API_KEY
+  console.log('🔑 Resend API Key available:', apiKey ? 'YES' : 'NO')
+  if (!apiKey) {
+    console.log('❌ RESEND_API_KEY not found in environment variables')
     return null
   }
-  return new Resend(process.env.RESEND_API_KEY)
+  return new Resend(apiKey)
 }
 
 // Email Configuration
 const EMAIL_CONFIG = {
   from: 'Farm Companion <photos@farmcompanion.co.uk>',
   replyTo: 'hello@farmcompanion.co.uk',
-  adminEmail: 'hello@farmcompanion.co.uk'
+  // Update this to your actual admin email address
+  adminEmail: process.env.ADMIN_EMAIL || 'hello@farmcompanion.co.uk'
 } as const
 
 interface PhotoSubmissionData {
@@ -26,6 +30,34 @@ interface PhotoSubmissionData {
   submitterEmail: string
   description: string
   submittedAt: string
+}
+
+// Test email function for debugging
+export async function testEmailService(): Promise<boolean> {
+  try {
+    console.log('🧪 Testing email service...')
+    
+    const resend = getResend()
+    if (!resend) {
+      console.log('❌ Cannot test email service - no Resend API key')
+      return false
+    }
+    
+    const result = await resend.emails.send({
+      from: EMAIL_CONFIG.from,
+      to: ['test@example.com'],
+      subject: 'Test Email - Farm Companion',
+      html: '<p>This is a test email from Farm Companion</p>',
+      replyTo: EMAIL_CONFIG.replyTo
+    })
+    
+    console.log('✅ Test email sent successfully:', result.data?.id)
+    return true
+    
+  } catch (error) {
+    console.error('❌ Test email failed:', error)
+    return false
+  }
 }
 
 // Send confirmation email to photo submitter
