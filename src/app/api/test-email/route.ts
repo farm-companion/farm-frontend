@@ -16,7 +16,7 @@ export async function OPTIONS() {
   return new NextResponse(null, { headers: corsHeaders })
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     console.log('🧪 Testing email service via API...')
     

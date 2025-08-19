@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import PhotoDeletionRequest from './PhotoDeletionRequest'
 
 interface Photo {
   id: string
@@ -19,17 +20,24 @@ interface PhotoViewerProps {
   title?: string
   showStatus?: boolean
   className?: string
+  userRole?: 'admin' | 'shop_owner' | 'submitter'
+  userEmail?: string
+  farmName?: string
 }
 
 export default function PhotoViewer({ 
   photos, 
   title = "Farm Photos", 
   showStatus = false,
-  className = "" 
+  className = "",
+  userRole = 'submitter',
+  userEmail = '',
+  farmName = ''
 }: PhotoViewerProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0)
+  const [showDeletionRequest, setShowDeletionRequest] = useState(false)
 
   const openModal = (photo: Photo) => {
     const index = photos.findIndex(p => p.id === photo.id)
@@ -276,12 +284,39 @@ export default function PhotoViewer({
                   >
                     Download
                   </button>
+                  {(userRole === 'admin' || userRole === 'shop_owner' || 
+                    (userRole === 'submitter' && selectedPhoto.submitterName === userEmail)) && (
+                    <button
+                      onClick={() => setShowDeletionRequest(true)}
+                      className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+                    >
+                      Request Deletion
+                    </button>
+                  )}
                 </div>
                 
                 <div className="text-sm text-gray-500">
                   Click outside to close
                 </div>
               </div>
+
+              {/* Deletion Request Modal */}
+              {showDeletionRequest && selectedPhoto && (
+                <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <PhotoDeletionRequest
+                    photoId={selectedPhoto.id}
+                    farmName={farmName}
+                    photoDescription={selectedPhoto.description}
+                    submitterEmail={userEmail}
+                    userRole={userRole}
+                    onRequestSubmitted={() => {
+                      setShowDeletionRequest(false)
+                      closeModal()
+                    }}
+                    onCancel={() => setShowDeletionRequest(false)}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

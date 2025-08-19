@@ -5,7 +5,10 @@ import {
   sendPhotoSubmissionConfirmation, 
   sendAdminPhotoNotification,
   sendApprovalNotification,
-  sendRejectionNotification
+  sendRejectionNotification,
+  sendDeletionRequestNotification,
+  sendDeletionApprovalNotification,
+  sendDeletionRejectionNotification
 } from './email'
 
 interface PhotoSubmission {
@@ -17,7 +20,7 @@ interface PhotoSubmission {
   photoUrl: string
   thumbnailUrl: string
   description: string
-  status: 'pending' | 'approved' | 'rejected'
+  status: 'pending' | 'approved' | 'rejected' | 'deleted' | 'deletion_requested'
   qualityScore: number
   submittedAt: string
   reviewedAt?: string
@@ -29,12 +32,36 @@ interface PhotoSubmission {
     width: number
     height: number
   }
+  // Deletion tracking
+  deletionRequestedAt?: string
+  deletionRequestedBy?: string
+  deletionReason?: string
+  deletedAt?: string
+  deletedBy?: string
+  canRecoverUntil?: string // 4-hour recovery window
+}
+
+interface DeletionRequest {
+  photoId: string
+  requestedBy: string
+  requesterEmail: string
+  requesterRole: 'admin' | 'shop_owner' | 'submitter'
+  reason: string
+  requestedAt: string
+  status: 'pending' | 'approved' | 'rejected'
+  reviewedAt?: string
+  reviewedBy?: string
+  rejectionReason?: string
 }
 
 // In-memory storage for development
 // In production, this would be replaced with a database
 const photoSubmissions = new Map<string, PhotoSubmission>()
 const farmPhotoCounts = new Map<string, number>()
+const deletionRequests = new Map<string, DeletionRequest>()
+
+// Note: Thumbnail generation would be implemented here in production
+// For now, we use the same image for both full and thumbnail views
 
 // Generate unique submission ID
 function generateSubmissionId(): string {
@@ -43,8 +70,27 @@ function generateSubmissionId(): string {
   return `photo_${timestamp}_${random}`
 }
 
-// Note: Thumbnail generation would be implemented here in production
-// For now, we use the same image for both full and thumbnail views
+// Generate unique deletion request ID
+function generateDeletionRequestId(): string {
+  const timestamp = Date.now()
+  const random = Math.random().toString(36).substring(2, 8)
+  return `del_${timestamp}_${random}`
+}
+
+// Calculate recovery deadline (4 hours from now)
+function calculateRecoveryDeadline(): string {
+  const now = new Date()
+  now.setHours(now.getHours() + 4)
+  return now.toISOString()
+}
+
+// Check if photo can be recovered
+function canRecoverPhoto(photo: PhotoSubmission): boolean {
+  if (photo.status !== 'deleted' || !photo.canRecoverUntil) {
+    return false
+  }
+  return new Date() < new Date(photo.canRecoverUntil)
+}
 
 // Save photo submission
 export async function savePhotoSubmission(data: {
@@ -54,7 +100,7 @@ export async function savePhotoSubmission(data: {
   submitterEmail: string
   photoData: string
   description: string
-}): Promise<{ success: boolean; submissionId?: string; error?: string }> {
+}): Promise<{ success: boolean; submissionId?: string; error?: string; message?: string }> {
   try {
     const submissionId = generateSubmissionId()
     
@@ -111,46 +157,20 @@ export async function savePhotoSubmission(data: {
     const currentCount = farmPhotoCounts.get(data.farmSlug) || 0
     farmPhotoCounts.set(data.farmSlug, currentCount + 1)
     
-    console.log(`💾 Saved photo submission: ${submissionId}`)
-    
-    // Send confirmation email to submitter
-    try {
-      await sendPhotoSubmissionConfirmation({
-        submissionId,
-        farmSlug: data.farmSlug,
-        farmName: data.farmName,
-        submitterName: data.submitterName,
-        submitterEmail: data.submitterEmail,
-        description: data.description,
-        submittedAt: submission.submittedAt
-      })
-      console.log(`📧 Confirmation email sent to ${data.submitterEmail}`)
-    } catch (error) {
-      console.error('Failed to send confirmation email:', error)
-    }
+    // Send confirmation email
+    await sendPhotoSubmissionConfirmation(submission)
     
     // Send admin notification
-    try {
-      await sendAdminPhotoNotification({
-        submissionId,
-        farmSlug: data.farmSlug,
-        farmName: data.farmName,
-        submitterName: data.submitterName,
-        submitterEmail: data.submitterEmail,
-        description: data.description,
-        submittedAt: submission.submittedAt
-      })
-      console.log(`📧 Admin notification sent`)
-    } catch (error) {
-      console.error('Failed to send admin notification:', error)
-    }
+    await sendAdminPhotoNotification(submission)
     
     return {
       success: true,
-      submissionId
+      submissionId: submissionId,
+      message: 'Photo submitted successfully! It will be reviewed by our team.'
     }
+    
   } catch (error) {
-    console.error('Failed to save photo submission:', error)
+    console.error('Error saving photo submission:', error)
     return {
       success: false,
       error: 'Failed to save photo submission'
@@ -158,108 +178,309 @@ export async function savePhotoSubmission(data: {
   }
 }
 
-// Get photos for a farm
-export async function getFarmPhotos(
-  farmSlug: string,
-  status?: 'pending' | 'approved' | 'rejected'
-): Promise<PhotoSubmission[]> {
-  try {
-    const photos = Array.from(photoSubmissions.values())
-      .filter(photo => photo.farmSlug === farmSlug)
-    
-    if (status) {
-      return photos.filter(photo => photo.status === status)
-    }
-    
-    return photos
-  } catch (error) {
-    console.error('Failed to get farm photos:', error)
-    return []
-  }
-}
-
-// Get farm photo count
-export async function getFarmPhotoCount(farmSlug: string): Promise<number> {
-  try {
-    return farmPhotoCounts.get(farmSlug) || 0
-  } catch (error) {
-    console.error('Failed to get farm photo count:', error)
-    return 0
-  }
-}
-
 // Get photo submission by ID
-export async function getPhotoSubmission(submissionId: string): Promise<PhotoSubmission | null> {
-  try {
-    return photoSubmissions.get(submissionId) || null
-  } catch (error) {
-    console.error('Failed to get photo submission:', error)
-    return null
-  }
+export async function getPhotoSubmission(photoId: string): Promise<PhotoSubmission | null> {
+  return photoSubmissions.get(photoId) || null
 }
 
 // Update photo status
 export async function updatePhotoStatus(
-  submissionId: string,
-  status: 'approved' | 'rejected',
-  reviewedBy: string,
+  photoId: string, 
+  status: 'approved' | 'rejected', 
+  reviewedBy: string, 
   rejectionReason?: string
 ): Promise<boolean> {
   try {
-    const submission = photoSubmissions.get(submissionId)
+    const submission = photoSubmissions.get(photoId)
     if (!submission) {
       return false
     }
     
+    // Update submission
     submission.status = status
     submission.reviewedAt = new Date().toISOString()
     submission.reviewedBy = reviewedBy
-    
-    if (status === 'rejected' && rejectionReason) {
+    if (rejectionReason) {
       submission.rejectionReason = rejectionReason
     }
     
-    photoSubmissions.set(submissionId, submission)
-    console.log(`📝 Updated photo status: ${submissionId} -> ${status}`)
-    
-    // Send notification email based on status
-    try {
-      const submissionData = {
-        submissionId,
-        farmSlug: submission.farmSlug,
-        farmName: submission.farmName,
-        submitterName: submission.submitterName,
-        submitterEmail: submission.submitterEmail,
-        description: submission.description,
-        submittedAt: submission.submittedAt
-      }
-      
-      if (status === 'approved') {
-        await sendApprovalNotification(submissionData)
-        console.log(`📧 Approval notification sent to ${submission.submitterEmail}`)
-      } else if (status === 'rejected') {
-        await sendRejectionNotification(submissionData, rejectionReason || 'Photo does not meet our guidelines')
-        console.log(`📧 Rejection notification sent to ${submission.submitterEmail}`)
-      }
-    } catch (error) {
-      console.error('Failed to send status notification email:', error)
+    // Send notification
+    if (status === 'approved') {
+      await sendApprovalNotification(submission)
+    } else {
+      await sendRejectionNotification(submission, rejectionReason || '')
     }
     
     return true
+    
   } catch (error) {
-    console.error('Failed to update photo status:', error)
+    console.error('Error updating photo status:', error)
     return false
   }
 }
 
-// Get all pending photos for admin review
-export async function getPendingPhotos(): Promise<PhotoSubmission[]> {
+// Request photo deletion
+export async function requestPhotoDeletion(data: {
+  photoId: string
+  requestedBy: string
+  requesterEmail: string
+  requesterRole: 'admin' | 'shop_owner' | 'submitter'
+  reason: string
+}): Promise<{ success: boolean; requestId?: string; error?: string; message?: string }> {
   try {
-    return Array.from(photoSubmissions.values())
-      .filter(photo => photo.status === 'pending')
-      .sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime())
+    const submission = photoSubmissions.get(data.photoId)
+    if (!submission) {
+      return {
+        success: false,
+        error: 'Photo not found'
+      }
+    }
+    
+    // Validate requester permissions
+    if (data.requesterRole === 'submitter' && submission.submitterEmail !== data.requesterEmail) {
+      return {
+        success: false,
+        error: 'You can only request deletion of your own photos'
+      }
+    }
+    
+    // Check if already deleted or deletion requested
+    if (submission.status === 'deleted' || submission.status === 'deletion_requested') {
+      return {
+        success: false,
+        error: 'Photo is already deleted or deletion is already requested'
+      }
+    }
+    
+    // Create deletion request
+    const requestId = generateDeletionRequestId()
+    const deletionRequest: DeletionRequest = {
+      photoId: data.photoId,
+      requestedBy: data.requestedBy,
+      requesterEmail: data.requesterEmail,
+      requesterRole: data.requesterRole,
+      reason: data.reason,
+      requestedAt: new Date().toISOString(),
+      status: 'pending'
+    }
+    
+    // Store deletion request
+    deletionRequests.set(requestId, deletionRequest)
+    
+    // Update photo status
+    submission.status = 'deletion_requested'
+    submission.deletionRequestedAt = new Date().toISOString()
+    submission.deletionRequestedBy = data.requestedBy
+    submission.deletionReason = data.reason
+    
+    // Send admin notification
+    await sendDeletionRequestNotification(submission, deletionRequest)
+    
+    return {
+      success: true,
+      requestId: requestId,
+      message: 'Deletion request submitted successfully. It will be reviewed by our team.'
+    }
+    
   } catch (error) {
-    console.error('Failed to get pending photos:', error)
-    return []
+    console.error('Error requesting photo deletion:', error)
+    return {
+      success: false,
+      error: 'Failed to request photo deletion'
+    }
+  }
+}
+
+// Approve/reject deletion request
+export async function reviewDeletionRequest(data: {
+  requestId: string
+  status: 'approved' | 'rejected'
+  reviewedBy: string
+  rejectionReason?: string
+}): Promise<{ success: boolean; error?: string; message?: string }> {
+  try {
+    const request = deletionRequests.get(data.requestId)
+    if (!request) {
+      return {
+        success: false,
+        error: 'Deletion request not found'
+      }
+    }
+    
+    const submission = photoSubmissions.get(request.photoId)
+    if (!submission) {
+      return {
+        success: false,
+        error: 'Photo not found'
+      }
+    }
+    
+    // Update request
+    request.status = data.status
+    request.reviewedAt = new Date().toISOString()
+    request.reviewedBy = data.reviewedBy
+    if (data.rejectionReason) {
+      request.rejectionReason = data.rejectionReason
+    }
+    
+    if (data.status === 'approved') {
+      // Soft delete the photo
+      submission.status = 'deleted'
+      submission.deletedAt = new Date().toISOString()
+      submission.deletedBy = data.reviewedBy
+      submission.canRecoverUntil = calculateRecoveryDeadline()
+      
+      // Update farm photo count
+      const currentCount = farmPhotoCounts.get(submission.farmSlug) || 0
+      if (currentCount > 0) {
+        farmPhotoCounts.set(submission.farmSlug, currentCount - 1)
+      }
+      
+      // Send approval notification
+      await sendDeletionApprovalNotification(submission, request)
+      
+    } else {
+      // Reject deletion - restore photo to previous status
+      submission.status = 'approved' // or whatever it was before
+      submission.deletionRequestedAt = undefined
+      submission.deletionRequestedBy = undefined
+      submission.deletionReason = undefined
+      
+      // Send rejection notification
+      await sendDeletionRejectionNotification(submission, request, data.rejectionReason || '')
+    }
+    
+    return {
+      success: true,
+      message: `Deletion request ${data.status}`
+    }
+    
+  } catch (error) {
+    console.error('Error reviewing deletion request:', error)
+    return {
+      success: false,
+      error: 'Failed to review deletion request'
+    }
+  }
+}
+
+// Recover deleted photo (admin only)
+export async function recoverDeletedPhoto(photoId: string, _recoveredBy: string): Promise<{ success: boolean; error?: string; message?: string }> {
+  try {
+    const submission = photoSubmissions.get(photoId)
+    if (!submission) {
+      return {
+        success: false,
+        error: 'Photo not found'
+      }
+    }
+    
+    if (submission.status !== 'deleted') {
+      return {
+        success: false,
+        error: 'Photo is not deleted'
+      }
+    }
+    
+    if (!canRecoverPhoto(submission)) {
+      return {
+        success: false,
+        error: 'Photo recovery window has expired'
+      }
+    }
+    
+    // Restore photo
+    submission.status = 'approved'
+    submission.deletedAt = undefined
+    submission.deletedBy = undefined
+    submission.canRecoverUntil = undefined
+    
+    // Update farm photo count
+    const currentCount = farmPhotoCounts.get(submission.farmSlug) || 0
+    farmPhotoCounts.set(submission.farmSlug, currentCount + 1)
+    
+    return {
+      success: true,
+      message: 'Photo recovered successfully'
+    }
+    
+  } catch (error) {
+    console.error('Error recovering deleted photo:', error)
+    return {
+      success: false,
+      error: 'Failed to recover photo'
+    }
+  }
+}
+
+// Get all photos for a farm (excluding deleted)
+export async function getFarmPhotos(farmSlug: string, status?: 'approved' | 'pending' | 'rejected'): Promise<PhotoSubmission[]> {
+  const photos = Array.from(photoSubmissions.values())
+    .filter(photo => photo.farmSlug === farmSlug && photo.status !== 'deleted')
+  
+  if (status) {
+    return photos.filter(photo => photo.status === status)
+  }
+  
+  return photos
+}
+
+// Get pending photos for admin review
+export async function getPendingPhotos(): Promise<PhotoSubmission[]> {
+  return Array.from(photoSubmissions.values())
+    .filter(photo => photo.status === 'pending')
+}
+
+// Get deletion requests for admin review
+export async function getPendingDeletionRequests(): Promise<DeletionRequest[]> {
+  return Array.from(deletionRequests.values())
+    .filter(request => request.status === 'pending')
+}
+
+// Get deleted photos that can still be recovered
+export async function getRecoverablePhotos(): Promise<PhotoSubmission[]> {
+  return Array.from(photoSubmissions.values())
+    .filter(photo => photo.status === 'deleted' && canRecoverPhoto(photo))
+}
+
+// Clean up expired deleted photos (run periodically)
+export async function cleanupExpiredDeletedPhotos(): Promise<number> {
+  const now = new Date()
+  let cleanedCount = 0
+  
+  for (const [photoId, submission] of photoSubmissions.entries()) {
+    if (submission.status === 'deleted' && submission.canRecoverUntil) {
+      if (now > new Date(submission.canRecoverUntil)) {
+        // Permanently delete (in production, this would delete from storage)
+        photoSubmissions.delete(photoId)
+        cleanedCount++
+      }
+    }
+  }
+  
+  return cleanedCount
+}
+
+// Get photo statistics
+export async function getPhotoStats(): Promise<{
+  total: number
+  pending: number
+  approved: number
+  rejected: number
+  deleted: number
+  deletionRequested: number
+  farms: number
+}> {
+  const photos = Array.from(photoSubmissions.values())
+  const farms = new Set(photos.map(photo => photo.farmSlug))
+  
+  return {
+    total: photos.length,
+    pending: photos.filter(p => p.status === 'pending').length,
+    approved: photos.filter(p => p.status === 'approved').length,
+    rejected: photos.filter(p => p.status === 'rejected').length,
+    deleted: photos.filter(p => p.status === 'deleted').length,
+    deletionRequested: photos.filter(p => p.status === 'deletion_requested').length,
+    farms: farms.size
   }
 }
