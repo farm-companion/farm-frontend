@@ -15,10 +15,21 @@ export const metadata: Metadata = {
     template: '%s · Farm Companion',
   },
   description: 'UK farm shops directory — LibreMaps, not Google',
+  keywords: ['farm shops', 'local produce', 'UK farms', 'fresh food', 'farm directory'],
+  authors: [{ name: 'Farm Companion' }],
+  creator: 'Farm Companion',
+  publisher: 'Farm Companion',
   robots: {
     index: true,
     follow: true,
     nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   openGraph: {
     type: 'website',
@@ -27,37 +38,84 @@ export const metadata: Metadata = {
     title: 'Farm Companion — UK farm shops directory',
     description: 'Find trusted farm shops near you with verified information and the freshest local produce.',
     images: [
-      { url: '/og.jpg', width: 1200, height: 630, alt: 'Farm Companion' },
+      { 
+        url: '/og.jpg', 
+        width: 1200, 
+        height: 630, 
+        alt: 'Farm Companion - UK farm shops directory',
+        type: 'image/jpeg',
+      },
     ],
+    locale: 'en_GB',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Farm Companion — UK farm shops directory',
     description: 'Find trusted farm shops near you with verified information and the freshest local produce.',
     images: ['/og.jpg'],
+    creator: '@farmcompanion',
   },
   alternates: {
     canonical: '/',
+  },
+  other: {
+    'theme-color': '#00C2B2',
+    'color-scheme': 'light dark',
   },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="light">
-      <body className="min-h-screen bg-background-canvas text-text-body">
+      <head>
+        {/* Preload critical fonts */}
+        <link
+          rel="preload"
+          href="/fonts/inter-var.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/satoshi-var.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        
+        {/* Font declarations */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        />
+        
+        {/* PWA manifest */}
+        <link rel="manifest" href="/manifest.json" />
+        
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        
+        {/* DNS prefetch for external resources */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+      </head>
+      <body className="min-h-screen bg-background-canvas text-text-body antialiased">
         {/* Skip link for keyboard users */}
         <a
           href="#main"
           className="skip-link"
         >
-          Skip to content
+          Skip to main content
         </a>
 
         {/* Header */}
         <Header />
 
         {/* Page content */}
-        <main id="main">{children}</main>
+        <main id="main" className="flex-1">{children}</main>
 
         {/* Consent */}
         <ConsentBanner />
