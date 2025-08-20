@@ -62,6 +62,7 @@ export default function MapPage() {
 
       // --- Cluster source & layers
       map.on('load', () => {
+        // Ensure the source is added only once
         if (!map.getSource(sourceId)) {
           map.addSource(sourceId, {
             type: 'geojson',
@@ -132,6 +133,7 @@ export default function MapPage() {
               'circle-stroke-color': '#121D2B'
             }
           })
+          console.log('Added cluster layer')
         }
 
         if (!map.getLayer(clusterCountLayerId)) {
@@ -180,6 +182,7 @@ export default function MapPage() {
               'circle-stroke-color': '#121D2B'
             }
           })
+          console.log('Added unclustered layer')
         }
       })
 
@@ -238,7 +241,11 @@ export default function MapPage() {
         map.resize()
         try {
           const res = await fetch('/data/farms.uk.json', { cache: 'no-store' })
+          if (!res.ok) {
+            throw new Error(`Failed to fetch farms data: ${res.status}`)
+          }
           const farms: FarmShop[] = await res.json()
+          console.log(`Loaded ${farms.length} farms`)
           farmsRef.current = farms
           setFarms(farms)
         } catch (e) {
@@ -325,7 +332,11 @@ export default function MapPage() {
     const map = mapRef.current
     if (!map || !map.isStyleLoaded()) return
     const src = map.getSource(sourceId) as any
-    if (!src) return
+    if (!src) {
+      console.warn('Map source not found, retrying...')
+      return
+    }
+    
     const features = (filteredFarmsBase || []).map((f) => ({
       type: 'Feature' as const,
       geometry: { type: 'Point' as const, coordinates: [f.location.lng, f.location.lat] },
@@ -334,9 +345,12 @@ export default function MapPage() {
         name: f.name,
         slug: f.slug,
         county: f.location.county,
-        postcode: f.location.postcode
+        postcode: f.location.postcode,
+        address: f.location.address
       }
     }))
+    
+    console.log(`Updating map with ${features.length} features`)
     src.setData({ type: 'FeatureCollection', features })
   }, [filteredFarmsBase])
 

@@ -148,6 +148,16 @@ p, span, div, .text-sm, .text-xs {
   color: #1E1F23 !important;
 }
 
+/* Ensure all text is readable on all backgrounds */
+* {
+  color: #1E1F23 !important;
+}
+
+/* Override any white or light text */
+.text-white, .text-gray-100, .text-gray-200 {
+  color: #1E1F23 !important;
+}
+
 /* Color Utility Classes for Tailwind */
 .bg-obsidian { background-color: var(--obsidian-graphite); }
 .bg-serum { background-color: var(--serum-teal); }
