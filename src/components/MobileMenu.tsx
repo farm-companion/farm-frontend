@@ -70,12 +70,12 @@ const secondaryItems = [
     icon: MapPin,
     description: 'Discover farms close to you'
   },
-      {
-      title: "What&apos;s in Season",
-      href: '/seasonal',
-      icon: Calendar,
-      description: 'Fresh produce available now'
-    },
+  {
+    title: "What's in Season",
+    href: '/seasonal',
+    icon: Calendar,
+    description: 'Fresh produce available now'
+  },
   {
     title: 'Featured Farms',
     href: '/map?featured=true',
@@ -112,7 +112,6 @@ const userItems = [
 ]
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
-
   // Handle escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -172,6 +171,16 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     }
   }, [isOpen, onClose])
 
+  // Handle link click
+  const handleLinkClick = useCallback((href: string) => {
+    // Close menu immediately
+    onClose()
+    // Navigate after a small delay to ensure menu closes smoothly
+    setTimeout(() => {
+      window.location.href = href
+    }, 150)
+  }, [onClose])
+
   if (!isOpen) return null
 
   return (
@@ -188,7 +197,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         {/* Glass Header */}
         <div className="flex items-center justify-between p-8 border-b border-white/20">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-serum to-solar flex items-center justify-center">
               <span className="text-white font-bold text-sm">FC</span>
             </div>
             <h2 className="text-xl font-bold text-white">
@@ -215,16 +224,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               {navigationItems.map((item, index) => {
                 const IconComponent = item.icon
                 return (
-                  <Link
+                  <button
                     key={item.title}
-                    href={item.href}
-                    onClick={(e) => {
-                      // Ensure the link navigation works
-                      console.log(`Navigating to: ${item.href}`)
-                      // Small delay to ensure navigation happens before menu closes
-                      setTimeout(() => onClose(), 100)
-                    }}
-                    className="glass-button flex items-center gap-4 px-6 py-4 rounded-2xl text-white group animate-item-fade-up cursor-pointer"
+                    onClick={() => handleLinkClick(item.href)}
+                    className="glass-button flex items-center gap-4 px-6 py-4 rounded-2xl text-white group animate-item-fade-up cursor-pointer w-full text-left"
                     style={{
                       animationDelay: `${(index + 1) * 0.1}s`
                     }}
@@ -233,7 +236,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                       <IconComponent className="w-5 h-5 text-white" />
                     </div>
                     <span className="font-semibold text-lg">{item.title}</span>
-                  </Link>
+                  </button>
                 )
               })}
             </nav>
@@ -248,16 +251,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               {secondaryItems.map((item, index) => {
                 const IconComponent = item.icon
                 return (
-                  <Link
+                  <button
                     key={item.title}
-                    href={item.href}
-                    onClick={(e) => {
-                      // Ensure the link navigation works
-                      console.log(`Navigating to: ${item.href}`)
-                      // Small delay to ensure navigation happens before menu closes
-                      setTimeout(() => onClose(), 100)
-                    }}
-                    className="glass-secondary flex items-start gap-4 p-5 rounded-2xl group animate-item-fade-up cursor-pointer"
+                    onClick={() => handleLinkClick(item.href)}
+                    className="glass-secondary flex items-start gap-4 p-5 rounded-2xl group animate-item-fade-up cursor-pointer w-full text-left"
                     style={{
                       animationDelay: `${(index + navigationItems.length + 1) * 0.1}s`
                     }}
@@ -273,7 +270,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         {item.description}
                       </div>
                     </div>
-                  </Link>
+                  </button>
                 )
               })}
             </div>
@@ -288,16 +285,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               {userItems.map((item, index) => {
                 const IconComponent = item.icon
                 return (
-                  <Link
+                  <button
                     key={item.title}
-                    href={item.href}
-                    onClick={(e) => {
-                      // Ensure the link navigation works
-                      console.log(`Navigating to: ${item.href}`)
-                      // Small delay to ensure navigation happens before menu closes
-                      setTimeout(() => onClose(), 100)
-                    }}
-                    className="glass-button flex items-center gap-4 px-6 py-4 rounded-2xl text-white group animate-item-fade-up cursor-pointer"
+                    onClick={() => handleLinkClick(item.href)}
+                    className="glass-button flex items-center gap-4 px-6 py-4 rounded-2xl text-white group animate-item-fade-up cursor-pointer w-full text-left"
                     style={{
                       animationDelay: `${(index + navigationItems.length + secondaryItems.length + 1) * 0.1}s`
                     }}
@@ -306,7 +297,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                       <IconComponent className="w-5 h-5 text-white" />
                     </div>
                     <span className="font-medium text-base">{item.title}</span>
-                  </Link>
+                  </button>
                 )
               })}
             </div>
@@ -317,7 +308,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <div className="p-8 border-t border-white/20">
           <div className="text-center">
             <p className="text-sm text-white/60 leading-relaxed">
-              The UK&apos;s premium guide to real food, real people, and real places.
+              The UK's premium guide to real food, real people, and real places.
             </p>
           </div>
         </div>
@@ -331,23 +322,23 @@ export function MobileMenuButton({ onClick, isOpen }: { onClick: () => void; isO
   return (
     <button
       onClick={onClick}
-      className="md:hidden p-3 rounded-full bg-text-body/10 hover:bg-text-body/20 border border-text-body/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary relative z-[9997]"
+      className="md:hidden p-3 rounded-full bg-obsidian/10 hover:bg-obsidian/20 border border-obsidian/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-serum relative z-[9997]"
       aria-label={isOpen ? 'Close menu' : 'Open menu'}
       aria-expanded={isOpen}
     >
       <div className="relative w-6 h-6">
         <span
-          className={`absolute top-1 left-0 w-6 h-0.5 bg-text-body transition-all duration-300 ease-out ${
+          className={`absolute top-1 left-0 w-6 h-0.5 bg-obsidian transition-all duration-300 ease-out ${
             isOpen ? 'rotate-45 translate-y-2' : ''
           }`}
         />
         <span
-          className={`absolute top-3 left-0 w-6 h-0.5 bg-text-body transition-all duration-300 ease-out ${
+          className={`absolute top-3 left-0 w-6 h-0.5 bg-obsidian transition-all duration-300 ease-out ${
             isOpen ? 'opacity-0' : ''
           }`}
         />
         <span
-          className={`absolute top-5 left-0 w-6 h-0.5 bg-text-body transition-all duration-300 ease-out ${
+          className={`absolute top-5 left-0 w-6 h-0.5 bg-obsidian transition-all duration-300 ease-out ${
             isOpen ? '-rotate-45 -translate-y-2' : ''
           }`}
         />

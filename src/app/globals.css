@@ -95,6 +95,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Color Utility Classes for Tailwind */
+.bg-obsidian { background-color: var(--obsidian-graphite); }
+.bg-serum { background-color: var(--serum-teal); }
+.bg-sandstone { background-color: var(--sandstone-fog); }
+.bg-solar { background-color: var(--solar-lime); }
+.bg-midnight { background-color: var(--midnight-navy); }
+
+.text-obsidian { color: var(--obsidian-graphite); }
+.text-serum { color: var(--serum-teal); }
+.text-sandstone { color: var(--sandstone-fog); }
+.text-solar { color: var(--solar-lime); }
+.text-midnight { color: var(--midnight-navy); }
+
+.border-obsidian { border-color: var(--obsidian-graphite); }
+.border-serum { border-color: var(--serum-teal); }
+.border-sandstone { border-color: var(--sandstone-fog); }
+.border-solar { border-color: var(--solar-lime); }
+.border-midnight { border-color: var(--midnight-navy); }
+
+/* Opacity variants */
+.bg-obsidian\/10 { background-color: rgba(30, 31, 35, 0.1); }
+.bg-obsidian\/20 { background-color: rgba(30, 31, 35, 0.2); }
+.border-obsidian\/20 { border-color: rgba(30, 31, 35, 0.2); }
+
 /* Focus Management */
 *:focus-visible {
   outline: var(--a11y-focus-ring-width) solid var(--a11y-focus-ring-color);
