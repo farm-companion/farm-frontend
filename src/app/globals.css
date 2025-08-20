@@ -86,6 +86,42 @@
   --border-focus: #D4FF4F;
 }
 
+/* Force proper text colors to prevent dark text on dark backgrounds */
+.dark *,
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+.dark p, .dark span, .dark div {
+  color: var(--text-body) !important;
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: var(--text-heading) !important;
+}
+
+/* Ensure buttons have proper contrast in dark mode */
+.dark .btn-primary {
+  background-color: var(--brand-primary);
+  color: #000000;
+}
+
+.dark .btn-secondary {
+  background-color: var(--background-surface);
+  color: var(--text-body);
+  border-color: var(--border-default);
+}
+
+.dark .btn-tertiary {
+  color: var(--brand-primary);
+}
+
+/* Fix any Tailwind classes that might override */
+.dark .text-black {
+  color: var(--text-body) !important;
+}
+
+.dark .bg-white {
+  background-color: var(--background-canvas) !important;
+}
+
 /* Base Styles */
 body {
   background: var(--background-canvas);
@@ -408,6 +444,18 @@ h1, h2, h3, h4, h5, h6 {
 .border-brand-primary { border-color: var(--brand-primary); }
 .border-brand-accent { border-color: var(--brand-accent); }
 .border-brand-danger { border-color: var(--brand-danger); }
+
+/* Ensure proper text colors in all modes */
+.text-text-body { color: var(--text-body) !important; }
+.text-text-heading { color: var(--text-heading) !important; }
+.text-text-muted { color: var(--text-muted) !important; }
+.text-text-link { color: var(--text-link) !important; }
+
+.bg-background-canvas { background-color: var(--background-canvas) !important; }
+.bg-background-surface { background-color: var(--background-surface) !important; }
+
+.border-border-default { border-color: var(--border-default) !important; }
+.border-border-focus { border-color: var(--border-focus) !important; }
 
 /* Loading States */
 .loading {
