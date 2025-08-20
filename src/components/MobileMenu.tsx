@@ -294,7 +294,7 @@ export function MobileMenuButton({ onClick, isOpen }: { onClick: () => void; isO
   return (
     <button
       onClick={onClick}
-      className="md:hidden p-3 rounded-full bg-obsidian/10 hover:bg-obsidian/20 border border-obsidian/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-serum relative z-[9997]"
+      className="p-3 rounded-full bg-obsidian/10 hover:bg-obsidian/20 border border-obsidian/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-serum relative z-[9997]"
       aria-label={isOpen ? 'Close menu' : 'Open menu'}
       aria-expanded={isOpen}
     >

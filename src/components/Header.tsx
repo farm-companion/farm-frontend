@@ -71,8 +71,10 @@ export default function Header() {
             </li>
           </ul>
 
-          {/* Mobile Menu Button - Always visible for easy access */}
-          <MobileMenuButton onClick={toggleMobileMenu} isOpen={isMobileMenuOpen} />
+          {/* Mobile Menu Button - Visible on mobile and tablet */}
+          <div className="lg:hidden">
+            <MobileMenuButton onClick={toggleMobileMenu} isOpen={isMobileMenuOpen} />
+          </div>
         </nav>
       </header>
 
