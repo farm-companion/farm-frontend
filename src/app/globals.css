@@ -125,6 +125,29 @@ p, span, div {
   color: #1E1F23 !important;
 }
 
+/* Force all text to be dark for readability */
+.text-text-body,
+.text-text-heading,
+.text-text-muted {
+  color: #1E1F23 !important;
+}
+
+/* Ensure all headings are dark */
+h1, h2, h3, h4, h5, h6,
+.text-2xl, .text-xl, .text-lg, .text-base {
+  color: #1E1F23 !important;
+}
+
+/* Force all paragraphs and text to be dark */
+p, span, div, .text-sm, .text-xs {
+  color: #1E1F23 !important;
+}
+
+/* Override any light text classes */
+.text-gray-300, .text-gray-400, .text-gray-500, .text-gray-600 {
+  color: #1E1F23 !important;
+}
+
 /* Color Utility Classes for Tailwind */
 .bg-obsidian { background-color: var(--obsidian-graphite); }
 .bg-serum { background-color: var(--serum-teal); }

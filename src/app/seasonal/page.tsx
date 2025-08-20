@@ -126,17 +126,17 @@ export default function SeasonalPage() {
             </div>
             
             {/* Hero Title */}
-            <h1 className="text-5xl md:text-6xl font-bold text-text-heading animate-fade-in-up">
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 animate-fade-in-up">
               {currentSeason.name}
             </h1>
             
             {/* Seasonal Quote */}
-            <blockquote className="text-xl text-text-body italic max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <blockquote className="text-xl text-gray-800 italic max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               &ldquo;{currentSeason.quote}&rdquo;
             </blockquote>
             
             {/* Subtitle */}
-            <p className="text-lg text-text-muted animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+            <p className="text-lg text-gray-700 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
               Discover what&apos;s at its peak this month and find farm shops near you
             </p>
           </div>
@@ -146,7 +146,7 @@ export default function SeasonalPage() {
       {/* Interactive Month Selector */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="bg-background-surface rounded-2xl shadow-lg border border-border-default p-6">
-          <h2 className="text-2xl font-semibold text-text-heading mb-6 text-center">
+          <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
             Explore the Seasons
           </h2>
           
@@ -176,7 +176,7 @@ export default function SeasonalPage() {
                     </div>
                     <div className={`
                       text-sm font-medium transition-colors duration-200
-                      ${isCurrent ? 'text-brand-primary' : 'text-text-body group-hover:text-brand-primary'}
+                      ${isCurrent ? 'text-brand-primary' : 'text-gray-900 group-hover:text-brand-primary'}
                     `}>
                       {monthName}
                     </div>
@@ -194,25 +194,25 @@ export default function SeasonalPage() {
       {/* Seasonal Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         {!current ? (
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-primary mx-auto mb-4"></div>
-            <p className="text-text-muted">Loading seasonal delights...</p>
-          </div>
+                      <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-primary mx-auto mb-4"></div>
+              <p className="text-gray-700">Loading seasonal delights...</p>
+            </div>
         ) : (
           <div className={`space-y-8 transition-opacity duration-300 ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
             {/* Seasonal Wisdom */}
             <div className="bg-background-surface rounded-2xl shadow-lg border border-border-default p-8">
-              <h3 className="text-2xl font-semibold text-text-heading mb-4">
+              <h3 className="text-2xl font-semibold text-gray-900 mb-4">
                 This Month&apos;s Seasonal Wisdom
               </h3>
-              <p className="text-text-body text-lg leading-relaxed">
+              <p className="text-gray-800 text-lg leading-relaxed">
                 {current.notes}
               </p>
             </div>
 
             {/* Produce Gallery */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-semibold text-text-heading">
+              <h3 className="text-2xl font-semibold text-gray-900">
                 What&apos;s in Season Now
               </h3>
               
@@ -224,7 +224,7 @@ export default function SeasonalPage() {
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-lg font-semibold text-text-heading group-hover:text-brand-primary transition-colors">
+                      <h4 className="text-lg font-semibold text-gray-900 group-hover:text-brand-primary transition-colors">
                         {item}
                       </h4>
                       <div className="opacity-60 group-hover:opacity-100 transition-opacity">
@@ -236,14 +236,14 @@ export default function SeasonalPage() {
                     </div>
                     
                     <div className="space-y-3">
-                      <p className="text-sm text-text-muted">
+                      <p className="text-sm text-gray-600">
                         Peak season for flavor and nutrition
                       </p>
                       
                       <div className="flex items-center justify-between">
                         <Link 
                           href={`/map?search=${encodeURIComponent(item)}`}
-                          className="text-sm text-text-link hover:underline transition-colors"
+                          className="text-sm text-blue-600 hover:underline transition-colors"
                         >
                           Find at farm shops →
                         </Link>
@@ -260,20 +260,20 @@ export default function SeasonalPage() {
 
             {/* Seasonal Tips */}
             <div className="bg-gradient-to-r from-brand-primary/5 to-brand-accent/5 rounded-2xl border border-brand-primary/20 p-8">
-              <h3 className="text-2xl font-semibold text-text-heading mb-4">
+              <h3 className="text-2xl font-semibold text-gray-900 mb-4">
                 Seasonal Eating Tips
               </h3>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="font-semibold text-text-heading mb-2">🌱 Why Seasonal?</h4>
-                  <p className="text-text-body text-sm">
+                  <h4 className="font-semibold text-gray-900 mb-2">🌱 Why Seasonal?</h4>
+                  <p className="text-gray-800 text-sm">
                     Seasonal produce is fresher, more nutritious, and often more affordable. 
                     It supports local farmers and reduces environmental impact.
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-text-heading mb-2">💡 Storage Tips</h4>
-                  <p className="text-text-body text-sm">
+                  <h4 className="font-semibold text-gray-900 mb-2">💡 Storage Tips</h4>
+                  <p className="text-gray-800 text-sm">
                     Store seasonal produce properly to extend freshness. 
                     Most seasonal items keep best in cool, dark places or the refrigerator.
                   </p>
@@ -284,9 +284,9 @@ export default function SeasonalPage() {
             {/* Source Attribution */}
             {current.source && (
               <div className="text-center py-6 border-t border-border-default">
-                <p className="text-sm text-text-muted">
+                <p className="text-sm text-gray-600">
                   Source: <a 
-                    className="text-text-link hover:underline" 
+                    className="text-blue-600 hover:underline" 
                     href={current.source} 
                     target="_blank" 
                     rel="noreferrer"
@@ -306,10 +306,10 @@ export default function SeasonalPage() {
       {/* Call to Action */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="bg-gradient-to-r from-brand-primary/10 to-brand-accent/10 rounded-2xl border border-brand-primary/20 p-8 text-center">
-          <h3 className="text-2xl font-semibold text-text-heading mb-4">
+          <h3 className="text-2xl font-semibold text-gray-900 mb-4">
             Ready to Taste the Season?
           </h3>
-          <p className="text-text-body mb-6">
+          <p className="text-gray-800 mb-6">
             Find farm shops near you that stock these seasonal delights
           </p>
           <Link 
