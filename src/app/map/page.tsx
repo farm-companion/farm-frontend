@@ -182,7 +182,7 @@ export default function MapPage() {
   const clusterCountLayerId = 'cluster-count'
   const unclusteredLayerId = 'unclustered-point'
 
-  // Initialize map with Google-level performance
+  // Initialize map with performance optimizations
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return
 
@@ -200,6 +200,7 @@ export default function MapPage() {
         pitchWithRotate: false,
         dragRotate: false,
         touchZoomRotate: true
+        // Note: MapLibre GL JS doesn't support some performance options that Mapbox GL JS has
       })
       mapRef.current = map
 
@@ -463,7 +464,7 @@ export default function MapPage() {
     return Array.from(s).sort((a, b) => a.localeCompare(b))
   }, [farms])
 
-  // Filtered farms computation
+  // Filtered farms computation with performance optimizations
   const filteredFarmsBase = useMemo(() => {
     if (!farms) return []
     const q = query.trim().toLowerCase()
@@ -481,23 +482,46 @@ export default function MapPage() {
 
   const filteredFarms = useMemo(() => {
     let list = filteredFarmsBase
+    
+    // Performance optimization: Limit results for better performance
+    const maxResults = 500 // Limit to prevent performance issues
+    
     if (inViewOnly && bounds) {
       list = list.filter(f => {
         const { lat, lng } = f.location
         return lat >= bounds.south && lat <= bounds.north && lng >= bounds.west && lng <= bounds.east
       })
     }
-    if (userLoc) {
+    
+    // Performance optimization: Limit results and sort by relevance
+    if (list.length > maxResults) {
+      // If we have too many results, prioritize by distance if user location is available
+      if (userLoc) {
+        list = list
+          .map(f => ({
+            ...f,
+            distance: haversineMi(userLoc.lat, userLoc.lng, f.location.lat, f.location.lng)
+          }))
+          .sort((a, b) => a.distance - b.distance)
+          .slice(0, maxResults)
+          .map(({ distance, ...f }) => f) // Remove distance property
+      } else {
+        // Otherwise just take the first maxResults
+        list = list.slice(0, maxResults)
+      }
+    } else if (userLoc) {
+      // If we have fewer results, still sort by distance
       list = [...list].sort((a, b) => {
         const da = haversineMi(userLoc.lat, userLoc.lng, a.location.lat, a.location.lng)
         const db = haversineMi(userLoc.lat, userLoc.lng, b.location.lat, b.location.lng)
         return da - db
       })
     }
+    
     return list
   }, [filteredFarmsBase, inViewOnly, bounds, userLoc])
 
-  // Update map markers with validation
+  // Update map markers with validation and performance optimization
   useEffect(() => {
     const map = mapRef.current
     if (!map || !map.isStyleLoaded()) {
@@ -520,7 +544,9 @@ export default function MapPage() {
              !(lat === 0 && lng === 0)
     })
     
-    const features = validFilteredFarms.map((f) => ({
+    // Performance optimization: Only update if data actually changed
+    const currentFeatures = src._data?.features || []
+    const newFeatures = validFilteredFarms.map((f) => ({
       type: 'Feature' as const,
       geometry: { 
         type: 'Point' as const, 
@@ -536,11 +562,20 @@ export default function MapPage() {
       }
     }))
     
-    console.log(`Updating map with ${features.length} validated features from filtered farms (filtered out ${(filteredFarmsBase || []).length - validFilteredFarms.length} invalid farms)`)
-    if (features.length > 0) {
-      console.log('Sample valid filtered feature:', features[0])
+    // Check if data has actually changed to avoid unnecessary updates
+    const hasChanged = currentFeatures.length !== newFeatures.length || 
+                      JSON.stringify(currentFeatures.map((f: any) => f.properties.id).sort()) !== 
+                      JSON.stringify(newFeatures.map((f: any) => f.properties.id).sort())
+    
+    if (hasChanged) {
+      console.log(`Updating map with ${newFeatures.length} validated features from filtered farms (filtered out ${(filteredFarmsBase || []).length - validFilteredFarms.length} invalid farms)`)
+      if (newFeatures.length > 0) {
+        console.log('Sample valid filtered feature:', newFeatures[0])
+      }
+      src.setData({ type: 'FeatureCollection', features: newFeatures })
+    } else {
+      console.log('Map data unchanged, skipping update for performance')
     }
-    src.setData({ type: 'FeatureCollection', features })
   }, [filteredFarmsBase])
 
   // Google-style fly to farm
@@ -560,7 +595,7 @@ export default function MapPage() {
     setShowResults(true)
   }, [])
 
-  // Google-style search handlers
+  // Performance-optimized search handlers with debouncing
   const handleSearchFocus = useCallback(() => {
     setIsSearchFocused(true)
     setShowSearchSuggestions(true)
@@ -572,10 +607,34 @@ export default function MapPage() {
     setTimeout(() => setShowSearchSuggestions(false), 200)
   }, [])
 
+  // Debounced search for better performance
+  const debouncedSetQuery = useCallback(
+    debounce((value: string) => {
+      setQuery(value)
+      setShowSearchSuggestions(true)
+    }, 300), // 300ms debounce
+    []
+  )
+
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value)
-    setShowSearchSuggestions(true)
-  }, [])
+    const value = e.target.value
+    // Update input immediately for responsive feel
+    e.target.value = value
+    // Debounce the actual search
+    debouncedSetQuery(value)
+  }, [debouncedSetQuery])
+
+  // Debounce utility function
+  function debounce<T extends (...args: any[]) => any>(
+    func: T,
+    wait: number
+  ): (...args: Parameters<T>) => void {
+    let timeout: NodeJS.Timeout
+    return (...args: Parameters<T>) => {
+      clearTimeout(timeout)
+      timeout = setTimeout(() => func(...args), wait)
+    }
+  }
 
   const handleFarmSelect = useCallback((farm: FarmShop) => {
     hapticFeedback.buttonPress()
