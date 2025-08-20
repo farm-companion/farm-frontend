@@ -1,0 +1,537 @@
+[
+  {
+    "name": "Bedfordshire",
+    "slug": "bedfordshire",
+    "region": "East of England"
+  },
+  {
+    "name": "Berkshire",
+    "slug": "berkshire",
+    "region": "South East England"
+  },
+  {
+    "name": "Bristol",
+    "slug": "bristol",
+    "region": "South West England"
+  },
+  {
+    "name": "Buckinghamshire",
+    "slug": "buckinghamshire",
+    "region": "South East England"
+  },
+  {
+    "name": "Cambridgeshire",
+    "slug": "cambridgeshire",
+    "region": "East of England"
+  },
+  {
+    "name": "Cheshire",
+    "slug": "cheshire",
+    "region": "North West England"
+  },
+  {
+    "name": "City of London",
+    "slug": "city-of-london",
+    "region": "Greater London"
+  },
+  {
+    "name": "Cornwall",
+    "slug": "cornwall",
+    "region": "South West England"
+  },
+  {
+    "name": "Cumbria",
+    "slug": "cumbria",
+    "region": "North West England"
+  },
+  {
+    "name": "Derbyshire",
+    "slug": "derbyshire",
+    "region": "East Midlands"
+  },
+  {
+    "name": "Devon",
+    "slug": "devon",
+    "region": "South West England"
+  },
+  {
+    "name": "Dorset",
+    "slug": "dorset",
+    "region": "South West England"
+  },
+  {
+    "name": "Durham",
+    "slug": "durham",
+    "region": "North East England"
+  },
+  {
+    "name": "East Riding of Yorkshire",
+    "slug": "east-riding-of-yorkshire",
+    "region": "Yorkshire and the Humber"
+  },
+  {
+    "name": "East Sussex",
+    "slug": "east-sussex",
+    "region": "South East England"
+  },
+  {
+    "name": "Essex",
+    "slug": "essex",
+    "region": "East of England"
+  },
+  {
+    "name": "Gloucestershire",
+    "slug": "gloucestershire",
+    "region": "South West England"
+  },
+  {
+    "name": "Greater London",
+    "slug": "greater-london",
+    "region": "Greater London"
+  },
+  {
+    "name": "Greater Manchester",
+    "slug": "greater-manchester",
+    "region": "North West England"
+  },
+  {
+    "name": "Hampshire",
+    "slug": "hampshire",
+    "region": "South East England"
+  },
+  {
+    "name": "Herefordshire",
+    "slug": "herefordshire",
+    "region": "West Midlands"
+  },
+  {
+    "name": "Hertfordshire",
+    "slug": "hertfordshire",
+    "region": "East of England"
+  },
+  {
+    "name": "Isle of Wight",
+    "slug": "isle-of-wight",
+    "region": "South East England"
+  },
+  {
+    "name": "Kent",
+    "slug": "kent",
+    "region": "South East England"
+  },
+  {
+    "name": "Lancashire",
+    "slug": "lancashire",
+    "region": "North West England"
+  },
+  {
+    "name": "Leicestershire",
+    "slug": "leicestershire",
+    "region": "East Midlands"
+  },
+  {
+    "name": "Lincolnshire",
+    "slug": "lincolnshire",
+    "region": "East Midlands"
+  },
+  {
+    "name": "Merseyside",
+    "slug": "merseyside",
+    "region": "North West England"
+  },
+  {
+    "name": "Norfolk",
+    "slug": "norfolk",
+    "region": "East of England"
+  },
+  {
+    "name": "North Yorkshire",
+    "slug": "north-yorkshire",
+    "region": "Yorkshire and the Humber"
+  },
+  {
+    "name": "Northamptonshire",
+    "slug": "northamptonshire",
+    "region": "East Midlands"
+  },
+  {
+    "name": "Northumberland",
+    "slug": "northumberland",
+    "region": "North East England"
+  },
+  {
+    "name": "Nottinghamshire",
+    "slug": "nottinghamshire",
+    "region": "East Midlands"
+  },
+  {
+    "name": "Oxfordshire",
+    "slug": "oxfordshire",
+    "region": "South East England"
+  },
+  {
+    "name": "Rutland",
+    "slug": "rutland",
+    "region": "East Midlands"
+  },
+  {
+    "name": "Shropshire",
+    "slug": "shropshire",
+    "region": "West Midlands"
+  },
+  {
+    "name": "Somerset",
+    "slug": "somerset",
+    "region": "South West England"
+  },
+  {
+    "name": "South Yorkshire",
+    "slug": "south-yorkshire",
+    "region": "Yorkshire and the Humber"
+  },
+  {
+    "name": "Staffordshire",
+    "slug": "staffordshire",
+    "region": "West Midlands"
+  },
+  {
+    "name": "Suffolk",
+    "slug": "suffolk",
+    "region": "East of England"
+  },
+  {
+    "name": "Surrey",
+    "slug": "surrey",
+    "region": "South East England"
+  },
+  {
+    "name": "Tyne and Wear",
+    "slug": "tyne-and-wear",
+    "region": "North East England"
+  },
+  {
+    "name": "Warwickshire",
+    "slug": "warwickshire",
+    "region": "West Midlands"
+  },
+  {
+    "name": "West Midlands",
+    "slug": "west-midlands",
+    "region": "West Midlands"
+  },
+  {
+    "name": "West Sussex",
+    "slug": "west-sussex",
+    "region": "South East England"
+  },
+  {
+    "name": "West Yorkshire",
+    "slug": "west-yorkshire",
+    "region": "Yorkshire and the Humber"
+  },
+  {
+    "name": "Wiltshire",
+    "slug": "wiltshire",
+    "region": "South West England"
+  },
+  {
+    "name": "Worcestershire",
+    "slug": "worcestershire",
+    "region": "West Midlands"
+  },
+  {
+    "name": "Aberdeenshire",
+    "slug": "aberdeenshire",
+    "region": "Scotland"
+  },
+  {
+    "name": "Angus",
+    "slug": "angus",
+    "region": "Scotland"
+  },
+  {
+    "name": "Argyll and Bute",
+    "slug": "argyll-and-bute",
+    "region": "Scotland"
+  },
+  {
+    "name": "Ayrshire",
+    "slug": "ayrshire",
+    "region": "Scotland"
+  },
+  {
+    "name": "Dumfries and Galloway",
+    "slug": "dumfries-and-galloway",
+    "region": "Scotland"
+  },
+  {
+    "name": "Dundee",
+    "slug": "dundee",
+    "region": "Scotland"
+  },
+  {
+    "name": "East Ayrshire",
+    "slug": "east-ayrshire",
+    "region": "Scotland"
+  },
+  {
+    "name": "East Dunbartonshire",
+    "slug": "east-dunbartonshire",
+    "region": "Scotland"
+  },
+  {
+    "name": "East Lothian",
+    "slug": "east-lothian",
+    "region": "Scotland"
+  },
+  {
+    "name": "East Renfrewshire",
+    "slug": "east-renfrewshire",
+    "region": "Scotland"
+  },
+  {
+    "name": "Edinburgh",
+    "slug": "edinburgh",
+    "region": "Scotland"
+  },
+  {
+    "name": "Falkirk",
+    "slug": "falkirk",
+    "region": "Scotland"
+  },
+  {
+    "name": "Fife",
+    "slug": "fife",
+    "region": "Scotland"
+  },
+  {
+    "name": "Glasgow",
+    "slug": "glasgow",
+    "region": "Scotland"
+  },
+  {
+    "name": "Highland",
+    "slug": "highland",
+    "region": "Scotland"
+  },
+  {
+    "name": "Inverclyde",
+    "slug": "inverclyde",
+    "region": "Scotland"
+  },
+  {
+    "name": "Midlothian",
+    "slug": "midlothian",
+    "region": "Scotland"
+  },
+  {
+    "name": "Moray",
+    "slug": "moray",
+    "region": "Scotland"
+  },
+  {
+    "name": "North Ayrshire",
+    "slug": "north-ayrshire",
+    "region": "Scotland"
+  },
+  {
+    "name": "North Lanarkshire",
+    "slug": "north-lanarkshire",
+    "region": "Scotland"
+  },
+  {
+    "name": "Orkney",
+    "slug": "orkney",
+    "region": "Scotland"
+  },
+  {
+    "name": "Perth and Kinross",
+    "slug": "perth-and-kinross",
+    "region": "Scotland"
+  },
+  {
+    "name": "Renfrewshire",
+    "slug": "renfrewshire",
+    "region": "Scotland"
+  },
+  {
+    "name": "Scottish Borders",
+    "slug": "scottish-borders",
+    "region": "Scotland"
+  },
+  {
+    "name": "Shetland",
+    "slug": "shetland",
+    "region": "Scotland"
+  },
+  {
+    "name": "South Ayrshire",
+    "slug": "south-ayrshire",
+    "region": "Scotland"
+  },
+  {
+    "name": "South Lanarkshire",
+    "slug": "south-lanarkshire",
+    "region": "Scotland"
+  },
+  {
+    "name": "Stirling",
+    "slug": "stirling",
+    "region": "Scotland"
+  },
+  {
+    "name": "West Dunbartonshire",
+    "slug": "west-dunbartonshire",
+    "region": "Scotland"
+  },
+  {
+    "name": "West Lothian",
+    "slug": "west-lothian",
+    "region": "Scotland"
+  },
+  {
+    "name": "Western Isles",
+    "slug": "western-isles",
+    "region": "Scotland"
+  },
+  {
+    "name": "Blaenau Gwent",
+    "slug": "blaenau-gwent",
+    "region": "Wales"
+  },
+  {
+    "name": "Bridgend",
+    "slug": "bridgend",
+    "region": "Wales"
+  },
+  {
+    "name": "Caerphilly",
+    "slug": "caerphilly",
+    "region": "Wales"
+  },
+  {
+    "name": "Cardiff",
+    "slug": "cardiff",
+    "region": "Wales"
+  },
+  {
+    "name": "Carmarthenshire",
+    "slug": "carmarthenshire",
+    "region": "Wales"
+  },
+  {
+    "name": "Ceredigion",
+    "slug": "ceredigion",
+    "region": "Wales"
+  },
+  {
+    "name": "Conwy",
+    "slug": "conwy",
+    "region": "Wales"
+  },
+  {
+    "name": "Denbighshire",
+    "slug": "denbighshire",
+    "region": "Wales"
+  },
+  {
+    "name": "Flintshire",
+    "slug": "flintshire",
+    "region": "Wales"
+  },
+  {
+    "name": "Gwynedd",
+    "slug": "gwynedd",
+    "region": "Wales"
+  },
+  {
+    "name": "Isle of Anglesey",
+    "slug": "isle-of-anglesey",
+    "region": "Wales"
+  },
+  {
+    "name": "Merthyr Tydfil",
+    "slug": "merthyr-tydfil",
+    "region": "Wales"
+  },
+  {
+    "name": "Monmouthshire",
+    "slug": "monmouthshire",
+    "region": "Wales"
+  },
+  {
+    "name": "Neath Port Talbot",
+    "slug": "neath-port-talbot",
+    "region": "Wales"
+  },
+  {
+    "name": "Newport",
+    "slug": "newport",
+    "region": "Wales"
+  },
+  {
+    "name": "Pembrokeshire",
+    "slug": "pembrokeshire",
+    "region": "Wales"
+  },
+  {
+    "name": "Powys",
+    "slug": "powys",
+    "region": "Wales"
+  },
+  {
+    "name": "Rhondda Cynon Taf",
+    "slug": "rhondda-cynon-taf",
+    "region": "Wales"
+  },
+  {
+    "name": "Swansea",
+    "slug": "swansea",
+    "region": "Wales"
+  },
+  {
+    "name": "Torfaen",
+    "slug": "torfaen",
+    "region": "Wales"
+  },
+  {
+    "name": "Vale of Glamorgan",
+    "slug": "vale-of-glamorgan",
+    "region": "Wales"
+  },
+  {
+    "name": "Wrexham",
+    "slug": "wrexham",
+    "region": "Wales"
+  },
+  {
+    "name": "Antrim",
+    "slug": "antrim",
+    "region": "Northern Ireland"
+  },
+  {
+    "name": "Armagh",
+    "slug": "armagh",
+    "region": "Northern Ireland"
+  },
+  {
+    "name": "Down",
+    "slug": "down",
+    "region": "Northern Ireland"
+  },
+  {
+    "name": "Fermanagh",
+    "slug": "fermanagh",
+    "region": "Northern Ireland"
+  },
+  {
+    "name": "Londonderry",
+    "slug": "londonderry",
+    "region": "Northern Ireland"
+  },
+  {
+    "name": "Tyrone",
+    "slug": "tyrone",
+    "region": "Northern Ireland"
+  }
+]

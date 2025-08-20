@@ -1,21 +1,24 @@
-import type { FarmShop } from '@/types/farm'
 import Link from 'next/link'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
 export const dynamic = 'force-dynamic' // Make this dynamic to avoid build-time data fetching
 
+interface County {
+  name: string
+  slug: string
+  region: string
+}
+
 export default async function CountiesIndex() {
-  const farms = await readFarms()
-  const byCounty = new Map<string, number>()
-  for (const f of farms) {
-    const c = f.location?.county?.trim()
-    if (!c) continue
-    byCounty.set(c, (byCounty.get(c) || 0) + 1)
-  }
-  const counties = Array.from(byCounty.entries())
-    .map(([name, count]) => ({ name, count, slug: slugify(name) }))
-    .sort((a, b) => a.name.localeCompare(b.name))
+  const counties = await readCounties()
+  const farmCounts = await getFarmCounts()
+  
+  // Merge county data with farm counts
+  const countiesWithCounts = counties.map(county => ({
+    ...county,
+    count: farmCounts.get(county.name) || 0
+  })).sort((a, b) => a.name.localeCompare(b.name))
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-10">
@@ -24,14 +27,17 @@ export default async function CountiesIndex() {
         Browse all counties in England, Scotland, Wales and Northern Ireland.
       </p>
       <ul className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
-        {counties.map(c => (
+        {countiesWithCounts.map(c => (
           <li key={c.slug}>
             <Link
               href={`/counties/${c.slug}`}
               className="flex items-center justify-between rounded border px-4 py-2 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-[#1E1F23]"
             >
-              <span>{c.name}</span>
-              <span className="text-xs text-gray-600 dark:text-[#E4E2DD]/70">{c.count}</span>
+              <div>
+                <span className="font-medium">{c.name}</span>
+                <div className="text-xs text-gray-500 dark:text-[#E4E2DD]/60">{c.region}</div>
+              </div>
+              <span className="text-xs text-gray-600 dark:text-[#E4E2DD]/70">{c.count} farms</span>
             </Link>
           </li>
         ))}
@@ -40,10 +46,30 @@ export default async function CountiesIndex() {
   )
 }
 
-async function readFarms(): Promise<FarmShop[]> {
+async function readCounties(): Promise<County[]> {
+  const file = path.join(process.cwd(), 'public', 'data', 'counties.uk.json')
+  const raw = await fs.readFile(file, 'utf8')
+  return JSON.parse(raw) as County[]
+}
+
+async function getFarmCounts(): Promise<Map<string, number>> {
+  const farms = await readFarms()
+  const byCounty = new Map<string, number>()
+  
+  for (const farm of farms) {
+    const county = farm.location?.county?.trim()
+    if (county) {
+      byCounty.set(county, (byCounty.get(county) || 0) + 1)
+    }
+  }
+  
+  return byCounty
+}
+
+async function readFarms(): Promise<any[]> {
   const file = path.join(process.cwd(), 'public', 'data', 'farms.uk.json')
   const raw = await fs.readFile(file, 'utf8')
-  return JSON.parse(raw) as FarmShop[]
+  return JSON.parse(raw)
 }
 
 function slugify(s: string) {
