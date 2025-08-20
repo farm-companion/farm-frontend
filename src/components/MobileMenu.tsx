@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useCallback } from 'react'
-import Link from 'next/link'
 import { 
   Home, 
   Map, 
@@ -308,7 +307,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <div className="p-8 border-t border-white/20">
           <div className="text-center">
             <p className="text-sm text-white/60 leading-relaxed">
-              The UK's premium guide to real food, real people, and real places.
+              The UK&apos;s premium guide to real food, real people, and real places.
             </p>
           </div>
         </div>
