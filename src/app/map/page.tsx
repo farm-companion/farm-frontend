@@ -235,6 +235,26 @@ export default function MapPage() {
           console.log(`Loaded ${farms.length} farms`)
           farmsRef.current = farms
           setFarms(farms)
+          
+          // Update map source with farm data immediately
+          const src = map.getSource(sourceId) as any
+          if (src) {
+            const features = farms.map((f) => ({
+              type: 'Feature' as const,
+              geometry: { type: 'Point' as const, coordinates: [f.location.lng, f.location.lat] },
+              properties: {
+                id: f.id,
+                name: f.name,
+                slug: f.slug,
+                county: f.location.county,
+                postcode: f.location.postcode,
+                address: f.location.address
+              }
+            }))
+            console.log(`Setting map data with ${features.length} features`)
+            src.setData({ type: 'FeatureCollection', features })
+          }
+          
           hapticFeedback.success()
         } catch (e) {
           console.error('Failed to load farms.uk.json', e)
@@ -368,7 +388,10 @@ export default function MapPage() {
   // Update map markers
   useEffect(() => {
     const map = mapRef.current
-    if (!map || !map.isStyleLoaded()) return
+    if (!map || !map.isStyleLoaded()) {
+      console.log('Map not ready for update:', { map: !!map, styleLoaded: map?.isStyleLoaded() })
+      return
+    }
     const src = map.getSource(sourceId) as any
     if (!src) {
       console.warn('Map source not found, retrying...')
@@ -388,7 +411,8 @@ export default function MapPage() {
       }
     }))
     
-    console.log(`Updating map with ${features.length} features`)
+    console.log(`Updating map with ${features.length} features from filtered farms`)
+    console.log('Sample feature:', features[0])
     src.setData({ type: 'FeatureCollection', features })
   }, [filteredFarmsBase])
 
