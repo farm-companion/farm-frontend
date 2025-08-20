@@ -1,12 +1,50 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'Farm Companion Admin Documentation - Complete Guide',
-  description: 'Ultra-comprehensive guide for Farm Companion administrators covering authentication, photo management, claims processing, security, and troubleshooting',
-}
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 export default function AdminDocumentationPage() {
+  const [activeSection, setActiveSection] = useState('quick-start')
+
+  useEffect(() => {
+    const observerOptions = {
+      rootMargin: '-20% 0px -35% 0px',
+      threshold: 0
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id')
+          if (id) {
+            setActiveSection(id)
+          }
+        }
+      })
+    }, observerOptions)
+
+    // Observe all sections
+    const sections = document.querySelectorAll('section[id]')
+    sections.forEach((section) => observer.observe(section))
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section))
+    }
+  }, [])
+
+  const navItems = [
+    { id: 'quick-start', label: 'Quick Start' },
+    { id: 'authentication', label: 'Authentication' },
+    { id: 'dashboard', label: 'Dashboard' },
+    { id: 'photo-management', label: 'Photo Management' },
+    { id: 'claims-system', label: 'Claims System' },
+    { id: 'security', label: 'Security' },
+    { id: 'api-reference', label: 'API Reference' },
+    { id: 'troubleshooting', label: 'Troubleshooting' },
+    { id: 'best-practices', label: 'Best Practices' },
+    { id: 'faq', label: 'FAQ' }
+  ]
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
@@ -23,13 +61,13 @@ export default function AdminDocumentationPage() {
             <div className="flex flex-wrap justify-center gap-4">
               <Link 
                 href="/admin"
-                className="bg-white text-serum px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent"
               >
                 Go to Admin Dashboard
               </Link>
               <Link 
                 href="#quick-start"
-                className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-serum transition-colors"
+                className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-serum transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent"
               >
                 Quick Start Guide
               </Link>
@@ -46,16 +84,20 @@ export default function AdminDocumentationPage() {
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Table of Contents</h3>
                 <ul className="space-y-2 text-sm">
-                  <li><a href="#quick-start" className="text-serum hover:text-teal-700 dark:text-teal-400">🚀 Quick Start</a></li>
-                  <li><a href="#authentication" className="text-gray-600 dark:text-gray-400 hover:text-serum">🔐 Authentication</a></li>
-                  <li><a href="#dashboard" className="text-gray-600 dark:text-gray-400 hover:text-serum">📊 Dashboard</a></li>
-                  <li><a href="#photo-management" className="text-gray-600 dark:text-gray-400 hover:text-serum">📸 Photo Management</a></li>
-                  <li><a href="#claims-system" className="text-gray-600 dark:text-gray-400 hover:text-serum">🏪 Claims System</a></li>
-                  <li><a href="#security" className="text-gray-600 dark:text-gray-400 hover:text-serum">🛡️ Security</a></li>
-                  <li><a href="#api-reference" className="text-gray-600 dark:text-gray-400 hover:text-serum">🔌 API Reference</a></li>
-                  <li><a href="#troubleshooting" className="text-gray-600 dark:text-gray-400 hover:text-serum">🔧 Troubleshooting</a></li>
-                  <li><a href="#best-practices" className="text-gray-600 dark:text-gray-400 hover:text-serum">✅ Best Practices</a></li>
-                  <li><a href="#faq" className="text-gray-600 dark:text-gray-400 hover:text-serum">❓ FAQ</a></li>
+                  {navItems.map((item) => (
+                    <li key={item.id}>
+                      <a 
+                        href={`#${item.id}`} 
+                        className={`block py-1 px-2 rounded transition-colors ${
+                          activeSection === item.id 
+                            ? 'text-serum bg-serum/10 font-medium' 
+                            : 'text-gray-600 dark:text-gray-400 hover:text-serum hover:bg-gray-50 dark:hover:bg-gray-700'
+                        }`}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </nav>
@@ -66,7 +108,7 @@ export default function AdminDocumentationPage() {
             {/* Quick Start Section */}
             <section id="quick-start" className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                🚀 Quick Start Guide
+                Quick Start Guide
               </h2>
               
               <div className="prose dark:prose-invert max-w-none">
@@ -76,11 +118,11 @@ export default function AdminDocumentationPage() {
 
                 <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 mb-8">
                   <h3 className="text-lg font-semibold text-green-900 dark:text-green-100 mb-2">
-                    ⚡ Essential Information
+                    Essential Information
                   </h3>
                   <ul className="text-green-800 dark:text-green-200 space-y-1">
-                    <li><strong>Admin URL:</strong> <code className="bg-green-100 dark:bg-green-800 px-2 py-1 rounded">https://www.farmcompanion.co.uk/admin</code></li>
-                    <li><strong>Login Email:</strong> <code className="bg-green-100 dark:bg-green-800 px-2 py-1 rounded">hello@farmcompanion.co.uk</code></li>
+                    <li><strong>Admin URL:</strong> <code className="bg-white dark:bg-gray-700 text-green-900 dark:text-green-100 px-2 py-1 rounded border border-green-200 dark:border-green-600">https://www.farmcompanion.co.uk/admin</code></li>
+                    <li><strong>Login Email:</strong> <code className="bg-white dark:bg-gray-700 text-green-900 dark:text-green-100 px-2 py-1 rounded border border-green-200 dark:border-green-600">hello@farmcompanion.co.uk</code></li>
                     <li><strong>Session Duration:</strong> 24 hours</li>
                     <li><strong>Support:</strong> Available 24/7 via admin panel</li>
                   </ul>
@@ -105,7 +147,7 @@ export default function AdminDocumentationPage() {
                 <h3>Step 3: Start Managing Content</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                   <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-                    <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">📸 Photo Management</h4>
+                    <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">Photo Management</h4>
                     <p className="text-blue-800 dark:text-blue-200 text-sm">
                       Review and approve user-submitted photos for farm listings
                     </p>
@@ -114,7 +156,7 @@ export default function AdminDocumentationPage() {
                     </Link>
                   </div>
                   <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
-                    <h4 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">🏪 Claims Processing</h4>
+                    <h4 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">Claims Processing</h4>
                     <p className="text-yellow-800 dark:text-yellow-200 text-sm">
                       Handle farm ownership claims and verification requests
                     </p>
@@ -129,7 +171,7 @@ export default function AdminDocumentationPage() {
             {/* Authentication Section */}
             <section id="authentication" className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                🔐 Authentication & Security
+                Authentication & Security
               </h2>
               
               <div className="prose dark:prose-invert max-w-none">
@@ -218,7 +260,7 @@ export default function AdminDocumentationPage() {
             {/* Dashboard Section */}
             <section id="dashboard" className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                📊 Admin Dashboard
+                Admin Dashboard
               </h2>
               
               <div className="prose dark:prose-invert max-w-none">
@@ -229,22 +271,22 @@ export default function AdminDocumentationPage() {
                 <h3>Dashboard Overview</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                   <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">📸</div>
+                    <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">Photos</div>
                     <div className="text-lg font-semibold text-blue-900 dark:text-blue-100">Total Photos</div>
                     <div className="text-sm text-blue-700 dark:text-blue-300">All photos in system</div>
                   </div>
                   <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">⏳</div>
+                    <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">Reviews</div>
                     <div className="text-lg font-semibold text-yellow-900 dark:text-yellow-100">Pending Reviews</div>
                     <div className="text-sm text-yellow-700 dark:text-yellow-300">Awaiting approval</div>
                   </div>
                   <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-green-600 dark:text-green-400">🏪</div>
+                    <div className="text-2xl font-bold text-green-600 dark:text-green-400">Claims</div>
                     <div className="text-lg font-semibold text-green-900 dark:text-green-100">Pending Claims</div>
                     <div className="text-sm text-green-700 dark:text-green-300">Ownership requests</div>
                   </div>
                   <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">📈</div>
+                    <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">Activity</div>
                     <div className="text-lg font-semibold text-purple-900 dark:text-purple-100">Recent Activity</div>
                     <div className="text-sm text-purple-700 dark:text-purple-300">Latest actions</div>
                   </div>
@@ -255,7 +297,7 @@ export default function AdminDocumentationPage() {
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded flex items-center justify-center">
-                        <span className="text-blue-600 dark:text-blue-400 text-sm">📊</span>
+                        <span className="text-blue-600 dark:text-blue-400 text-sm font-semibold">D</span>
                       </div>
                       <div>
                         <div className="font-semibold">Dashboard</div>
@@ -264,7 +306,7 @@ export default function AdminDocumentationPage() {
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-green-100 dark:bg-green-900 rounded flex items-center justify-center">
-                        <span className="text-green-600 dark:text-green-400 text-sm">📸</span>
+                        <span className="text-green-600 dark:text-green-400 text-sm font-semibold">P</span>
                       </div>
                       <div>
                         <div className="font-semibold">Photos</div>
@@ -273,7 +315,7 @@ export default function AdminDocumentationPage() {
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-yellow-100 dark:bg-yellow-900 rounded flex items-center justify-center">
-                        <span className="text-yellow-600 dark:text-yellow-400 text-sm">🏪</span>
+                        <span className="text-yellow-600 dark:text-yellow-400 text-sm font-semibold">C</span>
                       </div>
                       <div>
                         <div className="font-semibold">Claims</div>
@@ -282,7 +324,7 @@ export default function AdminDocumentationPage() {
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded flex items-center justify-center">
-                        <span className="text-purple-600 dark:text-purple-400 text-sm">📚</span>
+                        <span className="text-purple-600 dark:text-purple-400 text-sm font-semibold">G</span>
                       </div>
                       <div>
                         <div className="font-semibold">Documentation</div>
@@ -332,7 +374,7 @@ export default function AdminDocumentationPage() {
             {/* Photo Management Section */}
             <section id="photo-management" className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                📸 Photo Management System
+                Photo Management System
               </h2>
               
               <div className="prose dark:prose-invert max-w-none">
@@ -341,9 +383,9 @@ export default function AdminDocumentationPage() {
                 </p>
 
                 <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-8">
-                  <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2">
-                    📋 Photo Review Workflow
-                  </h3>
+                                      <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                      Photo Review Workflow
+                    </h3>
                   <ol className="text-blue-800 dark:text-blue-200 space-y-2">
                     <li><strong>Submission:</strong> Users submit photos via the main site</li>
                     <li><strong>Pending Review:</strong> Photos appear in admin panel under &quot;Pending&quot;</li>
@@ -501,7 +543,7 @@ export default function AdminDocumentationPage() {
             {/* Claims System Section */}
             <section id="claims-system" className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                🏪 Claims System
+                Claims Management System
               </h2>
               
               <div className="prose dark:prose-invert max-w-none">
@@ -511,7 +553,7 @@ export default function AdminDocumentationPage() {
 
                 <h3>Claim Submission Process</h3>
                 <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-8">
-                  <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-3">📝 Claim Form</h4>
+                                     <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-3">Claim Form</h4>
                   <p className="text-blue-800 dark:text-blue-200 text-sm">
                     Users can submit a claim form on the farm&apos;s page, providing evidence of ownership.
                   </p>
@@ -519,7 +561,7 @@ export default function AdminDocumentationPage() {
 
                 <h3>Claim Review Process</h3>
                 <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-6 mb-8">
-                  <h4 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-3">🔄 Verification Steps</h4>
+                                     <h4 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-3">Verification Steps</h4>
                   <ul className="text-yellow-800 dark:text-yellow-200 text-sm space-y-2">
                     <li>Admins review the claim form and supporting evidence</li>
                     <li>Verify the user&apos;s identity and ownership</li>
@@ -638,7 +680,7 @@ export default function AdminDocumentationPage() {
             {/* Security Section */}
             <section id="security" className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                🛡️ Security
+                Security
               </h2>
               
               <div className="prose dark:prose-invert max-w-none">
@@ -720,7 +762,7 @@ export default function AdminDocumentationPage() {
             {/* API Reference Section */}
             <section id="api-reference" className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                🔌 API Reference
+                API Reference
               </h2>
               
               <div className="prose dark:prose-invert max-w-none">
@@ -741,7 +783,7 @@ export default function AdminDocumentationPage() {
 
                 <h3>Endpoints</h3>
                 <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 mb-8">
-                  <h4 className="font-semibold text-green-900 dark:text-green-100 mb-3">📦 API Endpoints</h4>
+                                     <h4 className="font-semibold text-green-900 dark:text-green-100 mb-3">API Endpoints</h4>
                   <ul className="text-green-800 dark:text-green-200 text-sm space-y-2">
                     <li><strong>GET /api/photos</strong> - List all photos</li>
                                             <li><strong>GET /api/photos/[id]</strong> - Get a specific photo by ID</li>
@@ -788,7 +830,7 @@ export default function AdminDocumentationPage() {
             {/* Troubleshooting Section */}
             <section id="troubleshooting" className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                🔧 Troubleshooting
+                Troubleshooting
               </h2>
               
               <div className="prose dark:prose-invert max-w-none">
@@ -821,7 +863,7 @@ export default function AdminDocumentationPage() {
 
                 <h3>API Key Issues</h3>
                 <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6 mb-8">
-                  <h4 className="font-semibold text-red-900 dark:text-red-100 mb-3">🔑 API Key Problems</h4>
+                                     <h4 className="font-semibold text-red-900 dark:text-red-100 mb-3">API Key Problems</h4>
                   <ul className="text-red-800 dark:text-red-200 text-sm space-y-2">
                     <li>Check if your API key is correct and active.</li>
                     <li>Ensure it&apos;s included in the Authorization header.</li>
@@ -847,7 +889,7 @@ export default function AdminDocumentationPage() {
             {/* Best Practices Section */}
             <section id="best-practices" className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                ✅ Best Practices
+                Best Practices
               </h2>
               
               <div className="prose dark:prose-invert max-w-none">
@@ -867,7 +909,7 @@ export default function AdminDocumentationPage() {
 
                 <h3>Secure Passwords</h3>
                 <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 mb-8">
-                  <h4 className="font-semibold text-green-900 dark:text-green-100 mb-3">�� Strong Passwords</h4>
+                  <h4 className="font-semibold text-green-900 dark:text-green-100 mb-3">🔐 Strong Passwords</h4>
                   <ul className="text-green-800 dark:text-green-200 text-sm space-y-2">
                     <li>Use complex passwords (e.g., mix uppercase, lowercase, numbers, symbols).</li>
                     <li>Change your password regularly.</li>
@@ -900,7 +942,7 @@ export default function AdminDocumentationPage() {
             {/* FAQ Section */}
             <section id="faq" className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                ❓ FAQ
+                FAQ
               </h2>
               
               <div className="prose dark:prose-invert max-w-none">
@@ -910,7 +952,7 @@ export default function AdminDocumentationPage() {
 
                 <h3>General Questions</h3>
                 <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-8">
-                  <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-3">🤔 General Questions</h4>
+                                     <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-3">General Questions</h4>
                   <ul className="text-blue-800 dark:text-blue-200 text-sm space-y-2">
                     <li><strong>What is Farm Companion?</strong> Farm Companion is the UK&apos;s premium farm shop platform, connecting consumers with local farms.</li>
                     <li><strong>Who can use Farm Companion?</strong> Anyone interested in buying from local farms can use the platform.</li>
@@ -922,7 +964,7 @@ export default function AdminDocumentationPage() {
 
                 <h3>Admin Panel Questions</h3>
                 <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 mb-8">
-                  <h4 className="font-semibold text-green-900 dark:text-green-100 mb-3">👨‍💻 Admin Panel Questions</h4>
+                                     <h4 className="font-semibold text-green-900 dark:text-green-100 mb-3">Admin Panel Questions</h4>
                   <ul className="text-green-800 dark:text-green-200 text-sm space-y-2">
                     <li><strong>How do I access the admin panel?</strong> You can access the admin panel by navigating to <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">https://www.farmcompanion.co.uk/admin</code>.</li>
                     <li><strong>What credentials do I need?</strong> You&apos;ll need your admin email and password.</li>
@@ -933,7 +975,7 @@ export default function AdminDocumentationPage() {
 
                 <h3>Photo Management Questions</h3>
                 <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-6 mb-8">
-                  <h4 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-3">📸 Photo Management Questions</h4>
+                                     <h4 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-3">Photo Management Questions</h4>
                   <ul className="text-yellow-800 dark:text-yellow-200 text-sm space-y-2">
                     <li><strong>How do I upload photos for my farm?</strong> You can upload photos directly on the farm&apos;s page or via the admin panel.</li>
                     <li><strong>What are the photo requirements?</strong> Photos must be high-quality, relevant to your farm, and appropriate for all audiences.</li>
@@ -945,7 +987,7 @@ export default function AdminDocumentationPage() {
 
                 <h3>Claims Questions</h3>
                 <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
-                  <h4 className="font-semibold text-red-900 dark:text-red-100 mb-3">🏪 Claims Questions</h4>
+                                     <h4 className="font-semibold text-red-900 dark:text-red-100 mb-3">Claims Questions</h4>
                   <ul className="text-red-800 dark:text-red-200 text-sm space-y-2">
                     <li><strong>How do I process a claim?</strong> You can review claims on the claims management page and approve or reject them.</li>
                     <li><strong>What evidence do I need to verify a claim?</strong> You&apos;ll need to provide evidence of your farm&apos;s ownership, such as tax documents, bank statements, or official correspondence.</li>

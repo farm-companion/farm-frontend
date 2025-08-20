@@ -27,21 +27,27 @@ export default function ContactPage() {
     setSubmitStatus('idle')
 
     try {
-      // For now, we'll use a simple approach - you can integrate with a service like Formspree, Netlify Forms, or your own API
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
       })
 
+      const data = await response.json()
+
       if (response.ok) {
         setSubmitStatus('success')
         setForm({ name: '', email: '', subject: '', message: '' })
+        // Store feedback ID in localStorage for reference
+        if (data.feedbackId) {
+          localStorage.setItem('lastFeedbackId', data.feedbackId)
+        }
       } else {
+        console.error('Feedback submission error:', data)
         setSubmitStatus('error')
       }
     } catch (error) {
-      console.error('Contact form error:', error)
+      console.error('Feedback form error:', error)
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
@@ -49,29 +55,29 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-background-canvas">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-text-heading mb-4">
               Share your feedback
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
+            <p className="text-xl text-text-body">
               Have a question, suggestion, or need help? We&apos;d love to hear from you.
             </p>
           </div>
 
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Contact Form */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+            <div className="bg-background-surface rounded-lg shadow-sm border border-border-default p-6">
+              <h2 className="text-2xl font-semibold text-text-heading mb-6">
                 Send us a message
               </h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-text-body mb-2">
                     Name *
                   </label>
                   <input
@@ -80,15 +86,15 @@ export default function ContactPage() {
                     required
                     value={form.name}
                     onChange={onChange('name')}
-                    className="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 text-sm
-                             focus:border-serum focus:outline-none focus:ring-2 focus:ring-serum focus:ring-offset-2
-                             dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                    className="w-full rounded-lg border border-border-default px-4 py-3 text-sm bg-background-surface text-text-body
+                             focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2
+                             placeholder-text-muted"
                     placeholder="Your name"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-text-body mb-2">
                     Email *
                   </label>
                   <input
@@ -97,15 +103,15 @@ export default function ContactPage() {
                     required
                     value={form.email}
                     onChange={onChange('email')}
-                    className="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 text-sm
-                             focus:border-serum focus:outline-none focus:ring-2 focus:ring-serum focus:ring-offset-2
-                             dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                    className="w-full rounded-lg border border-border-default px-4 py-3 text-sm bg-background-surface text-text-body
+                             focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2
+                             placeholder-text-muted"
                     placeholder="your.email@example.com"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="subject" className="block text-sm font-medium text-text-body mb-2">
                     Subject *
                   </label>
                   <input
@@ -114,15 +120,15 @@ export default function ContactPage() {
                     required
                     value={form.subject}
                     onChange={onChange('subject')}
-                    className="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 text-sm
-                             focus:border-serum focus:outline-none focus:ring-2 focus:ring-serum focus:ring-offset-2
-                             dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                    className="w-full rounded-lg border border-border-default px-4 py-3 text-sm bg-background-surface text-text-body
+                             focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2
+                             placeholder-text-muted"
                     placeholder="What&apos;s this about?"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-text-body mb-2">
                     Message *
                   </label>
                   <textarea
@@ -131,9 +137,9 @@ export default function ContactPage() {
                     rows={5}
                     value={form.message}
                     onChange={onChange('message')}
-                    className="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 text-sm
-                             focus:border-serum focus:outline-none focus:ring-2 focus:ring-serum focus:ring-offset-2
-                             dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                    className="w-full rounded-lg border border-border-default px-4 py-3 text-sm bg-background-surface text-text-body
+                             focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2
+                             placeholder-text-muted"
                     placeholder="Tell us more..."
                   />
                 </div>
@@ -141,9 +147,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-serum text-black font-medium py-3 px-6 rounded-lg
-                           hover:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-solar focus:ring-offset-2
-                           disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="btn-primary w-full"
                 >
                   {isSubmitting ? 'Sending...' : 'Send feedback'}
                 </button>
@@ -158,7 +162,10 @@ export default function ContactPage() {
                       </div>
                       <div className="ml-3">
                         <p className="text-sm text-green-800 dark:text-green-200">
-                          Thank you! Your message has been sent. We&apos;ll get back to you soon.
+                          Thank you! Your feedback has been submitted successfully. You&apos;ll receive a confirmation email shortly.
+                        </p>
+                        <p className="text-xs text-green-700 dark:text-green-300 mt-1">
+                          We typically respond within 24-48 hours during business days.
                         </p>
                       </div>
                     </div>
@@ -186,25 +193,25 @@ export default function ContactPage() {
 
             {/* Contact Information */}
             <div className="space-y-6">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+              <div className="bg-background-surface rounded-lg shadow-sm border border-border-default p-6">
+                <h2 className="text-2xl font-semibold text-text-heading mb-6">
                   Other ways to reach us
                 </h2>
                 
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0">
-                      <div className="w-10 h-10 bg-serum/10 rounded-lg flex items-center justify-center">
-                        <svg className="w-5 h-5 text-serum" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-10 h-10 bg-brand-primary/10 rounded-lg flex items-center justify-center">
+                        <svg className="w-5 h-5 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-medium text-gray-900 dark:text-white mb-1">Email</h3>
+                      <h3 className="font-medium text-text-heading mb-1">Email</h3>
                       <a 
                         href="mailto:hello@farmcompanion.co.uk" 
-                        className="text-serum hover:text-teal-400 transition-colors"
+                        className="text-text-link hover:underline transition-colors"
                       >
                         hello@farmcompanion.co.uk
                       </a>
@@ -213,22 +220,22 @@ export default function ContactPage() {
 
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0">
-                      <div className="w-10 h-10 bg-solar/10 rounded-lg flex items-center justify-center">
-                        <svg className="w-5 h-5 text-solar" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-10 h-10 bg-brand-accent/10 rounded-lg flex items-center justify-center">
+                        <svg className="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
                         </svg>
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-medium text-gray-900 dark:text-white mb-1">Report Issues</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      <h3 className="font-medium text-text-heading mb-1">Report Issues</h3>
+                      <p className="text-sm text-text-muted mb-2">
                         Found an error in our data or have a technical issue?
                       </p>
                       <a 
                         href="https://github.com/farm-companion/farm-frontend/issues/new?title=Issue%20Report&labels=bug&template=bug_report.yml" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-serum hover:text-teal-400 text-sm transition-colors"
+                        className="text-text-link hover:underline text-sm transition-colors"
                       >
                         Report on GitHub →
                       </a>
@@ -244,13 +251,13 @@ export default function ContactPage() {
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-medium text-gray-900 dark:text-white mb-1">Farm Shop Owners</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      <h3 className="font-medium text-text-heading mb-1">Farm Shop Owners</h3>
+                      <p className="text-sm text-text-muted mb-2">
                         Need to update your listing or claim ownership?
                       </p>
                       <Link 
                         href="/claim" 
-                        className="text-serum hover:text-teal-400 text-sm transition-colors"
+                        className="text-text-link hover:underline text-sm transition-colors"
                       >
                         Claim Your Listing →
                       </Link>
@@ -259,18 +266,18 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-serum/10 to-solar/5 dark:from-serum/20 dark:to-solar/10 rounded-lg border border-serum/20 dark:border-serum/30 p-6">
+              <div className="bg-gradient-to-br from-brand-primary/10 to-brand-accent/5 dark:from-brand-primary/20 dark:to-brand-accent/10 rounded-lg border border-brand-primary/20 dark:border-brand-primary/30 p-6">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-serum/20 rounded-lg flex items-center justify-center">
-                      <svg className="w-5 h-5 text-serum" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-10 h-10 bg-brand-primary/20 rounded-lg flex items-center justify-center">
+                      <svg className="w-5 h-5 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-900 dark:text-white mb-1">Response Time</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <h3 className="font-medium text-text-heading mb-1">Response Time</h3>
+                    <p className="text-sm text-text-muted">
                       We typically respond within 24-48 hours during business days.
                     </p>
                   </div>
