@@ -11,7 +11,7 @@ import AdSlot from '@/components/AdSlot'
 export const dynamic = 'force-dynamic'
 
 const styleUrl =
-  process.env.NEXT_PUBLIC_MAP_STYLE_URL || 'https://tiles.openfreemap.org/styles/liberty'
+  process.env.NEXT_PUBLIC_MAP_STYLE_URL || 'https://demotiles.maplibre.org/style.json'
 
 export default function MapPage() {
   const mapContainer = useRef<HTMLDivElement | null>(null)
@@ -93,8 +93,10 @@ export default function MapPage() {
 
       // Google-level map layers
       map.on('load', () => {
+        console.log('Map loaded, setting up layers...')
         // Ensure source is added only once
         if (!map.getSource(sourceId)) {
+          console.log('Adding map source...')
           map.addSource(sourceId, {
             type: 'geojson',
             data: { type: 'FeatureCollection', features: [] },
@@ -103,6 +105,7 @@ export default function MapPage() {
             clusterMaxZoom: 16,
             clusterMinPoints: 3
           })
+          console.log('Map source added successfully')
         }
 
         // Google-style heat visualization
@@ -189,6 +192,7 @@ export default function MapPage() {
 
         // Google-style individual markers
         if (!map.getLayer('point-heat')) {
+          console.log('Adding point-heat layer...')
           map.addLayer({
             id: 'point-heat',
             type: 'circle',
@@ -201,9 +205,11 @@ export default function MapPage() {
               'circle-stroke-width': 0
             }
           })
+          console.log('point-heat layer added')
         }
 
         if (!map.getLayer(unclusteredLayerId)) {
+          console.log('Adding unclustered layer...')
           map.addLayer({
             id: unclusteredLayerId,
             type: 'circle',
@@ -216,6 +222,7 @@ export default function MapPage() {
               'circle-stroke-color': '#FFFFFF'
             }
           })
+          console.log('unclustered layer added')
         }
 
         // Load farm data immediately after layers are set up
