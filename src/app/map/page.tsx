@@ -27,6 +27,7 @@ export default function MapPage() {
   const [selectedCounty, setSelectedCounty] = useState<string>('')
   const [bounds, setBounds] = useState<{ west:number; south:number; east:number; north:number } | null>(null)
   const [inViewOnly, setInViewOnly] = useState<boolean>(true)
+  const [dataQuality, setDataQuality] = useState<{ total: number; valid: number; invalid: number } | null>(null)
   
   // Google-style UI state
   const [isSearchFocused, setIsSearchFocused] = useState(false)
@@ -229,7 +230,7 @@ export default function MapPage() {
         loadFarmData()
       })
 
-      // Load farm data function
+      // Load farm data function with comprehensive validation
       const loadFarmData = async () => {
         map.resize()
         setIsLoading(true)
@@ -238,27 +239,80 @@ export default function MapPage() {
           if (!res.ok) {
             throw new Error(`Failed to fetch farms data: ${res.status}`)
           }
-          const farms: FarmShop[] = await res.json()
-          console.log(`Loaded ${farms.length} farms`)
-          farmsRef.current = farms
-          setFarms(farms)
+          const allFarms: FarmShop[] = await res.json()
+          console.log(`Loaded ${allFarms.length} total farms`)
           
-          // Update map source with farm data immediately
+          // Validate and filter farms with valid coordinates
+          const validFarms = allFarms.filter((farm) => {
+            // Check if location exists and has valid coordinates
+            if (!farm.location) {
+              console.warn(`Farm ${farm.id} has no location data`)
+              return false
+            }
+            
+            const { lat, lng } = farm.location
+            
+            // Check for null/undefined coordinates
+            if (lat === null || lng === null || lat === undefined || lng === undefined) {
+              console.warn(`Farm ${farm.id} has null/undefined coordinates: lat=${lat}, lng=${lng}`)
+              return false
+            }
+            
+            // Check for valid number types
+            if (typeof lat !== 'number' || typeof lng !== 'number') {
+              console.warn(`Farm ${farm.id} has invalid coordinate types: lat=${typeof lat}, lng=${typeof lng}`)
+              return false
+            }
+            
+            // Check for valid coordinate ranges
+            if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+              console.warn(`Farm ${farm.id} has out-of-range coordinates: lat=${lat}, lng=${lng}`)
+              return false
+            }
+            
+            // Check for zero coordinates (likely invalid)
+            if (lat === 0 && lng === 0) {
+              console.warn(`Farm ${farm.id} has zero coordinates (likely invalid): lat=${lat}, lng=${lng}`)
+              return false
+            }
+            
+            return true
+          })
+          
+          console.log(`Validated ${validFarms.length} farms with valid coordinates (filtered out ${allFarms.length - validFarms.length} invalid farms)`)
+          
+          // Set data quality metrics
+          setDataQuality({
+            total: allFarms.length,
+            valid: validFarms.length,
+            invalid: allFarms.length - validFarms.length
+          })
+          
+          farmsRef.current = validFarms
+          setFarms(validFarms)
+          
+          // Update map source with validated farm data
           const src = map.getSource(sourceId) as any
           if (src) {
-            const features = farms.map((f) => ({
+            const features = validFarms.map((f) => ({
               type: 'Feature' as const,
-              geometry: { type: 'Point' as const, coordinates: [f.location.lng, f.location.lat] },
+              geometry: { 
+                type: 'Point' as const, 
+                coordinates: [f.location.lng, f.location.lat] 
+              },
               properties: {
                 id: f.id,
                 name: f.name,
                 slug: f.slug,
-                county: f.location.county,
-                postcode: f.location.postcode,
-                address: f.location.address
+                county: f.location.county || '',
+                postcode: f.location.postcode || '',
+                address: f.location.address || ''
               }
             }))
-            console.log(`Setting map data with ${features.length} features`)
+            
+            console.log(`Setting map data with ${features.length} validated features`)
+            console.log('Sample valid feature:', features[0])
+            
             src.setData({ type: 'FeatureCollection', features })
           }
           
@@ -392,7 +446,7 @@ export default function MapPage() {
     return list
   }, [filteredFarmsBase, inViewOnly, bounds, userLoc])
 
-  // Update map markers
+  // Update map markers with validation
   useEffect(() => {
     const map = mapRef.current
     if (!map || !map.isStyleLoaded()) {
@@ -405,21 +459,36 @@ export default function MapPage() {
       return
     }
     
-    const features = (filteredFarmsBase || []).map((f) => ({
+    // Apply the same validation to filtered farms
+    const validFilteredFarms = (filteredFarmsBase || []).filter((f) => {
+      if (!f.location) return false
+      const { lat, lng } = f.location
+      return lat !== null && lng !== null && 
+             typeof lat === 'number' && typeof lng === 'number' &&
+             lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180 &&
+             !(lat === 0 && lng === 0)
+    })
+    
+    const features = validFilteredFarms.map((f) => ({
       type: 'Feature' as const,
-      geometry: { type: 'Point' as const, coordinates: [f.location.lng, f.location.lat] },
+      geometry: { 
+        type: 'Point' as const, 
+        coordinates: [f.location.lng, f.location.lat] 
+      },
       properties: {
         id: f.id,
         name: f.name,
         slug: f.slug,
-        county: f.location.county,
-        postcode: f.location.postcode,
-        address: f.location.address
+        county: f.location.county || '',
+        postcode: f.location.postcode || '',
+        address: f.location.address || ''
       }
     }))
     
-    console.log(`Updating map with ${features.length} features from filtered farms`)
-    console.log('Sample feature:', features[0])
+    console.log(`Updating map with ${features.length} validated features from filtered farms (filtered out ${(filteredFarmsBase || []).length - validFilteredFarms.length} invalid farms)`)
+    if (features.length > 0) {
+      console.log('Sample valid filtered feature:', features[0])
+    }
     src.setData({ type: 'FeatureCollection', features })
   }, [filteredFarmsBase])
 
@@ -484,6 +553,26 @@ export default function MapPage() {
             <div className="flex flex-col items-center gap-4">
               <div className="w-8 h-8 border-2 border-brand-primary border-t-transparent rounded-full animate-spin" />
               <p className="text-text-body font-medium">Loading farm locations...</p>
+            </div>
+          </div>
+        )}
+
+        {/* Data Quality Indicator */}
+        {dataQuality && dataQuality.invalid > 0 && (
+          <div className="absolute top-20 left-4 right-4 z-30 bg-yellow-500/90 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-yellow-600/20">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-yellow-300 rounded-full animate-pulse" />
+                <p className="text-sm text-yellow-900 font-medium">
+                  Data Quality: {dataQuality.valid} of {dataQuality.total} farms have valid locations
+                </p>
+              </div>
+              <button 
+                onClick={() => setDataQuality(null)}
+                className="text-yellow-900 hover:text-yellow-700 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
           </div>
         )}
