@@ -22,7 +22,6 @@ interface PhotoViewerProps {
   className?: string
   userRole?: 'admin' | 'shop_owner' | 'submitter'
   userEmail?: string
-  farmName?: string
 }
 
 export default function PhotoViewer({ 
@@ -31,8 +30,7 @@ export default function PhotoViewer({
   showStatus = false,
   className = "",
   userRole = 'submitter',
-  userEmail = '',
-  farmName = ''
+  userEmail = ''
 }: PhotoViewerProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -305,15 +303,10 @@ export default function PhotoViewer({
                 <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <PhotoDeletionRequest
                     photoId={selectedPhoto.id}
-                    farmName={farmName}
-                    photoDescription={selectedPhoto.description}
-                    submitterEmail={userEmail}
-                    userRole={userRole}
                     onRequestSubmitted={() => {
                       setShowDeletionRequest(false)
                       closeModal()
                     }}
-                    onCancel={() => setShowDeletionRequest(false)}
                   />
                 </div>
               )}

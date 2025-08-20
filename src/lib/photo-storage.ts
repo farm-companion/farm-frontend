@@ -365,7 +365,7 @@ export async function reviewDeletionRequest(data: {
 }
 
 // Recover deleted photo (admin only)
-export async function recoverDeletedPhoto(photoId: string, _recoveredBy: string): Promise<{ success: boolean; error?: string; message?: string }> {
+export async function recoverDeletedPhoto(photoId: string): Promise<{ success: boolean; error?: string; message?: string }> {
   try {
     const submission = photoSubmissions.get(photoId)
     if (!submission) {

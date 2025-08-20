@@ -184,132 +184,105 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
   return (
     <>
-      {/* Apple-style Backdrop */}
+      {/* Mobile-optimized Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-md z-[9998] animate-backdrop-fade-in"
+        className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[9998] animate-fade-in"
         onClick={handleBackdropClick}
         aria-hidden="true"
       />
       
-      {/* Apple-style Glass Menu Container */}
-      <div className="fixed inset-y-0 right-0 w-80 max-w-[85vw] glass-primary z-[9999] animate-ios-spring-in rounded-l-3xl">
-        {/* Glass Header */}
-        <div className="flex items-center justify-between p-8 border-b border-white/20">
+      {/* Mobile-optimized Menu Container */}
+      <div className="fixed inset-y-0 right-0 w-72 sm:w-80 max-w-[85vw] bg-white dark:bg-obsidian shadow-2xl z-[9999] animate-slide-up">
+        {/* Mobile Header */}
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border-default">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-serum to-solar flex items-center justify-center">
-              <span className="text-white font-bold text-sm">FC</span>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-serum to-solar flex items-center justify-center">
+              <span className="text-white font-bold text-sm sm:text-base">FC</span>
             </div>
-            <h2 className="text-xl font-bold text-white">
+            <h2 className="text-lg sm:text-xl font-bold text-text-heading">
               Farm Companion
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="glass-button p-3 rounded-full focus:outline-none focus:ring-2 focus:ring-white/50"
+            className="touch-target p-2 rounded-full hover:bg-background-surface focus:outline-none focus:ring-2 focus:ring-brand-primary"
             aria-label="Close menu"
           >
-            <X className="w-5 h-5 text-white" />
+            <X className="w-5 h-5 sm:w-6 sm:h-6 text-text-body" />
           </button>
         </div>
 
         {/* Navigation Content */}
-        <div className="flex-1 overflow-y-auto py-8">
+        <div className="flex-1 overflow-y-auto py-4 sm:py-6">
           {/* Primary Navigation */}
-          <div className="px-8 mb-10">
-            <h3 className="text-xs font-semibold text-white/70 uppercase tracking-widest mb-6">
+          <div className="px-4 sm:px-6 mb-6">
+            <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wider mb-3">
               Navigation
             </h3>
-            <nav className="space-y-3">
-              {navigationItems.map((item, index) => {
-                const IconComponent = item.icon
-                return (
-                  <button
-                    key={item.title}
-                    onClick={() => handleLinkClick(item.href)}
-                    className="glass-button flex items-center gap-4 px-6 py-4 rounded-2xl text-white group animate-item-fade-up cursor-pointer w-full text-left"
-                    style={{
-                      animationDelay: `${(index + 1) * 0.1}s`
-                    }}
-                  >
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-all duration-200">
-                      <IconComponent className="w-5 h-5 text-white" />
-                    </div>
-                    <span className="font-semibold text-lg">{item.title}</span>
-                  </button>
-                )
-              })}
-            </nav>
-          </div>
-
-          {/* Secondary Features */}
-          <div className="px-8 mb-10">
-            <h3 className="text-xs font-semibold text-white/70 uppercase tracking-widest mb-6">
-              Discover
-            </h3>
-            <div className="space-y-4">
-              {secondaryItems.map((item, index) => {
-                const IconComponent = item.icon
-                return (
-                  <button
-                    key={item.title}
-                    onClick={() => handleLinkClick(item.href)}
-                    className="glass-secondary flex items-start gap-4 p-5 rounded-2xl group animate-item-fade-up cursor-pointer w-full text-left"
-                    style={{
-                      animationDelay: `${(index + navigationItems.length + 1) * 0.1}s`
-                    }}
-                  >
-                    <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-white/25 transition-all duration-200 mt-1">
-                      <IconComponent className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="font-semibold text-white text-base mb-1">
-                        {item.title}
-                      </div>
-                      <div className="text-white/70 text-sm leading-relaxed">
-                        {item.description}
-                      </div>
-                    </div>
-                  </button>
-                )
-              })}
+            <div className="space-y-1">
+              {navigationItems.map((item) => (
+                <button
+                  key={item.href}
+                  onClick={() => handleLinkClick(item.href)}
+                  className="w-full touch-target flex items-center gap-3 px-3 py-3 text-left text-text-body hover:text-text-heading hover:bg-background-surface rounded-lg transition-colors"
+                >
+                  <item.icon className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+                  <span className="text-sm sm:text-base font-medium">{item.title}</span>
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* User Actions */}
-          <div className="px-8 mb-8">
-            <h3 className="text-xs font-semibold text-white/70 uppercase tracking-widest mb-6">
+          {/* Secondary Features */}
+          <div className="px-4 sm:px-6 mb-6">
+            <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wider mb-3">
+              Quick Actions
+            </h3>
+            <div className="space-y-2">
+              {secondaryItems.map((item) => (
+                <button
+                  key={item.href}
+                  onClick={() => handleLinkClick(item.href)}
+                  className="w-full touch-target flex items-start gap-3 p-3 text-left hover:bg-background-surface rounded-lg transition-colors"
+                >
+                  <item.icon className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm sm:text-base font-medium text-text-heading">{item.title}</div>
+                    <div className="text-xs sm:text-sm text-text-muted mt-0.5">{item.description}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* User Section */}
+          <div className="px-4 sm:px-6">
+            <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wider mb-3">
               Account
             </h3>
-            <div className="space-y-3">
-              {userItems.map((item, index) => {
-                const IconComponent = item.icon
-                return (
-                  <button
-                    key={item.title}
-                    onClick={() => handleLinkClick(item.href)}
-                    className="glass-button flex items-center gap-4 px-6 py-4 rounded-2xl text-white group animate-item-fade-up cursor-pointer w-full text-left"
-                    style={{
-                      animationDelay: `${(index + navigationItems.length + secondaryItems.length + 1) * 0.1}s`
-                    }}
-                  >
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-all duration-200">
-                      <IconComponent className="w-5 h-5 text-white" />
-                    </div>
-                    <span className="font-medium text-base">{item.title}</span>
-                  </button>
-                )
-              })}
+            <div className="space-y-2">
+              {userItems.map((item) => (
+                <button
+                  key={item.href}
+                  onClick={() => handleLinkClick(item.href)}
+                  className="w-full touch-target flex items-start gap-3 p-3 text-left hover:bg-background-surface rounded-lg transition-colors"
+                >
+                  <item.icon className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm sm:text-base font-medium text-text-heading">{item.title}</div>
+                    <div className="text-xs sm:text-sm text-text-muted mt-0.5">{item.description}</div>
+                  </div>
+                </button>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Glass Footer */}
-        <div className="p-8 border-t border-white/20">
-          <div className="text-center">
-            <p className="text-sm text-white/60 leading-relaxed">
-              The UK&apos;s premium guide to real food, real people, and real places.
-            </p>
-          </div>
+        {/* Mobile Footer */}
+        <div className="border-t border-border-default p-4 sm:p-6">
+          <p className="text-xs sm:text-sm text-text-muted leading-relaxed">
+            The UK&apos;s premium guide to real food, real people, and real places.
+          </p>
         </div>
       </div>
     </>

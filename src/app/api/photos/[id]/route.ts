@@ -118,7 +118,7 @@ export async function PATCH(
       
     } else if (body.action === 'recover') {
       // Recover deleted photo (admin only)
-      const result = await recoverDeletedPhoto(photoId, body.recoveredBy || 'admin')
+      const result = await recoverDeletedPhoto(photoId)
       
       if (!result.success) {
         return NextResponse.json(

@@ -5,6 +5,16 @@ import { requireAuth } from '@/lib/auth'
 
 import { getFarmPhotosApiUrl } from '@/config/farm-photos'
 
+// Force dynamic rendering for admin pages
+export const dynamic = 'force-dynamic'
+
+// Metadata for SEO and clarity
+export const metadata: Metadata = {
+  title: 'Photo Management - Farm Companion Admin',
+  description: 'Review and manage photo submissions for Farm Companion',
+  keywords: 'admin, photo management, farm companion, moderation',
+}
+
 interface PhotoSubmission {
   id: string
   farmSlug: string
@@ -176,10 +186,6 @@ async function recoverDeletedPhoto(photoId: string) {
     console.error('Error recovering deleted photo:', error)
     return false
   }
-}
-
-export const metadata: Metadata = {
-  title: 'Photo Submissions - Farm Companion Admin'
 }
 
 export default async function AdminPhotosPage() {
