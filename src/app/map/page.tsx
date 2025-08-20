@@ -136,8 +136,26 @@ export default function MapPage() {
           
           console.log(`Setting map data with ${features.length} validated features`)
           console.log('Sample valid feature:', features[0])
+          console.log('Map layers available:', map.getStyle().layers?.map(l => l.id))
+          console.log('Map source data before update:', src._data)
           
           src.setData({ type: 'FeatureCollection', features })
+          
+          // Force a style refresh to ensure markers appear
+          setTimeout(() => {
+            if (map.getLayer(unclusteredLayerId)) {
+              console.log('Unclustered layer exists, checking visibility')
+              const layer = map.getLayer(unclusteredLayerId)
+              console.log('Layer paint properties:', layer)
+              
+              // Force layer visibility
+              map.setLayoutProperty(unclusteredLayerId, 'visibility', 'visible')
+              map.setPaintProperty(unclusteredLayerId, 'circle-radius', 10)
+              map.setPaintProperty(unclusteredLayerId, 'circle-color', '#FF0000') // Red for debugging
+              map.setPaintProperty(unclusteredLayerId, 'circle-stroke-width', 2)
+              map.setPaintProperty(unclusteredLayerId, 'circle-stroke-color', '#FFFFFF')
+            }
+          }, 1000)
         }
       }
       
@@ -573,6 +591,21 @@ export default function MapPage() {
         console.log('Sample valid filtered feature:', newFeatures[0])
       }
       src.setData({ type: 'FeatureCollection', features: newFeatures })
+      
+      // Debug marker visibility
+      setTimeout(() => {
+        console.log('Checking marker visibility after update...')
+        console.log('Source data features count:', src._data?.features?.length || 0)
+        console.log('Map zoom level:', map.getZoom())
+        console.log('Map center:', map.getCenter())
+        
+        // Force red markers for debugging
+        if (map.getLayer(unclusteredLayerId)) {
+          map.setPaintProperty(unclusteredLayerId, 'circle-color', '#FF0000')
+          map.setPaintProperty(unclusteredLayerId, 'circle-radius', 15)
+          console.log('Applied red debug styling to markers')
+        }
+      }, 500)
     } else {
       console.log('Map data unchanged, skipping update for performance')
     }
@@ -843,20 +876,56 @@ export default function MapPage() {
           </div>
         </div>
 
-                 {/* Mobile-Optimized Floating Action Button */}
-         <button
-           onClick={() => setShowResults(true)}
-           className="absolute bottom-6 right-6 z-40 w-16 h-16 sm:w-14 sm:h-14 bg-brand-primary text-white rounded-full shadow-lg hover:bg-brand-primary/90 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 touch-manipulation"
-           aria-label="Show farm list"
-           style={{ minHeight: '64px', minWidth: '64px' }} // Mobile-friendly touch target
-         >
-           <MapPin className="w-7 h-7 sm:w-6 sm:h-6 mx-auto" />
-           {filteredFarms.length > 0 && (
-             <span className="absolute -top-1 -right-1 w-7 h-7 sm:w-6 sm:h-6 bg-background-canvas text-brand-primary text-xs rounded-full flex items-center justify-center font-bold border-2 border-brand-primary">
-               {Math.min(filteredFarms.length, 99)}
-             </span>
-           )}
-         </button>
+                         {/* Debug Button for Marker Visibility */}
+        <button
+          onClick={() => {
+            const map = mapRef.current
+            if (map) {
+              console.log('=== DEBUGGING MARKERS ===')
+              console.log('Map loaded:', map.loaded())
+              console.log('Style loaded:', map.isStyleLoaded())
+              console.log('Available layers:', map.getStyle().layers?.map(l => l.id))
+              
+              const src = map.getSource(sourceId) as any
+              if (src) {
+                console.log('Source data:', src._data)
+                console.log('Features count:', src._data?.features?.length || 0)
+                
+                // Force marker visibility
+                if (map.getLayer(unclusteredLayerId)) {
+                  map.setPaintProperty(unclusteredLayerId, 'circle-color', '#FF0000')
+                  map.setPaintProperty(unclusteredLayerId, 'circle-radius', 20)
+                  map.setPaintProperty(unclusteredLayerId, 'circle-opacity', 1)
+                  map.setLayoutProperty(unclusteredLayerId, 'visibility', 'visible')
+                  console.log('Applied debug styling to force marker visibility')
+                } else {
+                  console.log('Unclustered layer not found!')
+                }
+              } else {
+                console.log('Map source not found!')
+              }
+              console.log('=== END DEBUG ===')
+            }
+          }}
+          className="absolute bottom-24 right-6 z-40 w-12 h-12 bg-red-500 text-white rounded-full shadow-lg hover:bg-red-600 transition-all duration-200 focus:outline-none text-xs font-bold"
+        >
+          DEBUG
+        </button>
+
+        {/* Mobile-Optimized Floating Action Button */}
+        <button
+          onClick={() => setShowResults(true)}
+          className="absolute bottom-6 right-6 z-40 w-16 h-16 sm:w-14 sm:h-14 bg-brand-primary text-white rounded-full shadow-lg hover:bg-brand-primary/90 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 touch-manipulation"
+          aria-label="Show farm list"
+          style={{ minHeight: '64px', minWidth: '64px' }} // Mobile-friendly touch target
+        >
+          <MapPin className="w-7 h-7 sm:w-6 sm:h-6 mx-auto" />
+          {filteredFarms.length > 0 && (
+            <span className="absolute -top-1 -right-1 w-7 h-7 sm:w-6 sm:h-6 bg-background-canvas text-brand-primary text-xs rounded-full flex items-center justify-center font-bold border-2 border-brand-primary">
+              {Math.min(filteredFarms.length, 99)}
+            </span>
+          )}
+        </button>
 
                  {/* Mobile-Optimized Bottom Sheet Results */}
          {showResults && (
