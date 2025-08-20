@@ -1,8 +1,10 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import maplibregl, { Map } from 'maplibre-gl'
 import type { FarmShop } from '@/types/farm'
+import { Search, MapPin, Filter, X, ChevronUp, ChevronDown, Star, Navigation } from 'lucide-react'
+import { hapticFeedback } from '@/lib/haptics'
 import AdSlot from '@/components/AdSlot'
 
 // Ensure this route is always rendered client-side
@@ -16,23 +18,33 @@ export default function MapPage() {
   const mapRef = useRef<Map | null>(null)
   const rafRef = useRef<number | null>(null)
   const roRef = useRef<ResizeObserver | null>(null)
-  // No markers array needed with clustering
   const farmsRef = useRef<FarmShop[] | null>(null)
+  
+  // State management
   const [farms, setFarms] = useState<FarmShop[] | null>(null)
   const [query, setQuery] = useState('')
   const [userLoc, setUserLoc] = useState<{ lat: number; lng: number } | null>(null)
-  const [selectedCounty, setSelectedCounty] = useState<string>('') // '' = All
+  const [selectedCounty, setSelectedCounty] = useState<string>('')
   const [bounds, setBounds] = useState<{ west:number; south:number; east:number; north:number } | null>(null)
   const [inViewOnly, setInViewOnly] = useState<boolean>(true)
+  
+  // Mobile UI state
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false)
+  const [isResultsExpanded, setIsResultsExpanded] = useState(false)
+  const [selectedFarm, setSelectedFarm] = useState<FarmShop | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  
+  // Map configuration
   const sourceId = 'farms-src'
   const clusterLayerId = 'clusters'
   const clusterCountLayerId = 'cluster-count'
   const unclusteredLayerId = 'unclustered-point'
 
+  // Initialize map with Apple-level performance
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return
 
-    // Defer to the next frame so the container has a real size after navigation
+    // Defer to next frame for proper sizing
     rafRef.current = requestAnimationFrame(() => {
       if (!mapContainer.current || mapRef.current) return
 
@@ -41,39 +53,58 @@ export default function MapPage() {
         style: styleUrl,
         center: [-3.5, 54.5],
         zoom: 5,
+        maxZoom: 18,
+        minZoom: 4,
+        pitchWithRotate: false, // Disable pitch on mobile for better UX
+        dragRotate: false, // Disable drag rotation on mobile
+        touchZoomRotate: true
       })
       mapRef.current = map
 
-      map.addControl(new maplibregl.NavigationControl({ showCompass: true }), 'top-right')
-      map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left')
-      // "Near me" — ask for permission and pan to the user's location.
+      // Apple-style controls
+      map.addControl(new maplibregl.NavigationControl({ 
+        showCompass: true,
+        showZoom: true,
+        visualizePitch: false
+      }), 'top-right')
+      
+      map.addControl(new maplibregl.ScaleControl({ 
+        unit: 'metric',
+        maxWidth: 80
+      }), 'bottom-left')
+
+      // Enhanced geolocation with haptic feedback
       const geo = new maplibregl.GeolocateControl({
         positionOptions: { enableHighAccuracy: true },
         trackUserLocation: false,
         showUserLocation: true,
-        fitBoundsOptions: { maxZoom: 13 }
+        fitBoundsOptions: { maxZoom: 13 },
+        showAccuracyCircle: true
       })
       map.addControl(geo, 'top-right')
+      
       geo.on('geolocate', (e: any) => {
         if (e && e.coords) {
+          hapticFeedback.success()
           setUserLoc({ lat: e.coords.latitude, lng: e.coords.longitude })
         }
       })
 
-      // --- Cluster source & layers
+      // Enhanced map layers with Apple-style markers
       map.on('load', () => {
-        // Ensure the source is added only once
+        // Ensure source is added only once
         if (!map.getSource(sourceId)) {
           map.addSource(sourceId, {
             type: 'geojson',
             data: { type: 'FeatureCollection', features: [] },
             cluster: true,
-            clusterRadius: 65,     // px — increased for earlier clustering
-            clusterMaxZoom: 14,    // stop clustering beyond this zoom
+            clusterRadius: 50, // Smaller clusters for mobile
+            clusterMaxZoom: 16,
+            clusterMinPoints: 3
           })
         }
 
-        // Heat circle layer for density visualization (behind clusters)
+        // Apple-style heat visualization
         if (!map.getLayer('cluster-heat')) {
           map.addLayer({
             id: 'cluster-heat',
@@ -81,23 +112,21 @@ export default function MapPage() {
             source: sourceId,
             filter: ['has', 'point_count'],
             paint: {
-              // Larger, more transparent heat circles
               'circle-radius': [
                 'step',
                 ['get', 'point_count'],
-                25, 5,
-                35, 15,
-                45, 30,
-                55
+                20, 3,
+                30, 10,
+                40, 20,
+                50
               ],
-              // Heat gradient: light teal to darker teal based on density
               'circle-color': [
                 'step',
                 ['get', 'point_count'],
-                'rgba(0, 194, 178, 0.15)', 5,   // Light teal
-                'rgba(0, 194, 178, 0.25)', 15,  // Medium teal
-                'rgba(0, 194, 178, 0.35)', 30,  // Darker teal
-                'rgba(0, 194, 178, 0.45)'       // Darkest teal
+                'rgba(0, 194, 178, 0.2)', 3,
+                'rgba(0, 194, 178, 0.3)', 10,
+                'rgba(0, 194, 178, 0.4)', 20,
+                'rgba(0, 194, 178, 0.5)'
               ],
               'circle-opacity': 0.8,
               'circle-stroke-width': 0
@@ -105,6 +134,7 @@ export default function MapPage() {
           })
         }
 
+        // Apple-style cluster markers
         if (!map.getLayer(clusterLayerId)) {
           map.addLayer({
             id: clusterLayerId,
@@ -112,30 +142,30 @@ export default function MapPage() {
             source: sourceId,
             filter: ['has', 'point_count'],
             paint: {
-              // Bigger cluster when more points
               'circle-radius': [
                 'step',
                 ['get', 'point_count'],
-                16, 10,
-                20, 25,
+                14, 3,
+                18, 10,
+                22, 20,
                 26
               ],
-              // Brand palette: Serum Teal (default), Solar Lime (bigger)
               'circle-color': [
                 'step',
                 ['get', 'point_count'],
+                '#00C2B2', 3,
                 '#00C2B2', 10,
-                '#00C2B2', 25,
+                '#00C2B2', 20,
                 '#D4FF4F'
               ],
-              'circle-opacity': 0.9,
+              'circle-opacity': 0.95,
               'circle-stroke-width': 2,
-              'circle-stroke-color': '#121D2B'
+              'circle-stroke-color': '#FFFFFF'
             }
           })
-          console.log('Added cluster layer')
         }
 
+        // Cluster count labels
         if (!map.getLayer(clusterCountLayerId)) {
           map.addLayer({
             id: clusterCountLayerId,
@@ -145,15 +175,18 @@ export default function MapPage() {
             layout: {
               'text-field': ['get', 'point_count_abbreviated'],
               'text-font': ['Inter', 'Open Sans Regular', 'Arial Unicode MS Regular'],
-              'text-size': 12
+              'text-size': 11,
+              'text-allow-overlap': true
             },
             paint: {
-              'text-color': '#121D2B'
+              'text-color': '#1E1F23',
+              'text-halo-color': '#FFFFFF',
+              'text-halo-width': 1
             }
           })
         }
 
-        // Heat layer for individual points (behind unclustered points)
+        // Individual farm markers with Apple-style design
         if (!map.getLayer('point-heat')) {
           map.addLayer({
             id: 'point-heat',
@@ -161,9 +194,9 @@ export default function MapPage() {
             source: sourceId,
             filter: ['!', ['has', 'point_count']],
             paint: {
-              'circle-radius': 12,
-              'circle-color': 'rgba(0, 194, 178, 0.2)',
-              'circle-opacity': 0.6,
+              'circle-radius': 10,
+              'circle-color': 'rgba(0, 194, 178, 0.15)',
+              'circle-opacity': 0.7,
               'circle-stroke-width': 0
             }
           })
@@ -176,59 +209,58 @@ export default function MapPage() {
             source: sourceId,
             filter: ['!', ['has', 'point_count']],
             paint: {
-              'circle-radius': 6,
+              'circle-radius': 5,
               'circle-color': '#00C2B2',
               'circle-stroke-width': 2,
-              'circle-stroke-color': '#121D2B'
+              'circle-stroke-color': '#FFFFFF'
             }
           })
-          console.log('Added unclustered layer')
         }
       })
 
-      // Interactions
-      map.on('click', clusterLayerId, (e) => {
+      // Enhanced interactions with haptic feedback
+      map.on('click', clusterLayerId, (e: any) => {
+        hapticFeedback.buttonPress()
         const features = map.queryRenderedFeatures(e.point, { layers: [clusterLayerId] })
         const clusterId = features[0]?.properties?.cluster_id
         const src = map.getSource(sourceId) as any
         if (!src || clusterId == null) return
         src.getClusterExpansionZoom(clusterId, (err: any, zoom: number) => {
           if (err) return
-          map.easeTo({ center: (features[0].geometry as any).coordinates, zoom })
+          map.easeTo({ 
+            center: (features[0].geometry as any).coordinates, 
+            zoom,
+            duration: 500
+          })
         })
       })
 
-      map.on('mouseenter', clusterLayerId, () => { map.getCanvas().style.cursor = 'pointer' })
-      map.on('mouseleave', clusterLayerId, () => { map.getCanvas().style.cursor = '' })
-
-      // Click unclustered point to show a popup with a details link
-      map.on('click', unclusteredLayerId, (e) => {
+              map.on('click', unclusteredLayerId, (e: any) => {
+          hapticFeedback.buttonPress()
         const f = e.features && e.features[0]
         if (!f) return
         const p = f.properties as any
         const coords = (f.geometry as any).coordinates
-        const html = `
-          <div style="font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:260px;">
-            <strong style="font-size:14px;display:block;margin-bottom:2px;">${escapeHtml(p.name)}</strong>
-            <span style="color:#555;display:block;">${escapeHtml(p.address)}</span>
-            <small style="color:#666;">${escapeHtml(p.county)} • ${escapeHtml(p.postcode)}</small>
-            <div style="margin-top:8px;">
-              <a
-                href="/shop/${encodeURIComponent(p.slug)}"
-                style="display:inline-block;padding:6px 10px;border-radius:8px;background:#00C2B2;color:#121D2B;text-decoration:none;font-weight:600;"
-                aria-label="View details for ${escapeHtml(p.name)}"
-              >View details</a>
-            </div>
-          </div>
-        `
-        new maplibregl.Popup({ offset: 12 }).setLngLat(coords).setHTML(html).addTo(map)
+        
+        // Find the farm data
+        const farm = farmsRef.current?.find(farm => farm.id === p.id)
+        if (farm) {
+          setSelectedFarm(farm)
+          setIsResultsExpanded(true)
+        }
       })
 
-      // Pointer cursor on unclustered points
+      // Enhanced cursor states
+      map.on('mouseenter', clusterLayerId, () => { 
+        map.getCanvas().style.cursor = 'pointer' 
+      })
+      map.on('mouseleave', clusterLayerId, () => { 
+        map.getCanvas().style.cursor = '' 
+      })
       map.on('mouseenter', unclusteredLayerId, () => map.getCanvas().style.cursor = 'pointer')
       map.on('mouseleave', unclusteredLayerId, () => map.getCanvas().style.cursor = '')
 
-      // Keep track of bounds for in-view filtering
+      // Track bounds for filtering
       const updateBounds = () => {
         const b = map.getBounds()
         setBounds({ west: b.getWest(), south: b.getSouth(), east: b.getEast(), north: b.getNorth() })
@@ -236,9 +268,10 @@ export default function MapPage() {
       map.on('load', updateBounds)
       map.on('moveend', updateBounds)
 
-      // When style/tiles are ready, resize and load farm data
+      // Load farm data with loading states
       map.once('load', async () => {
         map.resize()
+        setIsLoading(true)
         try {
           const res = await fetch('/data/farms.uk.json', { cache: 'no-store' })
           if (!res.ok) {
@@ -248,23 +281,25 @@ export default function MapPage() {
           console.log(`Loaded ${farms.length} farms`)
           farmsRef.current = farms
           setFarms(farms)
+          hapticFeedback.success()
         } catch (e) {
           console.error('Failed to load farms.uk.json', e)
+          hapticFeedback.error()
+        } finally {
+          setIsLoading(false)
         }
       })
 
-      // Watch container size; force map to recalc when it changes
+      // Responsive handling
       roRef.current = new ResizeObserver(() => map.resize())
       roRef.current.observe(mapContainer.current!)
 
-      // Extra safety: when page becomes visible after nav, resize
       const handleShow = () => map.resize()
       window.addEventListener('pageshow', handleShow)
       document.addEventListener('visibilitychange', handleShow)
 
       mapRef.current = map
 
-      // Cleanup
       return () => {
         window.removeEventListener('pageshow', handleShow)
         document.removeEventListener('visibilitychange', handleShow)
@@ -281,7 +316,7 @@ export default function MapPage() {
     }
   }, [])
 
-  // List of counties (alphabetical) for filter chips
+  // Counties for filtering
   const counties = useMemo(() => {
     if (!farms) return []
     const s = new Set<string>()
@@ -291,7 +326,7 @@ export default function MapPage() {
     return Array.from(s).sort((a, b) => a.localeCompare(b))
   }, [farms])
 
-  // Compute filtered farms for the list and for the data source
+  // Filtered farms computation
   const filteredFarmsBase = useMemo(() => {
     if (!farms) return []
     const q = query.trim().toLowerCase()
@@ -309,14 +344,12 @@ export default function MapPage() {
 
   const filteredFarms = useMemo(() => {
     let list = filteredFarmsBase
-    // Limit to current viewport if enabled
     if (inViewOnly && bounds) {
       list = list.filter(f => {
         const { lat, lng } = f.location
         return lat >= bounds.south && lat <= bounds.north && lng >= bounds.west && lng <= bounds.east
       })
     }
-    // Sort by nearest if we know the user location
     if (userLoc) {
       list = [...list].sort((a, b) => {
         const da = haversineMi(userLoc.lat, userLoc.lng, a.location.lat, a.location.lng)
@@ -327,7 +360,7 @@ export default function MapPage() {
     return list
   }, [filteredFarmsBase, inViewOnly, bounds, userLoc])
 
-  // Push filtered farms to the GeoJSON source so clusters update live
+  // Update map markers
   useEffect(() => {
     const map = mapRef.current
     if (!map || !map.isStyleLoaded()) return
@@ -354,142 +387,246 @@ export default function MapPage() {
     src.setData({ type: 'FeatureCollection', features })
   }, [filteredFarmsBase])
 
-  // Fly to a farm and open a popup
-  function flyToFarm(f: FarmShop) {
+  // Fly to farm with Apple-style animation
+  const flyToFarm = useCallback((f: FarmShop) => {
     const map = mapRef.current
     if (!map) return
+    hapticFeedback.buttonPress()
+    
     const coords: [number, number] = [f.location.lng, f.location.lat]
-    map.easeTo({ center: coords, zoom: Math.max(map.getZoom(), 12) })
-    const html = `
-      <div style="font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:260px;">
-        <strong style="font-size:14px;display:block;margin-bottom:2px;">${escapeHtml(f.name)}</strong>
-        <span style="color:#555;display:block;">${escapeHtml(f.location.address)}</span>
-        <small style="color:#666;">${escapeHtml(f.location.county)} • ${escapeHtml(f.location.postcode)}</small>
-        <div style="margin-top:8px;">
-          <a
-            href="/shop/${encodeURIComponent(f.slug)}"
-            style="display:inline-block;padding:6px 10px;border-radius:8px;background:#00C2B2;color:#121D2B;text-decoration:none;font-weight:600;"
-            aria-label="View details for ${escapeHtml(f.name)}"
-          >View details</a>
-        </div>
-      </div>
-    `
-    new maplibregl.Popup({ offset: 12 }).setLngLat(coords).setHTML(html).addTo(map)
-  }
+    map.easeTo({ 
+      center: coords, 
+      zoom: Math.max(map.getZoom(), 12),
+      duration: 1000
+    })
+    
+    setSelectedFarm(f)
+    setIsResultsExpanded(true)
+  }, [])
+
+  // Mobile UI handlers
+  const handleSearchToggle = useCallback(() => {
+    hapticFeedback.buttonPress()
+    setIsSearchExpanded(!isSearchExpanded)
+    if (isResultsExpanded) setIsResultsExpanded(false)
+  }, [isSearchExpanded, isResultsExpanded])
+
+  const handleResultsToggle = useCallback(() => {
+    hapticFeedback.buttonPress()
+    setIsResultsExpanded(!isResultsExpanded)
+    if (isSearchExpanded) setIsSearchExpanded(false)
+  }, [isResultsExpanded, isSearchExpanded])
+
+  const handleFarmSelect = useCallback((farm: FarmShop) => {
+    hapticFeedback.buttonPress()
+    flyToFarm(farm)
+  }, [flyToFarm])
 
   return (
     <>
-      {/* Give the map a guaranteed height; subtract header so it isn't hidden */}
-      <main className="relative w-screen h-[calc(100vh-56px)] mt-14">
-        {/* Search overlay */}
-        <div className="pointer-events-auto absolute left-3 top-3 z-50">
-          <label className="sr-only" htmlFor="map-search">Search farm shops</label>
-          <input
-            id="map-search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search name, postcode, county…"
-            className="w-[260px] rounded-lg border border-gray-300 bg-white/95 px-3 py-2 text-sm shadow
-                       backdrop-blur placeholder:text-gray-500
-                       dark:border-gray-600 dark:bg-[#1E1F23]/95 dark:text-[#E4E2DD]"
-          />
-        </div>
-        {/* County selector (typeahead) */}
-        <div className="pointer-events-auto absolute left-3 top-14 z-50 mt-2 flex items-center gap-2">
-          <label htmlFor="county-select" className="sr-only">Filter by county</label>
-          <input
-            id="county-select"
-            list="county-list"
-            value={selectedCounty}
-            onChange={(e) => setSelectedCounty(e.target.value)}
-            placeholder="Filter by county…"
-            className="w-[260px] rounded-lg border border-gray-300 bg-white/95 px-3 py-2 text-sm shadow
-                       backdrop-blur placeholder:text-gray-500
-                       dark:border-gray-600 dark:bg-[#1E1F23]/95 dark:text-[#E4E2DD]"
-          />
-          <datalist id="county-list">
-            <option value=""></option>
-            {counties.map((c) => <option key={c} value={c} />)}
-          </datalist>
-          {selectedCounty && (
-            <button
-              type="button"
-              onClick={() => setSelectedCounty('')}
-              className="rounded border px-2 py-1 text-xs hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-[#1E1F23]"
-              aria-label="Clear county filter"
-            >
-              Clear
-            </button>
-          )}
-        </div>
-        {/* Results list (live, compact) */}
-        <div
-          className="pointer-events-auto absolute left-3 top-28 z-50 mt-2 max-h-[40vh] w-[300px] overflow-auto
-                     rounded-lg border bg-white/95 text-sm shadow backdrop-blur
-                     dark:border-gray-600 dark:bg-[#121D2B]/95 dark:text-[#E4E2DD]"
-          role="region"
-          aria-label="Search results"
-        >
-          <div className="sticky top-0 z-[1] flex items-center justify-between gap-2 border-b bg-white/90 px-3 py-2 text-xs backdrop-blur
-                          dark:border-gray-700 dark:bg-[#121D2B]/90">
-            <span className="opacity-75">
-              Showing <strong>{filteredFarms.length}</strong>
-              {inViewOnly && filteredFarmsBase.length !== filteredFarms.length
-                ? <> in view</>
-                : null}
-              {' '}of <strong>{filteredFarmsBase.length}</strong>
-            </span>
-            <label className="flex items-center gap-1">
-              <input
-                type="checkbox"
-                checked={inViewOnly}
-                onChange={(e) => setInViewOnly(e.target.checked)}
-                className="h-3 w-3 accent-[#00C2B2]"
-              />
-              <span>In-view only</span>
-            </label>
-          </div>
-          {filteredFarms.length === 0 ? (
-            <div className="px-3 py-2 text-xs opacity-70">No results in view. Try zooming or turn off &quot;In-view only&quot;.</div>
-          ) : (
-            <ul className="divide-y dark:divide-gray-700">
-              {filteredFarms.slice(0, 50).map((f) => (
-                <li key={f.id}>
-                  <button
-                    type="button"
-                    onClick={() => flyToFarm(f)}
-                    className="block w-full text-left px-3 py-2 hover:bg-gray-50 dark:hover:bg-[#1E1F23]"
-                  >
-                    <div className="font-medium">{f.name}</div>
-                    <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-[#E4E2DD]/70">
-                      <span>{f.location.county} · {f.location.postcode}</span>
-                      {userLoc && (
-                        <span className="rounded-full border px-2 py-[1px] text-[11px] dark:border-gray-700">
-                          {haversineMi(userLoc.lat, userLoc.lng, f.location.lat, f.location.lng).toFixed(1)} mi
-                        </span>
-                      )}
-                    </div>
-                  </button>
-                </li>
-              ))}
-              {filteredFarms.length > 50 && (
-                <li className="px-3 py-2 text-xs text-gray-600 dark:text-[#E4E2DD]/70">
-                  Showing first 50 of {filteredFarms.length}. Narrow your search to see more.
-                </li>
-              )}
-            </ul>
-          )}
-        </div>
+      {/* Apple-style Mobile Map Layout */}
+      <main className="relative w-screen h-[calc(100vh-56px)] mt-14 bg-background-canvas">
+        {/* Map Container */}
         <div ref={mapContainer} className="w-full h-full" />
+        
+        {/* Loading Overlay */}
+        {isLoading && (
+          <div className="absolute inset-0 bg-background-canvas/80 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-8 h-8 border-2 border-brand-primary border-t-transparent rounded-full animate-spin" />
+              <p className="text-text-body font-medium">Loading farm locations...</p>
+            </div>
+          </div>
+        )}
+
+        {/* Apple-style Floating Search Button */}
+        <button
+          onClick={handleSearchToggle}
+          className="absolute top-4 left-4 z-40 w-12 h-12 bg-background-canvas/90 backdrop-blur-sm rounded-full shadow-lg border border-border-default/20 flex items-center justify-center hover:bg-background-canvas transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+          aria-label="Search farm shops"
+        >
+          <Search className="w-5 h-5 text-text-body" />
+        </button>
+
+        {/* Apple-style Floating Results Button */}
+        <button
+          onClick={handleResultsToggle}
+          className="absolute top-4 left-20 z-40 w-12 h-12 bg-background-canvas/90 backdrop-blur-sm rounded-full shadow-lg border border-border-default/20 flex items-center justify-center hover:bg-background-canvas transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+          aria-label="Show farm list"
+        >
+          <MapPin className="w-5 h-5 text-text-body" />
+          {filteredFarms.length > 0 && (
+            <span className="absolute -top-1 -right-1 w-5 h-5 bg-brand-primary text-white text-xs rounded-full flex items-center justify-center font-medium">
+              {Math.min(filteredFarms.length, 99)}
+            </span>
+          )}
+        </button>
+
+        {/* Apple-style Collapsible Search Panel */}
+        {isSearchExpanded && (
+          <div className="absolute top-20 left-4 right-4 z-50 bg-background-canvas/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-border-default/20 p-4 animate-slide-in-right">
+            <div className="flex items-center gap-3 mb-4">
+              <Search className="w-5 h-5 text-text-muted" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search farms, postcodes, counties..."
+                className="flex-1 bg-transparent text-text-body placeholder:text-text-muted focus:outline-none text-base"
+                autoFocus
+              />
+              <button
+                onClick={handleSearchToggle}
+                className="w-8 h-8 rounded-full bg-background-surface flex items-center justify-center hover:bg-background-surface/80 transition-colors"
+              >
+                <X className="w-4 h-4 text-text-muted" />
+              </button>
+            </div>
+            
+            {/* County Filter */}
+            <div className="flex items-center gap-3 mb-4">
+              <Filter className="w-4 h-4 text-text-muted" />
+              <select
+                value={selectedCounty}
+                onChange={(e) => setSelectedCounty(e.target.value)}
+                className="flex-1 bg-background-surface rounded-lg px-3 py-2 text-text-body border border-border-default focus:outline-none focus:ring-2 focus:ring-brand-primary"
+              >
+                <option value="">All Counties</option>
+                {counties.map((county) => (
+                  <option key={county} value={county}>{county}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* View Options */}
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2 text-sm text-text-muted">
+                <input
+                  type="checkbox"
+                  checked={inViewOnly}
+                  onChange={(e) => setInViewOnly(e.target.checked)}
+                  className="w-4 h-4 accent-brand-primary"
+                />
+                In view only
+              </label>
+              <span className="text-sm text-text-muted">
+                {filteredFarms.length} farms
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Apple-style Bottom Sheet Results */}
+        {isResultsExpanded && (
+          <div className="absolute bottom-0 left-0 right-0 z-50 bg-background-canvas/95 backdrop-blur-sm rounded-t-3xl shadow-2xl border-t border-border-default/20 animate-slide-in-up">
+            {/* Drag Handle */}
+            <div className="flex justify-center pt-3 pb-2">
+              <div className="w-12 h-1 bg-border-default rounded-full" />
+            </div>
+            
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 pb-4">
+              <h3 className="text-lg font-semibold text-text-heading">Farm Shops</h3>
+              <button
+                onClick={handleResultsToggle}
+                className="w-8 h-8 rounded-full bg-background-surface flex items-center justify-center hover:bg-background-surface/80 transition-colors"
+              >
+                <X className="w-4 h-4 text-text-muted" />
+              </button>
+            </div>
+
+            {/* Results List */}
+            <div className="max-h-[60vh] overflow-y-auto px-6 pb-6">
+              {filteredFarms.length === 0 ? (
+                <div className="text-center py-8">
+                  <MapPin className="w-12 h-12 text-text-muted mx-auto mb-3" />
+                  <p className="text-text-muted">No farms found</p>
+                  <p className="text-sm text-text-muted mt-1">Try adjusting your search or zoom out</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {filteredFarms.slice(0, 20).map((farm) => (
+                    <button
+                      key={farm.id}
+                      onClick={() => handleFarmSelect(farm)}
+                      className="w-full text-left bg-background-surface rounded-xl p-4 hover:bg-background-surface/80 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-semibold text-text-heading truncate">{farm.name}</h4>
+                          <p className="text-sm text-text-muted mt-1">{farm.location.address}</p>
+                          <div className="flex items-center gap-2 mt-2">
+                            <span className="text-xs bg-brand-primary/10 text-brand-primary px-2 py-1 rounded-full">
+                              {farm.location.county}
+                            </span>
+                            {userLoc && (
+                              <span className="text-xs bg-background-canvas text-text-muted px-2 py-1 rounded-full">
+                                {haversineMi(userLoc.lat, userLoc.lng, farm.location.lat, farm.location.lng).toFixed(1)} mi
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <Navigation className="w-5 h-5 text-text-muted flex-shrink-0 ml-3" />
+                      </div>
+                    </button>
+                  ))}
+                  
+                  {filteredFarms.length > 20 && (
+                    <div className="text-center py-4">
+                      <p className="text-sm text-text-muted">
+                        Showing 20 of {filteredFarms.length} farms
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Selected Farm Detail Card */}
+        {selectedFarm && !isResultsExpanded && (
+          <div className="absolute bottom-4 left-4 right-4 z-40 bg-background-canvas/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-border-default/20 p-4 animate-slide-in-up">
+            <div className="flex items-start justify-between">
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-text-heading">{selectedFarm.name}</h3>
+                <p className="text-sm text-text-muted mt-1">{selectedFarm.location.address}</p>
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="text-xs bg-brand-primary/10 text-brand-primary px-2 py-1 rounded-full">
+                    {selectedFarm.location.county}
+                  </span>
+                  {userLoc && (
+                    <span className="text-xs bg-background-surface text-text-muted px-2 py-1 rounded-full">
+                      {haversineMi(userLoc.lat, userLoc.lng, selectedFarm.location.lat, selectedFarm.location.lng).toFixed(1)} mi
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center gap-2 ml-3">
+                <a
+                  href={`/shop/${selectedFarm.slug}`}
+                  className="w-8 h-8 bg-brand-primary rounded-full flex items-center justify-center hover:bg-brand-primary/90 transition-colors"
+                  aria-label={`View details for ${selectedFarm.name}`}
+                >
+                  <ChevronUp className="w-4 h-4 text-white" />
+                </a>
+                <button
+                  onClick={() => setSelectedFarm(null)}
+                  className="w-8 h-8 bg-background-surface rounded-full flex items-center justify-center hover:bg-background-surface/80 transition-colors"
+                >
+                  <X className="w-4 h-4 text-text-muted" />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
-      {/* Sponsored section JUST above the footer (consent-aware) */}
+      {/* Sponsored section */}
       <section
         aria-label="Sponsored content"
         className="mx-auto max-w-3xl px-3 sm:px-6 py-4 sm:py-6"
       >
-        <div className="rounded-lg border bg-white p-2 sm:p-3 text-xs sm:text-sm shadow-sm
-                        dark:border-gray-700 dark:bg-[#121D2B] dark:text-[#E4E2DD]">
+        <div className="rounded-lg border bg-background-canvas p-2 sm:p-3 text-xs sm:text-sm shadow-sm border-border-default">
           <div className="mb-1 text-[10px] uppercase tracking-wide opacity-70">Sponsored</div>
           <AdSlot />
         </div>
@@ -498,7 +635,7 @@ export default function MapPage() {
   )
 }
 
-// tiny HTML escape to keep popups safe
+// Utility functions
 function escapeHtml(s: string) {
   return s
     .replaceAll('&','&amp;')
@@ -508,9 +645,6 @@ function escapeHtml(s: string) {
     .replaceAll("'",'&#039;')
 }
 
-
-
-// Haversine distance (miles)
 function haversineMi(lat1: number, lon1: number, lat2: number, lon2: number) {
   const toRad = (d: number) => (d * Math.PI) / 180
   const R = 3958.7613 // Earth radius in miles
