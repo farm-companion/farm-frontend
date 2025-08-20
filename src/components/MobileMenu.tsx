@@ -218,8 +218,13 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   <Link
                     key={item.title}
                     href={item.href}
-                    onClick={onClose}
-                    className="glass-button flex items-center gap-4 px-6 py-4 rounded-2xl text-white group animate-item-fade-up"
+                    onClick={(e) => {
+                      // Ensure the link navigation works
+                      console.log(`Navigating to: ${item.href}`)
+                      // Small delay to ensure navigation happens before menu closes
+                      setTimeout(() => onClose(), 100)
+                    }}
+                    className="glass-button flex items-center gap-4 px-6 py-4 rounded-2xl text-white group animate-item-fade-up cursor-pointer"
                     style={{
                       animationDelay: `${(index + 1) * 0.1}s`
                     }}
@@ -246,8 +251,13 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   <Link
                     key={item.title}
                     href={item.href}
-                    onClick={onClose}
-                    className="glass-secondary flex items-start gap-4 p-5 rounded-2xl group animate-item-fade-up"
+                    onClick={(e) => {
+                      // Ensure the link navigation works
+                      console.log(`Navigating to: ${item.href}`)
+                      // Small delay to ensure navigation happens before menu closes
+                      setTimeout(() => onClose(), 100)
+                    }}
+                    className="glass-secondary flex items-start gap-4 p-5 rounded-2xl group animate-item-fade-up cursor-pointer"
                     style={{
                       animationDelay: `${(index + navigationItems.length + 1) * 0.1}s`
                     }}
@@ -281,8 +291,13 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   <Link
                     key={item.title}
                     href={item.href}
-                    onClick={onClose}
-                    className="glass-button flex items-center gap-4 px-6 py-4 rounded-2xl text-white group animate-item-fade-up"
+                    onClick={(e) => {
+                      // Ensure the link navigation works
+                      console.log(`Navigating to: ${item.href}`)
+                      // Small delay to ensure navigation happens before menu closes
+                      setTimeout(() => onClose(), 100)
+                    }}
+                    className="glass-button flex items-center gap-4 px-6 py-4 rounded-2xl text-white group animate-item-fade-up cursor-pointer"
                     style={{
                       animationDelay: `${(index + navigationItems.length + secondaryItems.length + 1) * 0.1}s`
                     }}
