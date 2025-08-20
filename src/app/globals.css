@@ -60,7 +60,7 @@
   --a11y-target-size: 48px;
 }
 
-/* Dark Mode */
+/* Dark Mode - Only apply when user explicitly prefers dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --background-canvas: #1E1F23;
@@ -97,9 +97,51 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Fallback styles to ensure readability */
+body {
+  background-color: #FFFFFF !important;
+  color: #1E1F23 !important;
+}
+
+/* Ensure all text elements have proper contrast */
+h1, h2, h3, h4, h5, h6 {
+  color: #1E1F23 !important;
+}
+
+p, span, div {
+  color: #1E1F23 !important;
+}
+
+/* Override with CSS variables when they work */
+.bg-background-canvas {
+  background-color: #FFFFFF !important;
+}
+
+.text-text-body {
+  color: #1E1F23 !important;
+}
+
+.text-text-heading {
+  color: #1E1F23 !important;
+}
+
 /* Color Utility Classes for Tailwind */
 .bg-obsidian { background-color: var(--obsidian-graphite); }
 .bg-serum { background-color: var(--serum-teal); }
+
+/* Ensure text is always readable */
+.text-text-body { color: var(--text-body) !important; }
+.text-text-heading { color: var(--text-heading) !important; }
+.text-text-muted { color: var(--text-muted) !important; }
+.text-text-link { color: var(--text-link) !important; }
+
+/* Ensure backgrounds are properly applied */
+.bg-background-canvas { background-color: var(--background-canvas) !important; }
+.bg-background-surface { background-color: var(--background-surface) !important; }
+
+/* Ensure borders are properly applied */
+.border-border-default { border-color: var(--border-default) !important; }
+.border-border-focus { border-color: var(--border-focus) !important; }
 
 /* Animation Classes */
 @keyframes fade-in-up {

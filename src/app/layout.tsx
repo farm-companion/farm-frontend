@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="light">
       <body className="min-h-screen bg-background-canvas text-text-body">
         {/* Skip link for keyboard users */}
         <a
