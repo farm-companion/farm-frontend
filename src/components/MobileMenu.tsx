@@ -178,13 +178,13 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     <>
       {/* Apple-style Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-md z-40 animate-backdrop-fade-in"
+        className="fixed inset-0 bg-black/60 backdrop-blur-md z-[9998] animate-backdrop-fade-in"
         onClick={handleBackdropClick}
         aria-hidden="true"
       />
       
       {/* Apple-style Glass Menu Container */}
-      <div className="fixed inset-y-0 right-0 w-80 max-w-[85vw] glass-primary z-50 animate-ios-spring-in rounded-l-3xl">
+      <div className="fixed inset-y-0 right-0 w-80 max-w-[85vw] glass-primary z-[9999] animate-ios-spring-in rounded-l-3xl">
         {/* Glass Header */}
         <div className="flex items-center justify-between p-8 border-b border-white/20">
           <div className="flex items-center gap-3">
@@ -331,7 +331,7 @@ export function MobileMenuButton({ onClick, isOpen }: { onClick: () => void; isO
   return (
     <button
       onClick={onClick}
-      className="md:hidden p-3 rounded-full bg-text-body/10 hover:bg-text-body/20 border border-text-body/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+      className="md:hidden p-3 rounded-full bg-text-body/10 hover:bg-text-body/20 border border-text-body/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary relative z-[9997]"
       aria-label={isOpen ? 'Close menu' : 'Open menu'}
       aria-expanded={isOpen}
     >
