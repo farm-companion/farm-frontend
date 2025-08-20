@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Button, Card } from '@/components/ui'
+import NewsletterSignup from '@/components/NewsletterSignup'
 
 export default function Home() {
   return (
@@ -133,27 +134,8 @@ export default function Home() {
         </section>
 
         {/* Newsletter Signup - Mobile First */}
-        <section className="py-12 sm:py-16 bg-background-surface rounded-lg px-4 sm:px-6 lg:px-8 text-center animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-heading mb-3 sm:mb-4 leading-tight">
-            Stay Updated
-          </h2>
-          <p className="text-base sm:text-lg text-text-muted mb-6 sm:mb-8 max-w-xl mx-auto leading-relaxed">
-            Get seasonal updates, new farm shop discoveries, and exclusive offers delivered to your inbox.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 border border-border-default rounded-md bg-background-canvas text-text-body placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
-              aria-label="Email address for newsletter"
-            />
-            <Button variant="primary" size="md">
-              Subscribe
-            </Button>
-          </div>
-          <p className="text-xs text-text-muted mt-4">
-            We respect your privacy. Unsubscribe at any time.
-          </p>
+        <section className="py-12 sm:py-16 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
+          <NewsletterSignup source="homepage" />
         </section>
       </main>
     </div>
