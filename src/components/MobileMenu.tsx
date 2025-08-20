@@ -192,7 +192,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       />
       
       {/* Mobile-optimized Menu Container */}
-      <div className="fixed inset-y-0 right-0 w-72 sm:w-80 max-w-[85vw] bg-white dark:bg-obsidian shadow-2xl z-[9999] animate-slide-up">
+      <div className="fixed inset-y-0 right-0 w-72 sm:w-80 max-w-[85vw] bg-background-canvas shadow-2xl z-[9999] animate-slide-up">
         {/* Mobile Header */}
         <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border-default">
           <div className="flex items-center gap-3">

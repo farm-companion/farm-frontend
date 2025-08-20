@@ -25,7 +25,7 @@ export default function ConsentBanner() {
     <div
       role="region"
       aria-label="Cookie consent"
-      className="fixed inset-x-0 bottom-0 z-50 border-t bg-white/95 text-gray-900 backdrop-blur
+              className="fixed inset-x-0 bottom-0 z-50 border-t bg-background-canvas/95 text-text-body backdrop-blur
                  dark:border-gray-700 dark:bg-[#121D2B]/95 dark:text-[#E4E2DD]"
     >
       <div className="mx-auto flex max-w-6xl items-start justify-between gap-4 px-4 py-3">
@@ -38,7 +38,7 @@ export default function ConsentBanner() {
           {/* Secondary button — high contrast in dark mode */}
           <button
             onClick={() => setConsent('denied')}
-            className="rounded border border-gray-300 px-3 py-1.5 text-sm text-gray-800 hover:bg-gray-50
+                          className="rounded border border-border-default px-3 py-1.5 text-sm text-text-body hover:bg-background-surface
                        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4FF4F]
                        dark:border-gray-500 dark:text-[#E4E2DD] dark:hover:bg-[#1E1F23]"
           >
