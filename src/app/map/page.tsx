@@ -217,7 +217,32 @@ export default function MapPage() {
             }
           })
         }
+
+        // Load farm data immediately after layers are set up
+        loadFarmData()
       })
+
+      // Load farm data function
+      const loadFarmData = async () => {
+        map.resize()
+        setIsLoading(true)
+        try {
+          const res = await fetch('/data/farms.uk.json', { cache: 'no-store' })
+          if (!res.ok) {
+            throw new Error(`Failed to fetch farms data: ${res.status}`)
+          }
+          const farms: FarmShop[] = await res.json()
+          console.log(`Loaded ${farms.length} farms`)
+          farmsRef.current = farms
+          setFarms(farms)
+          hapticFeedback.success()
+        } catch (e) {
+          console.error('Failed to load farms.uk.json', e)
+          hapticFeedback.error()
+        } finally {
+          setIsLoading(false)
+        }
+      }
 
       // Google-level interactions
       map.on('click', clusterLayerId, (e: any) => {
@@ -268,27 +293,7 @@ export default function MapPage() {
       map.on('load', updateBounds)
       map.on('moveend', updateBounds)
 
-      // Load farm data
-      map.once('load', async () => {
-        map.resize()
-        setIsLoading(true)
-        try {
-          const res = await fetch('/data/farms.uk.json', { cache: 'no-store' })
-          if (!res.ok) {
-            throw new Error(`Failed to fetch farms data: ${res.status}`)
-          }
-          const farms: FarmShop[] = await res.json()
-          console.log(`Loaded ${farms.length} farms`)
-          farmsRef.current = farms
-          setFarms(farms)
-          hapticFeedback.success()
-        } catch (e) {
-          console.error('Failed to load farms.uk.json', e)
-          hapticFeedback.error()
-        } finally {
-          setIsLoading(false)
-        }
-      })
+
 
       // Responsive handling
       roRef.current = new ResizeObserver(() => map.resize())
@@ -454,7 +459,7 @@ export default function MapPage() {
 
         {/* Google-style Search Bar - Minimal, at top */}
         <div className="absolute top-4 left-4 right-4 z-40">
-          <div className="relative">
+          <div className="relative max-w-md mx-auto">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted" />
               <input
