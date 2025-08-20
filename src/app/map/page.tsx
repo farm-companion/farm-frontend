@@ -63,12 +63,16 @@ export default function MapPage() {
       })
       mapRef.current = map
 
-      // Google-style minimal controls
+      // Mobile-optimized map controls
       map.addControl(new maplibregl.NavigationControl({ 
         showCompass: true,
         showZoom: true,
         visualizePitch: false
       }), 'top-right')
+      
+      // Add mobile-specific map configuration
+      map.dragRotate.disable() // Disable drag rotation on mobile for better UX
+      map.touchZoomRotate.disableRotation() // Disable rotation on touch for better mobile experience
       
       map.addControl(new maplibregl.ScaleControl({ 
         unit: 'metric',
@@ -577,9 +581,9 @@ export default function MapPage() {
           </div>
         )}
 
-        {/* Google-style Search Bar - Minimal, at top */}
+        {/* Mobile-First Search Bar - Responsive Design */}
         <div className="absolute top-4 left-4 right-4 z-40">
-          <div className="relative max-w-md mx-auto">
+          <div className="relative max-w-sm sm:max-w-md mx-auto">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted" />
               <input
@@ -588,8 +592,9 @@ export default function MapPage() {
                 onFocus={handleSearchFocus}
                 onBlur={handleSearchBlur}
                 placeholder="Search farms, postcodes, counties..."
-                className="w-full bg-background-canvas/95 backdrop-blur-sm border border-border-default/20 rounded-full px-12 py-3 text-text-body placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-brand-primary shadow-lg"
+                className="w-full bg-background-canvas/95 backdrop-blur-sm border border-border-default/20 rounded-full px-12 py-4 sm:py-3 text-text-body placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-brand-primary shadow-lg text-base sm:text-sm touch-manipulation"
                 autoComplete="off"
+                style={{ minHeight: '48px' }} // iOS-friendly touch target
               />
               {query && (
                 <button
@@ -601,9 +606,9 @@ export default function MapPage() {
               )}
             </div>
 
-            {/* Google-style Search Suggestions */}
-            {showSearchSuggestions && (query || selectedCounty) && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-background-canvas/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-border-default/20 overflow-hidden z-50">
+                         {/* Mobile-Optimized Search Suggestions */}
+             {showSearchSuggestions && (query || selectedCounty) && (
+               <div className="absolute top-full left-0 right-0 mt-2 bg-background-canvas/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-border-default/20 overflow-hidden z-50 max-h-[60vh] sm:max-h-64">
                 {/* Active Filters */}
                 {(selectedCounty || inViewOnly) && (
                   <div className="px-4 py-3 border-b border-border-default/20">
@@ -644,12 +649,13 @@ export default function MapPage() {
                     </div>
                   ) : (
                     <div className="py-2">
-                      {filteredFarms.slice(0, 8).map((farm) => (
-                        <button
-                          key={farm.id}
-                          onClick={() => handleFarmSelect(farm)}
-                          className="w-full text-left px-4 py-3 hover:bg-background-surface/50 transition-colors focus:outline-none focus:bg-background-surface/50"
-                        >
+                                             {filteredFarms.slice(0, 8).map((farm) => (
+                         <button
+                           key={farm.id}
+                           onClick={() => handleFarmSelect(farm)}
+                           className="w-full text-left px-4 py-4 sm:py-3 hover:bg-background-surface/50 transition-colors focus:outline-none focus:bg-background-surface/50 touch-manipulation"
+                           style={{ minHeight: '56px' }} // Mobile-friendly touch target
+                         >
                           <div className="flex items-start gap-3">
                             <MapPin className="w-5 h-5 text-brand-primary flex-shrink-0 mt-0.5" />
                             <div className="flex-1 min-w-0">
@@ -688,27 +694,28 @@ export default function MapPage() {
           </div>
         </div>
 
-        {/* Google-style Floating Action Button */}
-        <button
-          onClick={() => setShowResults(true)}
-          className="absolute bottom-6 right-6 z-40 w-14 h-14 bg-brand-primary text-white rounded-full shadow-lg hover:bg-brand-primary/90 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
-          aria-label="Show farm list"
-        >
-          <MapPin className="w-6 h-6 mx-auto" />
-          {filteredFarms.length > 0 && (
-            <span className="absolute -top-1 -right-1 w-6 h-6 bg-background-canvas text-brand-primary text-xs rounded-full flex items-center justify-center font-bold border-2 border-brand-primary">
-              {Math.min(filteredFarms.length, 99)}
-            </span>
-          )}
-        </button>
+                 {/* Mobile-Optimized Floating Action Button */}
+         <button
+           onClick={() => setShowResults(true)}
+           className="absolute bottom-6 right-6 z-40 w-16 h-16 sm:w-14 sm:h-14 bg-brand-primary text-white rounded-full shadow-lg hover:bg-brand-primary/90 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 touch-manipulation"
+           aria-label="Show farm list"
+           style={{ minHeight: '64px', minWidth: '64px' }} // Mobile-friendly touch target
+         >
+           <MapPin className="w-7 h-7 sm:w-6 sm:h-6 mx-auto" />
+           {filteredFarms.length > 0 && (
+             <span className="absolute -top-1 -right-1 w-7 h-7 sm:w-6 sm:h-6 bg-background-canvas text-brand-primary text-xs rounded-full flex items-center justify-center font-bold border-2 border-brand-primary">
+               {Math.min(filteredFarms.length, 99)}
+             </span>
+           )}
+         </button>
 
-        {/* Google-style Bottom Sheet Results */}
-        {showResults && (
-          <div className="absolute bottom-0 left-0 right-0 z-50 bg-background-canvas/95 backdrop-blur-sm rounded-t-3xl shadow-2xl border-t border-border-default/20 animate-slide-in-up">
-            {/* Drag Handle */}
-            <div className="flex justify-center pt-3 pb-2">
-              <div className="w-12 h-1 bg-border-default rounded-full" />
-            </div>
+                 {/* Mobile-Optimized Bottom Sheet Results */}
+         {showResults && (
+           <div className="absolute bottom-0 left-0 right-0 z-50 bg-background-canvas/95 backdrop-blur-sm rounded-t-3xl shadow-2xl border-t border-border-default/20 animate-slide-in-up max-h-[85vh] sm:max-h-[70vh]">
+             {/* Drag Handle */}
+             <div className="flex justify-center pt-4 pb-3 sm:pt-3 sm:pb-2">
+               <div className="w-16 h-1.5 sm:w-12 sm:h-1 bg-border-default rounded-full" />
+             </div>
             
             {/* Header */}
             <div className="flex items-center justify-between px-6 pb-4">
@@ -724,8 +731,8 @@ export default function MapPage() {
               </button>
             </div>
 
-            {/* Results List */}
-            <div className="max-h-[60vh] overflow-y-auto px-6 pb-6">
+                         {/* Results List */}
+             <div className="max-h-[60vh] sm:max-h-[50vh] overflow-y-auto px-4 sm:px-6 pb-6">
               {filteredFarms.length === 0 ? (
                 <div className="text-center py-8">
                   <MapPin className="w-12 h-12 text-text-muted mx-auto mb-3" />
@@ -738,7 +745,8 @@ export default function MapPage() {
                     <button
                       key={farm.id}
                       onClick={() => handleFarmSelect(farm)}
-                      className="w-full text-left bg-background-surface rounded-xl p-4 hover:bg-background-surface/80 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary"
+                      className="w-full text-left bg-background-surface rounded-xl p-4 hover:bg-background-surface/80 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary touch-manipulation"
+                      style={{ minHeight: '72px' }} // Mobile-friendly touch target
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1 min-w-0">
@@ -773,9 +781,9 @@ export default function MapPage() {
           </div>
         )}
 
-        {/* Google-style Selected Farm Card */}
+        {/* Mobile-Optimized Selected Farm Card */}
         {selectedFarm && !showResults && (
-          <div className="absolute bottom-4 left-4 right-4 z-40 bg-background-canvas/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-border-default/20 p-4 animate-slide-in-up">
+          <div className="absolute bottom-4 left-4 right-4 z-40 bg-background-canvas/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-border-default/20 p-4 sm:p-4 animate-slide-in-up">
             <div className="flex items-start justify-between">
               <div className="flex-1 min-w-0">
                 <h3 className="font-semibold text-text-heading">{selectedFarm.name}</h3>
