@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import maplibregl, { Map } from 'maplibre-gl'
 import type { FarmShop } from '@/types/farm'
-import { Search, MapPin, Filter, X, ChevronUp, ChevronDown, Star, Navigation } from 'lucide-react'
+import { Search, MapPin, Filter, X, ChevronUp, Navigation, Star, Clock, Users } from 'lucide-react'
 import { hapticFeedback } from '@/lib/haptics'
 import AdSlot from '@/components/AdSlot'
 
@@ -20,7 +20,7 @@ export default function MapPage() {
   const roRef = useRef<ResizeObserver | null>(null)
   const farmsRef = useRef<FarmShop[] | null>(null)
   
-  // State management
+  // Core state management
   const [farms, setFarms] = useState<FarmShop[] | null>(null)
   const [query, setQuery] = useState('')
   const [userLoc, setUserLoc] = useState<{ lat: number; lng: number } | null>(null)
@@ -28,11 +28,12 @@ export default function MapPage() {
   const [bounds, setBounds] = useState<{ west:number; south:number; east:number; north:number } | null>(null)
   const [inViewOnly, setInViewOnly] = useState<boolean>(true)
   
-  // Mobile UI state
-  const [isSearchExpanded, setIsSearchExpanded] = useState(false)
-  const [isResultsExpanded, setIsResultsExpanded] = useState(false)
+  // Google-style UI state
+  const [isSearchFocused, setIsSearchFocused] = useState(false)
+  const [showSearchSuggestions, setShowSearchSuggestions] = useState(false)
   const [selectedFarm, setSelectedFarm] = useState<FarmShop | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [showResults, setShowResults] = useState(false)
   
   // Map configuration
   const sourceId = 'farms-src'
@@ -40,7 +41,7 @@ export default function MapPage() {
   const clusterCountLayerId = 'cluster-count'
   const unclusteredLayerId = 'unclustered-point'
 
-  // Initialize map with Apple-level performance
+  // Initialize map with Google-level performance
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return
 
@@ -55,13 +56,13 @@ export default function MapPage() {
         zoom: 5,
         maxZoom: 18,
         minZoom: 4,
-        pitchWithRotate: false, // Disable pitch on mobile for better UX
-        dragRotate: false, // Disable drag rotation on mobile
+        pitchWithRotate: false,
+        dragRotate: false,
         touchZoomRotate: true
       })
       mapRef.current = map
 
-      // Apple-style controls
+      // Google-style minimal controls
       map.addControl(new maplibregl.NavigationControl({ 
         showCompass: true,
         showZoom: true,
@@ -73,7 +74,7 @@ export default function MapPage() {
         maxWidth: 80
       }), 'bottom-left')
 
-      // Enhanced geolocation with haptic feedback
+      // Enhanced geolocation
       const geo = new maplibregl.GeolocateControl({
         positionOptions: { enableHighAccuracy: true },
         trackUserLocation: false,
@@ -90,7 +91,7 @@ export default function MapPage() {
         }
       })
 
-      // Enhanced map layers with Apple-style markers
+      // Google-level map layers
       map.on('load', () => {
         // Ensure source is added only once
         if (!map.getSource(sourceId)) {
@@ -98,13 +99,13 @@ export default function MapPage() {
             type: 'geojson',
             data: { type: 'FeatureCollection', features: [] },
             cluster: true,
-            clusterRadius: 50, // Smaller clusters for mobile
+            clusterRadius: 60, // Google-style clustering
             clusterMaxZoom: 16,
             clusterMinPoints: 3
           })
         }
 
-        // Apple-style heat visualization
+        // Google-style heat visualization
         if (!map.getLayer('cluster-heat')) {
           map.addLayer({
             id: 'cluster-heat',
@@ -115,18 +116,18 @@ export default function MapPage() {
               'circle-radius': [
                 'step',
                 ['get', 'point_count'],
-                20, 3,
-                30, 10,
-                40, 20,
-                50
+                25, 3,
+                35, 10,
+                45, 20,
+                55
               ],
               'circle-color': [
                 'step',
                 ['get', 'point_count'],
-                'rgba(0, 194, 178, 0.2)', 3,
-                'rgba(0, 194, 178, 0.3)', 10,
-                'rgba(0, 194, 178, 0.4)', 20,
-                'rgba(0, 194, 178, 0.5)'
+                'rgba(0, 194, 178, 0.15)', 3,
+                'rgba(0, 194, 178, 0.25)', 10,
+                'rgba(0, 194, 178, 0.35)', 20,
+                'rgba(0, 194, 178, 0.45)'
               ],
               'circle-opacity': 0.8,
               'circle-stroke-width': 0
@@ -134,7 +135,7 @@ export default function MapPage() {
           })
         }
 
-        // Apple-style cluster markers
+        // Google-style cluster markers
         if (!map.getLayer(clusterLayerId)) {
           map.addLayer({
             id: clusterLayerId,
@@ -145,10 +146,10 @@ export default function MapPage() {
               'circle-radius': [
                 'step',
                 ['get', 'point_count'],
-                14, 3,
-                18, 10,
-                22, 20,
-                26
+                16, 3,
+                20, 10,
+                24, 20,
+                28
               ],
               'circle-color': [
                 'step',
@@ -159,13 +160,13 @@ export default function MapPage() {
                 '#D4FF4F'
               ],
               'circle-opacity': 0.95,
-              'circle-stroke-width': 2,
+              'circle-stroke-width': 3,
               'circle-stroke-color': '#FFFFFF'
             }
           })
         }
 
-        // Cluster count labels
+        // Google-style cluster labels
         if (!map.getLayer(clusterCountLayerId)) {
           map.addLayer({
             id: clusterCountLayerId,
@@ -175,18 +176,18 @@ export default function MapPage() {
             layout: {
               'text-field': ['get', 'point_count_abbreviated'],
               'text-font': ['Inter', 'Open Sans Regular', 'Arial Unicode MS Regular'],
-              'text-size': 11,
+              'text-size': 12,
               'text-allow-overlap': true
             },
             paint: {
               'text-color': '#1E1F23',
               'text-halo-color': '#FFFFFF',
-              'text-halo-width': 1
+              'text-halo-width': 2
             }
           })
         }
 
-        // Individual farm markers with Apple-style design
+        // Google-style individual markers
         if (!map.getLayer('point-heat')) {
           map.addLayer({
             id: 'point-heat',
@@ -194,9 +195,9 @@ export default function MapPage() {
             source: sourceId,
             filter: ['!', ['has', 'point_count']],
             paint: {
-              'circle-radius': 10,
-              'circle-color': 'rgba(0, 194, 178, 0.15)',
-              'circle-opacity': 0.7,
+              'circle-radius': 12,
+              'circle-color': 'rgba(0, 194, 178, 0.2)',
+              'circle-opacity': 0.6,
               'circle-stroke-width': 0
             }
           })
@@ -209,16 +210,16 @@ export default function MapPage() {
             source: sourceId,
             filter: ['!', ['has', 'point_count']],
             paint: {
-              'circle-radius': 5,
+              'circle-radius': 8,
               'circle-color': '#00C2B2',
-              'circle-stroke-width': 2,
+              'circle-stroke-width': 3,
               'circle-stroke-color': '#FFFFFF'
             }
           })
         }
       })
 
-      // Enhanced interactions with haptic feedback
+      // Google-level interactions
       map.on('click', clusterLayerId, (e: any) => {
         hapticFeedback.buttonPress()
         const features = map.queryRenderedFeatures(e.point, { layers: [clusterLayerId] })
@@ -235,18 +236,17 @@ export default function MapPage() {
         })
       })
 
-              map.on('click', unclusteredLayerId, (e: any) => {
-          hapticFeedback.buttonPress()
+      map.on('click', unclusteredLayerId, (e: any) => {
+        hapticFeedback.buttonPress()
         const f = e.features && e.features[0]
         if (!f) return
         const p = f.properties as any
-        const coords = (f.geometry as any).coordinates
         
         // Find the farm data
         const farm = farmsRef.current?.find(farm => farm.id === p.id)
         if (farm) {
           setSelectedFarm(farm)
-          setIsResultsExpanded(true)
+          setShowResults(true)
         }
       })
 
@@ -268,7 +268,7 @@ export default function MapPage() {
       map.on('load', updateBounds)
       map.on('moveend', updateBounds)
 
-      // Load farm data with loading states
+      // Load farm data
       map.once('load', async () => {
         map.resize()
         setIsLoading(true)
@@ -387,7 +387,7 @@ export default function MapPage() {
     src.setData({ type: 'FeatureCollection', features })
   }, [filteredFarmsBase])
 
-  // Fly to farm with Apple-style animation
+  // Google-style fly to farm
   const flyToFarm = useCallback((f: FarmShop) => {
     const map = mapRef.current
     if (!map) return
@@ -401,32 +401,45 @@ export default function MapPage() {
     })
     
     setSelectedFarm(f)
-    setIsResultsExpanded(true)
+    setShowResults(true)
   }, [])
 
-  // Mobile UI handlers
-  const handleSearchToggle = useCallback(() => {
-    hapticFeedback.buttonPress()
-    setIsSearchExpanded(!isSearchExpanded)
-    if (isResultsExpanded) setIsResultsExpanded(false)
-  }, [isSearchExpanded, isResultsExpanded])
+  // Google-style search handlers
+  const handleSearchFocus = useCallback(() => {
+    setIsSearchFocused(true)
+    setShowSearchSuggestions(true)
+  }, [])
 
-  const handleResultsToggle = useCallback(() => {
-    hapticFeedback.buttonPress()
-    setIsResultsExpanded(!isResultsExpanded)
-    if (isSearchExpanded) setIsSearchExpanded(false)
-  }, [isResultsExpanded, isSearchExpanded])
+  const handleSearchBlur = useCallback(() => {
+    setIsSearchFocused(false)
+    // Delay hiding suggestions to allow for clicks
+    setTimeout(() => setShowSearchSuggestions(false), 200)
+  }, [])
+
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value)
+    setShowSearchSuggestions(true)
+  }, [])
 
   const handleFarmSelect = useCallback((farm: FarmShop) => {
     hapticFeedback.buttonPress()
     flyToFarm(farm)
+    setShowSearchSuggestions(false)
+    setIsSearchFocused(false)
   }, [flyToFarm])
+
+  const handleClearSearch = useCallback(() => {
+    setQuery('')
+    setSelectedCounty('')
+    setShowSearchSuggestions(false)
+    setIsSearchFocused(false)
+  }, [])
 
   return (
     <>
-      {/* Apple-style Mobile Map Layout */}
+      {/* Google-style Map Layout - Maximum Map Visibility */}
       <main className="relative w-screen h-[calc(100vh-56px)] mt-14 bg-background-canvas">
-        {/* Map Container */}
+        {/* Map Container - 95%+ visible */}
         <div ref={mapContainer} className="w-full h-full" />
         
         {/* Loading Overlay */}
@@ -439,84 +452,133 @@ export default function MapPage() {
           </div>
         )}
 
-        {/* Apple-style Floating Search Button */}
-        <button
-          onClick={handleSearchToggle}
-          className="absolute top-4 left-4 z-40 w-12 h-12 bg-background-canvas/90 backdrop-blur-sm rounded-full shadow-lg border border-border-default/20 flex items-center justify-center hover:bg-background-canvas transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary"
-          aria-label="Search farm shops"
-        >
-          <Search className="w-5 h-5 text-text-body" />
-        </button>
+        {/* Google-style Search Bar - Minimal, at top */}
+        <div className="absolute top-4 left-4 right-4 z-40">
+          <div className="relative">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted" />
+              <input
+                value={query}
+                onChange={handleSearchChange}
+                onFocus={handleSearchFocus}
+                onBlur={handleSearchBlur}
+                placeholder="Search farms, postcodes, counties..."
+                className="w-full bg-background-canvas/95 backdrop-blur-sm border border-border-default/20 rounded-full px-12 py-3 text-text-body placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-brand-primary shadow-lg"
+                autoComplete="off"
+              />
+              {query && (
+                <button
+                  onClick={handleClearSearch}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 rounded-full bg-background-surface flex items-center justify-center hover:bg-background-surface/80 transition-colors"
+                >
+                  <X className="w-4 h-4 text-text-muted" />
+                </button>
+              )}
+            </div>
 
-        {/* Apple-style Floating Results Button */}
+            {/* Google-style Search Suggestions */}
+            {showSearchSuggestions && (query || selectedCounty) && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-background-canvas/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-border-default/20 overflow-hidden z-50">
+                {/* Active Filters */}
+                {(selectedCounty || inViewOnly) && (
+                  <div className="px-4 py-3 border-b border-border-default/20">
+                    <div className="flex flex-wrap gap-2">
+                      {selectedCounty && (
+                        <span className="inline-flex items-center gap-2 bg-brand-primary/10 text-brand-primary px-3 py-1 rounded-full text-sm">
+                          {selectedCounty}
+                          <button
+                            onClick={() => setSelectedCounty('')}
+                            className="w-4 h-4 rounded-full bg-brand-primary/20 flex items-center justify-center hover:bg-brand-primary/30 transition-colors"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </span>
+                      )}
+                      {inViewOnly && (
+                        <span className="inline-flex items-center gap-2 bg-background-surface text-text-muted px-3 py-1 rounded-full text-sm">
+                          In view only
+                          <button
+                            onClick={() => setInViewOnly(false)}
+                            className="w-4 h-4 rounded-full bg-background-surface/50 flex items-center justify-center hover:bg-background-surface/70 transition-colors"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Search Results */}
+                <div className="max-h-64 overflow-y-auto">
+                  {filteredFarms.length === 0 ? (
+                    <div className="px-4 py-6 text-center">
+                      <MapPin className="w-8 h-8 text-text-muted mx-auto mb-2" />
+                      <p className="text-text-muted">No farms found</p>
+                      <p className="text-sm text-text-muted mt-1">Try adjusting your search</p>
+                    </div>
+                  ) : (
+                    <div className="py-2">
+                      {filteredFarms.slice(0, 8).map((farm) => (
+                        <button
+                          key={farm.id}
+                          onClick={() => handleFarmSelect(farm)}
+                          className="w-full text-left px-4 py-3 hover:bg-background-surface/50 transition-colors focus:outline-none focus:bg-background-surface/50"
+                        >
+                          <div className="flex items-start gap-3">
+                            <MapPin className="w-5 h-5 text-brand-primary flex-shrink-0 mt-0.5" />
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-medium text-text-heading truncate">{farm.name}</h4>
+                              <p className="text-sm text-text-muted truncate">{farm.location.address}</p>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span className="text-xs bg-background-surface text-text-muted px-2 py-0.5 rounded-full">
+                                  {farm.location.county}
+                                </span>
+                                {userLoc && (
+                                  <span className="text-xs bg-background-surface text-text-muted px-2 py-0.5 rounded-full">
+                                    {haversineMi(userLoc.lat, userLoc.lng, farm.location.lat, farm.location.lng).toFixed(1)} mi
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                      
+                      {filteredFarms.length > 8 && (
+                        <div className="px-4 py-3 border-t border-border-default/20">
+                          <button
+                            onClick={() => setShowResults(true)}
+                            className="w-full text-center text-brand-primary font-medium hover:bg-background-surface/50 py-2 rounded-lg transition-colors"
+                          >
+                            View all {filteredFarms.length} farms
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Google-style Floating Action Button */}
         <button
-          onClick={handleResultsToggle}
-          className="absolute top-4 left-20 z-40 w-12 h-12 bg-background-canvas/90 backdrop-blur-sm rounded-full shadow-lg border border-border-default/20 flex items-center justify-center hover:bg-background-canvas transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+          onClick={() => setShowResults(true)}
+          className="absolute bottom-6 right-6 z-40 w-14 h-14 bg-brand-primary text-white rounded-full shadow-lg hover:bg-brand-primary/90 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
           aria-label="Show farm list"
         >
-          <MapPin className="w-5 h-5 text-text-body" />
+          <MapPin className="w-6 h-6 mx-auto" />
           {filteredFarms.length > 0 && (
-            <span className="absolute -top-1 -right-1 w-5 h-5 bg-brand-primary text-white text-xs rounded-full flex items-center justify-center font-medium">
+            <span className="absolute -top-1 -right-1 w-6 h-6 bg-background-canvas text-brand-primary text-xs rounded-full flex items-center justify-center font-bold border-2 border-brand-primary">
               {Math.min(filteredFarms.length, 99)}
             </span>
           )}
         </button>
 
-        {/* Apple-style Collapsible Search Panel */}
-        {isSearchExpanded && (
-          <div className="absolute top-20 left-4 right-4 z-50 bg-background-canvas/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-border-default/20 p-4 animate-slide-in-right">
-            <div className="flex items-center gap-3 mb-4">
-              <Search className="w-5 h-5 text-text-muted" />
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search farms, postcodes, counties..."
-                className="flex-1 bg-transparent text-text-body placeholder:text-text-muted focus:outline-none text-base"
-                autoFocus
-              />
-              <button
-                onClick={handleSearchToggle}
-                className="w-8 h-8 rounded-full bg-background-surface flex items-center justify-center hover:bg-background-surface/80 transition-colors"
-              >
-                <X className="w-4 h-4 text-text-muted" />
-              </button>
-            </div>
-            
-            {/* County Filter */}
-            <div className="flex items-center gap-3 mb-4">
-              <Filter className="w-4 h-4 text-text-muted" />
-              <select
-                value={selectedCounty}
-                onChange={(e) => setSelectedCounty(e.target.value)}
-                className="flex-1 bg-background-surface rounded-lg px-3 py-2 text-text-body border border-border-default focus:outline-none focus:ring-2 focus:ring-brand-primary"
-              >
-                <option value="">All Counties</option>
-                {counties.map((county) => (
-                  <option key={county} value={county}>{county}</option>
-                ))}
-              </select>
-            </div>
-
-            {/* View Options */}
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 text-sm text-text-muted">
-                <input
-                  type="checkbox"
-                  checked={inViewOnly}
-                  onChange={(e) => setInViewOnly(e.target.checked)}
-                  className="w-4 h-4 accent-brand-primary"
-                />
-                In view only
-              </label>
-              <span className="text-sm text-text-muted">
-                {filteredFarms.length} farms
-              </span>
-            </div>
-          </div>
-        )}
-
-        {/* Apple-style Bottom Sheet Results */}
-        {isResultsExpanded && (
+        {/* Google-style Bottom Sheet Results */}
+        {showResults && (
           <div className="absolute bottom-0 left-0 right-0 z-50 bg-background-canvas/95 backdrop-blur-sm rounded-t-3xl shadow-2xl border-t border-border-default/20 animate-slide-in-up">
             {/* Drag Handle */}
             <div className="flex justify-center pt-3 pb-2">
@@ -525,9 +587,12 @@ export default function MapPage() {
             
             {/* Header */}
             <div className="flex items-center justify-between px-6 pb-4">
-              <h3 className="text-lg font-semibold text-text-heading">Farm Shops</h3>
+              <div>
+                <h3 className="text-lg font-semibold text-text-heading">Farm Shops</h3>
+                <p className="text-sm text-text-muted">{filteredFarms.length} farms found</p>
+              </div>
               <button
-                onClick={handleResultsToggle}
+                onClick={() => setShowResults(false)}
                 className="w-8 h-8 rounded-full bg-background-surface flex items-center justify-center hover:bg-background-surface/80 transition-colors"
               >
                 <X className="w-4 h-4 text-text-muted" />
@@ -583,8 +648,8 @@ export default function MapPage() {
           </div>
         )}
 
-        {/* Selected Farm Detail Card */}
-        {selectedFarm && !isResultsExpanded && (
+        {/* Google-style Selected Farm Card */}
+        {selectedFarm && !showResults && (
           <div className="absolute bottom-4 left-4 right-4 z-40 bg-background-canvas/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-border-default/20 p-4 animate-slide-in-up">
             <div className="flex items-start justify-between">
               <div className="flex-1 min-w-0">
@@ -636,15 +701,6 @@ export default function MapPage() {
 }
 
 // Utility functions
-function escapeHtml(s: string) {
-  return s
-    .replaceAll('&','&amp;')
-    .replaceAll('<','&lt;')
-    .replaceAll('>','&gt;')
-    .replaceAll('"','&quot;')
-    .replaceAll("'",'&#039;')
-}
-
 function haversineMi(lat1: number, lon1: number, lat2: number, lon2: number) {
   const toRad = (d: number) => (d * Math.PI) / 180
   const R = 3958.7613 // Earth radius in miles
