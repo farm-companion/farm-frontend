@@ -29,12 +29,152 @@ export default function MapPage() {
   const [inViewOnly, setInViewOnly] = useState<boolean>(true)
   const [dataQuality, setDataQuality] = useState<{ total: number; valid: number; invalid: number } | null>(null)
   
+  // Error handling state
+  const [error, setError] = useState<string | null>(null)
+  const [retryCount, setRetryCount] = useState(0)
+  const [isRetrying, setIsRetrying] = useState(false)
+  
   // Google-style UI state
   const [isSearchFocused, setIsSearchFocused] = useState(false)
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false)
   const [selectedFarm, setSelectedFarm] = useState<FarmShop | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [showResults, setShowResults] = useState(false)
+
+  // Load farm data function with comprehensive validation and error handling
+  const loadFarmData = useCallback(async (isRetry = false) => {
+    if (isRetry) {
+      setIsRetrying(true)
+      setRetryCount(prev => prev + 1)
+    } else {
+      setIsLoading(true)
+      setError(null)
+    }
+    
+    try {
+      const res = await fetch('/data/farms.uk.json', { 
+        cache: 'no-store',
+        signal: AbortSignal.timeout(30000) // 30 second timeout
+      })
+      
+      if (!res.ok) {
+        throw new Error(`Failed to fetch farms data: ${res.status} ${res.statusText}`)
+      }
+      
+      const allFarms: FarmShop[] = await res.json()
+      console.log(`Loaded ${allFarms.length} total farms`)
+      
+      // Validate and filter farms with valid coordinates
+      const validFarms = allFarms.filter((farm) => {
+        // Check if location exists and has valid coordinates
+        if (!farm.location) {
+          console.warn(`Farm ${farm.id} has no location data`)
+          return false
+        }
+        
+        const { lat, lng } = farm.location
+        
+        // Check for null/undefined coordinates
+        if (lat === null || lng === null || lat === undefined || lng === undefined) {
+          console.warn(`Farm ${farm.id} has null/undefined coordinates: lat=${lat}, lng=${lng}`)
+          return false
+        }
+        
+        // Check for valid number types
+        if (typeof lat !== 'number' || typeof lng !== 'number') {
+          console.warn(`Farm ${farm.id} has invalid coordinate types: lat=${typeof lat}, lng=${typeof lng}`)
+          return false
+        }
+        
+        // Check for valid coordinate ranges
+        if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+          console.warn(`Farm ${farm.id} has out-of-range coordinates: lat=${lat}, lng=${lng}`)
+          return false
+        }
+        
+        // Check for zero coordinates (likely invalid)
+        if (lat === 0 && lng === 0) {
+          console.warn(`Farm ${farm.id} has zero coordinates (likely invalid): lat=${lat}, lng=${lng}`)
+          return false
+        }
+        
+        return true
+      })
+      
+      console.log(`Validated ${validFarms.length} farms with valid coordinates (filtered out ${allFarms.length - validFarms.length} invalid farms)`)
+      
+      // Set data quality metrics
+      setDataQuality({
+        total: allFarms.length,
+        valid: validFarms.length,
+        invalid: allFarms.length - validFarms.length
+      })
+      
+      farmsRef.current = validFarms
+      setFarms(validFarms)
+      
+      // Update map source with validated farm data
+      const map = mapRef.current
+      if (map) {
+        const src = map.getSource(sourceId) as any
+        if (src) {
+          const features = validFarms.map((f) => ({
+            type: 'Feature' as const,
+            geometry: { 
+              type: 'Point' as const, 
+              coordinates: [f.location.lng, f.location.lat] 
+            },
+            properties: {
+              id: f.id,
+              name: f.name,
+              slug: f.slug,
+              county: f.location.county || '',
+              postcode: f.location.postcode || '',
+              address: f.location.address || ''
+            }
+          }))
+          
+          console.log(`Setting map data with ${features.length} validated features`)
+          console.log('Sample valid feature:', features[0])
+          
+          src.setData({ type: 'FeatureCollection', features })
+        }
+      }
+      
+      // Clear any previous errors on success
+      setError(null)
+      setRetryCount(0)
+      hapticFeedback.success()
+      
+    } catch (e: any) {
+      console.error('Failed to load farms.uk.json', e)
+      
+      let errorMessage = 'Failed to load farm data'
+      if (e.name === 'AbortError') {
+        errorMessage = 'Request timed out. Please check your connection.'
+      } else if (e.message.includes('404')) {
+        errorMessage = 'Farm data not found. Please try again later.'
+      } else if (e.message.includes('500')) {
+        errorMessage = 'Server error. Please try again later.'
+      } else if (e.message.includes('fetch')) {
+        errorMessage = 'Network error. Please check your connection.'
+      }
+      
+      setError(errorMessage)
+      hapticFeedback.error()
+      
+      // Auto-retry logic (max 3 attempts)
+      if (!isRetry && retryCount < 2) {
+        console.log(`Auto-retrying in 3 seconds... (attempt ${retryCount + 1}/3)`)
+        setTimeout(() => {
+          loadFarmData(true)
+        }, 3000)
+      }
+    } finally {
+      setIsLoading(false)
+      setIsRetrying(false)
+    }
+  }, [retryCount])
   
   // Map configuration
   const sourceId = 'farms-src'
@@ -234,100 +374,7 @@ export default function MapPage() {
         loadFarmData()
       })
 
-      // Load farm data function with comprehensive validation
-      const loadFarmData = async () => {
-        map.resize()
-        setIsLoading(true)
-        try {
-          const res = await fetch('/data/farms.uk.json', { cache: 'no-store' })
-          if (!res.ok) {
-            throw new Error(`Failed to fetch farms data: ${res.status}`)
-          }
-          const allFarms: FarmShop[] = await res.json()
-          console.log(`Loaded ${allFarms.length} total farms`)
-          
-          // Validate and filter farms with valid coordinates
-          const validFarms = allFarms.filter((farm) => {
-            // Check if location exists and has valid coordinates
-            if (!farm.location) {
-              console.warn(`Farm ${farm.id} has no location data`)
-              return false
-            }
-            
-            const { lat, lng } = farm.location
-            
-            // Check for null/undefined coordinates
-            if (lat === null || lng === null || lat === undefined || lng === undefined) {
-              console.warn(`Farm ${farm.id} has null/undefined coordinates: lat=${lat}, lng=${lng}`)
-              return false
-            }
-            
-            // Check for valid number types
-            if (typeof lat !== 'number' || typeof lng !== 'number') {
-              console.warn(`Farm ${farm.id} has invalid coordinate types: lat=${typeof lat}, lng=${typeof lng}`)
-              return false
-            }
-            
-            // Check for valid coordinate ranges
-            if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
-              console.warn(`Farm ${farm.id} has out-of-range coordinates: lat=${lat}, lng=${lng}`)
-              return false
-            }
-            
-            // Check for zero coordinates (likely invalid)
-            if (lat === 0 && lng === 0) {
-              console.warn(`Farm ${farm.id} has zero coordinates (likely invalid): lat=${lat}, lng=${lng}`)
-              return false
-            }
-            
-            return true
-          })
-          
-          console.log(`Validated ${validFarms.length} farms with valid coordinates (filtered out ${allFarms.length - validFarms.length} invalid farms)`)
-          
-          // Set data quality metrics
-          setDataQuality({
-            total: allFarms.length,
-            valid: validFarms.length,
-            invalid: allFarms.length - validFarms.length
-          })
-          
-          farmsRef.current = validFarms
-          setFarms(validFarms)
-          
-          // Update map source with validated farm data
-          const src = map.getSource(sourceId) as any
-          if (src) {
-            const features = validFarms.map((f) => ({
-              type: 'Feature' as const,
-              geometry: { 
-                type: 'Point' as const, 
-                coordinates: [f.location.lng, f.location.lat] 
-              },
-              properties: {
-                id: f.id,
-                name: f.name,
-                slug: f.slug,
-                county: f.location.county || '',
-                postcode: f.location.postcode || '',
-                address: f.location.address || ''
-              }
-            }))
-            
-            console.log(`Setting map data with ${features.length} validated features`)
-            console.log('Sample valid feature:', features[0])
-            
-            src.setData({ type: 'FeatureCollection', features })
-          }
-          
-          hapticFeedback.success()
-        } catch (e) {
-          console.error('Failed to load farms.uk.json', e)
-          hapticFeedback.error()
-        } finally {
-          setIsLoading(false)
-        }
-      }
+
 
       // Google-level interactions
       map.on('click', clusterLayerId, (e: any) => {
@@ -556,7 +603,12 @@ export default function MapPage() {
           <div className="absolute inset-0 bg-background-canvas/80 backdrop-blur-sm flex items-center justify-center z-50">
             <div className="flex flex-col items-center gap-4">
               <div className="w-8 h-8 border-2 border-brand-primary border-t-transparent rounded-full animate-spin" />
-              <p className="text-text-body font-medium">Loading farm locations...</p>
+              <p className="text-text-body font-medium">
+                {isRetrying ? `Retrying... (${retryCount}/3)` : 'Loading farm locations...'}
+              </p>
+              {isRetrying && (
+                <p className="text-sm text-text-muted">Please wait while we try again</p>
+              )}
             </div>
           </div>
         )}
@@ -577,6 +629,44 @@ export default function MapPage() {
               >
                 <X className="w-4 h-4" />
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* Error Display */}
+        {error && (
+          <div className="absolute top-20 left-4 right-4 z-30 bg-red-500/90 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-red-600/20">
+            <div className="flex items-start justify-between">
+              <div className="flex items-start gap-3 flex-1">
+                <div className="w-2 h-2 bg-red-300 rounded-full animate-pulse mt-2 flex-shrink-0" />
+                <div className="flex-1">
+                  <p className="text-sm text-red-900 font-medium mb-1">
+                    {error}
+                  </p>
+                  {retryCount > 0 && (
+                    <p className="text-xs text-red-800">
+                      Retry attempt {retryCount}/3
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center gap-2 ml-3">
+                {retryCount < 2 && (
+                  <button 
+                    onClick={() => loadFarmData(true)}
+                    disabled={isRetrying}
+                    className="text-xs bg-red-600 text-white px-3 py-1 rounded-full hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isRetrying ? 'Retrying...' : 'Retry'}
+                  </button>
+                )}
+                <button 
+                  onClick={() => setError(null)}
+                  className="text-red-900 hover:text-red-700 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
         )}
