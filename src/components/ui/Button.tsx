@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
@@ -74,7 +76,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const isDisabled = disabled || loading;
-    const Comp = asChild ? 'span' : 'button';
 
     const content = (
       <>

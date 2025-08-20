@@ -97,7 +97,6 @@ export default function Header() {
       <MobileMenu 
         isOpen={isMobileMenuOpen} 
         onClose={closeMobileMenu}
-        id="mobile-menu"
       />
     </>
   )
