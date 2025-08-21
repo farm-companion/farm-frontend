@@ -621,7 +621,7 @@ export default function MapPage() {
     }
     
     // Apply the same validation to filtered farms
-    const validFilteredFarms = (filteredFarmsBase || []).filter((f) => {
+    const validFilteredFarms = (filteredFarms || []).filter((f) => {
       if (!f.location) return false
       const { lat, lng } = f.location
       return lat !== null && lng !== null && 
@@ -654,7 +654,7 @@ export default function MapPage() {
                       JSON.stringify(newFeatures.map((f: any) => f.properties.id).sort())
     
     if (hasChanged) {
-      console.log(`Updating map with ${newFeatures.length} validated features from filtered farms (filtered out ${(filteredFarmsBase || []).length - validFilteredFarms.length} invalid farms)`)
+      console.log(`Updating map with ${newFeatures.length} validated features from filtered farms (filtered out ${(filteredFarms || []).length - validFilteredFarms.length} invalid farms)`)
       if (newFeatures.length > 0) {
         console.log('Sample valid filtered feature:', newFeatures[0])
       }
