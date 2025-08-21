@@ -43,6 +43,8 @@ export default function MapPage() {
 
   // Load farm data function with comprehensive validation and error handling
   const loadFarmData = useCallback(async (isRetry = false) => {
+    console.log('🚀 loadFarmData called with isRetry:', isRetry)
+    
     if (isRetry) {
       setIsRetrying(true)
       setRetryCount(prev => prev + 1)
@@ -52,17 +54,21 @@ export default function MapPage() {
     }
     
     try {
+      console.log('📡 Fetching farm data from /data/farms.uk.json...')
       const res = await fetch('/data/farms.uk.json', { 
         cache: 'no-store',
         signal: AbortSignal.timeout(30000) // 30 second timeout
       })
+      
+      console.log('📡 Fetch response status:', res.status, res.statusText)
       
       if (!res.ok) {
         throw new Error(`Failed to fetch farms data: ${res.status} ${res.statusText}`)
       }
       
       const allFarms: FarmShop[] = await res.json()
-      console.log(`Loaded ${allFarms.length} total farms`)
+      console.log(`📡 Loaded ${allFarms.length} total farms from JSON`)
+      console.log('📡 Sample farm data:', allFarms[0])
       
       // Validate and filter farms with valid coordinates
       const validFarms = allFarms.filter((farm) => {
@@ -114,10 +120,13 @@ export default function MapPage() {
       setFarms(validFarms)
       
       // Update map source with validated farm data
+      console.log('🗺️ Updating map source with validated farm data...')
       const map = mapRef.current
       if (map) {
+        console.log('🗺️ Map reference exists')
         const src = map.getSource(sourceId) as any
         if (src) {
+          console.log('🗺️ Map source found, preparing to update data')
           const features = validFarms.map((f) => ({
             type: 'Feature' as const,
             geometry: { 
@@ -134,12 +143,21 @@ export default function MapPage() {
             }
           }))
           
-          console.log(`Setting map data with ${features.length} validated features`)
-          console.log('Sample valid feature:', features[0])
-          console.log('Map layers available:', map.getStyle().layers?.map(l => l.id))
-          console.log('Map source data before update:', src._data)
+          console.log(`🗺️ Setting map data with ${features.length} validated features`)
+          console.log('🗺️ Sample valid feature:', features[0])
+          console.log('🗺️ Map layers available:', map.getStyle().layers?.map(l => l.id))
+          console.log('🗺️ Map source data before update:', src._data)
           
+          console.log('🗺️ Calling src.setData()...')
           src.setData({ type: 'FeatureCollection', features })
+          console.log('🗺️ src.setData() completed')
+          
+          // Verify data was set
+          setTimeout(() => {
+            console.log('🗺️ Verifying data was set correctly...')
+            console.log('🗺️ Map source data after update:', src._data)
+            console.log('🗺️ Features count after update:', src._data?.features?.length || 0)
+          }, 100)
           
           // Force a style refresh to ensure markers appear
           setTimeout(() => {
