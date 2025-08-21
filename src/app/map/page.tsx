@@ -261,15 +261,21 @@ export default function MapPage() {
         // Ensure source is added only once
         if (!map.getSource(sourceId)) {
           console.log('Adding map source...')
-          map.addSource(sourceId, {
-            type: 'geojson',
-            data: { type: 'FeatureCollection', features: [] },
-            cluster: true,
-            clusterRadius: 60, // Google-style clustering
-            clusterMaxZoom: 16,
-            clusterMinPoints: 3
-          })
-          console.log('Map source added successfully')
+          try {
+            map.addSource(sourceId, {
+              type: 'geojson',
+              data: { type: 'FeatureCollection', features: [] },
+              cluster: true,
+              clusterRadius: 60, // Google-style clustering
+              clusterMaxZoom: 16,
+              clusterMinPoints: 3
+            })
+            console.log('✅ Map source added successfully')
+          } catch (error) {
+            console.error('❌ Failed to add map source:', error)
+          }
+        } else {
+          console.log('⚠️ Map source already exists')
         }
 
         // Google-style heat visualization
@@ -374,20 +380,48 @@ export default function MapPage() {
 
         if (!map.getLayer(unclusteredLayerId)) {
           console.log('Adding unclustered layer...')
-          map.addLayer({
-            id: unclusteredLayerId,
-            type: 'circle',
-            source: sourceId,
-            filter: ['!', ['has', 'point_count']],
-            paint: {
-              'circle-radius': 8,
-              'circle-color': '#00C2B2',
-              'circle-stroke-width': 3,
-              'circle-stroke-color': '#FFFFFF'
-            }
-          })
-          console.log('unclustered layer added')
+          try {
+            map.addLayer({
+              id: unclusteredLayerId,
+              type: 'circle',
+              source: sourceId,
+              filter: ['!', ['has', 'point_count']],
+              paint: {
+                'circle-radius': 8,
+                'circle-color': '#00C2B2',
+                'circle-stroke-width': 3,
+                'circle-stroke-color': '#FFFFFF'
+              }
+            })
+            console.log('✅ unclustered layer added successfully')
+          } catch (error) {
+            console.error('❌ Failed to add unclustered layer:', error)
+          }
+        } else {
+          console.log('⚠️ unclustered layer already exists')
         }
+
+        // Verify all layers were added
+        setTimeout(() => {
+          const allLayers = map.getStyle().layers?.map(l => l.id) || []
+          console.log('🔍 VERIFICATION - All map layers:', allLayers)
+          console.log('🔍 VERIFICATION - Expected farm layers:', [clusterLayerId, clusterCountLayerId, unclusteredLayerId])
+          console.log('🔍 VERIFICATION - Farm layers found:', allLayers.filter(id => [clusterLayerId, clusterCountLayerId, unclusteredLayerId].includes(id)))
+          
+          // Check if our layers exist
+          const hasClusters = map.getLayer(clusterLayerId)
+          const hasClusterCount = map.getLayer(clusterCountLayerId)
+          const hasUnclustered = map.getLayer(unclusteredLayerId)
+          
+          console.log('🔍 VERIFICATION - Layer existence check:')
+          console.log('  - clusters layer exists:', !!hasClusters)
+          console.log('  - cluster-count layer exists:', !!hasClusterCount)
+          console.log('  - unclustered-point layer exists:', !!hasUnclustered)
+          
+          if (!hasUnclustered) {
+            console.error('❌ CRITICAL: unclustered-point layer is missing!')
+          }
+        }, 500)
 
         // Load farm data immediately after layers are set up
         loadFarmData()
