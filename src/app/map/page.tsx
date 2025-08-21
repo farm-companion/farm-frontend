@@ -553,6 +553,7 @@ export default function MapPage() {
   // Filtered farms computation with performance optimizations
   const filteredFarmsBase = useMemo(() => {
     if (!farms) return []
+    console.log(`🔍 filteredFarmsBase starting with ${farms.length} farms`)
     const q = query.trim().toLowerCase()
     let base = !q ? farms : farms.filter(f => {
       const inName = f.name.toLowerCase().includes(q)
@@ -562,21 +563,30 @@ export default function MapPage() {
     })
     if (selectedCounty) {
       base = base.filter(f => f.location.county === selectedCounty)
+      console.log(`🔍 After county filtering: ${base.length} farms (selectedCounty: "${selectedCounty}")`)
     }
+    console.log(`🔍 filteredFarmsBase: ${base.length} farms (query: "${q}", selectedCounty: "${selectedCounty}")`)
     return base
   }, [farms, query, selectedCounty])
 
   const filteredFarms = useMemo(() => {
     let list = filteredFarmsBase
     
+    console.log(`🔍 filteredFarms starting with ${list.length} farms from filteredFarmsBase`)
+    
     // Performance optimization: Limit results for better performance
     const maxResults = 500 // Limit to prevent performance issues
     
+    // Temporarily disable inViewOnly filtering to show all farms initially
     if (inViewOnly && bounds) {
-      list = list.filter(f => {
-        const { lat, lng } = f.location
-        return lat >= bounds.south && lat <= bounds.north && lng >= bounds.west && lng <= bounds.east
-      })
+      console.log(`🔍 Bounds filtering would filter to viewport only, but showing all farms for debugging`)
+      // list = list.filter(f => {
+      //   const { lat, lng } = f.location
+      //   return lat >= bounds.south && lat <= bounds.north && lng >= bounds.west && lng <= bounds.east
+      // })
+      // console.log(`🔍 After bounds filtering: ${list.length} farms`)
+    } else {
+      console.log(`🔍 No bounds filtering applied (inViewOnly: ${inViewOnly}, bounds: ${!!bounds})`)
     }
     
     // Performance optimization: Limit results and sort by relevance
@@ -604,6 +614,7 @@ export default function MapPage() {
       })
     }
     
+    console.log(`🔍 filteredFarms final result: ${list.length} farms`)
     return list
   }, [filteredFarmsBase, inViewOnly, bounds, userLoc])
 
@@ -621,6 +632,7 @@ export default function MapPage() {
     }
     
     // Apply the same validation to filtered farms
+    console.log(`🗺️ Map update: filteredFarms has ${filteredFarms?.length || 0} farms`)
     const validFilteredFarms = (filteredFarms || []).filter((f) => {
       if (!f.location) return false
       const { lat, lng } = f.location
