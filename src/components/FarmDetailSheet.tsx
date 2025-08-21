@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
 import { X, Phone, MapPin, Star, Clock, Share2, Heart } from 'lucide-react'
 import { FarmShop } from '@/types/farm'
 import { hapticFeedback } from '@/lib/haptics'
@@ -11,13 +11,15 @@ interface FarmDetailSheetProps {
   isOpen: boolean
   onClose: () => void
   userLocation?: { lat: number; lng: number } | null
+  allFarms?: FarmShop[] | null
 }
 
 export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
   farm,
   isOpen,
   onClose,
-  userLocation
+  userLocation,
+  allFarms
 }) => {
   const sheetRef = useRef<HTMLDivElement>(null)
   const backdropRef = useRef<HTMLDivElement>(null)
@@ -27,6 +29,55 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
   const distance = userLocation && farm?.location
     ? Math.round(haversineMi(userLocation.lat, userLocation.lng, farm.location.lat, farm.location.lng))
     : null
+
+  // Find nearby farms (within 5 miles)
+  const nearbyFarms = useMemo(() => {
+    if (!farm || !allFarms || !farm.location) return []
+    
+    return allFarms
+      .filter(otherFarm => otherFarm.id !== farm.id && otherFarm.location)
+      .map(otherFarm => ({
+        ...otherFarm,
+        distance: haversineMi(
+          farm.location.lat, farm.location.lng,
+          otherFarm.location.lat, otherFarm.location.lng
+        )
+      }))
+      .filter(farmWithDistance => farmWithDistance.distance <= 5)
+      .sort((a, b) => a.distance - b.distance)
+      .slice(0, 3) // Show top 3 nearby farms
+  }, [farm, allFarms])
+
+  // Get seasonal highlights based on current month
+  const seasonalHighlights = useMemo(() => {
+    if (!farm) return []
+    
+    const currentMonth = new Date().getMonth() + 1 // 1-12
+    const highlights = []
+    
+    // Spring (March-May)
+    if (currentMonth >= 3 && currentMonth <= 5) {
+      highlights.push('🌱 Spring planting season')
+      highlights.push('🌸 Cherry blossoms and flowers')
+    }
+    // Summer (June-August)
+    else if (currentMonth >= 6 && currentMonth <= 8) {
+      highlights.push('☀️ Peak growing season')
+      highlights.push('🍓 Fresh berries available')
+    }
+    // Autumn (September-November)
+    else if (currentMonth >= 9 && currentMonth <= 11) {
+      highlights.push('🍎 Apple picking season')
+      highlights.push('🎃 Pumpkin patches open')
+    }
+    // Winter (December-February)
+    else {
+      highlights.push('❄️ Winter farm activities')
+      highlights.push('🕯️ Holiday farm events')
+    }
+    
+    return highlights
+  }, [farm])
 
   // Haversine formula for accurate distance calculation
   function haversineMi(lat1: number, lon1: number, lat2: number, lon2: number) {
@@ -219,6 +270,45 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
               <div className="space-y-2">
                 <h3 className="text-lg font-semibold text-gray-900">About</h3>
                 <p className="text-gray-600 leading-relaxed">{farm.description}</p>
+              </div>
+            )}
+
+            {/* Seasonal Highlights */}
+            {seasonalHighlights.length > 0 && (
+              <div className="space-y-2">
+                <h3 className="text-lg font-semibold text-gray-900">Seasonal Highlights</h3>
+                <div className="flex flex-wrap gap-2">
+                  {seasonalHighlights.map((highlight, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
+                    >
+                      {highlight}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Nearby Farms */}
+            {nearbyFarms.length > 0 && (
+              <div className="space-y-2">
+                <h3 className="text-lg font-semibold text-gray-900">Nearby Farms</h3>
+                <div className="space-y-2">
+                  {nearbyFarms.map((nearbyFarm) => (
+                    <div key={nearbyFarm.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex-1">
+                        <h4 className="font-medium text-gray-900">{nearbyFarm.name}</h4>
+                        <p className="text-sm text-gray-600">{nearbyFarm.location.county}</p>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-sm font-medium text-gray-900">
+                          {nearbyFarm.distance.toFixed(1)} mi
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 

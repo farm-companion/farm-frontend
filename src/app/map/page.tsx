@@ -474,17 +474,79 @@ export default function MapPage() {
         // Find the farm data
         const farm = farmsRef.current?.find(farm => farm.id === p.id)
         if (farm) {
-          // Apple-style marker selection with smooth animation
+          // Apple-style marker selection with enhanced behavior
           setSelectedFarm(farm)
           setShowResults(true)
           
-          // Animate the marker for visual feedback
+          // 1. Smooth map centering with optimal zoom
+          map.flyTo({
+            center: [farm.location.lng, farm.location.lat],
+            zoom: 15, // Optimal zoom for farm context
+            duration: 1000, // Smooth 1-second animation
+            essential: true
+          })
+          
+          // 2. Enhanced marker animation with glow effect
           const markerElement = e.target
           if (markerElement) {
-            markerElement.style.transform = 'scale(1.2)'
+            // Scale up with glow
+            markerElement.style.transform = 'scale(1.3)'
+            markerElement.style.filter = 'drop-shadow(0 0 10px rgba(34, 197, 94, 0.6))'
+            
+            // Reset after animation
             setTimeout(() => {
               markerElement.style.transform = 'scale(1)'
-            }, 200)
+              markerElement.style.filter = 'none'
+            }, 300)
+          }
+          
+          // 3. Visual focus - temporarily highlight this marker
+          if (map.getSource('clusters')) {
+            const source = map.getSource('clusters') as any
+            const currentData = source._data
+            
+            // Create highlighted version of this farm
+            const highlightedFeatures = currentData.features.map((feature: any) => {
+              if (feature.properties.id === farm.id) {
+                return {
+                  ...feature,
+                  properties: {
+                    ...feature.properties,
+                    highlighted: true
+                  }
+                }
+              }
+              return feature
+            })
+            
+            // Update source with highlighted data
+            source.setData({
+              ...currentData,
+              features: highlightedFeatures
+            })
+            
+            // Remove highlight after 2 seconds
+            setTimeout(() => {
+              const source = map.getSource('clusters') as any
+              const currentData = source._data
+              const normalFeatures = currentData.features.map((feature: any) => {
+                if (feature.properties.id === farm.id) {
+                  return {
+                    ...feature,
+                    properties: {
+                      ...feature.properties,
+                      highlighted: false
+                    }
+                  }
+                }
+                return feature
+              })
+              
+              source.setData({
+                ...currentData,
+                features: normalFeatures
+              })
+            }, 2000)
           }
         }
       })
@@ -1030,6 +1092,7 @@ export default function MapPage() {
             setSelectedFarm(null)
           }}
           userLocation={userLoc}
+          allFarms={farms}
         />
       </main>
 
