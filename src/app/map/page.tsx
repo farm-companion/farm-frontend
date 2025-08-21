@@ -959,16 +959,20 @@ export default function MapPage() {
                 console.log('Source data:', src._data)
                 console.log('Features count:', src._data?.features?.length || 0)
                 
-                // Force marker visibility
-                if (map.getLayer(unclusteredLayerId)) {
-                  map.setPaintProperty(unclusteredLayerId, 'circle-color', '#FF0000')
-                  map.setPaintProperty(unclusteredLayerId, 'circle-radius', 20)
-                  map.setPaintProperty(unclusteredLayerId, 'circle-opacity', 1)
-                  map.setLayoutProperty(unclusteredLayerId, 'visibility', 'visible')
-                  console.log('Applied debug styling to force marker visibility')
-                } else {
-                  console.log('Unclustered layer not found!')
-                }
+                        // Force marker visibility with aggressive styling
+        if (map.getLayer(unclusteredLayerId)) {
+          map.setPaintProperty(unclusteredLayerId, 'circle-color', '#FF0000')
+          map.setPaintProperty(unclusteredLayerId, 'circle-radius', 30)
+          map.setPaintProperty(unclusteredLayerId, 'circle-opacity', 1)
+          map.setPaintProperty(unclusteredLayerId, 'circle-stroke-width', 5)
+          map.setPaintProperty(unclusteredLayerId, 'circle-stroke-color', '#FFFFFF')
+          map.setLayoutProperty(unclusteredLayerId, 'visibility', 'visible')
+          console.log('✅ Applied aggressive debug styling to force marker visibility')
+          console.log('🔍 Markers should now be bright red circles with white borders')
+        } else {
+          console.log('❌ Unclustered layer not found!')
+          console.log('🔍 Available layers:', map.getStyle().layers?.map(l => l.id))
+        }
               } else {
                 console.log('Map source not found!')
               }
