@@ -43,8 +43,6 @@ export default function MapPage() {
 
   // Load farm data function with comprehensive validation and error handling
   const loadFarmData = useCallback(async (isRetry = false) => {
-    console.log('🚀 loadFarmData called with isRetry:', isRetry)
-    
     if (isRetry) {
       setIsRetrying(true)
       setRetryCount(prev => prev + 1)
@@ -170,7 +168,7 @@ export default function MapPage() {
               // Force layer visibility
               map.setLayoutProperty(unclusteredLayerId, 'visibility', 'visible')
               map.setPaintProperty(unclusteredLayerId, 'circle-radius', 10)
-              map.setPaintProperty(unclusteredLayerId, 'circle-color', '#FF0000') // Red for debugging
+              map.setPaintProperty(unclusteredLayerId, 'circle-color', '#00C2B2') // Normal green color
               map.setPaintProperty(unclusteredLayerId, 'circle-stroke-width', 2)
               map.setPaintProperty(unclusteredLayerId, 'circle-stroke-color', '#FFFFFF')
             }
@@ -553,11 +551,8 @@ export default function MapPage() {
 
   // Filtered farms computation with performance optimizations
   const filteredFarmsBase = useMemo(() => {
-    if (!farms || farms.length === 0) {
-      console.log(`🔍 filteredFarmsBase: No farms loaded yet (farms: ${farms ? 'empty array' : 'null'})`)
-      return []
-    }
-    console.log(`🔍 filteredFarmsBase starting with ${farms.length} farms`)
+    if (!farms || farms.length === 0) return []
+    
     const q = query.trim().toLowerCase()
     let base = !q ? farms : farms.filter(f => {
       const inName = f.name.toLowerCase().includes(q)
@@ -565,32 +560,26 @@ export default function MapPage() {
       const inCounty = f.location.county.toLowerCase().includes(q)
       return inName || inPostcode || inCounty
     })
+    
     if (selectedCounty) {
       base = base.filter(f => f.location.county === selectedCounty)
-      console.log(`🔍 After county filtering: ${base.length} farms (selectedCounty: "${selectedCounty}")`)
     }
-    console.log(`🔍 filteredFarmsBase: ${base.length} farms (query: "${q}", selectedCounty: "${selectedCounty}")`)
+    
     return base
   }, [farms, query, selectedCounty])
 
-  const filteredFarms = useMemo(() => {
+    const filteredFarms = useMemo(() => {
     let list = filteredFarmsBase
-    
-    console.log(`🔍 filteredFarms starting with ${list.length} farms from filteredFarmsBase`)
     
     // Performance optimization: Limit results for better performance
     const maxResults = 500 // Limit to prevent performance issues
     
-    // Temporarily disable inViewOnly filtering to show all farms initially
+    // Apply viewport filtering for performance
     if (inViewOnly && bounds) {
-      console.log(`🔍 Bounds filtering would filter to viewport only, but showing all farms for debugging`)
-      // list = list.filter(f => {
-      //   const { lat, lng } = f.location
-      //   return lat >= bounds.south && lat <= bounds.north && lng >= bounds.west && lng <= bounds.east
-      // })
-      // console.log(`🔍 After bounds filtering: ${list.length} farms`)
-    } else {
-      console.log(`🔍 No bounds filtering applied (inViewOnly: ${inViewOnly}, bounds: ${!!bounds})`)
+      list = list.filter(f => {
+        const { lat, lng } = f.location
+        return lat >= bounds.south && lat <= bounds.north && lng >= bounds.west && lng <= bounds.east
+      })
     }
     
     // Performance optimization: Limit results and sort by relevance
@@ -618,7 +607,6 @@ export default function MapPage() {
       })
     }
     
-    console.log(`🔍 filteredFarms final result: ${list.length} farms`)
     return list
   }, [filteredFarmsBase, inViewOnly, bounds, userLoc, farms])
 
@@ -636,7 +624,6 @@ export default function MapPage() {
     }
     
     // Apply the same validation to filtered farms
-    console.log(`🗺️ Map update: filteredFarms has ${filteredFarms?.length || 0} farms`)
     const validFilteredFarms = (filteredFarms || []).filter((f) => {
       if (!f.location) return false
       const { lat, lng } = f.location
@@ -670,28 +657,7 @@ export default function MapPage() {
                       JSON.stringify(newFeatures.map((f: any) => f.properties.id).sort())
     
     if (hasChanged) {
-      console.log(`Updating map with ${newFeatures.length} validated features from filtered farms (filtered out ${(filteredFarms || []).length - validFilteredFarms.length} invalid farms)`)
-      if (newFeatures.length > 0) {
-        console.log('Sample valid filtered feature:', newFeatures[0])
-      }
       src.setData({ type: 'FeatureCollection', features: newFeatures })
-      
-      // Debug marker visibility
-      setTimeout(() => {
-        console.log('Checking marker visibility after update...')
-        console.log('Source data features count:', src._data?.features?.length || 0)
-        console.log('Map zoom level:', map.getZoom())
-        console.log('Map center:', map.getCenter())
-        
-        // Force red markers for debugging
-        if (map.getLayer(unclusteredLayerId)) {
-          map.setPaintProperty(unclusteredLayerId, 'circle-color', '#FF0000')
-          map.setPaintProperty(unclusteredLayerId, 'circle-radius', 15)
-          console.log('Applied red debug styling to markers')
-        }
-      }, 500)
-    } else {
-      console.log('Map data unchanged, skipping update for performance')
     }
   }, [filteredFarmsBase])
 
@@ -960,45 +926,7 @@ export default function MapPage() {
           </div>
         </div>
 
-                         {/* Debug Button for Marker Visibility */}
-        <button
-          onClick={() => {
-            const map = mapRef.current
-            if (map) {
-              console.log('=== DEBUGGING MARKERS ===')
-              console.log('Map loaded:', map.loaded())
-              console.log('Style loaded:', map.isStyleLoaded())
-              console.log('Available layers:', map.getStyle().layers?.map(l => l.id))
-              
-              const src = map.getSource(sourceId) as any
-              if (src) {
-                console.log('Source data:', src._data)
-                console.log('Features count:', src._data?.features?.length || 0)
-                
-                        // Force marker visibility with aggressive styling
-        if (map.getLayer(unclusteredLayerId)) {
-          map.setPaintProperty(unclusteredLayerId, 'circle-color', '#FF0000')
-          map.setPaintProperty(unclusteredLayerId, 'circle-radius', 30)
-          map.setPaintProperty(unclusteredLayerId, 'circle-opacity', 1)
-          map.setPaintProperty(unclusteredLayerId, 'circle-stroke-width', 5)
-          map.setPaintProperty(unclusteredLayerId, 'circle-stroke-color', '#FFFFFF')
-          map.setLayoutProperty(unclusteredLayerId, 'visibility', 'visible')
-          console.log('✅ Applied aggressive debug styling to force marker visibility')
-          console.log('🔍 Markers should now be bright red circles with white borders')
-        } else {
-          console.log('❌ Unclustered layer not found!')
-          console.log('🔍 Available layers:', map.getStyle().layers?.map(l => l.id))
-        }
-              } else {
-                console.log('Map source not found!')
-              }
-              console.log('=== END DEBUG ===')
-            }
-          }}
-          className="absolute bottom-24 right-6 z-40 w-12 h-12 bg-red-500 text-white rounded-full shadow-lg hover:bg-red-600 transition-all duration-200 focus:outline-none text-xs font-bold"
-        >
-          DEBUG
-        </button>
+                         
 
         {/* Mobile-Optimized Floating Action Button */}
         <button
