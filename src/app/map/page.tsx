@@ -3,9 +3,10 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import maplibregl, { Map } from 'maplibre-gl'
 import type { FarmShop } from '@/types/farm'
-import { Search, MapPin, Filter, X, ChevronUp, Navigation, Star, Clock, Users } from 'lucide-react'
+import { Search, MapPin, X, Navigation } from 'lucide-react'
 import { hapticFeedback } from '@/lib/haptics'
 import AdSlot from '@/components/AdSlot'
+import { FarmDetailSheet } from '@/components/FarmDetailSheet'
 
 // Ensure this route is always rendered client-side
 export const dynamic = 'force-dynamic'
@@ -35,7 +36,6 @@ export default function MapPage() {
   const [isRetrying, setIsRetrying] = useState(false)
   
   // Google-style UI state
-  const [isSearchFocused, setIsSearchFocused] = useState(false)
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false)
   const [selectedFarm, setSelectedFarm] = useState<FarmShop | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -474,8 +474,18 @@ export default function MapPage() {
         // Find the farm data
         const farm = farmsRef.current?.find(farm => farm.id === p.id)
         if (farm) {
+          // Apple-style marker selection with smooth animation
           setSelectedFarm(farm)
           setShowResults(true)
+          
+          // Animate the marker for visual feedback
+          const markerElement = e.target
+          if (markerElement) {
+            markerElement.style.transform = 'scale(1.2)'
+            setTimeout(() => {
+              markerElement.style.transform = 'scale(1)'
+            }, 200)
+          }
         }
       })
 
@@ -680,12 +690,10 @@ export default function MapPage() {
 
   // Performance-optimized search handlers with debouncing
   const handleSearchFocus = useCallback(() => {
-    setIsSearchFocused(true)
     setShowSearchSuggestions(true)
   }, [])
 
   const handleSearchBlur = useCallback(() => {
-    setIsSearchFocused(false)
     // Delay hiding suggestions to allow for clicks
     setTimeout(() => setShowSearchSuggestions(false), 200)
   }, [])
@@ -723,14 +731,12 @@ export default function MapPage() {
     hapticFeedback.buttonPress()
     flyToFarm(farm)
     setShowSearchSuggestions(false)
-    setIsSearchFocused(false)
   }, [flyToFarm])
 
   const handleClearSearch = useCallback(() => {
     setQuery('')
     setSelectedCounty('')
     setShowSearchSuggestions(false)
-    setIsSearchFocused(false)
   }, [])
 
   return (
@@ -1015,42 +1021,16 @@ export default function MapPage() {
           </div>
         )}
 
-        {/* Mobile-Optimized Selected Farm Card */}
-        {selectedFarm && !showResults && (
-          <div className="absolute bottom-4 left-4 right-4 z-40 bg-background-canvas/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-border-default/20 p-4 sm:p-4 animate-slide-in-up">
-            <div className="flex items-start justify-between">
-              <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-text-heading">{selectedFarm.name}</h3>
-                <p className="text-sm text-text-muted mt-1">{selectedFarm.location.address}</p>
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="text-xs bg-brand-primary/10 text-brand-primary px-2 py-1 rounded-full">
-                    {selectedFarm.location.county}
-                  </span>
-                  {userLoc && (
-                    <span className="text-xs bg-background-surface text-text-muted px-2 py-1 rounded-full">
-                      {haversineMi(userLoc.lat, userLoc.lng, selectedFarm.location.lat, selectedFarm.location.lng).toFixed(1)} mi
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="flex items-center gap-2 ml-3">
-                <a
-                  href={`/shop/${selectedFarm.slug}`}
-                  className="w-8 h-8 bg-brand-primary rounded-full flex items-center justify-center hover:bg-brand-primary/90 transition-colors"
-                  aria-label={`View details for ${selectedFarm.name}`}
-                >
-                  <ChevronUp className="w-4 h-4 text-white" />
-                </a>
-                <button
-                  onClick={() => setSelectedFarm(null)}
-                  className="w-8 h-8 bg-background-surface rounded-full flex items-center justify-center hover:bg-background-surface/80 transition-colors"
-                >
-                  <X className="w-4 h-4 text-text-muted" />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Apple-Style Farm Detail Sheet */}
+        <FarmDetailSheet
+          farm={selectedFarm}
+          isOpen={showResults}
+          onClose={() => {
+            setShowResults(false)
+            setSelectedFarm(null)
+          }}
+          userLocation={userLoc}
+        />
       </main>
 
       {/* Sponsored section */}
