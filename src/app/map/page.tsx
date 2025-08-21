@@ -117,6 +117,7 @@ export default function MapPage() {
       })
       
       farmsRef.current = validFarms
+      console.log(`🚀 Setting farms state with ${validFarms.length} farms`)
       setFarms(validFarms)
       
       // Update map source with validated farm data
@@ -552,7 +553,10 @@ export default function MapPage() {
 
   // Filtered farms computation with performance optimizations
   const filteredFarmsBase = useMemo(() => {
-    if (!farms) return []
+    if (!farms || farms.length === 0) {
+      console.log(`🔍 filteredFarmsBase: No farms loaded yet (farms: ${farms ? 'empty array' : 'null'})`)
+      return []
+    }
     console.log(`🔍 filteredFarmsBase starting with ${farms.length} farms`)
     const q = query.trim().toLowerCase()
     let base = !q ? farms : farms.filter(f => {
@@ -616,7 +620,7 @@ export default function MapPage() {
     
     console.log(`🔍 filteredFarms final result: ${list.length} farms`)
     return list
-  }, [filteredFarmsBase, inViewOnly, bounds, userLoc])
+  }, [filteredFarmsBase, inViewOnly, bounds, userLoc, farms])
 
   // Update map markers with validation and performance optimization
   useEffect(() => {
