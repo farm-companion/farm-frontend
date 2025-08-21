@@ -442,7 +442,9 @@ export default function MapPage() {
         }, 500)
 
         // Load farm data immediately after layers are set up
+        console.log('🎯 About to call loadFarmData()...')
         loadFarmData()
+        console.log('🎯 loadFarmData() call completed')
       })
 
 
@@ -523,6 +525,20 @@ export default function MapPage() {
       }
     }
   }, [])
+
+  // Fallback: Load farm data if not loaded after map initialization
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log('🔄 Fallback: Checking if farm data needs to be loaded...')
+      const map = mapRef.current
+      if (map && farms && farms.length === 0) {
+        console.log('🔄 Fallback: No farms loaded, calling loadFarmData()...')
+        loadFarmData()
+      }
+    }, 2000) // Wait 2 seconds after map initialization
+
+    return () => clearTimeout(timer)
+  }, [loadFarmData, farms?.length || 0])
 
   // Counties for filtering
   const counties = useMemo(() => {
