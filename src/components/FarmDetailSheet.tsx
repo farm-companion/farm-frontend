@@ -397,16 +397,16 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
                     {/* Description - More Compact */}
         {farm.description && cleanDescription(farm.description) && (
               <div className="space-y-2">
-                <h2 className="text-lg font-bold text-gray-900">About</h2>
-                <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <h2 className="text-lg font-heading font-bold text-text-heading">About</h2>
+                <div className="bg-background-surface rounded-xl p-4 shadow-premium border border-border-default">
                   <div className="prose prose-sm prose-gray max-w-none">
-                                      {/* Split description into paragraphs for better readability */}
-                  {cleanDescription(farm.description).split('\n\n').map((paragraph, index) => (
+                    {/* Split description into paragraphs for better readability */}
+                    {cleanDescription(farm.description).split('\n\n').map((paragraph, index) => (
                       <p 
                         key={index}
-                        className={`text-gray-700 leading-relaxed ${
+                        className={`text-text-muted leading-relaxed ${
                           index === 0 
-                            ? 'text-base font-medium text-gray-900 mb-4' 
+                            ? 'text-base font-medium text-text-heading mb-4' 
                             : 'text-sm mb-3'
                         }`}
                       >
@@ -416,10 +416,10 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
                   </div>
                   
                   {/* Professional call-to-action */}
-                  <div className="mt-4 pt-4 border-t border-gray-200">
+                  <div className="mt-4 pt-4 border-t border-border-default">
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-brand-primary rounded-full animate-pulse" />
-                      <p className="text-xs font-medium text-gray-600 italic">
+                      <div className="w-1.5 h-1.5 bg-serum rounded-full animate-pulse" />
+                      <p className="text-xs font-medium text-text-muted italic">
                         Visit us to experience authentic local produce.
                       </p>
                     </div>
@@ -504,3 +504,4 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
     </>
   )
 }
+1

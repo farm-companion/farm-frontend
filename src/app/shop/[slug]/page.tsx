@@ -144,15 +144,15 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
               About {shop.name}
             </h2>
-            <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900/50 dark:to-gray-800/30 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700/50">
-              <div className="prose prose-lg prose-gray dark:prose-invert max-w-none">
+            <div className="bg-background-surface rounded-2xl p-8 shadow-premium border border-border-default">
+              <div className="prose prose-lg prose-gray max-w-none">
                 {/* Split description into paragraphs for better readability */}
                 {cleanDescription.split('\n\n').map((paragraph, index) => (
                   <p 
                     key={index}
-                    className={`text-gray-700 dark:text-gray-300 leading-relaxed ${
+                    className={`text-text-muted leading-relaxed ${
                       index === 0 
-                        ? 'text-lg font-medium text-gray-900 dark:text-white mb-6' 
+                        ? 'text-lg font-medium text-text-heading mb-6' 
                         : 'text-base mb-4'
                     }`}
                   >
@@ -162,10 +162,10 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
               </div>
               
               {/* Professional call-to-action */}
-              <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-600">
+              <div className="mt-8 pt-6 border-t border-border-default">
                 <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-brand-primary rounded-full animate-pulse" />
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 italic">
+                  <div className="w-2 h-2 bg-serum rounded-full animate-pulse" />
+                  <p className="text-sm font-medium text-text-muted italic">
                     Visit us to experience authentic local produce and traditional farming values.
                   </p>
                 </div>

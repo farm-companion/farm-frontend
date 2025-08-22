@@ -46,28 +46,32 @@ export default function AdminDocumentationPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-br from-serum to-teal-600 text-white">
-        <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background-surface">
+      {/* Hero Section - PuredgeOS 3.0 Compliant */}
+      <div className="relative overflow-hidden bg-background-canvas">
+        {/* Sophisticated background pattern */}
+        <div className="absolute inset-0 bg-gradient-to-br from-serum/5 via-transparent to-solar/5" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(0,194,178,0.03),transparent_50%)]" />
+        
+        <div className="relative max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-5xl font-bold mb-6">
+            <h1 className="text-5xl font-heading font-bold mb-6 text-text-heading">
               Farm Companion Admin Documentation
             </h1>
-            <p className="text-xl mb-8 max-w-3xl mx-auto">
+            <p className="text-xl mb-8 max-w-3xl mx-auto text-text-muted">
               Your complete guide to managing the UK&apos;s premium farm shop platform. 
               From authentication to advanced troubleshooting, everything you need to know.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link 
                 href="/admin"
-                className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent"
+                className="bg-serum text-black px-6 py-3 rounded-lg font-semibold hover:bg-serum/90 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-serum focus:ring-offset-2"
               >
                 Go to Admin Dashboard
               </Link>
               <Link 
                 href="#quick-start"
-                className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-serum transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent"
+                className="border-2 border-serum text-serum px-6 py-3 rounded-lg font-semibold hover:bg-serum hover:text-black transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-serum focus:ring-offset-2"
               >
                 Quick Start Guide
               </Link>

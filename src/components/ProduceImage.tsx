@@ -83,25 +83,25 @@ export default function ProduceImage({
   // Show error state with fallback
   if (imageError) {
     return (
-      <div className={`relative bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 ${className}`}>
+      <div className={`relative bg-background-surface border border-border-default ${className}`}>
         {fill ? (
           <div className="w-full h-full flex items-center justify-center">
             <div className="text-center">
-              <div className="w-12 h-12 bg-gray-200 rounded-full mx-auto mb-2 flex items-center justify-center">
+              <div className="w-12 h-12 bg-background-canvas rounded-full mx-auto mb-2 flex items-center justify-center border border-border-default">
                 <span className="text-xl">🌱</span>
               </div>
-              <p className="text-sm text-gray-600 font-medium">{produceName}</p>
-              <p className="text-xs text-gray-500 mt-1">Image unavailable</p>
+              <p className="text-sm text-text-muted font-medium">{produceName}</p>
+              <p className="text-xs text-text-muted mt-1">Image unavailable</p>
             </div>
           </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <div className="text-center">
-              <div className="w-12 h-12 bg-gray-200 rounded-full mx-auto mb-2 flex items-center justify-center">
+              <div className="w-12 h-12 bg-background-canvas rounded-full mx-auto mb-2 flex items-center justify-center border border-border-default">
                 <span className="text-xl">🌱</span>
               </div>
-              <p className="text-sm text-gray-600 font-medium">{produceName}</p>
-              <p className="text-xs text-gray-500 mt-1">Image unavailable</p>
+              <p className="text-sm text-text-muted font-medium">{produceName}</p>
+              <p className="text-xs text-text-muted mt-1">Image unavailable</p>
             </div>
           </div>
         )}
@@ -140,13 +140,13 @@ export function ProduceGallery({ images, produceName, className = '' }: ProduceG
   if (!images || images.length === 0) {
     return (
       <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ${className}`}>
-        <div className="aspect-video bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 rounded-lg flex items-center justify-center">
+        <div className="aspect-video bg-background-surface border border-border-default rounded-lg flex items-center justify-center">
           <div className="text-center">
-            <div className="w-12 h-12 bg-gray-200 rounded-full mx-auto mb-2 flex items-center justify-center">
+            <div className="w-12 h-12 bg-background-canvas rounded-full mx-auto mb-2 flex items-center justify-center border border-border-default">
               <span className="text-xl">🌱</span>
             </div>
-            <p className="text-sm text-gray-600 font-medium">{produceName}</p>
-            <p className="text-xs text-gray-500 mt-1">No images available</p>
+            <p className="text-sm text-text-muted font-medium">{produceName}</p>
+            <p className="text-xs text-text-muted mt-1">No images available</p>
           </div>
         </div>
       </div>

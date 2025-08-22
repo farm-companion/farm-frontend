@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin, Star, ArrowRight, CheckCircle } from 'lucide-react'
+import { MapPin, Star, ArrowRight, CheckCircle, Leaf, Calendar, Heart } from 'lucide-react'
 import NewsletterSignup from '@/components/NewsletterSignup'
 
 export const metadata: Metadata = {
@@ -67,30 +67,34 @@ export default async function HomePage() {
 
   return (
     <main className="min-h-screen bg-background-canvas">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-green-600 via-blue-600 to-purple-600 text-white">
-        <div className="absolute inset-0 bg-black/20" />
+      {/* Hero Section - PuredgeOS 3.0 Compliant */}
+      <section className="relative overflow-hidden bg-background-surface">
+        {/* Sophisticated background pattern */}
+        <div className="absolute inset-0 bg-gradient-to-br from-serum/5 via-transparent to-solar/5" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(0,194,178,0.03),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(212,255,79,0.02),transparent_50%)]" />
+        
         <div className="relative max-w-7xl mx-auto px-6 py-20 lg:py-32">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight text-text-heading">
               Find Fresh Local
-              <span className="block text-green-300">Farm Shops</span>
+              <span className="block text-serum">Farm Shops</span>
             </h1>
-            <p className="text-xl md:text-2xl opacity-90 mb-8 leading-relaxed">
+            <p className="text-xl md:text-2xl text-text-muted mb-8 leading-relaxed">
               Discover {farmCount}+ authentic UK farm shops with the freshest local produce, 
               seasonal delights, and farm-fresh goodness near you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/map"
-                className="bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center gap-2"
+                className="bg-serum text-black px-8 py-4 rounded-lg font-semibold hover:bg-serum/90 transition-all duration-200 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 <MapPin className="w-5 h-5" />
                 Explore Farm Map
               </Link>
               <Link
                 href="/seasonal"
-                className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-gray-900 transition-colors inline-flex items-center justify-center gap-2"
+                className="border-2 border-serum text-serum px-8 py-4 rounded-lg font-semibold hover:bg-serum hover:text-black transition-all duration-200 inline-flex items-center justify-center gap-2"
               >
                 What&apos;s in Season
                 <ArrowRight className="w-5 h-5" />
@@ -101,106 +105,77 @@ export default async function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-white border-b">
+      <section className="bg-background-canvas border-b border-border-default">
         <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-brand-primary mb-2">{farmCount}+</div>
-              <div className="text-gray-600">Farm Shops</div>
+              <div className="text-4xl font-heading font-bold text-serum mb-2">{farmCount}+</div>
+              <div className="text-text-muted">Farm Shops</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-brand-primary mb-2">{countyCount}</div>
-              <div className="text-gray-600">Counties</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-brand-primary mb-2">24/7</div>
-              <div className="text-gray-600">Updated Directory</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-brand-primary mb-2">100%</div>
-              <div className="text-gray-600">Verified Farms</div>
+              <div className="text-4xl font-heading font-bold text-serum mb-2">{countyCount}</div>
+              <div className="text-text-muted">Counties</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 lg:py-24">
+      <section className="bg-background-surface py-16">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose Farm Companion?
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-text-heading mb-4">
+              Why Choose Farm Shops?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We connect you with authentic, local farm shops that offer the freshest produce 
-              and the best farm-to-table experience.
+            <p className="text-lg text-text-muted max-w-2xl mx-auto">
+              Experience the difference of truly fresh, local produce from family-run farms across the UK.
             </p>
           </div>
-
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="w-8 h-8 text-green-600" />
+            <div className="text-center p-6 rounded-lg bg-background-canvas border border-border-default">
+              <div className="w-16 h-16 bg-serum/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Leaf className="w-8 h-8 text-serum" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Interactive Map</h3>
-              <p className="text-gray-600">
-                Find farm shops near you with our Google-level interactive map. 
-                Search, filter, and discover local farms with ease.
-              </p>
+              <h3 className="text-xl font-heading font-semibold text-text-heading mb-2">Fresh & Local</h3>
+              <p className="text-text-muted">Direct from farm to table, ensuring maximum freshness and flavor.</p>
             </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Star className="w-8 h-8 text-blue-600" />
+            
+            <div className="text-center p-6 rounded-lg bg-background-canvas border border-border-default">
+              <div className="w-16 h-16 bg-serum/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Calendar className="w-8 h-8 text-serum" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Seasonal Guides</h3>
-              <p className="text-gray-600">
-                Know what&apos;s in season with our comprehensive produce guides. 
-                Get recipe inspiration and storage tips for fresh ingredients.
-              </p>
+              <h3 className="text-xl font-heading font-semibold text-text-heading mb-2">Seasonal Selection</h3>
+              <p className="text-text-muted">Discover what&apos;s in season and at its peak flavor throughout the year.</p>
             </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8 text-purple-600" />
+            
+            <div className="text-center p-6 rounded-lg bg-background-canvas border border-border-default">
+              <div className="w-16 h-16 bg-serum/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Heart className="w-8 h-8 text-serum" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Verified Information</h3>
-              <p className="text-gray-600">
-                All farm shops are verified with accurate contact details, 
-                opening hours, and up-to-date information.
-              </p>
+              <h3 className="text-xl font-heading font-semibold text-text-heading mb-2">Family Values</h3>
+              <p className="text-text-muted">Support local families and sustainable farming practices.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gray-50 border-t border-b">
-        <div className="max-w-7xl mx-auto px-6 py-16">
-          <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Ready to Discover Local Farm Shops?
-            </h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Start exploring our comprehensive directory of UK farm shops. 
-              Find fresh, local produce and support your local farmers.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/map"
-                className="bg-brand-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-brand-primary/90 transition-colors inline-flex items-center justify-center gap-2"
-              >
-                <MapPin className="w-5 h-5" />
-                Start Exploring
-              </Link>
-              <Link
-                href="/shop"
-                className="border-2 border-brand-primary text-brand-primary px-8 py-4 rounded-xl font-semibold hover:bg-brand-primary hover:text-white transition-colors"
-              >
-                Browse Directory
-              </Link>
-            </div>
-          </div>
+      <section className="bg-serum text-black py-16">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+            Ready to Explore?
+          </h2>
+          <p className="text-lg mb-8 opacity-90">
+            Start your journey to discover amazing local farm shops today.
+          </p>
+          <Link
+            href="/map"
+            className="bg-black text-white px-8 py-4 rounded-lg font-semibold hover:bg-black/90 transition-all duration-200 inline-flex items-center justify-center gap-2"
+          >
+            Find Farms Near You
+            <ArrowRight className="w-5 h-5" />
+          </Link>
         </div>
       </section>
 

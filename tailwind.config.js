@@ -18,8 +18,9 @@ module.exports = {
         '2xl': '1536px',  // 2X large devices
       },
       
-      // PuredgeOS Brand Colors
+      // PuredgeOS Brand Colors - Premium Quality
       colors: {
+        // Core Brand Palette
         obsidian: '#1E1F23',
         serum: '#00C2B2',
         sandstone: '#E4E2DD',
@@ -46,7 +47,7 @@ module.exports = {
         'border-focus': 'var(--border-focus)',
       },
       
-      // PuredgeOS Typography
+      // PuredgeOS Typography - God-tier quality
       fontFamily: {
         'heading': ['Satoshi', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         'body': ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
@@ -69,7 +70,7 @@ module.exports = {
         '24': '96px',
       },
       
-      // Mobile-first border radius
+      // Mobile-first border radius - Premium feel
       borderRadius: {
         'none': '0',
         'sm': '4px',
@@ -78,72 +79,61 @@ module.exports = {
         'full': '9999px',
       },
       
-      // Mobile-first typography scale
-      fontSize: {
-        'xs': ['0.75rem', { lineHeight: '1.4' }],      // 12px
-        'sm': ['0.875rem', { lineHeight: '1.5' }],     // 14px
-        'base': ['1rem', { lineHeight: '1.5' }],       // 16px
-        'lg': ['1.125rem', { lineHeight: '1.6' }],     // 18px
-        'xl': ['1.25rem', { lineHeight: '1.5' }],      // 20px
-        '2xl': ['1.5rem', { lineHeight: '1.4' }],      // 24px
-        '3xl': ['1.875rem', { lineHeight: '1.3' }],    // 30px
-        '4xl': ['2.25rem', { lineHeight: '1.2' }],     // 36px
-        '5xl': ['3rem', { lineHeight: '1.1' }],        // 48px
-        '6xl': ['3.75rem', { lineHeight: '1.1' }],     // 60px
+      // PuredgeOS Motion - Apple-style easing
+      transitionDuration: {
+        'instant': '50ms',
+        'fast': '150ms',
+        'base': '250ms',
+        'slow': '400ms',
       },
       
-      // Mobile-first animation durations
-      animation: {
-        'fade-in': 'fadeIn 0.2s ease-in-out',
-        'slide-up': 'slideUp 0.3s ease-out',
-        'scale-in': 'scaleIn 0.2s ease-out',
+      transitionTimingFunction: {
+        'gentle-spring': 'cubic-bezier(0.2, 0.8, 0.2, 1)',
       },
       
+      // Premium shadows
+      boxShadow: {
+        'premium': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        'premium-lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        'premium-xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+      },
+      
+      // Premium animations
       keyframes: {
-        fadeIn: {
+        'fade-in': {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
-        slideUp: {
-          '0%': { transform: 'translateY(10px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
+        'fade-in-up': {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        scaleIn: {
-          '0%': { transform: 'scale(0.95)', opacity: '0' },
-          '100%': { transform: 'scale(1)', opacity: '1' },
+        'scale-in': {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        'lift': {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(-2px)' },
         },
       },
       
-      // Mobile-first container max-widths
-      maxWidth: {
-        'xs': '480px',
-        'sm': '640px',
-        'md': '768px',
-        'lg': '1024px',
-        'xl': '1280px',
-        '2xl': '1536px',
+      animation: {
+        'fade-in': 'fade-in 250ms cubic-bezier(0.2, 0.8, 0.2, 1)',
+        'fade-in-up': 'fade-in-up 250ms cubic-bezier(0.2, 0.8, 0.2, 1)',
+        'scale-in': 'scale-in 150ms cubic-bezier(0.2, 0.8, 0.2, 1)',
+        'lift': 'lift 150ms cubic-bezier(0.2, 0.8, 0.2, 1)',
+      },
+      
+      // Premium background patterns
+      backgroundImage: {
+        'pattern-subtle': 'radial-gradient(circle at 30% 20%, rgba(0,194,178,0.03), transparent 50%), radial-gradient(circle at 70% 80%, rgba(212,255,79,0.02), transparent 50%)',
+        'pattern-elegant': 'linear-gradient(135deg, rgba(0,194,178,0.02) 0%, transparent 50%), linear-gradient(45deg, rgba(212,255,79,0.01) 0%, transparent 50%)',
       },
     },
   },
   plugins: [
-    // Custom plugin for touch-friendly buttons
-    function({ addUtilities }) {
-      const newUtilities = {
-        '.touch-target': {
-          'min-height': '48px',
-          'min-width': '48px',
-          'display': 'inline-flex',
-          'align-items': 'center',
-          'justify-content': 'center',
-        },
-        '.mobile-safe-area': {
-          'padding-left': 'env(safe-area-inset-left)',
-          'padding-right': 'env(safe-area-inset-right)',
-          'padding-top': 'env(safe-area-inset-top)',
-          'padding-bottom': 'env(safe-area-inset-bottom)',
-        },
-      }
-      addUtilities(newUtilities)
-    }
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
   ],
 }

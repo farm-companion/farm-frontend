@@ -119,26 +119,30 @@ export default async function ShopPage() {
 
   return (
     <main className="min-h-screen bg-background-canvas">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-green-600 via-blue-600 to-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-6 py-16 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+      {/* Hero Section - PuredgeOS 3.0 Compliant */}
+      <section className="relative overflow-hidden bg-background-surface">
+        {/* Sophisticated background pattern */}
+        <div className="absolute inset-0 bg-gradient-to-br from-serum/5 via-transparent to-solar/5" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(0,194,178,0.03),transparent_50%)]" />
+        
+        <div className="relative max-w-7xl mx-auto px-6 py-16 text-center">
+          <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-text-heading">
             UK Farm Shops Directory
           </h1>
-          <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto mb-8">
+          <p className="text-xl md:text-2xl text-text-muted max-w-3xl mx-auto mb-8">
             Discover {farms.length}+ authentic farm shops across the UK. 
             Find fresh local produce, seasonal delights, and farm-fresh goodness near you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/map"
-              className="bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+              className="bg-serum text-black px-8 py-4 rounded-lg font-semibold hover:bg-serum/90 transition-all duration-200 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
             >
               Explore Interactive Map
             </Link>
             <Link
               href="/seasonal"
-              className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-gray-900 transition-colors"
+              className="border-2 border-serum text-serum px-8 py-4 rounded-lg font-semibold hover:bg-serum hover:text-black transition-all duration-200 inline-flex items-center justify-center gap-2"
             >
               What&apos;s in Season
             </Link>
@@ -147,68 +151,50 @@ export default async function ShopPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-6 py-8">
+      <section className="bg-background-canvas border-b border-border-default">
+        <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-brand-primary mb-2">{farms.length}+</div>
-              <div className="text-gray-600">Farm Shops</div>
+              <div className="text-4xl font-heading font-bold text-serum mb-2">{farms.length}+</div>
+              <div className="text-text-muted">Farm Shops</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-brand-primary mb-2">{counties.length}</div>
-              <div className="text-gray-600">Counties</div>
+              <div className="text-4xl font-heading font-bold text-serum mb-2">{counties.length}</div>
+              <div className="text-text-muted">Counties</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-brand-primary mb-2">24/7</div>
-              <div className="text-gray-600">Updated Directory</div>
+              <div className="text-4xl font-heading font-bold text-serum mb-2">100%</div>
+              <div className="text-text-muted">Verified Farms</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Farm Listings by County */}
-      <section className="max-w-7xl mx-auto px-6 py-12">
-        <div className="space-y-12">
-          {counties.map((county) => (
-            <div key={county}>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                <MapPin className="w-6 h-6 text-brand-primary" />
-                {county} ({farmsByCounty[county].length} farm{farmsByCounty[county].length !== 1 ? 's' : ''})
-              </h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {farmsByCounty[county].map((farm) => (
-                  <FarmCard key={farm.slug} farm={farm} />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Farm Directory */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-text-heading mb-4">
+              Browse by County
+            </h2>
+            <p className="text-lg text-text-muted max-w-2xl mx-auto">
+              Find farm shops in your area with our comprehensive county-by-county directory.
+            </p>
+          </div>
 
-      {/* Call to Action */}
-      <section className="bg-gray-50 border-t">
-        <div className="max-w-7xl mx-auto px-6 py-12 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Can&apos;t Find Your Farm Shop?
-          </h2>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Know a great farm shop that&apos;s not listed? Help us grow our directory 
-            by adding your local farm shop to our community.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/add"
-              className="bg-brand-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-brand-primary/90 transition-colors"
-            >
-              Add a Farm Shop
-            </Link>
-            <Link
-              href="/contact"
-              className="border-2 border-brand-primary text-brand-primary px-8 py-4 rounded-xl font-semibold hover:bg-brand-primary hover:text-white transition-colors"
-            >
-              Contact Us
-            </Link>
+          <div className="space-y-12">
+            {counties.map((county) => (
+              <div key={county} className="border-b border-border-default pb-8 last:border-b-0">
+                <h3 className="text-2xl font-heading font-semibold text-text-heading mb-6">
+                  {county}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {farmsByCounty[county].map((farm) => (
+                    <FarmCard key={farm.id} farm={farm} />
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

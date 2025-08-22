@@ -86,12 +86,12 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
               priority
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 flex items-center justify-center">
+            <div className="w-full h-full bg-background-surface border border-border-default flex items-center justify-center">
               <div className="text-center">
-                <div className="w-16 h-16 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <div className="w-16 h-16 bg-background-canvas rounded-full mx-auto mb-4 flex items-center justify-center border border-border-default">
                   <span className="text-2xl">🌱</span>
                 </div>
-                <p className="text-gray-600 font-medium">{p.name}</p>
+                <p className="text-text-muted font-medium">{p.name}</p>
               </div>
             </div>
           )}
