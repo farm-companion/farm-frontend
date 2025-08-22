@@ -122,6 +122,8 @@ export const PRODUCE: Produce[] = [
       { src: '/images/produce/strawberries-fresh1.jpg', alt: 'Fresh ripe strawberries with natural texture and seeds' },
       { src: '/images/produce/strawberries-fresh2.jpg', alt: 'Fresh ripe strawberry cut in half, showing its vibrant red exterior, visible seeds, and juicy, detailed interior' },
       { src: '/images/produce/strawberries-fresh3.jpg', alt: 'Hands cupping fresh ripe strawberries with rustic plaid background, showing abundance and freshness' },
+      { src: '/images/produce/strawberries-fresh5.jpg', alt: 'Fresh strawberries and basil leaves served in a waffle cone, creating a delightful summer treat' },
+      { src: '/images/produce/strawberries-fresh6.jpg', alt: 'Fresh strawberries and golden shortbread cookies arranged on a rustic wooden surface' },
     ],
     monthsInSeason: [5, 6, 7, 8],        // May–Aug
     peakMonths: [6, 7],
