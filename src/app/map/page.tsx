@@ -1,18 +1,12 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState, useCallback, Suspense } from 'react'
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import type { FarmShop } from '@/types/farm'
 import { Search, MapPin, X, Navigation } from 'lucide-react'
 import { hapticFeedback } from '@/lib/haptics'
 import AdSlot from '@/components/AdSlot'
 import { FarmDetailSheet } from '@/components/FarmDetailSheet'
-import dynamicImport from 'next/dynamic'
-
-// Dynamic imports for performance optimization
-const MapComponent = dynamicImport(() => import('@/components/MapComponent'), {
-  loading: () => <MapLoadingSkeleton />,
-  ssr: false
-})
+import MapComponent from '@/components/MapComponent'
 
 // Ensure this route is always rendered client-side
 export const dynamic = 'force-dynamic'
@@ -312,24 +306,22 @@ export default function MapPage() {
       {/* Google-style Map Layout - Maximum Map Visibility */}
       <main className="relative w-screen h-[calc(100vh-56px)] mt-14 bg-background-canvas">
         {/* Map Container - 95%+ visible */}
-        <Suspense fallback={<MapLoadingSkeleton />}>
-          <MapComponent
-            farms={farms}
-            filteredFarms={filteredFarms}
-            userLoc={userLoc}
-            setUserLoc={setUserLoc}
-            bounds={bounds}
-            setBounds={setBounds}
-            selectedFarm={selectedFarm}
-            setSelectedFarm={setSelectedFarm}
-            loadFarmData={loadFarmData}
-            isLoading={isLoading}
-            error={error}
-            retryCount={retryCount}
-            isRetrying={isRetrying}
-            dataQuality={dataQuality}
-          />
-        </Suspense>
+        <MapComponent
+          farms={farms}
+          filteredFarms={filteredFarms}
+          userLoc={userLoc}
+          setUserLoc={setUserLoc}
+          bounds={bounds}
+          setBounds={setBounds}
+          selectedFarm={selectedFarm}
+          setSelectedFarm={setSelectedFarm}
+          loadFarmData={loadFarmData}
+          isLoading={isLoading}
+          error={error}
+          retryCount={retryCount}
+          isRetrying={isRetrying}
+          dataQuality={dataQuality}
+        />
         
         {/* Loading Overlay */}
         {isLoading && (

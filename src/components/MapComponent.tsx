@@ -1,9 +1,11 @@
 'use client'
 
 import { useEffect, useRef, useCallback } from 'react'
-import maplibregl, { Map } from 'maplibre-gl'
 import type { FarmShop } from '@/types/farm'
 import { hapticFeedback } from '@/lib/haptics'
+
+// Import MapLibre GL JS directly for immediate loading
+import maplibregl, { Map } from 'maplibre-gl'
 
 const styleUrl = process.env.NEXT_PUBLIC_MAP_STYLE_URL || 'https://demotiles.maplibre.org/style.json'
 
