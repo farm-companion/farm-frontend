@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui'
 import MobileMenu, { MobileMenuButton } from './MobileMenu'
+import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -77,6 +78,9 @@ export default function Header() {
                   Add a Farm Shop
                 </Link>
               </Button>
+            </li>
+            <li role="none">
+              <ThemeToggle />
             </li>
           </ul>
 

@@ -18,6 +18,7 @@ const buttonVariants = cva(
           'bg-brand-primary text-[#000000] hover:bg-brand-primary/90',
           'focus-visible:ring-brand-primary',
           'active:scale-[0.98]',
+          'dark:bg-brand-primary dark:text-[#000000]',
         ],
         secondary: [
           'bg-background-surface text-text-body border border-border-default',
