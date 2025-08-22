@@ -159,18 +159,10 @@ export default function MapPage() {
           console.log(`🗺️ Setting map data with ${features.length} validated features`)
           console.log('🗺️ Sample valid feature:', features[0])
           console.log('🗺️ Map layers available:', map.getStyle().layers?.map(l => l.id))
-          console.log('🗺️ Map source data before update:', src._data)
           
           console.log('🗺️ Calling src.setData()...')
           src.setData({ type: 'FeatureCollection', features })
           console.log('🗺️ src.setData() completed')
-          
-          // Verify data was set
-          setTimeout(() => {
-            console.log('🗺️ Verifying data was set correctly...')
-            console.log('🗺️ Map source data after update:', src._data)
-            console.log('🗺️ Features count after update:', src._data?.features?.length || 0)
-          }, 100)
           
           // Force a style refresh to ensure markers appear
           setTimeout(() => {
