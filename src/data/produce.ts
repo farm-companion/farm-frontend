@@ -117,6 +117,7 @@ export const PRODUCE: Produce[] = [
   },
   {
     slug: 'strawberries',
+    
     name: 'Strawberries',
     images: [
       { src: '/images/produce/strawberries-fresh1.jpg', alt: 'Fresh ripe strawberries with natural texture and seeds' },
@@ -159,8 +160,8 @@ export const PRODUCE: Produce[] = [
       },
       {
         title: 'Strawberry Jam',
-        url: 'https://www.deliciousmagazine.co.uk/recipes/homemade-strawberry-jam/',
-        description: 'Preserve summer flavours'
+        url: 'https://boulderlocavore.com/simple-organic-strawberry-jam/',
+        description: 'Organic strawberry jam recipe'
       }
     ],
     aliases: ['strawberry', 'garden strawberries'],
