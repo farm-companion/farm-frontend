@@ -130,15 +130,39 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
         {location.address}, {location.county} {location.postcode}
       </p>
 
-      {/* Enhanced Description Section */}
+      {/* Enhanced Description Section - Apple-style Professional Formatting */}
       {shop.description && (
         <section className="mt-8">
-          <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-            <h2 className="text-xl font-semibold mb-4">About {shop.name}</h2>
-            <div className="prose prose-gray dark:prose-invert max-w-none">
-              <p className="text-gray-700 dark:text-[#E4E2DD]/80 leading-relaxed text-base">
-                {shop.description}
-              </p>
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
+              About {shop.name}
+            </h2>
+            <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900/50 dark:to-gray-800/30 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700/50">
+              <div className="prose prose-lg prose-gray dark:prose-invert max-w-none">
+                {/* Split description into paragraphs for better readability */}
+                {shop.description.split('\n\n').map((paragraph, index) => (
+                  <p 
+                    key={index}
+                    className={`text-gray-700 dark:text-gray-300 leading-relaxed ${
+                      index === 0 
+                        ? 'text-lg font-medium text-gray-900 dark:text-white mb-6' 
+                        : 'text-base mb-4'
+                    }`}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+              
+              {/* Professional call-to-action */}
+              <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-600">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-brand-primary rounded-full animate-pulse" />
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 italic">
+                    Visit us to experience authentic local produce and traditional farming values.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>

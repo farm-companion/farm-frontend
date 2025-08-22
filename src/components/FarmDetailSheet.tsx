@@ -304,11 +304,37 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
               </div>
             )}
 
-            {/* Description */}
+            {/* Description - Apple-style Professional Formatting */}
             {farm.description && (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <h2 className="text-xl font-bold text-gray-900">About</h2>
-                <p className="text-gray-600 leading-relaxed text-lg">{farm.description}</p>
+                <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 shadow-sm border border-gray-100">
+                  <div className="prose prose-sm prose-gray max-w-none">
+                    {/* Split description into paragraphs for better readability */}
+                    {farm.description.split('\n\n').map((paragraph, index) => (
+                      <p 
+                        key={index}
+                        className={`text-gray-700 leading-relaxed ${
+                          index === 0 
+                            ? 'text-base font-medium text-gray-900 mb-4' 
+                            : 'text-sm mb-3'
+                        }`}
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                  
+                  {/* Professional call-to-action */}
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-brand-primary rounded-full animate-pulse" />
+                      <p className="text-xs font-medium text-gray-600 italic">
+                        Visit us to experience authentic local produce.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
 
