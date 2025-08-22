@@ -167,9 +167,9 @@ export const PRODUCE: Produce[] = [
     slug: 'blackberries',
     name: 'Blackberries',
     images: [
-      { src: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=800&h=600&fit=crop', alt: 'Fresh blackberries in a bowl' },
-      { src: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&h=600&fit=crop', alt: 'Ripe blackberries on the bush' },
-      { src: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&h=600&fit=crop', alt: 'Fresh blackberries close-up' },
+      { src: 'https://images.unsplash.com/photo-1588952159215-a4b39193464e?w=800&h=600&fit=crop', alt: 'Fresh blackberries in a wooden bowl' },
+      { src: 'https://images.unsplash.com/photo-1593181194270-e1c63bc5d7b5?w=800&h=600&fit=crop', alt: 'Ripe purple-black blackberries on the vine' },
+      { src: 'https://images.unsplash.com/photo-1629464005877-92c9a5e10e16?w=800&h=600&fit=crop', alt: 'Blackberries scattered on rustic surface' },
     ],
     monthsInSeason: [7, 8, 9],            // Jul–Sep
     peakMonths: [8],
