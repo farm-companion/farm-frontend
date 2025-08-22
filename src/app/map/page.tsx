@@ -52,16 +52,29 @@ export default function MapPage() {
       setError(null)
     }
     
+    let timeoutId: NodeJS.Timeout | undefined
+    
     try {
       console.log('📡 Fetching farm data from /data/farms.uk.json...')
+      
+      // Create AbortController for cross-browser compatibility
+      const controller = new AbortController()
+      timeoutId = setTimeout(() => {
+        controller.abort()
+      }, 30000) // 30 second timeout
+      
       const res = await fetch('/data/farms.uk.json', { 
         cache: 'no-store',
-        signal: AbortSignal.timeout(30000) // 30 second timeout
+        signal: controller.signal
       })
+      
+      // Clear timeout since request completed
+      clearTimeout(timeoutId)
       
       console.log('📡 Fetch response status:', res.status, res.statusText)
       
       if (!res.ok) {
+        clearTimeout(timeoutId) // Clean up timeout
         throw new Error(`Failed to fetch farms data: ${res.status} ${res.statusText}`)
       }
       
@@ -184,6 +197,11 @@ export default function MapPage() {
       
     } catch (e: any) {
       console.error('Failed to load farms.uk.json', e)
+      
+      // Clean up timeout in case of error
+      if (typeof timeoutId !== 'undefined') {
+        clearTimeout(timeoutId)
+      }
       
       let errorMessage = 'Failed to load farm data'
       if (e.name === 'AbortError') {
