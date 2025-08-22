@@ -7,6 +7,7 @@ import type { FarmShop } from '@/types/farm'
 import { ObfuscatedEmail, ObfuscatedPhone } from '@/components/ObfuscatedContact'
 import ShopImageHeader from '@/components/ShopImageHeader'
 import PhotoSubmissionForm from '@/components/PhotoSubmissionForm'
+import { processFarmDescription } from '@/lib/seo-utils'
 
 async function readFarms(): Promise<FarmShop[]> {
   const file = path.join(process.cwd(), 'public', 'data', 'farms.uk.json')
@@ -21,9 +22,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!shop) return { title: 'Farm shop not found' }
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
   const url = `/shop/${encodeURIComponent(shop.slug)}`
-  // Use comprehensive description if available, otherwise fallback to address
-  const description = shop.description 
-    ? `${shop.description.substring(0, 160)}...` 
+  // Process farm description to extract keywords and clean for SEO
+  const { cleanDescription, seoDescription } = processFarmDescription(shop.description || '')
+  const description = cleanDescription 
+    ? `${seoDescription.substring(0, 160)}...` 
     : `${shop.location.address}, ${shop.location.county} ${shop.location.postcode}`
 
   return {
@@ -52,6 +54,7 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
   if (!shop) notFound()
 
   const { name, location, contact, offerings, verified } = shop
+  const { cleanDescription, keywords } = processFarmDescription(shop.description || '')
   const directionsUrl = `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${location.lat},${location.lng}`
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
   const ghOwner = process.env.NEXT_PUBLIC_GH_OWNER || 'farm-companion'
@@ -101,7 +104,9 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
             }))
         : undefined,
     // What they offer (keywords help discovery)
-    keywords: Array.isArray(offerings) && offerings.length ? offerings.join(', ') : undefined
+    keywords: Array.isArray(offerings) && offerings.length ? offerings.join(', ') : undefined,
+    // Additional keywords from description
+    ...(keywords.length > 0 && { additionalKeywords: keywords.join(', ') })
   }
 
   return (
@@ -131,7 +136,7 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
       </p>
 
       {/* Enhanced Description Section - Apple-style Professional Formatting */}
-      {shop.description && (
+      {cleanDescription && (
         <section className="mt-8">
           <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
@@ -140,7 +145,7 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
             <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900/50 dark:to-gray-800/30 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700/50">
               <div className="prose prose-lg prose-gray dark:prose-invert max-w-none">
                 {/* Split description into paragraphs for better readability */}
-                {shop.description.split('\n\n').map((paragraph, index) => (
+                {cleanDescription.split('\n\n').map((paragraph, index) => (
                   <p 
                     key={index}
                     className={`text-gray-700 dark:text-gray-300 leading-relaxed ${

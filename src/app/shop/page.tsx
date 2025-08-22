@@ -2,6 +2,7 @@ import { promises as fs } from 'fs'
 import path from 'path'
 import Link from 'next/link'
 import { FarmShop } from '@/types/farm'
+import { cleanDescription } from '@/lib/seo-utils'
 
 // Metadata for SEO and clarity
 export const metadata = {
@@ -168,10 +169,10 @@ export default async function ShopListingPage() {
                     {farm.description && (
                       <div className="mb-3 sm:mb-4">
                         <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800/30 dark:to-gray-700/20 rounded-lg p-3 border border-gray-100 dark:border-gray-600/30">
-                          <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3 leading-relaxed font-medium">
-                            {farm.description.split('\n\n')[0]} {/* Show first paragraph only */}
-                          </p>
-                          {farm.description.split('\n\n').length > 1 && (
+                                          <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3 leading-relaxed font-medium">
+                  {cleanDescription(farm.description).split('\n\n')[0]} {/* Show first paragraph only */}
+                </p>
+                          {cleanDescription(farm.description).split('\n\n').length > 1 && (
                             <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-600/30">
                               <p className="text-xs text-gray-500 dark:text-gray-400 italic">
                                 Read more on the farm page...

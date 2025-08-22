@@ -5,6 +5,7 @@ import { X, Phone, MapPin, Star, Clock, Share2, Heart, ExternalLink, Navigation 
 import { FarmShop } from '@/types/farm'
 import { hapticFeedback } from '@/lib/haptics'
 import { createSwipeToClose } from '@/lib/gestures'
+import { cleanDescription } from '@/lib/seo-utils'
 
 interface FarmDetailSheetProps {
   farm: FarmShop | null
@@ -390,14 +391,14 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
               </div>
             )}
 
-            {/* Description - More Compact */}
-            {farm.description && (
+                    {/* Description - More Compact */}
+        {farm.description && cleanDescription(farm.description) && (
               <div className="space-y-2">
                 <h2 className="text-lg font-bold text-gray-900">About</h2>
                 <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 shadow-sm border border-gray-100">
                   <div className="prose prose-sm prose-gray max-w-none">
-                    {/* Split description into paragraphs for better readability */}
-                    {farm.description.split('\n\n').map((paragraph, index) => (
+                                      {/* Split description into paragraphs for better readability */}
+                  {cleanDescription(farm.description).split('\n\n').map((paragraph, index) => (
                       <p 
                         key={index}
                         className={`text-gray-700 leading-relaxed ${
