@@ -3,11 +3,23 @@ import path from 'path'
 import Link from 'next/link'
 import { FarmShop } from '@/types/farm'
 
+import type { Metadata } from 'next'
+
 // Metadata for SEO and clarity
-export const metadata = {
-  title: 'Farm Shops by County | Farm Companion',
-  description: 'Browse farm shops organized by county across the UK. Find local farm shops in your area.',
-  keywords: 'farm shops by county, UK farms, local food, farm directory',
+export const metadata: Metadata = {
+  title: 'Farm Shops by County - Browse UK Farm Shops by Location',
+  description: 'Browse 1,300+ farm shops organized by county across the UK. Find local farm shops, fresh produce, and authentic farm experiences in your area.',
+  keywords: ['farm shops by county', 'UK farm shops', 'local farm shops', 'farm directory by county', 'farm shops near me', 'local food', 'UK farms', 'farm shop finder'],
+  openGraph: {
+    title: 'Farm Shops by County - Browse UK Farm Shops by Location',
+    description: 'Browse 1,300+ farm shops organized by county across the UK. Find local farm shops, fresh produce, and authentic farm experiences in your area.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Farm Shops by County - Browse UK Farm Shops by Location',
+    description: 'Browse 1,300+ farm shops organized by county across the UK. Find local farm shops, fresh produce, and authentic farm experiences in your area.',
+  },
 }
 
 // Load farm data with error handling

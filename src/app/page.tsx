@@ -3,8 +3,31 @@ import { Button, Card } from '@/components/ui'
 import NewsletterSignup from '@/components/NewsletterSignup'
 
 export default function Home() {
+  // SEO: Organization structured data
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Farm Companion',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001',
+    description: 'The UK\'s premium guide to real food, real people, and real places. Discover authentic farm shops across the country.',
+    logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'}/logo.png`,
+    sameAs: [
+      'https://github.com/farm-companion'
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer service',
+      availableLanguage: 'English'
+    }
+  }
+
   return (
     <div className="min-h-screen bg-background-canvas">
+      {/* SEO: Organization JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <main className="container mx-auto px-4 py-6 sm:py-8 lg:py-12">
         {/* Hero Section - Mobile First */}
         <section className="text-center py-8 sm:py-12 lg:py-16 animate-fade-in">
@@ -13,7 +36,7 @@ export default function Home() {
           </h1>
           <p className="text-lg sm:text-xl text-text-muted mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-2">
             The UK&apos;s premium guide to real food, real people, and real places. 
-            Discover authentic farm shops across the country.
+            Discover 1,300+ authentic farm shops with fresh local produce, seasonal guides, and verified farm information across the UK.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
             <Button asChild variant="primary" size="lg">
