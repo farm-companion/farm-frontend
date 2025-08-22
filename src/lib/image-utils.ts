@@ -121,7 +121,7 @@ export function getOptimizedImageUrl(src: string, width: number = 800, height: n
 }
 
 // Get fallback image for failed loads
-export function getFallbackImage(produceName: string): string {
+export function getFallbackImage(_produceName: string): string {
   // Return a placeholder or default image
   return `https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=600&fit=crop&auto=format&q=80`
 }
