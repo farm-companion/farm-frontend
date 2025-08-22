@@ -403,12 +403,24 @@ export default function MapPage() {
               type: 'circle',
               source: sourceId,
               filter: ['!', ['has', 'point_count']],
-              paint: {
-                'circle-radius': 8,
-                'circle-color': '#00C2B2',
-                'circle-stroke-width': 3,
-                'circle-stroke-color': '#FFFFFF'
-              }
+                             paint: {
+                 'circle-radius': [
+                   'case',
+                   ['get', 'highlighted'], 12, // Larger radius when highlighted
+                   8 // Normal radius
+                 ],
+                 'circle-color': [
+                   'case',
+                   ['get', 'highlighted'], '#FF6B35', // Orange when highlighted
+                   '#00C2B2' // Normal teal color
+                 ],
+                 'circle-stroke-width': [
+                   'case',
+                   ['get', 'highlighted'], 4, // Thicker stroke when highlighted
+                   3 // Normal stroke width
+                 ],
+                 'circle-stroke-color': '#FFFFFF'
+               }
             })
             console.log('✅ unclustered layer added successfully')
           } catch (error) {
@@ -501,8 +513,8 @@ export default function MapPage() {
           }
           
           // 3. Visual focus - temporarily highlight this marker
-          if (map.getSource('clusters')) {
-            const source = map.getSource('clusters') as any
+          if (map.getSource('farms-src')) {
+            const source = map.getSource('farms-src') as any
             const currentData = source._data
             
             // Create highlighted version of this farm
@@ -527,7 +539,7 @@ export default function MapPage() {
             
             // Remove highlight after 2 seconds
             setTimeout(() => {
-              const source = map.getSource('clusters') as any
+              const source = map.getSource('farms-src') as any
               const currentData = source._data
               const normalFeatures = currentData.features.map((feature: any) => {
                 if (feature.properties.id === farm.id) {
