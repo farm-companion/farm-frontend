@@ -24,6 +24,6 @@ export type FarmShop = {
   description?: string
   images?: string[]
   verified: boolean
-  adsenseEligible?: boolean
+
   updatedAt?: string
 }

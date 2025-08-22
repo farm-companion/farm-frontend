@@ -85,10 +85,9 @@ export default function AddFarmPage() {
       story: (form.story || '').trim() || undefined,
       images: [],
       verified: false,
-      verification: { method: 'owner_claim', timestamp: now },
-      seasonal: [],
-      adsenseEligible: true,
-      updatedAt: now
+              verification: { method: 'owner_claim', timestamp: now },
+        seasonal: [],
+        updatedAt: now
     }
 
     // Remove undefineds for cleanliness

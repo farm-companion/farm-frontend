@@ -31,7 +31,7 @@ export default function ConsentBanner() {
       <div className="mx-auto flex max-w-6xl items-start justify-between gap-4 px-4 py-3">
         <p className="text-sm">
           We use a small number of cookies to run this site. With your consent, we&apos;ll also load
-          <strong> Google AdSense</strong> and basic analytics. You can change this any time in
+          basic analytics. You can change this any time in
           {' '}<a className="underline decoration-1 underline-offset-2 hover:no-underline dark:text-[#E4E2DD]" href="/privacy">Privacy</a>.
         </p>
         <div className="flex shrink-0 gap-2">

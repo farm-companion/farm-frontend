@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import AdSlot from '@/components/AdSlot'
+
 
 export default function AboutPage() {
   return (
@@ -136,7 +136,7 @@ export default function AboutPage() {
 
       {/* Support the project — respectful, consented ad */}
       <div className="mt-10">
-        <AdSlot />
+
       </div>
     </main>
   )

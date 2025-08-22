@@ -46,7 +46,7 @@ export default function TermsPage() {
       <section className="mt-8 space-y-3">
         <h2 className="text-xl font-semibold">Third-party links & advertising</h2>
         <p>
-          The site may display third-party links and advertising (e.g. Google AdSense). We do not
+          The site may display third-party links. We do not
           endorse or control third-party sites or products and are not responsible for their content or policies.
         </p>
       </section>

@@ -42,7 +42,7 @@ export default function PrivacyPage() {
             <strong>Essential data</strong> (strictly necessary): server/app logs, error diagnostics, basic security telemetry (IP, user-agent, timestamps).
           </li>
           <li>
-            <strong>Consent-based data</strong> (optional): if you accept cookies, we may load analytics and Google AdSense (which can use cookies/SDKs).
+            <strong>Consent-based data</strong> (optional): if you accept cookies, we may load analytics (which can use cookies/SDKs).
           </li>
           <li>
             <strong>Shop submissions</strong> (you provide): shop name, address, contact details, links, and any photos/text you upload.
@@ -59,9 +59,8 @@ export default function PrivacyPage() {
       <section id="how-we-use" className="mt-10 space-y-3">
         <h2 className="text-xl font-semibold">How we use your data</h2>
         <ul className="list-disc pl-5 space-y-2">
-          <li>Operate, secure, and improve the site (debugging, uptime, fraud prevention).</li>
-          <li>Show non-intrusive advertising (AdSense) if you consent.</li>
-          <li>Measure basic usage (analytics) if you consent.</li>
+                      <li>Operate, secure, and improve the site (debugging, uptime, fraud prevention).</li>
+            <li>Measure basic usage (analytics) if you consent.</li>
           <li>Publish and moderate shop listings you submit.</li>
           <li>Respond to enquiries and provide support.</li>
           <li>Comply with legal obligations.</li>

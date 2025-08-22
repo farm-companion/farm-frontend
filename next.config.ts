@@ -4,7 +4,7 @@ const isProd = process.env.NODE_ENV === "production"
 
 // Content Security Policy that supports:
 // - MapLibre (tiles, workers via blob:)
-// - AdSense (scripts + iframes after consent)
+// - Analytics (scripts after consent)
 // - Our assets and images
 // - Enhanced security with strict controls
 const CSP = [
@@ -14,14 +14,12 @@ const CSP = [
   "frame-ancestors 'none';",
   "font-src 'self' data: https:;",
   "img-src 'self' data: blob: https: https://lh3.googleusercontent.com https://images.unsplash.com https://cdn.farmcompanion.co.uk https://*.s3.amazonaws.com;",
-  // AdSense script (+ allow inline/eval for Next/MapLibre in dev)
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagservices.com https://tpc.googlesyndication.com https://ep2.adtrafficquality.google;",
+  // Analytics script (+ allow inline/eval for Next/MapLibre in dev)
+"script-src 'self' 'unsafe-inline' 'unsafe-eval';",
   // External styles (map styles) + inline styles (Tailwind preflight/runtime)
   "style-src 'self' 'unsafe-inline' https:;",
-  // Ad iframes
-  "frame-src 'self' https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://fundingchoicesmessages.google.com;",
-  // Tile/vector servers + Ad beacons
-  "connect-src 'self' https://tiles.openfreemap.org https://demotiles.maplibre.org https://tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://*.google.com https://*.gstatic.com;",
+      // Tile/vector servers + Analytics
+"connect-src 'self' https://tiles.openfreemap.org https://demotiles.maplibre.org https://tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org https://*.google.com https://*.gstatic.com;",
   // MapLibre workers
   "worker-src 'self' blob:;",
   "child-src blob:;",

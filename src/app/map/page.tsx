@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import type { FarmShop } from '@/types/farm'
 import { Search, MapPin, X, Navigation } from 'lucide-react'
 import { hapticFeedback } from '@/lib/haptics'
-import AdSlot from '@/components/AdSlot'
+
 import { FarmDetailSheet } from '@/components/FarmDetailSheet'
 import MapComponent from '@/components/MapComponent'
 
@@ -597,7 +597,7 @@ export default function MapPage() {
         />
 
         {/* Ad Slot */}
-        <AdSlot />
+
       </main>
     </>
   )

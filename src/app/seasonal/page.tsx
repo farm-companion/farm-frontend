@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import AdSlot from '@/components/AdSlot'
+
 import ClientMonthSelector from '@/components/ClientMonthSelector'
 import { getProduceInSeason, getProduceAtPeak } from '@/data/produce'
 import { MapPin } from 'lucide-react'
@@ -152,7 +152,7 @@ export default async function SeasonalPage() {
       </section>
 
       {/* Ad Slot */}
-      <AdSlot />
+      
     </main>
   )
 }

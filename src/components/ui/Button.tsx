@@ -15,7 +15,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: [
-          'bg-brand-primary text-white hover:bg-brand-primary/90',
+          'bg-brand-primary text-black hover:bg-brand-primary/90',
           'focus-visible:ring-brand-primary',
           'active:scale-[0.98]',
         ],
