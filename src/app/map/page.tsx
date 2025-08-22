@@ -396,23 +396,8 @@ export default function MapPage() {
           })
         }
 
-        // Google-style individual markers
-        if (!map.getLayer('point-heat')) {
-          console.log('Adding point-heat layer...')
-          map.addLayer({
-            id: 'point-heat',
-            type: 'circle',
-            source: sourceId,
-            filter: ['!', ['has', 'point_count']],
-            paint: {
-              'circle-radius': 12,
-              'circle-color': 'rgba(0, 194, 178, 0.2)',
-              'circle-opacity': 0.6,
-              'circle-stroke-width': 0
-            }
-          })
-          console.log('point-heat layer added')
-        }
+        // Google-style individual markers (clean single layer only)
+        // Removed point-heat layer to avoid visual doubling with unclustered-point
 
         if (!map.getLayer(unclusteredLayerId)) {
           console.log('Adding unclustered layer...')
@@ -423,11 +408,12 @@ export default function MapPage() {
               source: sourceId,
               filter: ['!', ['has', 'point_count']],
                              paint: {
-                 'circle-radius': 8,
-                 'circle-color': '#00C2B2',
-                 'circle-stroke-width': 3,
-                 'circle-stroke-color': '#FFFFFF'
-               }
+              'circle-radius': 10,
+              'circle-color': '#00C2B2',
+              'circle-opacity': 0.9,
+              'circle-stroke-width': 2.5,
+              'circle-stroke-color': '#FFFFFF'
+            }
             })
                           console.log('✅ unclustered layer added successfully')
             } catch (error) {
