@@ -140,6 +140,23 @@ export const PRODUCE: Produce[] = [
       'Blend into smoothies or milkshakes.',
       'Create strawberry jam or preserves.',
     ],
+    recipeChips: [
+      {
+        title: 'Strawberry and Rhubarb Crumble',
+        url: 'https://www.bbcgoodfood.com/recipes/strawberry-rhubarb-crumble',
+        description: 'Classic British dessert with seasonal fruit'
+      },
+      {
+        title: 'Fresh Strawberry Jam',
+        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/strawberry-jam/',
+        description: 'Homemade preserve for year-round enjoyment'
+      },
+      {
+        title: 'Strawberry Eton Mess',
+        url: 'https://www.deliciousmagazine.co.uk/recipes/strawberry-eton-mess/',
+        description: 'Light summer dessert with meringue and cream'
+      }
+    ],
     aliases: ['strawberry', 'strawbs', 'garden strawberries'],
   },
   {
@@ -170,6 +187,23 @@ export const PRODUCE: Produce[] = [
       'Create blackberry jam or jelly.',
       'Add to breakfast porridge or yogurt.',
       'Make blackberry gin or cordial.',
+    ],
+    recipeChips: [
+      {
+        title: 'Blackberry and Apple Crumble',
+        url: 'https://www.bbcgoodfood.com/recipes/blackberry-apple-crumble',
+        description: 'Autumn comfort dessert with seasonal fruits'
+      },
+      {
+        title: 'Blackberry Gin',
+        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/blackberry-gin/',
+        description: 'Homemade fruit liqueur for special occasions'
+      },
+      {
+        title: 'Blackberry Jam',
+        url: 'https://www.deliciousmagazine.co.uk/recipes/blackberry-jam/',
+        description: 'Traditional preserve with wild berries'
+      }
     ],
     aliases: ['blackberry', 'bramble', 'wild blackberries'],
   },
@@ -202,6 +236,23 @@ export const PRODUCE: Produce[] = [
       'Make runner bean and potato salad.',
       'Stir-fry with garlic and ginger.',
     ],
+    recipeChips: [
+      {
+        title: 'Runner Bean and Potato Salad',
+        url: 'https://www.bbcgoodfood.com/recipes/runner-bean-potato-salad',
+        description: 'Summer salad with fresh garden vegetables'
+      },
+      {
+        title: 'Stir-Fried Runner Beans',
+        url: 'https://www.jamieoliver.com/recipes/vegetables-recipes/stir-fried-runner-beans/',
+        description: 'Quick Asian-style preparation with garlic'
+      },
+      {
+        title: 'Runner Bean Soup',
+        url: 'https://www.deliciousmagazine.co.uk/recipes/runner-bean-soup/',
+        description: 'Creamy soup with seasonal garden beans'
+      }
+    ],
     aliases: ['runner beans', 'pole beans', 'scarlet runner beans'],
   },
   {
@@ -232,6 +283,23 @@ export const PRODUCE: Produce[] = [
       'Create plum jam or chutney.',
       'Add to fruit salads.',
       'Make plum wine or liqueur.',
+    ],
+    recipeChips: [
+      {
+        title: 'Plum Crumble',
+        url: 'https://www.bbcgoodfood.com/recipes/plum-crumble',
+        description: 'Classic autumn dessert with seasonal plums'
+      },
+      {
+        title: 'Plum Jam',
+        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/plum-jam/',
+        description: 'Sweet preserve for winter months'
+      },
+      {
+        title: 'Plum Chutney',
+        url: 'https://www.deliciousmagazine.co.uk/recipes/plum-chutney/',
+        description: 'Spicy condiment for cheese and cold meats'
+      }
     ],
     aliases: ['plum', 'gages', 'damsons'],
   },
@@ -264,6 +332,23 @@ export const PRODUCE: Produce[] = [
       'Add to salads or cheese boards.',
       'Make apple cider or juice.',
     ],
+    recipeChips: [
+      {
+        title: 'Classic Apple Pie',
+        url: 'https://www.bbcgoodfood.com/recipes/classic-apple-pie',
+        description: 'Traditional British dessert with seasonal apples'
+      },
+      {
+        title: 'Apple Crumble',
+        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/apple-crumble/',
+        description: 'Comforting autumn dessert with custard'
+      },
+      {
+        title: 'Apple Sauce',
+        url: 'https://www.deliciousmagazine.co.uk/recipes/apple-sauce/',
+        description: 'Versatile accompaniment for pork and desserts'
+      }
+    ],
     aliases: ['apple', 'cooking apples', 'eating apples'],
   },
   {
@@ -294,6 +379,23 @@ export const PRODUCE: Produce[] = [
       'Create pumpkin pie or bread.',
       'Roast pumpkin seeds for snacks.',
       'Make pumpkin curry or stew.',
+    ],
+    recipeChips: [
+      {
+        title: 'Pumpkin Soup',
+        url: 'https://www.bbcgoodfood.com/recipes/pumpkin-soup',
+        description: 'Creamy autumn soup with warming spices'
+      },
+      {
+        title: 'Pumpkin Pie',
+        url: 'https://www.jamieoliver.com/recipes/vegetables-recipes/pumpkin-pie/',
+        description: 'Classic American dessert for autumn'
+      },
+      {
+        title: 'Roasted Pumpkin Seeds',
+        url: 'https://www.deliciousmagazine.co.uk/recipes/roasted-pumpkin-seeds/',
+        description: 'Healthy snack from pumpkin carving'
+      }
     ],
     aliases: ['pumpkin', 'squash', 'winter squash'],
   }
