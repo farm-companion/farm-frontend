@@ -98,6 +98,45 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
     return highlights
   }, [farm])
 
+  // Safe external action handlers
+  const safeHttpUrl = (raw?: string) => {
+    if (!raw) return null
+    try {
+      const u = new URL(raw, window.location.origin)
+      if (!/^https?:$/.test(u.protocol)) return null
+      return u.toString()
+    } catch { return null }
+  }
+
+  const buildDirectionsUrl = () => {
+    const { location } = farm || {}
+    if (!location || Number.isNaN(location.lat) || Number.isNaN(location.lng)) return null
+    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${location.lat},${location.lng}`)}`
+  }
+
+  const handleDirections = () => {
+    hapticFeedback.buttonPress()
+    const u = buildDirectionsUrl()
+    if (u) window.open(u, '_blank', 'noopener,noreferrer')
+  }
+
+  const handleCall = () => {
+    const tel = farm?.contact?.phone?.replace(/[^\d+]/g, '') // keep digits and leading +
+    if (!tel) return
+    hapticFeedback.buttonPress()
+    window.location.href = `tel:${tel}`
+  }
+
+  const handleShare = async () => {
+    hapticFeedback.buttonPress()
+    const url = typeof window !== 'undefined' ? window.location.href : ''
+    const data = { title: farm?.name ?? 'Farm shop', text: farm?.name ?? '', url }
+    try {
+      if (navigator.share) await navigator.share(data)
+      else if (navigator.clipboard) await navigator.clipboard.writeText(url)
+    } catch { /* no-op */ }
+  }
+
   // Haversine formula for accurate distance calculation
   function haversineKm(lat1: number, lon1: number, lat2: number, lon2: number) {
     const toRad = (d: number) => (d * Math.PI) / 180
@@ -236,19 +275,29 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
 
           {/* Content - Scrollable */}
           <div className="px-6 py-6 space-y-6 max-h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-            {/* Quick Actions - More Compact */}
+            {/* Quick Actions - More Compact with Safe Handlers */}
             <div className="flex gap-2">
-              <button className="flex-1 bg-brand-primary text-white py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-all active:scale-95 text-sm">
+              <button 
+                onClick={handleDirections}
+                className="flex-1 bg-brand-primary text-white py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-all active:scale-95 text-sm"
+              >
                 <Navigation className="w-4 h-4" />
                 Directions
               </button>
               {farm.contact?.phone && (
-                <button className="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-gray-200 transition-all active:scale-95 text-sm">
+                <button 
+                  onClick={handleCall}
+                  className="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-gray-200 transition-all active:scale-95 text-sm"
+                >
                   <Phone className="w-4 h-4" />
                   Call
                 </button>
               )}
-              <button className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95">
+              <button 
+                onClick={handleShare}
+                aria-label="Share farm"
+                className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95"
+              >
                 <Share2 className="w-5 h-5 text-gray-600" />
               </button>
               <button className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95">
@@ -355,7 +404,7 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
               </div>
             )}
 
-            {/* Contact & Website */}
+            {/* Contact & Website - Safe Links */}
             <div className="space-y-3">
               <h2 className="text-xl font-bold text-gray-900">Contact</h2>
               <div className="space-y-3">
@@ -366,10 +415,20 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
                   </div>
                 )}
                 {farm.contact?.website && (
-                  <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl">
-                    <ExternalLink className="w-5 h-5 text-brand-primary" />
-                    <span className="text-gray-900 font-medium">Visit Website</span>
-                  </div>
+                  (() => {
+                    const safe = typeof window === 'undefined' ? farm.contact!.website : safeHttpUrl(farm.contact!.website)
+                    return safe ? (
+                      <a 
+                        href={safe} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors"
+                      >
+                        <ExternalLink className="w-5 h-5 text-brand-primary" />
+                        <span className="text-gray-900 font-medium">Visit Website</span>
+                      </a>
+                    ) : null
+                  })()
                 )}
               </div>
             </div>
