@@ -1,10 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
 import { 
   getOptimizedImageUrl, 
-  getFallbackImage, 
   getImagePriority, 
   getImageSizes,
   type ImageSource 
@@ -35,14 +33,8 @@ export default function ProduceImage({
   height,
   alt
 }: ProduceImageProps) {
-  const [imageError, setImageError] = useState(false)
-  const [imageLoading, setImageLoading] = useState(true)
-
   // Use optimized URL
   const optimizedSrc = getOptimizedImageUrl(image.src)
-  
-  // Use fallback if image fails to load
-  const displaySrc = imageError ? getFallbackImage(produceName) : optimizedSrc
   
   // Use provided alt or fallback to image alt
   const displayAlt = alt || image.alt || `${produceName} image`
@@ -53,66 +45,10 @@ export default function ProduceImage({
   // Determine sizes
   const displaySizes = sizes ?? getImageSizes()
 
-  const handleImageError = () => {
-    console.warn(`Image failed to load: ${image.src} for ${produceName}`)
-    setImageError(true)
-    setImageLoading(false)
-  }
-
-  const handleImageLoad = () => {
-    setImageLoading(false)
-  }
-
-  // Show loading state
-  if (imageLoading) {
-    return (
-      <div className={`relative bg-gray-100 animate-pulse ${className}`}>
-        {fill ? (
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="w-8 h-8 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin" />
-          </div>
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="w-8 h-8 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin" />
-          </div>
-        )}
-      </div>
-    )
-  }
-
-  // Show error state with fallback
-  if (imageError) {
-    return (
-      <div className={`relative bg-background-surface border border-border-default ${className}`}>
-        {fill ? (
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-background-canvas rounded-full mx-auto mb-2 flex items-center justify-center border border-border-default">
-                <span className="text-xl">🌱</span>
-              </div>
-              <p className="text-sm text-text-muted font-medium">{produceName}</p>
-              <p className="text-xs text-text-muted mt-1">Image unavailable</p>
-            </div>
-          </div>
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-background-canvas rounded-full mx-auto mb-2 flex items-center justify-center border border-border-default">
-                <span className="text-xl">🌱</span>
-              </div>
-              <p className="text-sm text-text-muted font-medium">{produceName}</p>
-              <p className="text-xs text-text-muted mt-1">Image unavailable</p>
-            </div>
-          </div>
-        )}
-      </div>
-    )
-  }
-
   // Render the image
   return (
     <Image
-      src={displaySrc}
+      src={optimizedSrc}
       alt={displayAlt}
       className={className}
       sizes={displaySizes}
@@ -120,8 +56,6 @@ export default function ProduceImage({
       fill={fill}
       width={width}
       height={height}
-      onError={handleImageError}
-      onLoad={handleImageLoad}
       quality={85}
       placeholder="blur"
       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
