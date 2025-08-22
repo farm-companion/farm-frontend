@@ -164,18 +164,6 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* IMAGE GRID */}
-      {galleryImages.length > 0 && (
-        <section className="mt-8">
-          <h2 className="text-xl font-semibold">Gallery</h2>
-          <ProduceGallery
-            images={galleryImages}
-            produceName={p.name}
-            className="mt-3 grid gap-3 sm:grid-cols-3"
-          />
-        </section>
-      )}
-
       {/* GALLERY */}
       {galleryImages.length > 0 && (
         <section className="mt-8">

@@ -9,16 +9,24 @@ export default function ThemeToggle() {
 
   useEffect(() => {
     setMounted(true)
-    // Check for saved theme preference or default to system preference
-    const savedTheme = localStorage.getItem('theme')
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
     
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-      setIsDark(true)
-      document.documentElement.classList.add('dark')
-    } else {
-      setIsDark(false)
-      document.documentElement.classList.remove('dark')
+    // Function to update component state based on current theme
+    const updateThemeState = () => {
+      const savedTheme = localStorage.getItem('theme')
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      const isCurrentlyDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark)
+      setIsDark(isCurrentlyDark)
+    }
+    
+    // Initial state
+    updateThemeState()
+    
+    // Listen for theme changes
+    window.addEventListener('theme-changed', updateThemeState)
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('theme-changed', updateThemeState)
     }
   }, [])
 
