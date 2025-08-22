@@ -119,7 +119,7 @@ export const PRODUCE: Produce[] = [
     slug: 'strawberries',
     name: 'Strawberries',
     images: [
-      { src: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800&h=600&fit=crop', alt: 'Fresh red strawberries in a basket' },
+      { src: '/images/produce/strawberries-fresh1.jpg', alt: 'Fresh ripe strawberries with natural texture and seeds' },
       { src: 'https://images.unsplash.com/photo-1518635017498-87f514b751ba?w=800&h=600&fit=crop', alt: 'Strawberry plants with ripe berries' },
       { src: 'https://images.unsplash.com/photo-1485921325833-c519f76c4927?w=800&h=600&fit=crop', alt: 'Strawberries on a white background' },
     ],
