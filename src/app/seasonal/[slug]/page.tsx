@@ -190,27 +190,27 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
       {/* INFO STRIPS */}
       <section className="mt-8 grid gap-4 md:grid-cols-3">
         {p.selectionTips?.length ? (
-          <div className="rounded-2xl border bg-white p-4 shadow-sm hover:shadow-md transition motion-reduce:transition-none">
-            <h3 className="font-semibold">How to Choose</h3>
-            <ul className="mt-2 list-disc pl-5 space-y-1 text-sm text-gray-700">
+          <div className="rounded-2xl border border-border-default bg-background-canvas p-4 shadow-sm hover:shadow-md transition motion-reduce:transition-none">
+            <h3 className="font-semibold text-text-heading">How to Choose</h3>
+            <ul className="mt-2 list-disc pl-5 space-y-1 text-sm text-text-muted">
               {p.selectionTips.map((t, i) => <li key={i}>{t}</li>)}
             </ul>
           </div>
         ) : null}
 
         {p.storageTips?.length ? (
-          <div className="rounded-2xl border bg-white p-4 shadow-sm hover:shadow-md transition motion-reduce:transition-none">
-            <h3 className="font-semibold">Storage Tips</h3>
-            <ul className="mt-2 list-disc pl-5 space-y-1 text-sm text-gray-700">
+          <div className="rounded-2xl border border-border-default bg-background-canvas p-4 shadow-sm hover:shadow-md transition motion-reduce:transition-none">
+            <h3 className="font-semibold text-text-heading">Storage Tips</h3>
+            <ul className="mt-2 list-disc pl-5 space-y-1 text-sm text-text-muted">
               {p.storageTips.map((t, i) => <li key={i}>{t}</li>)}
             </ul>
           </div>
         ) : null}
 
         {p.prepIdeas?.length ? (
-          <div className="rounded-2xl border bg-white p-4 shadow-sm hover:shadow-md transition motion-reduce:transition-none">
-            <h3 className="font-semibold">Prep & Use</h3>
-            <ul className="mt-2 list-disc pl-5 space-y-1 text-sm text-gray-700">
+          <div className="rounded-2xl border border-border-default bg-background-canvas p-4 shadow-sm hover:shadow-md transition motion-reduce:transition-none">
+            <h3 className="font-semibold text-text-heading">Prep & Use</h3>
+            <ul className="mt-2 list-disc pl-5 space-y-1 text-sm text-text-muted">
               {p.prepIdeas.map((t, i) => <li key={i}>{t}</li>)}
             </ul>
           </div>
@@ -220,14 +220,14 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
       {/* NUTRITION */}
       {p.nutritionPer100g && (
         <section className="mt-8">
-          <h2 className="text-xl font-semibold">Nutrition (per 100g)</h2>
+          <h2 className="text-xl font-semibold text-text-heading">Nutrition (per 100g)</h2>
           <div className="mt-3 overflow-x-auto">
-            <table className="min-w-[420px] w-full text-sm border rounded-xl overflow-hidden">
+            <table className="min-w-[420px] w-full text-sm border border-border-default rounded-xl overflow-hidden bg-background-canvas">
               <tbody>
                 {Object.entries(p.nutritionPer100g).map(([k,v]) => (
-                  <tr key={k} className="border-b last:border-b-0">
-                    <td className="px-3 py-2 font-medium capitalize bg-gray-50">{k.replace(/([A-Z])/g,' $1')}</td>
-                    <td className="px-3 py-2">{v}{k==='kcal' ? '' : k==='protein'||k==='carbs'||k==='fiber'||k==='fat'||k==='sugars' ? ' g' : ''}</td>
+                  <tr key={k} className="border-b border-border-default last:border-b-0">
+                    <td className="px-3 py-2 font-medium capitalize bg-background-surface text-text-heading">{k.replace(/([A-Z])/g,' $1')}</td>
+                    <td className="px-3 py-2 text-text-muted">{v}{k==='kcal' ? '' : k==='protein'||k==='carbs'||k==='fiber'||k==='fat'||k==='sugars' ? ' g' : ''}</td>
                   </tr>
                 ))}
               </tbody>
@@ -239,7 +239,7 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
       {/* RECIPE CHIPS */}
       {p.recipeChips && p.recipeChips.length > 0 && (
         <section className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Recipe Inspiration</h2>
+          <h2 className="text-xl font-semibold mb-4 text-text-heading">Recipe Inspiration</h2>
           <div className="grid gap-3 sm:grid-cols-3">
             {p.recipeChips.map((recipe, index) => (
               <a
@@ -247,23 +247,23 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
                 href={recipe.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-xl border bg-white p-4 shadow-sm hover:shadow-md transition motion-reduce:transition-none group"
+                className="block rounded-xl border border-border-default bg-background-canvas p-4 shadow-sm hover:shadow-md transition motion-reduce:transition-none group"
               >
-                <h3 className="font-semibold text-gray-900 group-hover:text-brand-primary transition-colors mb-2">
+                <h3 className="font-semibold text-text-heading group-hover:text-brand-primary transition-colors mb-2">
                   {recipe.title}
                 </h3>
-                <p className="text-sm text-gray-600 mb-3">
+                <p className="text-sm text-text-muted mb-3">
                   {recipe.description}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">External recipe</span>
-                  <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-brand-primary transition-colors" />
+                  <span className="text-xs text-text-muted">External recipe</span>
+                  <ExternalLink className="w-4 h-4 text-text-muted group-hover:text-brand-primary transition-colors" />
                 </div>
               </a>
             ))}
           </div>
-          <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-            <p className="text-xs text-blue-700">
+          <div className="mt-4 p-3 bg-brand-primary/10 rounded-lg border border-brand-primary/20">
+            <p className="text-xs text-brand-primary">
               <strong>Content Policy:</strong> All recipe links are family-friendly and non-alcoholic. 
               We focus on fresh, healthy, family-appropriate recipes only.
             </p>
