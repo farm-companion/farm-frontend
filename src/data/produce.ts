@@ -26,6 +26,7 @@ export const PRODUCE: Produce[] = [
       { src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=600&fit=crop', alt: 'Fresh sweetcorn on cob with green husks' },
       { src: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&h=600&fit=crop', alt: 'Close-up of golden sweetcorn kernels' },
       { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop', alt: 'Corn field at sunset with tall stalks' },
+      { src: 'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?w=800&h=600&fit=crop', alt: 'Fresh sweetcorn cobs arranged in rustic basket' },
     ],
     monthsInSeason: [7, 8, 9],            // Jul–Sep
     peakMonths: [8],
@@ -74,6 +75,7 @@ export const PRODUCE: Produce[] = [
       { src: 'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=800&h=600&fit=crop', alt: 'Ripe red tomatoes on the vine' },
       { src: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&h=600&fit=crop', alt: 'Assorted heirloom tomatoes in various colors' },
       { src: 'https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=800&h=600&fit=crop', alt: 'Fresh tomatoes in a wooden basket' },
+      { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop', alt: 'Fresh tomatoes arranged on rustic wooden surface' },
     ],
     monthsInSeason: [6, 7, 8, 9, 10],    // Jun–Oct
     peakMonths: [7, 8, 9],
@@ -171,6 +173,7 @@ export const PRODUCE: Produce[] = [
       { src: 'https://images.unsplash.com/photo-1588952159215-a4b39193464e?w=800&h=600&fit=crop', alt: 'Fresh blackberries in a wooden bowl' },
       { src: 'https://images.unsplash.com/photo-1593181194270-e1c63bc5d7b5?w=800&h=600&fit=crop', alt: 'Ripe purple-black blackberries on the vine' },
       { src: 'https://images.unsplash.com/photo-1629464005877-92c9a5e10e16?w=800&h=600&fit=crop', alt: 'Blackberries scattered on rustic surface' },
+      { src: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop', alt: 'Fresh blackberries arranged on rustic wooden surface' },
     ],
     monthsInSeason: [7, 8, 9],            // Jul–Sep
     peakMonths: [8],
@@ -216,9 +219,10 @@ export const PRODUCE: Produce[] = [
     slug: 'runner-beans',
     name: 'Runner Beans',
     images: [
-      { src: 'https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=800&h=600&fit=crop', alt: 'Fresh green runner beans' },
-      { src: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&h=600&fit=crop', alt: 'Runner beans on the vine' },
-      { src: 'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=800&h=600&fit=crop', alt: 'Harvested runner beans' },
+      { src: 'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?w=800&h=600&fit=crop', alt: 'Fresh green runner beans in a rustic basket' },
+      { src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=600&fit=crop', alt: 'Runner beans growing on the vine in a garden' },
+      { src: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&h=600&fit=crop', alt: 'Close-up of fresh runner beans with green pods' },
+      { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop', alt: 'Harvested runner beans arranged on wooden surface' },
     ],
     monthsInSeason: [7, 8, 9, 10],       // Jul–Oct
     peakMonths: [8, 9],
@@ -267,6 +271,7 @@ export const PRODUCE: Produce[] = [
       { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop', alt: 'Fresh purple plums' },
       { src: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=800&h=600&fit=crop', alt: 'Plum tree with ripe fruit' },
       { src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=600&fit=crop', alt: 'Assorted plums in a basket' },
+      { src: 'https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=800&h=600&fit=crop', alt: 'Fresh plums arranged on rustic wooden surface' },
     ],
     monthsInSeason: [8, 9, 10],           // Aug–Oct
     peakMonths: [9],
@@ -315,6 +320,7 @@ export const PRODUCE: Produce[] = [
       { src: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=800&h=600&fit=crop', alt: 'Fresh red apples on a tree' },
       { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop', alt: 'Assorted apples in a basket' },
       { src: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=800&h=600&fit=crop', alt: 'Apple orchard in autumn' },
+      { src: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=800&h=600&fit=crop', alt: 'Fresh apples arranged on rustic wooden surface' },
     ],
     monthsInSeason: [9, 10, 11, 12],     // Sep–Dec
     peakMonths: [10, 11],
@@ -360,9 +366,10 @@ export const PRODUCE: Produce[] = [
     slug: 'pumpkins',
     name: 'Pumpkins',
     images: [
-      { src: 'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=800&h=600&fit=crop', alt: 'Orange pumpkins in a field' },
-      { src: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&h=600&fit=crop', alt: 'Pumpkin patch at harvest time' },
-      { src: 'https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=800&h=600&fit=crop', alt: 'Carved and whole pumpkins' },
+      { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop', alt: 'Orange pumpkins in a field at harvest time' },
+      { src: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop', alt: 'Pumpkin patch with ripe orange pumpkins' },
+      { src: 'https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=800&h=600&fit=crop', alt: 'Carved and whole pumpkins for Halloween' },
+      { src: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=800&h=600&fit=crop', alt: 'Fresh pumpkins arranged on rustic wooden surface' },
     ],
     monthsInSeason: [9, 10, 11],         // Sep–Nov
     peakMonths: [10],
