@@ -29,6 +29,7 @@ export default function MapPage() {
   const [bounds, setBounds] = useState<{ west:number; south:number; east:number; north:number } | null>(null)
   const [inViewOnly, setInViewOnly] = useState<boolean>(true)
   const [dataQuality, setDataQuality] = useState<{ total: number; valid: number; invalid: number } | null>(null)
+  const [highlightedFarmId, setHighlightedFarmId] = useState<string | null>(null)
   
   // Error handling state
   const [error, setError] = useState<string | null>(null)
@@ -404,28 +405,39 @@ export default function MapPage() {
               source: sourceId,
               filter: ['!', ['has', 'point_count']],
                              paint: {
-                 'circle-radius': [
-                   'case',
-                   ['get', 'highlighted'], 12, // Larger radius when highlighted
-                   8 // Normal radius
-                 ],
-                 'circle-color': [
-                   'case',
-                   ['get', 'highlighted'], '#FF6B35', // Orange when highlighted
-                   '#00C2B2' // Normal teal color
-                 ],
-                 'circle-stroke-width': [
-                   'case',
-                   ['get', 'highlighted'], 4, // Thicker stroke when highlighted
-                   3 // Normal stroke width
-                 ],
+                 'circle-radius': 8,
+                 'circle-color': '#00C2B2',
+                 'circle-stroke-width': 3,
                  'circle-stroke-color': '#FFFFFF'
                }
             })
-            console.log('✅ unclustered layer added successfully')
-          } catch (error) {
-            console.error('❌ Failed to add unclustered layer:', error)
-          }
+                          console.log('✅ unclustered layer added successfully')
+            } catch (error) {
+              console.error('❌ Failed to add unclustered layer:', error)
+            }
+
+            // Add highlight layer for selected markers
+            try {
+              map.addSource('highlight-src', {
+                type: 'geojson',
+                data: { type: 'FeatureCollection', features: [] }
+              })
+
+              map.addLayer({
+                id: 'highlight-layer',
+                type: 'circle',
+                source: 'highlight-src',
+                paint: {
+                  'circle-radius': 12,
+                  'circle-color': '#FF6B35',
+                  'circle-stroke-width': 4,
+                  'circle-stroke-color': '#FFFFFF'
+                }
+              })
+              console.log('✅ highlight layer added successfully')
+            } catch (error) {
+              console.error('❌ Failed to add highlight layer:', error)
+            }
         } else {
           console.log('⚠️ unclustered layer already exists')
         }
@@ -512,52 +524,42 @@ export default function MapPage() {
             }, 300)
           }
           
-          // 3. Visual focus - temporarily highlight this marker
-          if (map.getSource('farms-src')) {
-            const source = map.getSource('farms-src') as any
-            const currentData = source._data
+          // 3. Visual focus - highlight this marker using separate layer
+          setHighlightedFarmId(farm.id)
+          
+          // Find the farm feature from our farms data
+          const farmFeature = farmsRef.current?.find(f => f.id === farm.id)
+          if (farmFeature && map.getSource('highlight-src')) {
+            const source = map.getSource('highlight-src') as any
             
-            // Create highlighted version of this farm
-            const highlightedFeatures = currentData.features.map((feature: any) => {
-              if (feature.properties.id === farm.id) {
-                return {
-                  ...feature,
-                  properties: {
-                    ...feature.properties,
-                    highlighted: true
-                  }
-                }
+            // Create highlight feature
+            const highlightFeature = {
+              type: 'Feature' as const,
+              geometry: {
+                type: 'Point' as const,
+                coordinates: [farmFeature.location.lng, farmFeature.location.lat]
+              },
+              properties: {
+                id: farmFeature.id
               }
-              return feature
-            })
+            }
             
-            // Update source with highlighted data
+            // Set highlight data
             source.setData({
-              ...currentData,
-              features: highlightedFeatures
+              type: 'FeatureCollection',
+              features: [highlightFeature]
             })
             
             // Remove highlight after 2 seconds
             setTimeout(() => {
-              const source = map.getSource('farms-src') as any
-              const currentData = source._data
-              const normalFeatures = currentData.features.map((feature: any) => {
-                if (feature.properties.id === farm.id) {
-                  return {
-                    ...feature,
-                    properties: {
-                      ...feature.properties,
-                      highlighted: false
-                    }
-                  }
-                }
-                return feature
-              })
-              
-              source.setData({
-                ...currentData,
-                features: normalFeatures
-              })
+              setHighlightedFarmId(null)
+              if (map.getSource('highlight-src')) {
+                const source = map.getSource('highlight-src') as any
+                source.setData({
+                  type: 'FeatureCollection',
+                  features: []
+                })
+              }
             }, 2000)
           }
         }
