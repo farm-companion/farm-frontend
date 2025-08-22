@@ -476,7 +476,7 @@ export default function MapPage() {
         if (farm) {
           // Apple-style marker selection with enhanced behavior
           setSelectedFarm(farm)
-          setShowResults(true)
+          setShowResults(false) // Hide generic results, show specific farm details
           
           // 1. Smooth map centering with optimal zoom
           map.flyTo({
@@ -791,8 +791,10 @@ export default function MapPage() {
 
   const handleFarmSelect = useCallback((farm: FarmShop) => {
     hapticFeedback.buttonPress()
-    flyToFarm(farm)
+    setSelectedFarm(farm) // Set the selected farm
+    setShowResults(false) // Hide the search results list
     setShowSearchSuggestions(false)
+    flyToFarm(farm)
   }, [flyToFarm])
 
   const handleClearSearch = useCallback(() => {
@@ -1086,9 +1088,8 @@ export default function MapPage() {
         {/* Apple-Style Farm Detail Sheet */}
         <FarmDetailSheet
           farm={selectedFarm}
-          isOpen={showResults}
+          isOpen={!!selectedFarm} // Show when a specific farm is selected
           onClose={() => {
-            setShowResults(false)
             setSelectedFarm(null)
           }}
           userLocation={userLoc}
