@@ -108,14 +108,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: `
               (function() {
                 try {
-                  var theme = localStorage.getItem('theme');
-                  var systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  
-                  if (theme === 'dark' || (!theme && systemPrefersDark)) {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
+                  function applyTheme() {
+                    var theme = localStorage.getItem('theme');
+                    var systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    
+                    if (theme === 'dark' || (!theme && systemPrefersDark)) {
+                      document.documentElement.classList.add('dark');
+                    } else {
+                      document.documentElement.classList.remove('dark');
+                    }
                   }
+                  
+                  // Apply theme on load
+                  applyTheme();
                   
                   // Listen for system theme changes
                   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
@@ -127,6 +132,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       }
                     }
                   });
+                  
+                  // Listen for custom theme toggle events
+                  window.addEventListener('theme-changed', function() {
+                    applyTheme();
+                  });
+                  
+                  // Override localStorage.setItem to trigger theme update
+                  var originalSetItem = localStorage.setItem;
+                  localStorage.setItem = function(key, value) {
+                    originalSetItem.apply(this, arguments);
+                    if (key === 'theme') {
+                      window.dispatchEvent(new Event('theme-changed'));
+                    }
+                  };
                 } catch (e) {
                   console.warn('Theme detection failed:', e);
                 }

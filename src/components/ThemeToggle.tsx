@@ -27,12 +27,13 @@ export default function ThemeToggle() {
     setIsDark(newTheme)
     
     if (newTheme) {
-      document.documentElement.classList.add('dark')
       localStorage.setItem('theme', 'dark')
     } else {
-      document.documentElement.classList.remove('dark')
       localStorage.setItem('theme', 'light')
     }
+    
+    // Dispatch custom event to notify layout script
+    window.dispatchEvent(new Event('theme-changed'))
   }
 
   // Prevent hydration mismatch
