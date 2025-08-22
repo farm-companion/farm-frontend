@@ -56,12 +56,15 @@ export default function MapComponent({
 
   // Initialize map with performance optimizations
   useEffect(() => {
+    console.log('🔍 MapComponent useEffect - mapContainer:', !!mapContainer.current, 'mapRef:', !!mapRef.current)
     if (!mapContainer.current || mapRef.current) return
 
     // Defer to next frame for proper sizing
     rafRef.current = requestAnimationFrame(() => {
+      console.log('🔍 Inside requestAnimationFrame - mapContainer:', !!mapContainer.current, 'mapRef:', !!mapRef.current)
       if (!mapContainer.current || mapRef.current) return
 
+      console.log('🔍 Creating MapLibre map...')
       const map = new maplibregl.Map({
         container: mapContainer.current,
         style: styleUrl,
@@ -73,6 +76,7 @@ export default function MapComponent({
         dragRotate: false,
         touchZoomRotate: true
       })
+      console.log('🔍 MapLibre map created successfully')
       mapRef.current = map
 
       // Mobile-optimized map controls
@@ -455,6 +459,10 @@ export default function MapComponent({
   }, [filteredFarms])
 
   return (
-    <div ref={mapContainer} className="w-full h-full" />
+    <div 
+      ref={mapContainer} 
+      className="w-full h-full bg-blue-100" // Temporary background to debug
+      style={{ minHeight: '400px' }} // Ensure minimum height
+    />
   )
 }
