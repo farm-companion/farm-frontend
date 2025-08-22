@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 
 import ClientMonthSelector from '@/components/ClientMonthSelector'
 import { getProduceInSeason, getProduceAtPeak } from '@/data/produce'
@@ -63,8 +64,14 @@ function SeasonalContent({ month, inSeasonProduce, atPeakProduce, monthName }: {
               href={`/seasonal/${produce.slug}`}
               className="group block bg-background-canvas rounded-xl border border-border-default p-6 hover:shadow-premium transition-all duration-200 hover-lift"
             >
-              <div className="aspect-square bg-background-surface rounded-lg mb-4 flex items-center justify-center">
-                <span className="text-4xl">{produce.emoji}</span>
+              <div className="aspect-square bg-background-surface rounded-lg mb-4 overflow-hidden relative">
+                <Image
+                  src={produce.images[0].src}
+                  alt={produce.images[0].alt}
+                  fill
+                  className="object-cover transition-transform duration-200 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
               </div>
               <h3 className="font-heading font-semibold text-text-heading mb-2 group-hover:text-serum transition-colors">
                 {produce.name}
