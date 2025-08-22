@@ -23,10 +23,10 @@ export const PRODUCE: Produce[] = [
     slug: 'sweetcorn',
     name: 'Sweetcorn',
     images: [
-      { src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=600&fit=crop', alt: 'Fresh sweetcorn on cob with green husks' },
-      { src: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&h=600&fit=crop', alt: 'Close-up of golden sweetcorn kernels' },
-      { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop', alt: 'Corn field at sunset with tall stalks' },
-      { src: 'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?w=800&h=600&fit=crop', alt: 'Fresh sweetcorn cobs arranged in rustic basket' },
+      { src: '/images/produce/sweetcorn1.jpg', alt: 'Fresh sweetcorn on the cob with green husks, ready for cooking' },
+      { src: '/images/produce/sweetcorn2.jpg', alt: 'Close-up of golden sweetcorn kernels, showing their juicy texture' },
+      { src: '/images/produce/sweetcorn3.jpg', alt: 'Multiple sweetcorn cobs arranged in a rustic basket, freshly harvested' },
+      { src: '/images/produce/sweetcorn4.jpg', alt: 'Sweetcorn field at sunset, with tall stalks and golden light' },
     ],
     monthsInSeason: [7, 8, 9],            // Jul–Sep
     peakMonths: [8],
@@ -51,19 +51,19 @@ export const PRODUCE: Produce[] = [
     ],
     recipeChips: [
       {
-        title: 'Grilled Corn with Chilli-Lime Butter',
-        url: 'https://www.bbcgoodfood.com/recipes/grilled-corn-chilli-lime-butter',
-        description: 'Perfect summer BBQ side dish'
+        title: 'Best Sweetcorn Recipes',
+        url: 'https://www.olivemagazine.com/recipes/collection/best-sweetcorn-recipes/',
+        description: '35 amazing sweetcorn recipes from Olive Magazine'
       },
       {
-        title: 'Sweetcorn Fritters',
-        url: 'https://www.jamieoliver.com/recipes/vegetables-recipes/sweetcorn-fritters/',
-        description: 'Crispy fritters with fresh herbs'
+        title: 'Stir-Fried Corn with Chilli & Ginger',
+        url: 'https://www.jamieoliver.com/recipes/vegetables/stir-fried-corn-with-chilli-ginger-garlic-and-parsley/',
+        description: 'Quick and flavourful Asian-style corn'
       },
       {
         title: 'Creamy Corn Chowder',
-        url: 'https://www.deliciousmagazine.co.uk/recipes/creamy-corn-chowder/',
-        description: 'Comforting soup with seasonal corn'
+        url: 'https://www.saltandlavender.com/corn-chowder/',
+        description: 'Rich and comforting corn soup'
       }
     ],
     aliases: ['corn', 'maize', 'sweet corn'],
