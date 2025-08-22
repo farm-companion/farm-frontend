@@ -149,8 +149,8 @@ export const PRODUCE: Produce[] = [
     recipeChips: [
       {
         title: 'Strawberry Shortcake',
-        url: 'https://www.bbcgoodfood.com/recipes/strawberry-shortcake',
-        description: 'Classic British summer dessert'
+        url: 'https://www.simplyrecipes.com/recipes/strawberry_shortcake/',
+        description: 'Classic summer dessert'
       },
       {
         title: 'Fresh Strawberry Smoothie',
