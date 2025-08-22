@@ -325,16 +325,19 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
                   Call
                 </button>
               )}
-              <button 
-                onClick={handleShare}
-                aria-label="Share farm"
-                className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95"
-              >
-                <Share2 className="w-5 h-5 text-gray-600" />
-              </button>
-              <button className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95">
-                <Heart className="w-5 h-5 text-gray-600" />
-              </button>
+                                  <button 
+            onClick={handleShare}
+            aria-label="Share farm"
+            className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95"
+          >
+            <Share2 className="w-5 h-5 text-gray-600" />
+          </button>
+          <button 
+            aria-label="Save farm"
+            className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95"
+          >
+            <Heart className="w-5 h-5 text-gray-600" />
+          </button>
             </div>
 
             {/* Location - More Compact */}
