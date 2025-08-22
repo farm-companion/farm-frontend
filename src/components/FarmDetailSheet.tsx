@@ -346,11 +346,13 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
                 <MapPin className="w-4 h-4 text-brand-primary" />
                 Location
               </h2>
-              <div className="bg-gray-50 rounded-xl p-3">
-                <p className="text-gray-900 font-medium">{farm.location.address}</p>
-                <p className="text-gray-600">{farm.location.city}, {farm.location.county}</p>
-                <p className="text-gray-500 font-mono">{farm.location.postcode}</p>
-              </div>
+                        <div className="bg-gray-50 rounded-xl p-3">
+            {farm.location.address && <p className="text-gray-900 font-medium">{farm.location.address}</p>}
+            {(farm.location.city || farm.location.county) && (
+              <p className="text-gray-600">{[farm.location.city, farm.location.county].filter(Boolean).join(', ')}</p>
+            )}
+            {farm.location.postcode && <p className="text-gray-500 font-mono">{farm.location.postcode}</p>}
+          </div>
             </div>
 
             {/* Hours - More Compact */}
