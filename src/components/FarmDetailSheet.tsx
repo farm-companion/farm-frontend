@@ -46,7 +46,7 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
 
   // Calculate distance if user location is available
   const distance = userLocation && farm?.location
-    ? Math.round(haversineMi(userLocation.lat, userLocation.lng, farm.location.lat, farm.location.lng))
+            ? Math.round(haversineKm(userLocation.lat, userLocation.lng, farm.location.lat, farm.location.lng))
     : null
 
   // Find nearby farms (within 5 miles)
@@ -57,7 +57,7 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
       .filter(otherFarm => otherFarm.id !== farm.id && otherFarm.location)
       .map(otherFarm => ({
         ...otherFarm,
-        distance: haversineMi(
+        distance: haversineKm(
           farm.location.lat, farm.location.lng,
           otherFarm.location.lat, otherFarm.location.lng
         )
@@ -99,9 +99,9 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
   }, [farm])
 
   // Haversine formula for accurate distance calculation
-  function haversineMi(lat1: number, lon1: number, lat2: number, lon2: number) {
+  function haversineKm(lat1: number, lon1: number, lat2: number, lon2: number) {
     const toRad = (d: number) => (d * Math.PI) / 180
-    const R = 3958.7613 // Earth radius in miles
+    const R = 6371 // Earth radius in kilometers
     const dLat = toRad(lat2 - lat1)
     const dLon = toRad(lon2 - lon1)
     const a =
@@ -361,7 +361,7 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
                       </div>
                       <div className="text-right">
                         <span className="text-sm font-semibold text-gray-900">
-                          {nearbyFarm.distance.toFixed(1)} mi
+                          {nearbyFarm.distance.toFixed(1)} km
                         </span>
                       </div>
                     </div>

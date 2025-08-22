@@ -694,7 +694,7 @@ export default function MapPage() {
         list = list
           .map(f => ({
             ...f,
-            distance: haversineMi(userLoc.lat, userLoc.lng, f.location.lat, f.location.lng)
+                            distance: haversineKm(userLoc.lat, userLoc.lng, f.location.lat, f.location.lng)
           }))
           .sort((a, b) => a.distance - b.distance)
           .slice(0, maxResults)
@@ -706,8 +706,8 @@ export default function MapPage() {
     } else if (userLoc) {
       // If we have fewer results, still sort by distance
       list = [...list].sort((a, b) => {
-        const da = haversineMi(userLoc.lat, userLoc.lng, a.location.lat, a.location.lng)
-        const db = haversineMi(userLoc.lat, userLoc.lng, b.location.lat, b.location.lng)
+        const da = haversineKm(userLoc.lat, userLoc.lng, a.location.lat, a.location.lng)
+                  const db = haversineKm(userLoc.lat, userLoc.lng, b.location.lat, b.location.lng)
         return da - db
       })
     }
@@ -993,7 +993,7 @@ export default function MapPage() {
                                 </span>
                                 {userLoc && (
                                   <span className="text-xs bg-background-surface text-text-muted px-2 py-0.5 rounded-full">
-                                    {haversineMi(userLoc.lat, userLoc.lng, farm.location.lat, farm.location.lng).toFixed(1)} mi
+                                    {haversineKm(userLoc.lat, userLoc.lng, farm.location.lat, farm.location.lng).toFixed(1)} km
                                   </span>
                                 )}
                               </div>
@@ -1086,7 +1086,7 @@ export default function MapPage() {
                             </span>
                             {userLoc && (
                               <span className="text-xs bg-background-canvas text-text-muted px-2 py-1 rounded-full">
-                                {haversineMi(userLoc.lat, userLoc.lng, farm.location.lat, farm.location.lng).toFixed(1)} mi
+                                {haversineKm(userLoc.lat, userLoc.lng, farm.location.lat, farm.location.lng).toFixed(1)} km
                               </span>
                             )}
                           </div>
@@ -1136,9 +1136,9 @@ export default function MapPage() {
 }
 
 // Utility functions
-function haversineMi(lat1: number, lon1: number, lat2: number, lon2: number) {
+function haversineKm(lat1: number, lon1: number, lat2: number, lon2: number) {
   const toRad = (d: number) => (d * Math.PI) / 180
-  const R = 3958.7613 // Earth radius in miles
+  const R = 6371 // Earth radius in kilometers
   const dLat = toRad(lat2 - lat1)
   const dLon = toRad(lon2 - lon1)
   const a =
