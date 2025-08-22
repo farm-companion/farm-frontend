@@ -127,9 +127,22 @@ export default async function HomePage() {
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-text-heading mb-4">
               Why Choose Farm Shops?
             </h2>
-            <p className="text-lg text-text-muted max-w-2xl mx-auto">
+            <p className="text-lg text-text-muted max-w-2xl mx-auto mb-8">
               Experience the difference of truly fresh, local produce from family-run farms across the UK.
             </p>
+            
+            {/* Creative visual element */}
+            <div className="flex justify-center mb-12">
+              <div className="relative w-64 h-48 rounded-xl overflow-hidden shadow-premium">
+                <Image
+                  src="/images/mixed-berries-fork.jpg"
+                  alt="Fresh strawberries and blueberries with chocolate cake on a fork - representing the quality and variety of farm-fresh produce"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 256px"
+                />
+              </div>
+            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
