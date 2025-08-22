@@ -1,15 +1,25 @@
 import type { FarmShop } from '@/types/farm'
 
+// Helper function to detect if we're in build time
+function isBuildTime(): boolean {
+  return (
+    process.env.NODE_ENV === 'production' ||
+    process.env.NEXT_PHASE === 'phase-production-build' ||
+    process.env.NEXT_PHASE === 'phase-production-export' ||
+    !process.env.NEXT_PUBLIC_SITE_URL
+  )
+}
+
 // Utility function to get farm data with proper build-time handling
 export async function getFarmData(): Promise<FarmShop[]> {
+  // During build time, always return empty array
+  if (isBuildTime()) {
+    console.log('📡 Build time detected, using fallback for farm data')
+    return []
+  }
+  
   try {
-    // During build time or when no site URL is available, return empty array
-    if (process.env.NODE_ENV === 'production' && !process.env.NEXT_PUBLIC_SITE_URL) {
-      console.log('📡 Build time detected, using fallback for farm data')
-      return []
-    }
-    
-    // Use absolute URL for server-side fetching
+    // Only fetch during development or when explicitly configured
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://farm-frontend-info-10016922-abdur-rahman-morris-projects.vercel.app'
     const response = await fetch(`${baseUrl}/data/farms.uk.json`, {
       next: { revalidate: 3600 } // Revalidate every hour
@@ -30,13 +40,14 @@ export async function getFarmData(): Promise<FarmShop[]> {
 
 // Utility function to get farm stats
 export async function getFarmStats() {
+  // During build time, always use static fallback
+  if (isBuildTime()) {
+    console.log('📡 Build time detected, using fallback for farm stats')
+    return { farmCount: 1300, countyCount: 45 }
+  }
+  
   try {
-    // During build time, use static fallback
-    if (process.env.NODE_ENV === 'production' && !process.env.NEXT_PUBLIC_SITE_URL) {
-      return { farmCount: 1300, countyCount: 45 }
-    }
-    
-    // Use absolute URL for server-side fetching
+    // Only fetch during development or when explicitly configured
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://farm-frontend-info-10016922-abdur-rahman-morris-projects.vercel.app'
     const response = await fetch(`${baseUrl}/data/farms.uk.json`, {
       next: { revalidate: 3600 }
