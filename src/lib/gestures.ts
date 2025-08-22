@@ -194,10 +194,13 @@ class GestureRecognizer {
 export const createSwipeToClose = (
   element: HTMLElement,
   onClose: () => void,
-  config?: GestureConfig
+  config?: GestureConfig & { onDragStart?: () => void; onDragEnd?: () => void }
 ): GestureRecognizer => {
   return new GestureRecognizer(element, {
     onSwipeLeft: onClose,
+    onPanStart: () => {
+      config?.onDragStart?.()
+    },
     onPanMove: (x, y, deltaX) => {
       // Follow finger with spring-back effect
       if (deltaX < 0) {
@@ -207,6 +210,7 @@ export const createSwipeToClose = (
       }
     },
     onPanEnd: (x, y, velocity) => {
+      config?.onDragEnd?.()
       // Auto-close if velocity is high enough
       if (velocity.x < -(config?.velocityThreshold || 0.3)) {
         onClose()

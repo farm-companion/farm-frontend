@@ -98,6 +98,14 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
     return highlights
   }, [farm])
 
+  // Lock background scroll when dialog is open
+  useEffect(() => {
+    if (!isOpen) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = prev }
+  }, [isOpen])
+
   // Safe external action handlers
   const safeHttpUrl = (raw?: string) => {
     if (!raw) return null
@@ -172,12 +180,20 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
   }, [isOpen, onClose])
 
   // Setup swipe-to-close gesture
+  // Gesture handling with drag state
   useEffect(() => {
     if (isOpen && sheetRef.current) {
-      const recognizer = createSwipeToClose(sheetRef.current, () => {
-        hapticFeedback.buttonPress()
-        onClose()
-      })
+      const recognizer = createSwipeToClose(
+        sheetRef.current,
+        () => {
+          hapticFeedback.buttonPress()
+          onClose()
+        },
+        {
+          onDragStart: () => setIsDragging(true),
+          onDragEnd: () => setIsDragging(false)
+        }
+      )
       return () => {
         recognizer.stop()
       }
@@ -202,9 +218,12 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
         }`}
       />
 
-      {/* Bottom Sheet */}
+      {/* Bottom Sheet - Proper Dialog */}
       <div
         ref={sheetRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="farm-sheet-title"
         className={`fixed bottom-0 left-0 right-0 z-50 transform transition-all duration-500 ease-out ${
           isOpen ? 'translate-y-0' : 'translate-y-full'
         } ${isDragging ? 'transition-none' : ''}`}
@@ -257,7 +276,7 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
 
             {/* Farm Name Overlay - More Compact */}
             <div className="absolute bottom-3 left-4 right-4">
-              <h1 className="text-2xl font-bold text-white mb-1 drop-shadow-lg">{farm.name}</h1>
+              <h1 id="farm-sheet-title" className="text-2xl font-bold text-white mb-1 drop-shadow-lg">{farm.name}</h1>
               <div className="flex items-center gap-3 text-white/90">
                 {distance != null && (
                   <span className="text-sm bg-black/20 backdrop-blur-sm px-2 py-1 rounded-full">
