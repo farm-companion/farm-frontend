@@ -4,69 +4,12 @@ import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import AdSlot from '@/components/AdSlot'
 import ProduceCard from '@/components/ProduceCard'
-import { PRODUCE, getProduceInSeason, getProduceAtPeak } from '@/data/produce'
-import { 
-  Apple, 
-  Carrot, 
-  Leaf, 
-  Wheat, 
-  Grape, 
-  Cherry, 
-  Circle, 
-  Beef,
-  Nut,
-  Sprout,
-  Bean
-} from 'lucide-react'
+import { getProduceInSeason, getProduceAtPeak } from '@/data/produce'
 
 type SeasonItem = { month: number; inSeason: string[]; notes: string }
 type SeasonItemWithProv = SeasonItem & { source?: string; sourceName?: string; updatedAt?: string }
 
-// Function to get appropriate Lucide icon for each produce item
-const getProduceIcon = (item: string) => {
-  const itemLower = item.toLowerCase()
-  
-  // Fruits
-  if (itemLower.includes('apple')) return Apple
-  if (itemLower.includes('pear')) return Apple
-  if (itemLower.includes('strawberr')) return Cherry
-  if (itemLower.includes('cherr')) return Cherry
-  if (itemLower.includes('plum') || itemLower.includes('damson')) return Circle
-  if (itemLower.includes('blueberr')) return Circle
-  if (itemLower.includes('raspberr')) return Cherry
-  if (itemLower.includes('blackberr')) return Circle
-  if (itemLower.includes('rhubarb')) return Leaf
-  if (itemLower.includes('grape')) return Grape
-  
-  // Vegetables
-  if (itemLower.includes('carrot')) return Carrot
-  if (itemLower.includes('beetroot')) return Carrot
-  if (itemLower.includes('parsnip')) return Carrot
-  if (itemLower.includes('celeriac')) return Carrot
-  if (itemLower.includes('swede')) return Carrot
-  if (itemLower.includes('radish')) return Carrot
-  if (itemLower.includes('lettuce')) return Leaf
-  if (itemLower.includes('cabbage')) return Leaf
-  if (itemLower.includes('kale')) return Leaf
-  if (itemLower.includes('sprout')) return Sprout
-  if (itemLower.includes('spring greens')) return Leaf
-  if (itemLower.includes('broccoli')) return Leaf
-  if (itemLower.includes('asparagus')) return Sprout
-  if (itemLower.includes('pea')) return Bean
-  if (itemLower.includes('bean')) return Bean
-  if (itemLower.includes('broad bean')) return Bean
-  if (itemLower.includes('runner bean')) return Bean
-  if (itemLower.includes('sweetcorn') || itemLower.includes('corn')) return Wheat
-  if (itemLower.includes('squash') || itemLower.includes('pumpkin')) return Circle
-  if (itemLower.includes('mushroom')) return Circle
-  if (itemLower.includes('chestnut')) return Nut
-  
-  // Meat/other
-  if (itemLower.includes('lamb') || itemLower.includes('venison')) return Beef
-  
-  // Default fallback
-  return Leaf
-}
+
 
 // Seasonal data for immersive experience
 const seasonalData = {
@@ -246,50 +189,14 @@ export default function SeasonalPage() {
                 })()}
               </div>
               
-              {/* Fallback to original items if no produce data */}
+              {/* Show all produce if no seasonal data available */}
               {(() => {
                 const inSeasonProduce = getProduceInSeason(month)
                 if (inSeasonProduce.length === 0) {
                   return (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {current.inSeason.map((item, index) => (
-                        <div
-                          key={item}
-                          className="group bg-background-surface rounded-xl border border-border-default p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in-up"
-                          style={{ animationDelay: `${index * 0.1}s` }}
-                        >
-                          <div className="flex items-center justify-between mb-4">
-                            <h4 className="text-lg font-semibold text-gray-900 group-hover:text-brand-primary transition-colors">
-                              {item}
-                            </h4>
-                            <div className="opacity-60 group-hover:opacity-100 transition-opacity">
-                              {(() => {
-                                const IconComponent = getProduceIcon(item)
-                                return <IconComponent className="w-6 h-6 text-brand-primary" />
-                              })()}
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-3">
-                            <p className="text-sm text-gray-600">
-                              Peak season for flavor and nutrition
-                            </p>
-                            
-                            <div className="flex items-center justify-between">
-                              <Link 
-                                href={`/map?search=${encodeURIComponent(item)}`}
-                                className="text-sm text-blue-600 hover:underline transition-colors"
-                              >
-                                Find at farm shops →
-                              </Link>
-                              
-                              <span className="text-xs bg-brand-primary/10 text-brand-primary px-2 py-1 rounded-full">
-                                In Season
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
+                    <div className="text-center py-8">
+                      <p className="text-gray-600 mb-4">No seasonal produce data available for this month.</p>
+                      <p className="text-sm text-gray-500">Check back later for updated seasonal information.</p>
                     </div>
                   )
                 }
