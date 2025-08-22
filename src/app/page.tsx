@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, Star, ArrowRight, CheckCircle, Leaf, Calendar, Heart } from 'lucide-react'
 import NewsletterSignup from '@/components/NewsletterSignup'
+import { getFarmStats } from '@/lib/farm-data'
 
 export const metadata: Metadata = {
   title: 'Farm Companion — UK Farm Shops Directory',
@@ -35,35 +36,8 @@ export const metadata: Metadata = {
   },
 }
 
-// Server-side data for stats
-async function getStats() {
-  try {
-    // Use absolute URL for server-side fetching
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://farm-frontend-info-10016922-abdur-rahman-morris-projects.vercel.app'
-    const response = await fetch(`${baseUrl}/data/farms.uk.json`, {
-      next: { revalidate: 3600 }
-    })
-    
-    if (!response.ok) {
-      console.warn('Failed to fetch farms data for stats, using fallback')
-      return { farmCount: 1300, countyCount: 45 }
-    }
-    
-    const farms = await response.json()
-    const counties = new Set(farms.map((farm: any) => farm.county).filter(Boolean))
-    
-    return {
-      farmCount: farms.length,
-      countyCount: counties.size
-    }
-  } catch (error) {
-    console.warn('Error fetching farms data for stats:', error)
-    return { farmCount: 1300, countyCount: 45 }
-  }
-}
-
 export default async function HomePage() {
-  const { farmCount, countyCount } = await getStats()
+  const { farmCount, countyCount } = await getFarmStats()
 
   return (
     <main className="min-h-screen bg-background-canvas">

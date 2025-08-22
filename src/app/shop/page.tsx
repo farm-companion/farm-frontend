@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { MapPin, Phone, Clock } from 'lucide-react'
 import type { FarmShop } from '@/types/farm'
 import { cleanDescription } from '@/lib/seo-utils'
+import { getFarmData } from '@/lib/farm-data'
 
 export const metadata: Metadata = {
   title: 'UK Farm Shops Directory',
@@ -14,27 +15,7 @@ export const metadata: Metadata = {
   },
 }
 
-// Server-side data fetching
-async function getFarms(): Promise<FarmShop[]> {
-  try {
-    // Use absolute URL for server-side fetching
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://farm-frontend-info-10016922-abdur-rahman-morris-projects.vercel.app'
-    const response = await fetch(`${baseUrl}/data/farms.uk.json`, {
-      next: { revalidate: 3600 } // Revalidate every hour
-    })
-    
-    if (!response.ok) {
-      console.warn('Failed to fetch farms data, using fallback')
-      return []
-    }
-    
-    const farms = await response.json()
-    return farms.filter((farm: FarmShop) => farm.name && farm.location?.address) // Filter out invalid entries
-  } catch (error) {
-    console.warn('Error fetching farms data:', error)
-    return []
-  }
-}
+
 
 // Server-side farm card component
 function FarmCard({ farm }: { farm: FarmShop }) {
@@ -103,7 +84,7 @@ function FarmCard({ farm }: { farm: FarmShop }) {
 }
 
 export default async function ShopPage() {
-  const farms = await getFarms()
+  const farms = await getFarmData()
   
   // Group farms by county for better organization
   const farmsByCounty = farms.reduce((acc, farm) => {
