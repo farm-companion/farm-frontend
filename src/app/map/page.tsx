@@ -667,7 +667,7 @@ export default function MapPage() {
     })
     
     if (selectedCounty) {
-      base = base.filter(f => f.location.county === selectedCounty)
+      base = base.filter(f => f.location.county.toLowerCase() === selectedCounty.toLowerCase())
     }
     
     return base
