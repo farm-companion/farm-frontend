@@ -29,7 +29,7 @@ export default function MapPage() {
   const [bounds, setBounds] = useState<{ west:number; south:number; east:number; north:number } | null>(null)
   const [inViewOnly, setInViewOnly] = useState<boolean>(true)
   const [dataQuality, setDataQuality] = useState<{ total: number; valid: number; invalid: number } | null>(null)
-  const [highlightedFarmId, setHighlightedFarmId] = useState<string | null>(null)
+
   
   // Error handling state
   const [error, setError] = useState<string | null>(null)
@@ -519,7 +519,6 @@ export default function MapPage() {
           // Note: WebGL circle layers cannot be styled with DOM properties
           
           // 3. Visual focus - highlight this marker using separate layer
-          setHighlightedFarmId(farm.id)
           
           // Find the farm feature from our farms data
           const farmFeature = farmsRef.current?.find(f => f.id === farm.id)
@@ -558,7 +557,6 @@ export default function MapPage() {
             
             // Remove highlight after 2 seconds
             setTimeout(() => {
-              setHighlightedFarmId(null)
               if (map.getSource('highlight-src')) {
                 const source = map.getSource('highlight-src') as any
                 source.setData({
