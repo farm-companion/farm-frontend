@@ -295,8 +295,7 @@ export default function MapPage() {
               data: { type: 'FeatureCollection', features: [] },
               cluster: true,
               clusterRadius: 60, // Google-style clustering
-              clusterMaxZoom: 16,
-              clusterMinPoints: 3
+              clusterMaxZoom: 16
             })
             console.log('✅ Map source added successfully')
           } catch (error) {
