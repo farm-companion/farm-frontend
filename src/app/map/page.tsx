@@ -418,32 +418,41 @@ export default function MapPage() {
             } catch (error) {
               console.error('❌ Failed to add unclustered layer:', error)
             }
-
-            // Add highlight layer for selected markers
-            try {
-              map.addSource('highlight-src', {
-                type: 'geojson',
-                data: { type: 'FeatureCollection', features: [] }
-              })
-
-              map.addLayer({
-                id: 'highlight-layer',
-                type: 'circle',
-                source: 'highlight-src',
-                paint: {
-                  'circle-radius': 16,
-                  'circle-color': '#FF6B35',
-                  'circle-opacity': 0.9,
-                  'circle-stroke-width': 3,
-                  'circle-stroke-color': '#FFFFFF'
-                }
-              })
-              console.log('✅ highlight layer added successfully')
-            } catch (error) {
-              console.error('❌ Failed to add highlight layer:', error)
-            }
         } else {
           console.log('⚠️ unclustered layer already exists')
+        }
+
+        // Add highlight source and layer unconditionally (after the source/layers for farms are handled)
+        if (!map.getSource('highlight-src')) {
+          try {
+            map.addSource('highlight-src', {
+              type: 'geojson',
+              data: { type: 'FeatureCollection', features: [] }
+            })
+            console.log('✅ highlight source added successfully')
+          } catch (error) {
+            console.error('❌ Failed to add highlight source:', error)
+          }
+        }
+        
+        if (!map.getLayer('highlight-layer')) {
+          try {
+            map.addLayer({
+              id: 'highlight-layer',
+              type: 'circle',
+              source: 'highlight-src',
+              paint: {
+                'circle-radius': 16,
+                'circle-color': '#FF6B35',
+                'circle-opacity': 0.9,
+                'circle-stroke-width': 3,
+                'circle-stroke-color': '#FFFFFF'
+              }
+            })
+            console.log('✅ highlight layer added successfully')
+          } catch (error) {
+            console.error('❌ Failed to add highlight layer:', error)
+          }
         }
 
         // Verify all layers were added
