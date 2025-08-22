@@ -810,9 +810,7 @@ export default function MapPage() {
 
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-    // Update input immediately for responsive feel
-    e.target.value = value
-    // Debounce the actual search
+    // Debounce the search for performance
     debouncedSetQuery(value)
   }, [debouncedSetQuery])
 
