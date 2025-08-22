@@ -232,7 +232,7 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby="farm-sheet-title"
-        className={`fixed bottom-0 left-0 right-0 z-50 transform transition-all duration-500 ease-out ${
+        className={`fixed bottom-0 left-0 right-0 z-50 transform transition-all duration-500 ease-out motion-reduce:transition-none ${
           isOpen ? 'translate-y-0' : 'translate-y-full'
         } ${isDragging ? 'transition-none' : ''}`}
       >
@@ -310,7 +310,7 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
               {hasValidCoords && (
                 <button 
                   onClick={handleDirections}
-                  className="flex-1 bg-brand-primary text-white py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-all active:scale-95 text-sm"
+                  className="flex-1 bg-brand-primary text-white py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-all motion-reduce:transition-none active:scale-95 motion-reduce:active:scale-100 text-sm"
                 >
                   <Navigation className="w-4 h-4" />
                   Directions
@@ -319,7 +319,7 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
               {farm.contact?.phone && (
                 <button 
                   onClick={handleCall}
-                  className="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-gray-200 transition-all active:scale-95 text-sm"
+                  className="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-gray-200 transition-all motion-reduce:transition-none active:scale-95 motion-reduce:active:scale-100 text-sm"
                 >
                   <Phone className="w-4 h-4" />
                   Call
@@ -328,13 +328,13 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
                                   <button 
             onClick={handleShare}
             aria-label="Share farm"
-            className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95"
+            className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all motion-reduce:transition-none active:scale-95 motion-reduce:active:scale-100"
           >
             <Share2 className="w-5 h-5 text-gray-600" />
           </button>
           <button 
             aria-label="Save farm"
-            className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95"
+            className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all motion-reduce:transition-none active:scale-95 motion-reduce:active:scale-100"
           >
             <Heart className="w-5 h-5 text-gray-600" />
           </button>
@@ -459,7 +459,7 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
                         href={safe} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors"
+                        className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors motion-reduce:transition-none"
                       >
                         <ExternalLink className="w-5 h-5 text-brand-primary" />
                         <span className="text-gray-900 font-medium">Visit Website</span>

@@ -6,12 +6,14 @@ const isProd = process.env.NODE_ENV === "production"
 // - MapLibre (tiles, workers via blob:)
 // - AdSense (scripts + iframes after consent)
 // - Our assets and images
+// - Enhanced security with strict controls
 const CSP = [
   "default-src 'self';",
   "base-uri 'self';",
   "object-src 'none';",
+  "frame-ancestors 'none';",
   "font-src 'self' data: https:;",
-  "img-src 'self' data: blob: https:;",
+  "img-src 'self' data: blob: https: https://lh3.googleusercontent.com https://images.unsplash.com https://cdn.farmcompanion.co.uk https://*.s3.amazonaws.com;",
   // AdSense script (+ allow inline/eval for Next/MapLibre in dev)
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagservices.com https://tpc.googlesyndication.com https://ep2.adtrafficquality.google;",
   // External styles (map styles) + inline styles (Tailwind preflight/runtime)
@@ -25,15 +27,21 @@ const CSP = [
   "child-src blob:;",
   // Helpful on HTTPS in prod
   "upgrade-insecure-requests;",
+  // Additional security
+  "form-action 'self';",
+  "manifest-src 'self';",
 ].join(" ")
 
 const headersCommon = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self)" },
+  { key: "X-XSS-Protection", value: "1; mode=block" },
+  { key: "X-DNS-Prefetch-Control", value: "off" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()" },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+  { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
 ]
 
 const nextConfig: NextConfig = {
