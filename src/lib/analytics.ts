@@ -8,15 +8,27 @@ type AnalyticsEvent = {
 
 // Track a custom analytics event
 export function trackEvent(event: AnalyticsEvent) {
-  // Only track in production
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('Analytics Event:', event)
-    return
-  }
+  try {
+    // Only track in production
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('Analytics Event:', event)
+      return
+    }
 
-  // Use Vercel Analytics if available
-  if (typeof window !== 'undefined' && window.va) {
-    window.va.track(event.name, event.properties)
+    // Check if we're in a browser environment
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    // Use Vercel Analytics if available
+    if (window.va && typeof window.va.track === 'function') {
+      window.va.track(event.name, event.properties)
+    }
+  } catch (error) {
+    // Silently fail in production, log in development
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('Analytics error:', error)
+    }
   }
 }
 

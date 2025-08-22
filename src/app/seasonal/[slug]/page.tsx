@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const p = PRODUCE.find(x => x.slug === slug)
   if (!p) return {}
-  const img = p.images[0]?.src
+  const img = p.images?.[0]?.src
   const title = `${p.name} — Seasonal Guide`
   const desc = `When ${p.name} is in season, how to choose, store, and cook it.`
   return {
@@ -37,20 +37,24 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
 
   const now = new Date()
   const m = now.getMonth() + 1
-  const inSeason = p.monthsInSeason.includes(m)
-  const isPeak = p.peakMonths?.includes(m)
+  const inSeason = p.monthsInSeason?.includes(m) ?? false
+  const isPeak = p.peakMonths?.includes(m) ?? false
+
+  // Safe access to images
+  const heroImage = p.images?.[0]
+  const galleryImages = p.images?.slice(1) ?? []
 
   // JSON-LD (Product/Food with nutrition + season)
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',              // or "Food"
     name: p.name,
-    image: p.images.map(i => i.src),
+    image: p.images?.map(i => i.src) ?? [],
     description: `Seasonal guide for ${p.name}.`,
     additionalProperty: [{
       '@type': 'PropertyValue',
       name: 'Seasonality',
-      value: `In season: ${p.monthsInSeason.map(n => monthNames[n-1]).join(', ')}`
+      value: `In season: ${p.monthsInSeason?.map(n => monthNames[n-1]).join(', ') ?? 'Unknown'}`
     }],
     nutrition: p.nutritionPer100g ? {
       '@type': 'NutritionInformation',
@@ -72,14 +76,25 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
       {/* HERO */}
       <section className="rounded-3xl overflow-hidden relative border border-border-default/30 shadow-sm">
         <div className="relative h-64 sm:h-80">
-          <Image
-            src={p.images[0]?.src ?? '/images/placeholder.jpg'}
-            alt={p.images[0]?.alt ?? `${p.name} hero image`}
-            fill
-            sizes="(max-width: 768px) 100vw, 900px"
-            className="object-cover"
-            priority
-          />
+          {heroImage ? (
+            <Image
+              src={heroImage.src}
+              alt={heroImage.alt ?? `${p.name} hero image`}
+              fill
+              sizes="(max-width: 768px) 100vw, 900px"
+              className="object-cover"
+              priority
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-2xl">🌱</span>
+                </div>
+                <p className="text-gray-600 font-medium">{p.name}</p>
+              </div>
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
           <div className="absolute bottom-4 left-5 right-5 flex items-center justify-between gap-4">
             <h1 className="text-white text-3xl font-semibold">{p.name}</h1>
@@ -127,8 +142,8 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
         <div className="mt-3 grid grid-cols-12 gap-2">
           {Array.from({ length: 12 }, (_, i) => {
             const month = i + 1
-            const active = p.monthsInSeason.includes(month)
-            const peak = p.peakMonths?.includes(month)
+            const active = p.monthsInSeason?.includes(month) ?? false
+            const peak = p.peakMonths?.includes(month) ?? false
             const now = month === m
             return (
               <div key={month} className="text-center">
@@ -150,11 +165,11 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* IMAGE GRID */}
-      {p.images.slice(1).length > 0 && (
+      {galleryImages.length > 0 && (
         <section className="mt-8">
           <h2 className="text-xl font-semibold">Gallery</h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-3">
-            {p.images.slice(1).map((img, idx) => (
+            {galleryImages.map((img, idx) => (
               <div key={idx} className="relative aspect-[4/3] overflow-hidden rounded-xl border">
                 <Image
                   src={img.src}
