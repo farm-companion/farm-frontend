@@ -44,12 +44,12 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
   const realImages = useMemo(() => getRealFarmImages(farm?.images), [farm?.images])
   const hasRealImages = realImages.length > 0
 
-  // Calculate distance if user location is available
+  // Calculate distance if user location is available (in kilometers)
   const distance = userLocation && farm?.location
             ? Math.round(haversineKm(userLocation.lat, userLocation.lng, farm.location.lat, farm.location.lng))
     : null
 
-  // Find nearby farms (within 5 miles)
+  // Find nearby farms (within 5 km)
   const nearbyFarms = useMemo(() => {
     if (!farm || !allFarms || !farm.location) return []
     
@@ -62,7 +62,7 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
           otherFarm.location.lat, otherFarm.location.lng
         )
       }))
-      .filter(farmWithDistance => farmWithDistance.distance <= 5)
+      .filter(f => f.distance <= 5)
       .sort((a, b) => a.distance - b.distance)
       .slice(0, 3) // Show top 3 nearby farms
   }, [farm, allFarms])
@@ -259,9 +259,9 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
             <div className="absolute bottom-3 left-4 right-4">
               <h1 className="text-2xl font-bold text-white mb-1 drop-shadow-lg">{farm.name}</h1>
               <div className="flex items-center gap-3 text-white/90">
-                {distance && (
+                {distance != null && (
                   <span className="text-sm bg-black/20 backdrop-blur-sm px-2 py-1 rounded-full">
-                    {distance} miles away
+                    {distance} km away
                   </span>
                 )}
                 {farm.verified && (
