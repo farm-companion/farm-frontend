@@ -38,11 +38,14 @@ export const metadata: Metadata = {
 // Server-side data for stats
 async function getStats() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/data/farms.uk.json`, {
+    // Use absolute URL for server-side fetching
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://farm-frontend-info-10016922-abdur-rahman-morris-projects.vercel.app'
+    const response = await fetch(`${baseUrl}/data/farms.uk.json`, {
       next: { revalidate: 3600 }
     })
     
     if (!response.ok) {
+      console.warn('Failed to fetch farms data for stats, using fallback')
       return { farmCount: 1300, countyCount: 45 }
     }
     
@@ -54,6 +57,7 @@ async function getStats() {
       countyCount: counties.size
     }
   } catch (error) {
+    console.warn('Error fetching farms data for stats:', error)
     return { farmCount: 1300, countyCount: 45 }
   }
 }

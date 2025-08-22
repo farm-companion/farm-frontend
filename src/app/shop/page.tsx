@@ -17,18 +17,21 @@ export const metadata: Metadata = {
 // Server-side data fetching
 async function getFarms(): Promise<FarmShop[]> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/data/farms.uk.json`, {
+    // Use absolute URL for server-side fetching
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://farm-frontend-info-10016922-abdur-rahman-morris-projects.vercel.app'
+    const response = await fetch(`${baseUrl}/data/farms.uk.json`, {
       next: { revalidate: 3600 } // Revalidate every hour
     })
     
     if (!response.ok) {
-      throw new Error('Failed to fetch farms data')
+      console.warn('Failed to fetch farms data, using fallback')
+      return []
     }
     
     const farms = await response.json()
     return farms.filter((farm: FarmShop) => farm.name && farm.location?.address) // Filter out invalid entries
   } catch (error) {
-    console.error('Error fetching farms:', error)
+    console.warn('Error fetching farms data:', error)
     return []
   }
 }
