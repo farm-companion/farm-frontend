@@ -52,6 +52,18 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.farmcompanion.co.uk',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.s3.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   // Configure API routes for larger file uploads

@@ -241,7 +241,10 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
                 <div className="relative h-48 overflow-hidden">
                 <img
                   src={realImages[0]}
-                  alt={farm.name}
+                  alt={`${farm.name} hero image`}
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
                   className={`w-full h-full object-cover transition-opacity duration-500 ${
                     imageLoaded ? 'opacity-100' : 'opacity-0'
                   }`}
