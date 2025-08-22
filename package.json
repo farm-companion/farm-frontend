@@ -9,6 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "gen:og": "node tools/gen-og.mjs",
+    "validate-images": "node scripts/validate-images.js",
+    "check-images": "npm run validate-images",
     "lighthouse": "lighthouse http://localhost:3000 --output=json --output-path=./lighthouse-report.json",
     "test:a11y": "playwright test --config=tests/a11y.config.ts",
     "test:performance": "lighthouse http://localhost:3000 --only-categories=performance --output=json",

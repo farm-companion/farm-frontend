@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
 import type { Metadata } from 'next'
 import { PRODUCE } from '@/data/produce'
 import Link from 'next/link'
 import { MapPin, Clock, ExternalLink } from 'lucide-react'
 import ProduceAnalytics from '@/components/ProduceAnalytics'
+import ProduceImage, { ProduceGallery } from '@/components/ProduceImage'
 
 // Revalidate daily
 export const revalidate = 86400
@@ -77,11 +77,11 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
       <section className="rounded-3xl overflow-hidden relative border border-border-default/30 shadow-sm">
         <div className="relative h-64 sm:h-80">
           {heroImage ? (
-            <Image
-              src={heroImage.src}
-              alt={heroImage.alt ?? `${p.name} hero image`}
+            <ProduceImage
+              image={heroImage}
+              produceName={p.name}
+              index={0}
               fill
-              sizes="(max-width: 768px) 100vw, 900px"
               className="object-cover"
               priority
             />
@@ -168,20 +168,11 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
       {galleryImages.length > 0 && (
         <section className="mt-8">
           <h2 className="text-xl font-semibold">Gallery</h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-3">
-            {galleryImages.map((img, idx) => (
-              <div key={idx} className="relative aspect-[4/3] overflow-hidden rounded-xl border">
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
+          <ProduceGallery
+            images={galleryImages}
+            produceName={p.name}
+            className="mt-3 grid gap-3 sm:grid-cols-3"
+          />
         </section>
       )}
 

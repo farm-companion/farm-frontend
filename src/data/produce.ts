@@ -73,7 +73,7 @@ export const PRODUCE: Produce[] = [
     images: [
       { src: 'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=800&h=600&fit=crop', alt: 'Ripe red tomatoes on the vine' },
       { src: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&h=600&fit=crop', alt: 'Assorted heirloom tomatoes in various colors' },
-      { src: 'https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=800&h=600&fit=crop', alt: 'Cherry tomatoes in a wooden basket' },
+      { src: 'https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=800&h=600&fit=crop', alt: 'Fresh tomatoes in a wooden basket' },
     ],
     monthsInSeason: [6, 7, 8, 9, 10],    // Jun–Oct
     peakMonths: [7, 8, 9],
