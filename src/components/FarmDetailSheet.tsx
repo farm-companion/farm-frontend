@@ -44,9 +44,17 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
   const realImages = useMemo(() => getRealFarmImages(farm?.images), [farm?.images])
   const hasRealImages = realImages.length > 0
 
+  // Coordinate validation
+  const isValidCoord = (n: number) => Number.isFinite(n)
+    && Math.abs(n) <= (n === farm?.location?.lat ? 90 : 180)
+
+  const hasValidCoords = !!farm?.location
+    && isValidCoord(farm.location.lat)
+    && isValidCoord(farm.location.lng)
+
   // Calculate distance if user location is available (in kilometers)
-  const distance = userLocation && farm?.location
-            ? Math.round(haversineKm(userLocation.lat, userLocation.lng, farm.location.lat, farm.location.lng))
+  const distance = userLocation && hasValidCoords
+            ? Math.round(haversineKm(userLocation.lat, userLocation.lng, farm!.location.lat, farm!.location.lng))
     : null
 
   // Find nearby farms (within 5 km)
@@ -117,8 +125,8 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
   }
 
   const buildDirectionsUrl = () => {
-    const { location } = farm || {}
-    if (!location || Number.isNaN(location.lat) || Number.isNaN(location.lng)) return null
+    if (!hasValidCoords) return null
+    const { location } = farm!
     return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${location.lat},${location.lng}`)}`
   }
 
@@ -299,13 +307,15 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
           <div className="px-6 py-6 space-y-6 max-h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
             {/* Quick Actions - More Compact with Safe Handlers */}
             <div className="flex gap-2">
-              <button 
-                onClick={handleDirections}
-                className="flex-1 bg-brand-primary text-white py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-all active:scale-95 text-sm"
-              >
-                <Navigation className="w-4 h-4" />
-                Directions
-              </button>
+              {hasValidCoords && (
+                <button 
+                  onClick={handleDirections}
+                  className="flex-1 bg-brand-primary text-white py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-all active:scale-95 text-sm"
+                >
+                  <Navigation className="w-4 h-4" />
+                  Directions
+                </button>
+              )}
               {farm.contact?.phone && (
                 <button 
                   onClick={handleCall}
