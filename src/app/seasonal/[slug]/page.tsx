@@ -38,6 +38,7 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
   const now = new Date()
   const m = now.getMonth() + 1
   const inSeason = p.monthsInSeason.includes(m)
+  const isPeak = p.peakMonths?.includes(m)
 
   // JSON-LD (Product/Food with nutrition + season)
   const jsonLd = {
@@ -82,9 +83,16 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
           <div className="absolute bottom-4 left-5 right-5 flex items-center justify-between gap-4">
             <h1 className="text-white text-3xl font-semibold">{p.name}</h1>
-            <span className={`px-3 py-1 rounded-full text-sm font-semibold ${inSeason ? 'bg-emerald-200/90 text-emerald-900' : 'bg-gray-200/90 text-gray-800'}`}>
-              {inSeason ? 'In Season Now' : 'Out of Season'}
-            </span>
+            <div className="flex gap-2">
+              <span className={`px-3 py-1 rounded-full text-sm font-semibold ${inSeason ? 'bg-emerald-200/90 text-emerald-900' : 'bg-gray-200/90 text-gray-800'}`}>
+                {inSeason ? 'In Season Now' : 'Out of Season'}
+              </span>
+              {isPeak && (
+                <span className="px-3 py-1 rounded-full text-sm font-semibold bg-amber-200/90 text-amber-900 animate-pulse">
+                  Best This Month
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -207,6 +215,35 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
                 ))}
               </tbody>
             </table>
+          </div>
+        </section>
+      )}
+
+      {/* RECIPE CHIPS */}
+      {p.recipeChips && p.recipeChips.length > 0 && (
+        <section className="mt-8">
+          <h2 className="text-xl font-semibold mb-4">Recipe Inspiration</h2>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {p.recipeChips.map((recipe, index) => (
+              <a
+                key={index}
+                href={recipe.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-xl border bg-white p-4 shadow-sm hover:shadow-md transition motion-reduce:transition-none group"
+              >
+                <h3 className="font-semibold text-gray-900 group-hover:text-brand-primary transition-colors mb-2">
+                  {recipe.title}
+                </h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  {recipe.description}
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">External recipe</span>
+                  <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-brand-primary transition-colors" />
+                </div>
+              </a>
+            ))}
           </div>
         </section>
       )}

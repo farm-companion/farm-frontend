@@ -262,10 +262,31 @@ export default function MapPage() {
     return R * c
   }
 
+  // Initialize query from URL parameter
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search)
+      const queryParam = urlParams.get('q')
+      if (queryParam) {
+        setQuery(queryParam)
+      }
+    }
+  }, [])
+
   // Debounced search query
   const debouncedSetQuery = useCallback(
     debounce((value: string) => {
       setQuery(value)
+      // Update URL parameter when query changes
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href)
+        if (value) {
+          url.searchParams.set('q', value)
+        } else {
+          url.searchParams.delete('q')
+        }
+        window.history.replaceState({}, '', url.toString())
+      }
     }, 300),
     []
   )

@@ -10,6 +10,7 @@ export type Produce = {
   selectionTips?: string[]
   storageTips?: string[]
   prepIdeas?: string[]
+  recipeChips?: { title: string; url: string; description: string }[]
   aliases?: string[]              // for search
 }
 
@@ -43,6 +44,23 @@ export const PRODUCE: Produce[] = [
       'Make creamy corn soup with fresh herbs.',
       'Add to summer pasta dishes.',
     ],
+    recipeChips: [
+      {
+        title: 'Grilled Corn with Chilli-Lime Butter',
+        url: 'https://www.bbcgoodfood.com/recipes/grilled-corn-chilli-lime-butter',
+        description: 'Perfect summer BBQ side dish'
+      },
+      {
+        title: 'Sweetcorn Fritters',
+        url: 'https://www.jamieoliver.com/recipes/vegetables-recipes/sweetcorn-fritters/',
+        description: 'Crispy fritters with fresh herbs'
+      },
+      {
+        title: 'Creamy Corn Chowder',
+        url: 'https://www.deliciousmagazine.co.uk/recipes/creamy-corn-chowder/',
+        description: 'Comforting soup with seasonal corn'
+      }
+    ],
     aliases: ['corn', 'maize', 'sweet corn'],
   },
   {
@@ -73,6 +91,23 @@ export const PRODUCE: Produce[] = [
       'Create a simple caprese salad.',
       'Slow-roast with garlic and herbs.',
       'Blend into gazpacho for hot summer days.',
+    ],
+    recipeChips: [
+      {
+        title: 'Classic Tomato Bruschetta',
+        url: 'https://www.bbcgoodfood.com/recipes/tomato-bruschetta',
+        description: 'Simple Italian appetizer'
+      },
+      {
+        title: 'Caprese Salad',
+        url: 'https://www.jamieoliver.com/recipes/tomato-recipes/caprese-salad/',
+        description: 'Fresh mozzarella and basil'
+      },
+      {
+        title: 'Slow-Roasted Tomatoes',
+        url: 'https://www.deliciousmagazine.co.uk/recipes/slow-roasted-tomatoes/',
+        description: 'Intense flavor, perfect for pasta'
+      }
     ],
     aliases: ['tomato', 'cherry tomatoes', 'heirloom tomatoes'],
   },
