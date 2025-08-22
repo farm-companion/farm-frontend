@@ -384,7 +384,6 @@ export default function MapPage() {
             filter: ['has', 'point_count'],
             layout: {
               'text-field': ['get', 'point_count_abbreviated'],
-              'text-font': ['Inter', 'Open Sans Regular', 'Arial Unicode MS Regular'],
               'text-size': 12,
               'text-allow-overlap': true
             },
