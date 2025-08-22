@@ -219,10 +219,10 @@ export const PRODUCE: Produce[] = [
     slug: 'runner-beans',
     name: 'Runner Beans',
     images: [
-      { src: 'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?w=800&h=600&fit=crop', alt: 'Fresh green runner beans in a rustic basket' },
-      { src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=600&fit=crop', alt: 'Runner beans growing on the vine in a garden' },
-      { src: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&h=600&fit=crop', alt: 'Close-up of fresh runner beans with green pods' },
-      { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop', alt: 'Harvested runner beans arranged on wooden surface' },
+      { src: '/images/produce/runner-beans1.jpg', alt: 'Fresh green runner beans piled in a rustic wooden bowl' },
+      { src: '/images/produce/runner-beans2.jpg', alt: 'Single runner bean hanging from vine in golden sunlight' },
+      { src: '/images/produce/runner-beans3.jpg', alt: 'Freshly chopped runner beans showing bright green segments' },
+      { src: '/images/produce/runner-beans4.jpg', alt: 'Close-up of fresh runner beans with natural texture and detail' },
     ],
     monthsInSeason: [7, 8, 9, 10],       // Jul–Oct
     peakMonths: [8, 9],
