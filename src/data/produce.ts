@@ -247,19 +247,19 @@ export const PRODUCE: Produce[] = [
     ],
     recipeChips: [
       {
-        title: 'Steamed Runner Beans',
-        url: 'https://www.bbcgoodfood.com/recipes/steamed-runner-beans',
-        description: 'Simple side dish with butter'
+        title: 'Runner Bean Chutney',
+        url: 'https://www.bbcgoodfood.com/recipes/runner-bean-chutney',
+        description: 'Preserve allotment beans for winter'
+      },
+      {
+        title: 'Middle Eastern Runner Beans',
+        url: 'https://www.riverford.co.uk/recipes/middle-eastern-style-runner-beans?srsltid=AfmBOoorbptoOUwoGLQPEslUJmZHt4zyU58PQIqxFcHLSPsF77mkD6m5',
+        description: 'Spiced runner beans with exotic flavours'
       },
       {
         title: 'Runner Bean Stir-Fry',
-        url: 'https://www.jamieoliver.com/recipes/vegetables-recipes/runner-bean-stir-fry/',
-        description: 'Quick and healthy meal'
-      },
-      {
-        title: 'Runner Bean Chutney',
-        url: 'https://www.deliciousmagazine.co.uk/recipes/runner-bean-chutney/',
-        description: 'Preserve summer beans'
+        url: 'https://www.quorumpark.com/walking/runner-bean-stir-fry',
+        description: 'Fresh summer stir-fry from Quorum Park'
       }
     ],
     aliases: ['runner bean', 'pole beans', 'string beans'],
