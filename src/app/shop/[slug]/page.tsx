@@ -8,6 +8,7 @@ import { ObfuscatedEmail, ObfuscatedPhone } from '@/components/ObfuscatedContact
 import ShopImageHeader from '@/components/ShopImageHeader'
 import PhotoSubmissionForm from '@/components/PhotoSubmissionForm'
 import { processFarmDescription } from '@/lib/seo-utils'
+import FarmAnalytics from '@/components/FarmAnalytics'
 
 async function readFarms(): Promise<FarmShop[]> {
   const file = path.join(process.cwd(), 'public', 'data', 'farms.uk.json')
@@ -117,6 +118,7 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
         // stringify on server to avoid hydration diff; remove undefineds for cleanliness
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON.parse(JSON.stringify(jsonLd))) }}
       />
+      <FarmAnalytics slug={shop.slug} name={shop.name} />
       <a href="/map" className="text-sm underline hover:no-underline">← Back to map</a>
 
       <header className="mt-3 flex items-start justify-between gap-3">

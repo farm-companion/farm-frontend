@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { PRODUCE } from '@/data/produce'
 import Link from 'next/link'
 import { MapPin, Clock, ExternalLink } from 'lucide-react'
+import ProduceAnalytics from '@/components/ProduceAnalytics'
 
 // Revalidate daily
 export const revalidate = 86400
@@ -65,6 +66,7 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
   return (
     <main className="mx-auto max-w-5xl px-6 py-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <ProduceAnalytics slug={p.slug} name={p.name} />
 
       {/* HERO */}
       <section className="rounded-3xl overflow-hidden relative border border-border-default/30 shadow-sm">
