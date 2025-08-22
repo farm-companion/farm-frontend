@@ -8,7 +8,7 @@ export default function ProduceCard({ p, badge }: { p: Pick<Produce,'slug'|'name
   return (
     <Link
       href={`/seasonal/${p.slug}`}
-      className="group block rounded-2xl border border-border-default/30 bg-white shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+      className="group block rounded-2xl border border-border-default/30 bg-background-canvas shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-primary"
       aria-label={`Open seasonal guide for ${p.name}`}
     >
       <div className="p-5 flex items-start justify-between gap-3">

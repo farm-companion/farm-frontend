@@ -7,11 +7,11 @@ export default function PrivacyPage() {
     <main className="mx-auto max-w-4xl px-6 py-12">
       <header>
         <h1 className="text-3xl font-semibold">Privacy Policy</h1>
-        <p className="mt-2 text-gray-700">
+        <p className="mt-2 text-text-muted">
           We respect your privacy. This notice explains what we collect, why, and your rights under UK GDPR.
         </p>
         <nav aria-label="On this page" className="mt-6">
-          <ul className="flex flex-wrap gap-3 text-sm text-gray-700">
+          <ul className="flex flex-wrap gap-3 text-sm text-text-muted">
             <li><a className="underline" href="#who-we-are">Who we are</a></li>
             <li><a className="underline" href="#what-we-collect">What we collect</a></li>
             <li><a className="underline" href="#how-we-use">How we use your data</a></li>
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
             <strong>Communications</strong>: emails you send us and our replies.
           </li>
         </ul>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-text-muted">
           We do not intentionally collect sensitive categories of personal data.
         </p>
       </section>
@@ -89,7 +89,7 @@ export default function PrivacyPage() {
           <li>Analytics and advertising (loaded only with your consent).</li>
           <li>Email and support tooling (to respond to enquiries).</li>
         </ul>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-text-muted">
           We do not sell your personal data. If we are required to disclose data by law, we will do so.
         </p>
       </section>
@@ -108,7 +108,7 @@ export default function PrivacyPage() {
             Manage cookies
           </button>
         </div>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-text-muted">
           If you do not consent, analytics/ads will not load.
         </p>
       </section>
@@ -133,8 +133,8 @@ export default function PrivacyPage() {
         <h2 className="text-xl font-semibold">Data retention</h2>
         <p>We keep data only as long as necessary for the purposes described above.</p>
         <div className="overflow-x-auto">
-          <table className="mt-3 w-full border border-gray-200 text-sm">
-            <thead className="bg-gray-50">
+          <table className="mt-3 w-full border border-border-default text-sm">
+            <thead className="bg-background-surface">
               <tr>
                 <th className="px-3 py-2 text-left font-medium">Category</th>
                 <th className="px-3 py-2 text-left font-medium">Typical retention</th>
@@ -181,7 +181,7 @@ export default function PrivacyPage() {
         </p>
       </section>
 
-      <footer className="mt-10 text-sm text-gray-600">
+      <footer className="mt-10 text-sm text-text-muted">
         <p>Effective date: {EFFECTIVE_DATE}</p>
         <p className="mt-1">We may update this notice; material changes will be posted here.</p>
       </footer>

@@ -200,41 +200,41 @@ export default async function HomePage() {
       </section>
 
       {/* SEO Content Section */}
-      <section className="bg-white border-t">
+      <section className="bg-background-canvas border-t border-border-default">
         <div className="max-w-4xl mx-auto px-6 py-16">
           <div className="prose prose-lg max-w-none">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+            <h2 className="text-3xl font-bold text-text-heading mb-6">
               UK Farm Shops Directory
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-text-muted mb-6">
               Welcome to Farm Companion, your comprehensive guide to UK farm shops. We&apos;ve curated 
               a directory of over {farmCount} authentic farm shops across {countyCount} counties, 
               helping you discover the freshest local produce and connect with real farmers.
             </p>
             
-            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+            <h3 className="text-2xl font-semibold text-text-heading mb-4">
               Find Farm Shops Near You
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-text-muted mb-6">
               Whether you&apos;re looking for fresh vegetables, organic meat, artisanal cheese, or 
               homemade preserves, our interactive map makes it easy to find farm shops in your area. 
               Each listing includes verified contact information, opening hours, and details about 
               what each farm offers.
             </p>
 
-            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+            <h3 className="text-2xl font-semibold text-text-heading mb-4">
               Seasonal Produce Guides
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-text-muted mb-6">
               Eating seasonally means enjoying produce at its peak flavour and nutritional value. 
               Our seasonal guides help you understand what&apos;s in season throughout the year, 
               with tips on selection, storage, and preparation for the freshest ingredients.
             </p>
 
-            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+            <h3 className="text-2xl font-semibold text-text-heading mb-4">
               Support Local Farmers
             </h3>
-            <p className="text-gray-600">
+            <p className="text-text-muted">
               By choosing to shop at local farm shops, you&apos;re supporting British farmers and 
               contributing to sustainable, local food systems. You&apos;ll enjoy fresher produce, 
               reduce food miles, and help maintain the UK&apos;s rich agricultural heritage.

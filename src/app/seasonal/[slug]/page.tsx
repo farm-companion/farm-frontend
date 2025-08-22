@@ -116,21 +116,21 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
       <section className="mt-6 grid gap-3 sm:grid-cols-3">
         <Link
           href={`/map?q=${encodeURIComponent(p.name)}`}
-          className="flex items-center justify-center gap-2 rounded-xl border bg-white py-3 shadow-sm hover:shadow-md transition motion-reduce:transition-none"
+          className="flex items-center justify-center gap-2 rounded-xl border border-border-default bg-background-canvas py-3 shadow-sm hover:shadow-md transition motion-reduce:transition-none"
         >
           <MapPin className="w-4 h-4" /> Find at farm shops
         </Link>
         <a
           href={`https://www.google.com/search?q=${encodeURIComponent(p.name + ' recipes')}`}
           target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 rounded-xl border bg-white py-3 shadow-sm hover:shadow-md transition motion-reduce:transition-none"
+          className="flex items-center justify-center gap-2 rounded-xl border border-border-default bg-background-canvas py-3 shadow-sm hover:shadow-md transition motion-reduce:transition-none"
         >
           <ExternalLink className="w-4 h-4" /> Recipes
         </a>
         <a
           href={`https://www.google.com/search?q=how+to+store+${encodeURIComponent(p.name)}`}
           target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 rounded-xl border bg-white py-3 shadow-sm hover:shadow-md transition motion-reduce:transition-none"
+          className="flex items-center justify-center gap-2 rounded-xl border border-border-default bg-background-canvas py-3 shadow-sm hover:shadow-md transition motion-reduce:transition-none"
         >
           <Clock className="w-4 h-4" /> Storage & shelf life
         </a>
@@ -138,7 +138,7 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
 
       {/* SEASONALITY BAR */}
       <section className="mt-8">
-        <h2 className="text-xl font-semibold">Seasonality</h2>
+        <h2 className="text-xl font-semibold text-text-heading">Seasonality</h2>
         <div className="mt-3 grid grid-cols-12 gap-2">
           {Array.from({ length: 12 }, (_, i) => {
             const month = i + 1
@@ -150,8 +150,8 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
                 <div
                   className={[
                     'h-8 rounded-lg border text-xs flex items-center justify-center',
-                    active ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-gray-50 border-gray-200 text-gray-500',
-                    peak ? 'ring-2 ring-emerald-400' : '',
+                    active ? 'bg-brand-primary/10 border-brand-primary/20 text-brand-primary' : 'bg-background-surface border-border-default text-text-muted',
+                    peak ? 'ring-2 ring-brand-primary/40' : '',
                     now ? 'outline outline-2 outline-offset-2 outline-brand-primary/60' : '',
                   ].join(' ')}
                   aria-label={`${monthNames[i]} ${active ? 'in season' : 'out of season'}${peak ? ', peak' : ''}${now ? ', current month' : ''}`}
@@ -179,7 +179,7 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
       {/* GALLERY */}
       {galleryImages.length > 0 && (
         <section className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Gallery</h2>
+          <h2 className="text-xl font-semibold mb-4 text-text-heading">Gallery</h2>
           <ProduceGallery 
             images={galleryImages}
             produceName={p.name}
