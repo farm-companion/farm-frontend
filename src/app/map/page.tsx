@@ -634,14 +634,28 @@ export default function MapPage() {
     const timer = setTimeout(() => {
       console.log('🔄 Fallback: Checking if farm data needs to be loaded...')
       const map = mapRef.current
-      if (map && farms && farms.length === 0) {
-        console.log('🔄 Fallback: No farms loaded, calling loadFarmData()...')
+      
+      // Check if we need to load data (null farms, empty farms, or no loading state)
+      const needsData = !farms || farms.length === 0
+      const notLoading = !isLoading && !isRetrying
+      const noError = !error
+      
+      if (map && needsData && notLoading && noError) {
+        console.log('🔄 Fallback: No farms loaded (null or empty), calling loadFarmData()...')
         loadFarmData()
+      } else {
+        console.log('🔄 Fallback: Skipping -', { 
+          hasMap: !!map, 
+          needsData, 
+          notLoading, 
+          noError,
+          farmsCount: farms?.length || 0
+        })
       }
     }, 2000) // Wait 2 seconds after map initialization
 
     return () => clearTimeout(timer)
-  }, [loadFarmData, farms?.length || 0])
+  }, [loadFarmData, farms, isLoading, isRetrying, error])
 
   // Counties for filtering
   const counties = useMemo(() => {
