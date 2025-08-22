@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import AdSlot from '@/components/AdSlot'
+import ProduceCard from '@/components/ProduceCard'
+import { PRODUCE, getProduceInSeason, getProduceAtPeak } from '@/data/produce'
 import { 
   Apple, 
   Carrot, 
@@ -216,46 +218,83 @@ export default function SeasonalPage() {
                 What&apos;s in Season Now
               </h3>
               
+              {/* Enhanced Produce Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {current.inSeason.map((item, index) => (
-                  <div
-                    key={item}
-                    className="group bg-background-surface rounded-xl border border-border-default p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in-up"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-lg font-semibold text-gray-900 group-hover:text-brand-primary transition-colors">
-                        {item}
-                      </h4>
-                      <div className="opacity-60 group-hover:opacity-100 transition-opacity">
-                        {(() => {
-                          const IconComponent = getProduceIcon(item)
-                          return <IconComponent className="w-6 h-6 text-brand-primary" />
-                        })()}
-                      </div>
+                {(() => {
+                  // Get produce that's in season this month
+                  const inSeasonProduce = getProduceInSeason(month)
+                  const atPeakProduce = getProduceAtPeak(month)
+                  
+                  // Combine and deduplicate
+                  const allInSeason = [...new Set([...inSeasonProduce, ...atPeakProduce])]
+                  
+                  return allInSeason.map((produce, index) => (
+                    <div
+                      key={produce.slug}
+                      className="animate-fade-in-up"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <ProduceCard 
+                        p={{ 
+                          slug: produce.slug, 
+                          name: produce.name 
+                        }}
+                        badge={atPeakProduce.find(p => p.slug === produce.slug) ? 'Peak Season' : 'In Season'}
+                      />
                     </div>
-                    
-                    <div className="space-y-3">
-                      <p className="text-sm text-gray-600">
-                        Peak season for flavor and nutrition
-                      </p>
-                      
-                      <div className="flex items-center justify-between">
-                        <Link 
-                          href={`/map?search=${encodeURIComponent(item)}`}
-                          className="text-sm text-blue-600 hover:underline transition-colors"
-                        >
-                          Find at farm shops →
-                        </Link>
-                        
-                        <span className="text-xs bg-brand-primary/10 text-brand-primary px-2 py-1 rounded-full">
-                          In Season
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                  ))
+                })()}
               </div>
+              
+              {/* Fallback to original items if no produce data */}
+              {(() => {
+                const inSeasonProduce = getProduceInSeason(month)
+                if (inSeasonProduce.length === 0) {
+                  return (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {current.inSeason.map((item, index) => (
+                        <div
+                          key={item}
+                          className="group bg-background-surface rounded-xl border border-border-default p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in-up"
+                          style={{ animationDelay: `${index * 0.1}s` }}
+                        >
+                          <div className="flex items-center justify-between mb-4">
+                            <h4 className="text-lg font-semibold text-gray-900 group-hover:text-brand-primary transition-colors">
+                              {item}
+                            </h4>
+                            <div className="opacity-60 group-hover:opacity-100 transition-opacity">
+                              {(() => {
+                                const IconComponent = getProduceIcon(item)
+                                return <IconComponent className="w-6 h-6 text-brand-primary" />
+                              })()}
+                            </div>
+                          </div>
+                          
+                          <div className="space-y-3">
+                            <p className="text-sm text-gray-600">
+                              Peak season for flavor and nutrition
+                            </p>
+                            
+                            <div className="flex items-center justify-between">
+                              <Link 
+                                href={`/map?search=${encodeURIComponent(item)}`}
+                                className="text-sm text-blue-600 hover:underline transition-colors"
+                              >
+                                Find at farm shops →
+                              </Link>
+                              
+                              <span className="text-xs bg-brand-primary/10 text-brand-primary px-2 py-1 rounded-full">
+                                In Season
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )
+                }
+                return null
+              })()}
             </div>
 
             {/* Seasonal Tips */}
