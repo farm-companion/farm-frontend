@@ -176,11 +176,11 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
         </div>
 
         {/* Content */}
-        <div className="bg-white/95 backdrop-blur-xl rounded-t-3xl shadow-2xl border-t border-white/20 max-h-[90vh] overflow-hidden">
-          {/* Hero Section */}
-          <div className="relative">
-            {hasRealImages ? (
-              <div className="relative h-64 overflow-hidden">
+        <div className="bg-white/95 backdrop-blur-xl rounded-t-3xl shadow-2xl border-t border-white/20 max-h-[85vh] overflow-hidden">
+                      {/* Hero Section - More Compact */}
+            <div className="relative">
+              {hasRealImages ? (
+                <div className="relative h-48 overflow-hidden">
                 <img
                   src={realImages[0]}
                   alt={farm.name}
@@ -196,8 +196,8 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
                 {/* Overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               </div>
-            ) : (
-              <div className="h-48 bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 flex items-center justify-center">
+                          ) : (
+                <div className="h-32 bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 flex items-center justify-center">
                 <div className="text-center">
                   <MapPin className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <p className="text-gray-400 font-medium">{farm.name}</p>
@@ -216,9 +216,9 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
               <X className="w-5 h-5 text-white" />
             </button>
 
-            {/* Farm Name Overlay */}
-            <div className="absolute bottom-4 left-4 right-4">
-              <h1 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">{farm.name}</h1>
+            {/* Farm Name Overlay - More Compact */}
+            <div className="absolute bottom-3 left-4 right-4">
+              <h1 className="text-2xl font-bold text-white mb-1 drop-shadow-lg">{farm.name}</h1>
               <div className="flex items-center gap-3 text-white/90">
                 {distance && (
                   <span className="text-sm bg-black/20 backdrop-blur-sm px-2 py-1 rounded-full">
@@ -234,49 +234,49 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
             </div>
           </div>
 
-          {/* Content */}
-          <div className="px-6 py-6 space-y-8">
-            {/* Quick Actions */}
-            <div className="flex gap-3">
-              <button className="flex-1 bg-brand-primary text-white py-4 px-6 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-brand-primary/90 transition-all active:scale-95">
-                <Navigation className="w-5 h-5" />
-                Get Directions
+          {/* Content - Scrollable */}
+          <div className="px-6 py-6 space-y-6 max-h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+            {/* Quick Actions - More Compact */}
+            <div className="flex gap-2">
+              <button className="flex-1 bg-brand-primary text-white py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-all active:scale-95 text-sm">
+                <Navigation className="w-4 h-4" />
+                Directions
               </button>
               {farm.contact?.phone && (
-                <button className="flex-1 bg-gray-100 text-gray-700 py-4 px-6 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-gray-200 transition-all active:scale-95">
-                  <Phone className="w-5 h-5" />
+                <button className="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-gray-200 transition-all active:scale-95 text-sm">
+                  <Phone className="w-4 h-4" />
                   Call
                 </button>
               )}
-              <button className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95">
-                <Share2 className="w-6 h-6 text-gray-600" />
+              <button className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95">
+                <Share2 className="w-5 h-5 text-gray-600" />
               </button>
-              <button className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95">
-                <Heart className="w-6 h-6 text-gray-600" />
+              <button className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-all active:scale-95">
+                <Heart className="w-5 h-5 text-gray-600" />
               </button>
             </div>
 
-            {/* Location */}
-            <div className="space-y-3">
-              <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-brand-primary" />
+            {/* Location - More Compact */}
+            <div className="space-y-2">
+              <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-brand-primary" />
                 Location
               </h2>
-              <div className="bg-gray-50 rounded-2xl p-4">
+              <div className="bg-gray-50 rounded-xl p-3">
                 <p className="text-gray-900 font-medium">{farm.location.address}</p>
                 <p className="text-gray-600">{farm.location.city}, {farm.location.county}</p>
                 <p className="text-gray-500 font-mono">{farm.location.postcode}</p>
               </div>
             </div>
 
-            {/* Hours */}
+            {/* Hours - More Compact */}
             {farm.hours && farm.hours.length > 0 && (
-              <div className="space-y-3">
-                <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-brand-primary" />
+              <div className="space-y-2">
+                <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-brand-primary" />
                   Opening Hours
                 </h2>
-                <div className="bg-gray-50 rounded-2xl p-4 space-y-2">
+                <div className="bg-gray-50 rounded-xl p-3 space-y-1">
                   {farm.hours.map((hour, index) => (
                     <div key={index} className="flex justify-between items-center">
                       <span className="capitalize font-medium text-gray-900">{hour.day}</span>
@@ -287,11 +287,11 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
               </div>
             )}
 
-            {/* Offerings */}
+            {/* Offerings - More Compact */}
             {farm.offerings && farm.offerings.length > 0 && (
-              <div className="space-y-3">
-                <h2 className="text-xl font-bold text-gray-900">What&apos;s Available</h2>
-                <div className="flex flex-wrap gap-2">
+              <div className="space-y-2">
+                <h2 className="text-lg font-bold text-gray-900">What&apos;s Available</h2>
+                <div className="flex flex-wrap gap-1.5">
                   {farm.offerings.map((offering, index) => (
                     <span
                       key={index}
@@ -304,11 +304,11 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
               </div>
             )}
 
-            {/* Description - Apple-style Professional Formatting */}
+            {/* Description - More Compact */}
             {farm.description && (
-              <div className="space-y-4">
-                <h2 className="text-xl font-bold text-gray-900">About</h2>
-                <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="space-y-2">
+                <h2 className="text-lg font-bold text-gray-900">About</h2>
+                <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 shadow-sm border border-gray-100">
                   <div className="prose prose-sm prose-gray max-w-none">
                     {/* Split description into paragraphs for better readability */}
                     {farm.description.split('\n\n').map((paragraph, index) => (
@@ -338,11 +338,11 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
               </div>
             )}
 
-            {/* Seasonal Highlights */}
+            {/* Seasonal Highlights - More Compact */}
             {seasonalHighlights.length > 0 && (
-              <div className="space-y-3">
-                <h2 className="text-xl font-bold text-gray-900">Seasonal Highlights</h2>
-                <div className="flex flex-wrap gap-2">
+              <div className="space-y-2">
+                <h2 className="text-lg font-bold text-gray-900">Seasonal Highlights</h2>
+                <div className="flex flex-wrap gap-1.5">
                   {seasonalHighlights.map((highlight, index) => (
                     <span
                       key={index}
