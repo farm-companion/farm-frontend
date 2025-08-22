@@ -14,6 +14,10 @@ export type Produce = {
   aliases?: string[]              // for search
 }
 
+// IMPORTANT: All recipe links must be family-friendly and non-alcoholic
+// No alcoholic beverages, wine-making, or cocktail recipes allowed
+// Focus on fresh, healthy, family-appropriate recipes only
+
 export const PRODUCE: Produce[] = [
   {
     slug: 'sweetcorn',
@@ -99,14 +103,14 @@ export const PRODUCE: Produce[] = [
         description: 'Simple Italian appetizer'
       },
       {
-        title: 'Caprese Salad',
-        url: 'https://www.jamieoliver.com/recipes/tomato-recipes/caprese-salad/',
-        description: 'Fresh mozzarella and basil'
+        title: 'Fresh Tomato Soup',
+        url: 'https://www.jamieoliver.com/recipes/tomato-recipes/fresh-tomato-soup/',
+        description: 'Homemade soup with garden tomatoes'
       },
       {
         title: 'Slow-Roasted Tomatoes',
         url: 'https://www.deliciousmagazine.co.uk/recipes/slow-roasted-tomatoes/',
-        description: 'Intense flavor, perfect for pasta'
+        description: 'Intense flavour for pasta and salads'
       }
     ],
     aliases: ['tomato', 'cherry tomatoes', 'heirloom tomatoes'],
@@ -115,190 +119,190 @@ export const PRODUCE: Produce[] = [
     slug: 'strawberries',
     name: 'Strawberries',
     images: [
-      { src: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800&h=600&fit=crop', alt: 'Fresh red strawberries with green leaves' },
-      { src: 'https://images.unsplash.com/photo-1518635017498-87f514b751ba?w=800&h=600&fit=crop', alt: 'Strawberries in a rustic wooden bowl' },
-      { src: 'https://images.unsplash.com/photo-1550258987-190a62d4fa70?w=800&h=600&fit=crop', alt: 'Strawberry field with ripe berries' },
+      { src: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800&h=600&fit=crop', alt: 'Fresh red strawberries in a basket' },
+      { src: 'https://images.unsplash.com/photo-1518635017498-87f514b751ba?w=800&h=600&fit=crop', alt: 'Strawberry plants with ripe berries' },
+      { src: 'https://images.unsplash.com/photo-1485921325833-c519f76c4927?w=800&h=600&fit=crop', alt: 'Strawberries on a white background' },
     ],
-    monthsInSeason: [5, 6, 7],           // May–Jul
-    peakMonths: [6],
+    monthsInSeason: [5, 6, 7, 8],        // May–Aug
+    peakMonths: [6, 7],
     nutritionPer100g: { kcal: 32, protein: 0.7, carbs: 7.7, sugars: 4.9, fiber: 2.0, fat: 0.3 },
     selectionTips: [
-      'Look for bright red color with no white or green patches.',
-      'Choose berries that are plump and firm.',
-      'Check for fresh green leaves (calyx).',
-      'Avoid berries with mold or soft spots.',
+      'Look for bright red berries with green caps.',
+      'Avoid berries with white or green patches.',
+      'Check for mold or soft spots.',
+      'Ripe strawberries should smell sweet and fragrant.',
     ],
     storageTips: [
       'Refrigerate immediately after purchase.',
       'Don\'t wash until ready to eat.',
       'Store in a single layer to prevent bruising.',
-      'Best consumed within 2-3 days.',
+      'Use within 2-3 days for best quality.',
     ],
     prepIdeas: [
-      'Serve with fresh cream and shortbread.',
-      'Make strawberry and rhubarb crumble.',
-      'Blend into smoothies or milkshakes.',
+      'Serve fresh with cream or yogurt.',
+      'Make strawberry shortcake.',
+      'Add to smoothies and breakfast bowls.',
       'Create strawberry jam or preserves.',
     ],
     recipeChips: [
       {
-        title: 'Strawberry and Rhubarb Crumble',
-        url: 'https://www.bbcgoodfood.com/recipes/strawberry-rhubarb-crumble',
-        description: 'Classic British dessert with seasonal fruit'
+        title: 'Strawberry Shortcake',
+        url: 'https://www.bbcgoodfood.com/recipes/strawberry-shortcake',
+        description: 'Classic British summer dessert'
       },
       {
-        title: 'Fresh Strawberry Jam',
-        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/strawberry-jam/',
-        description: 'Homemade preserve for year-round enjoyment'
+        title: 'Fresh Strawberry Smoothie',
+        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/strawberry-smoothie/',
+        description: 'Healthy breakfast smoothie'
       },
       {
-        title: 'Strawberry Eton Mess',
-        url: 'https://www.deliciousmagazine.co.uk/recipes/strawberry-eton-mess/',
-        description: 'Light summer dessert with meringue and cream'
+        title: 'Strawberry Jam',
+        url: 'https://www.deliciousmagazine.co.uk/recipes/homemade-strawberry-jam/',
+        description: 'Preserve summer flavours'
       }
     ],
-    aliases: ['strawberry', 'strawbs', 'garden strawberries'],
+    aliases: ['strawberry', 'garden strawberries'],
   },
   {
     slug: 'blackberries',
     name: 'Blackberries',
     images: [
-      { src: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=800&h=600&fit=crop', alt: 'Ripe blackberries on the bush' },
-      { src: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&h=600&fit=crop', alt: 'Fresh blackberries in a basket' },
-      { src: 'https://images.unsplash.com/photo-1550258987-190a62d4fa70?w=800&h=600&fit=crop', alt: 'Blackberry picking in the countryside' },
+      { src: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=800&h=600&fit=crop', alt: 'Fresh blackberries in a bowl' },
+      { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop', alt: 'Blackberry bush with ripe berries' },
+      { src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=600&fit=crop', alt: 'Blackberries on a rustic table' },
     ],
-    monthsInSeason: [7, 8, 9],           // Jul–Sep
+    monthsInSeason: [7, 8, 9],            // Jul–Sep
     peakMonths: [8],
     nutritionPer100g: { kcal: 43, protein: 1.4, carbs: 9.6, sugars: 4.9, fiber: 5.3, fat: 0.5 },
     selectionTips: [
-      'Choose berries that are deep purple-black in color.',
-      'Look for plump, firm berries without wrinkles.',
-      'Avoid berries with mold or soft spots.',
-      'Check that berries come off the plant easily when ripe.',
+      'Choose plump, dark berries without mold.',
+      'Avoid berries that are mushy or leaking.',
+      'Look for berries with a slight bloom.',
+      'Ripe blackberries should be deep purple-black.',
     ],
     storageTips: [
-      'Refrigerate immediately after picking or purchase.',
-      'Don\'t wash until ready to eat.',
-      'Store in a shallow container to prevent crushing.',
-      'Best consumed within 2-3 days.',
+      'Refrigerate immediately after picking.',
+      'Don\'t wash until ready to use.',
+      'Use within 2-3 days for best quality.',
+      'Freeze for longer storage.',
     ],
     prepIdeas: [
-      'Make blackberry and apple crumble.',
+      'Eat fresh with cream or yogurt.',
+      'Make blackberry crumble or pie.',
+      'Add to breakfast cereals and smoothies.',
       'Create blackberry jam or jelly.',
-      'Add to breakfast porridge or yogurt.',
-      'Make blackberry gin or cordial.',
     ],
     recipeChips: [
       {
-        title: 'Blackberry and Apple Crumble',
-        url: 'https://www.bbcgoodfood.com/recipes/blackberry-apple-crumble',
-        description: 'Autumn comfort dessert with seasonal fruits'
+        title: 'Blackberry Crumble',
+        url: 'https://www.bbcgoodfood.com/recipes/blackberry-crumble',
+        description: 'Classic British dessert'
       },
       {
-        title: 'Blackberry Gin',
-        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/blackberry-gin/',
-        description: 'Homemade fruit liqueur for special occasions'
+        title: 'Blackberry Smoothie Bowl',
+        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/blackberry-smoothie-bowl/',
+        description: 'Healthy breakfast option'
       },
       {
         title: 'Blackberry Jam',
         url: 'https://www.deliciousmagazine.co.uk/recipes/blackberry-jam/',
-        description: 'Traditional preserve with wild berries'
+        description: 'Preserve wild blackberries'
       }
     ],
-    aliases: ['blackberry', 'bramble', 'wild blackberries'],
+    aliases: ['blackberry', 'bramble berries'],
   },
   {
     slug: 'runner-beans',
     name: 'Runner Beans',
     images: [
-      { src: 'https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=800&h=600&fit=crop', alt: 'Fresh green runner beans on the plant' },
-      { src: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&h=600&fit=crop', alt: 'Runner beans in a market basket' },
-      { src: 'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=800&h=600&fit=crop', alt: 'Runner bean flowers and pods' },
+      { src: 'https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=800&h=600&fit=crop', alt: 'Fresh green runner beans' },
+      { src: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&h=600&fit=crop', alt: 'Runner beans on the vine' },
+      { src: 'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=800&h=600&fit=crop', alt: 'Harvested runner beans' },
     ],
-    monthsInSeason: [7, 8, 9, 10],      // Jul–Oct
+    monthsInSeason: [7, 8, 9, 10],       // Jul–Oct
     peakMonths: [8, 9],
     nutritionPer100g: { kcal: 31, protein: 1.8, carbs: 7.0, sugars: 1.4, fiber: 3.4, fat: 0.2 },
     selectionTips: [
-      'Choose beans that are bright green and firm.',
-      'Look for pods that snap easily when bent.',
+      'Choose crisp, bright green pods.',
       'Avoid beans with brown spots or wrinkles.',
-      'Smaller beans are often more tender.',
+      'Pods should snap easily when bent.',
+      'Look for beans that feel firm and fresh.',
     ],
     storageTips: [
-      'Refrigerate in a plastic bag for up to 5 days.',
-      'Don\'t wash until ready to use.',
-      'Can be blanched and frozen for longer storage.',
-      'Store in the crisper drawer.',
+      'Refrigerate in a plastic bag.',
+      'Use within 3-5 days for best quality.',
+      'Can be blanched and frozen.',
+      'Keep in the crisper drawer.',
     ],
     prepIdeas: [
-      'Steam and serve with butter and black pepper.',
-      'Add to summer vegetable soups.',
-      'Make runner bean and potato salad.',
-      'Stir-fry with garlic and ginger.',
+      'Steam or boil until tender.',
+      'Add to stir-fries and casseroles.',
+      'Make runner bean chutney.',
+      'Serve with butter and herbs.',
     ],
     recipeChips: [
       {
-        title: 'Runner Bean and Potato Salad',
-        url: 'https://www.bbcgoodfood.com/recipes/runner-bean-potato-salad',
-        description: 'Summer salad with fresh garden vegetables'
+        title: 'Steamed Runner Beans',
+        url: 'https://www.bbcgoodfood.com/recipes/steamed-runner-beans',
+        description: 'Simple side dish with butter'
       },
       {
-        title: 'Stir-Fried Runner Beans',
-        url: 'https://www.jamieoliver.com/recipes/vegetables-recipes/stir-fried-runner-beans/',
-        description: 'Quick Asian-style preparation with garlic'
+        title: 'Runner Bean Stir-Fry',
+        url: 'https://www.jamieoliver.com/recipes/vegetables-recipes/runner-bean-stir-fry/',
+        description: 'Quick and healthy meal'
       },
       {
-        title: 'Runner Bean Soup',
-        url: 'https://www.deliciousmagazine.co.uk/recipes/runner-bean-soup/',
-        description: 'Creamy soup with seasonal garden beans'
+        title: 'Runner Bean Chutney',
+        url: 'https://www.deliciousmagazine.co.uk/recipes/runner-bean-chutney/',
+        description: 'Preserve summer beans'
       }
     ],
-    aliases: ['runner beans', 'pole beans', 'scarlet runner beans'],
+    aliases: ['runner bean', 'pole beans', 'string beans'],
   },
   {
     slug: 'plums',
     name: 'Plums',
     images: [
-      { src: 'https://images.unsplash.com/photo-1550258987-190a62d4fa70?w=800&h=600&fit=crop', alt: 'Ripe purple plums on the tree' },
-      { src: 'https://images.unsplash.com/photo-1518635017498-87f514b751ba?w=800&h=600&fit=crop', alt: 'Assorted plums in a wooden bowl' },
-      { src: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800&h=600&fit=crop', alt: 'Plum orchard in late summer' },
+      { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop', alt: 'Fresh purple plums' },
+      { src: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=800&h=600&fit=crop', alt: 'Plum tree with ripe fruit' },
+      { src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=600&fit=crop', alt: 'Assorted plums in a basket' },
     ],
-    monthsInSeason: [8, 9, 10],         // Aug–Oct
+    monthsInSeason: [8, 9, 10],           // Aug–Oct
     peakMonths: [9],
     nutritionPer100g: { kcal: 46, protein: 0.7, carbs: 11.4, sugars: 9.9, fiber: 1.4, fat: 0.3 },
     selectionTips: [
-      'Choose plums that give slightly when gently pressed.',
-      'Look for smooth skin with a slight bloom.',
-      'Avoid plums with bruises or soft spots.',
-      'Color should be rich and even.',
+      'Choose plums that give slightly when pressed.',
+      'Look for smooth, unblemished skin.',
+      'Avoid plums with soft spots or mold.',
+      'Ripe plums should have a sweet aroma.',
     ],
     storageTips: [
       'Store at room temperature until ripe.',
-      'Once ripe, refrigerate to slow ripening.',
+      'Once ripe, refrigerate for longer storage.',
       'Don\'t wash until ready to eat.',
-      'Can be frozen for baking later.',
+      'Use within 3-5 days when ripe.',
     ],
     prepIdeas: [
+      'Eat fresh as a healthy snack.',
       'Make plum crumble or pie.',
+      'Add to fruit salads and smoothies.',
       'Create plum jam or chutney.',
-      'Add to fruit salads.',
-      'Make plum wine or liqueur.',
     ],
     recipeChips: [
       {
         title: 'Plum Crumble',
         url: 'https://www.bbcgoodfood.com/recipes/plum-crumble',
-        description: 'Classic autumn dessert with seasonal plums'
+        description: 'Warm autumn dessert'
+      },
+      {
+        title: 'Fresh Plum Smoothie',
+        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/plum-smoothie/',
+        description: 'Healthy breakfast drink'
       },
       {
         title: 'Plum Jam',
-        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/plum-jam/',
-        description: 'Sweet preserve for winter months'
-      },
-      {
-        title: 'Plum Chutney',
-        url: 'https://www.deliciousmagazine.co.uk/recipes/plum-chutney/',
-        description: 'Spicy condiment for cheese and cold meats'
+        url: 'https://www.deliciousmagazine.co.uk/recipes/plum-jam/',
+        description: 'Preserve autumn plums'
       }
     ],
     aliases: ['plum', 'gages', 'damsons'],
@@ -307,46 +311,46 @@ export const PRODUCE: Produce[] = [
     slug: 'apples',
     name: 'Apples',
     images: [
-      { src: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=800&h=600&fit=crop', alt: 'Red apples on the tree' },
-      { src: 'https://images.unsplash.com/photo-1550258987-190a62d4fa70?w=800&h=600&fit=crop', alt: 'Assorted apples in a basket' },
-      { src: 'https://images.unsplash.com/photo-1518635017498-87f514b751ba?w=800&h=600&fit=crop', alt: 'Apple orchard in autumn' },
+      { src: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=800&h=600&fit=crop', alt: 'Fresh red apples on a tree' },
+      { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop', alt: 'Assorted apples in a basket' },
+      { src: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=800&h=600&fit=crop', alt: 'Apple orchard in autumn' },
     ],
-    monthsInSeason: [8, 9, 10, 11],     // Aug–Nov
-    peakMonths: [9, 10],
+    monthsInSeason: [9, 10, 11, 12],     // Sep–Dec
+    peakMonths: [10, 11],
     nutritionPer100g: { kcal: 52, protein: 0.3, carbs: 14.0, sugars: 10.4, fiber: 2.4, fat: 0.2 },
     selectionTips: [
-      'Choose apples that are firm and heavy for their size.',
-      'Look for smooth skin without bruises.',
-      'Avoid apples with soft spots or mold.',
-      'Different varieties have different peak ripeness indicators.',
+      'Choose firm apples without bruises.',
+      'Look for bright, smooth skin.',
+      'Avoid apples with soft spots.',
+      'Different varieties have different textures.',
     ],
     storageTips: [
-      'Store in a cool, dark place or refrigerator.',
+      'Store in the refrigerator for longest life.',
       'Keep away from other fruits that produce ethylene.',
-      'Can be stored for several months in proper conditions.',
+      'Can store for several weeks when refrigerated.',
       'Check regularly for signs of spoilage.',
     ],
     prepIdeas: [
-      'Make traditional apple pie or crumble.',
+      'Eat fresh as a healthy snack.',
+      'Make apple crumble or pie.',
+      'Add to salads and smoothies.',
       'Create apple sauce or chutney.',
-      'Add to salads or cheese boards.',
-      'Make apple cider or juice.',
     ],
     recipeChips: [
       {
-        title: 'Classic Apple Pie',
-        url: 'https://www.bbcgoodfood.com/recipes/classic-apple-pie',
-        description: 'Traditional British dessert with seasonal apples'
+        title: 'Classic Apple Crumble',
+        url: 'https://www.bbcgoodfood.com/recipes/apple-crumble',
+        description: 'Traditional British dessert'
       },
       {
-        title: 'Apple Crumble',
-        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/apple-crumble/',
-        description: 'Comforting autumn dessert with custard'
+        title: 'Apple and Cinnamon Smoothie',
+        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/apple-smoothie/',
+        description: 'Healthy breakfast option'
       },
       {
-        title: 'Apple Sauce',
-        url: 'https://www.deliciousmagazine.co.uk/recipes/apple-sauce/',
-        description: 'Versatile accompaniment for pork and desserts'
+        title: 'Homemade Apple Sauce',
+        url: 'https://www.deliciousmagazine.co.uk/recipes/homemade-apple-sauce/',
+        description: 'Perfect for cooking and baking'
       }
     ],
     aliases: ['apple', 'cooking apples', 'eating apples'],
@@ -355,72 +359,69 @@ export const PRODUCE: Produce[] = [
     slug: 'pumpkins',
     name: 'Pumpkins',
     images: [
-      { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop', alt: 'Orange pumpkins in a field' },
-      { src: 'https://images.unsplash.com/photo-1518635017498-87f514b751ba?w=800&h=600&fit=crop', alt: 'Assorted pumpkins and squashes' },
-      { src: 'https://images.unsplash.com/photo-1550258987-190a62d4fa70?w=800&h=600&fit=crop', alt: 'Pumpkin patch in autumn' },
+      { src: 'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=800&h=600&fit=crop', alt: 'Orange pumpkins in a field' },
+      { src: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&h=600&fit=crop', alt: 'Pumpkin patch at harvest time' },
+      { src: 'https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=800&h=600&fit=crop', alt: 'Carved and whole pumpkins' },
     ],
-    monthsInSeason: [9, 10, 11],        // Sep–Nov
+    monthsInSeason: [9, 10, 11],         // Sep–Nov
     peakMonths: [10],
     nutritionPer100g: { kcal: 26, protein: 1.0, carbs: 6.5, sugars: 2.8, fiber: 0.5, fat: 0.1 },
     selectionTips: [
       'Choose pumpkins that feel heavy for their size.',
-      'Look for firm, unblemished skin.',
+      'Look for smooth, unblemished skin.',
       'Avoid pumpkins with soft spots or mold.',
       'Stem should be firmly attached.',
     ],
     storageTips: [
-      'Store in a cool, dry place for several months.',
-      'Don\'t refrigerate whole pumpkins.',
-      'Once cut, refrigerate and use within 5 days.',
-      'Can be frozen as puree for later use.',
+      'Store in a cool, dry place.',
+      'Can keep for several months when stored properly.',
+      'Once cut, refrigerate and use within a week.',
+      'Freeze cooked pumpkin for longer storage.',
     ],
     prepIdeas: [
       'Make pumpkin soup or risotto.',
-      'Create pumpkin pie or bread.',
-      'Roast pumpkin seeds for snacks.',
-      'Make pumpkin curry or stew.',
+      'Roast pumpkin for salads and sides.',
+      'Create pumpkin puree for baking.',
+      'Add to curries and stews.',
     ],
     recipeChips: [
       {
         title: 'Pumpkin Soup',
         url: 'https://www.bbcgoodfood.com/recipes/pumpkin-soup',
-        description: 'Creamy autumn soup with warming spices'
+        description: 'Warming autumn soup'
       },
       {
-        title: 'Pumpkin Pie',
-        url: 'https://www.jamieoliver.com/recipes/vegetables-recipes/pumpkin-pie/',
-        description: 'Classic American dessert for autumn'
+        title: 'Roasted Pumpkin Salad',
+        url: 'https://www.jamieoliver.com/recipes/vegetables-recipes/roasted-pumpkin-salad/',
+        description: 'Healthy seasonal salad'
       },
       {
-        title: 'Roasted Pumpkin Seeds',
-        url: 'https://www.deliciousmagazine.co.uk/recipes/roasted-pumpkin-seeds/',
-        description: 'Healthy snack from pumpkin carving'
+        title: 'Pumpkin Risotto',
+        url: 'https://www.deliciousmagazine.co.uk/recipes/pumpkin-risotto/',
+        description: 'Creamy Italian-style dish'
       }
     ],
     aliases: ['pumpkin', 'squash', 'winter squash'],
-  }
+  },
 ]
 
-// Helper function to get produce by slug
+// Helper functions
 export function getProduceBySlug(slug: string): Produce | undefined {
-  return PRODUCE.find(produce => produce.slug === slug)
+  return PRODUCE.find(p => p.slug === slug)
 }
 
-// Helper function to get produce in season for a given month
 export function getProduceInSeason(month: number): Produce[] {
-  return PRODUCE.filter(produce => produce.monthsInSeason.includes(month))
+  return PRODUCE.filter(p => p.monthsInSeason.includes(month))
 }
 
-// Helper function to get produce at peak season for a given month
 export function getProduceAtPeak(month: number): Produce[] {
-  return PRODUCE.filter(produce => produce.peakMonths?.includes(month))
+  return PRODUCE.filter(p => p.peakMonths?.includes(month))
 }
 
-// Helper function to search produce by name or aliases
 export function searchProduce(query: string): Produce[] {
   const lowerQuery = query.toLowerCase()
-  return PRODUCE.filter(produce => 
-    produce.name.toLowerCase().includes(lowerQuery) ||
-    produce.aliases?.some(alias => alias.toLowerCase().includes(lowerQuery))
+  return PRODUCE.filter(p => 
+    p.name.toLowerCase().includes(lowerQuery) ||
+    p.aliases?.some(alias => alias.toLowerCase().includes(lowerQuery))
   )
 }

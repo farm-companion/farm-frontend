@@ -1,166 +1,255 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Button, Card } from '@/components/ui'
+import Image from 'next/image'
+import { MapPin, Star, ArrowRight, CheckCircle } from 'lucide-react'
 import NewsletterSignup from '@/components/NewsletterSignup'
 
-export default function Home() {
-  // SEO: Organization structured data
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'Farm Companion',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001',
-    description: 'The UK\'s premium guide to real food, real people, and real places. Discover authentic farm shops across the country.',
-    logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'}/logo.png`,
-    sameAs: [
-      'https://github.com/farm-companion'
+export const metadata: Metadata = {
+  title: 'Farm Companion — UK Farm Shops Directory',
+  description: 'Discover 1,300+ authentic UK farm shops with fresh local produce, seasonal guides, and verified farm information. Find farm shops near you with our interactive map.',
+  keywords: ['farm shops', 'UK farm shops', 'local produce', 'fresh food', 'farm directory', 'farm shop near me', 'local farms', 'seasonal produce', 'farm fresh', 'UK farms', 'farm shop directory', 'local food', 'farm to table'],
+  openGraph: {
+    title: 'Farm Companion — UK Farm Shops Directory',
+    description: 'Find trusted farm shops near you with verified information and the freshest local produce.',
+    url: 'https://farmcompanion.co.uk',
+    siteName: 'Farm Companion',
+    images: [
+      {
+        url: '/og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Farm Companion - UK farm shops directory',
+      },
     ],
-    contactPoint: {
-      '@type': 'ContactPoint',
-      contactType: 'customer service',
-      availableLanguage: 'English'
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Farm Companion — UK Farm Shops Directory',
+    description: 'Find trusted farm shops near you with verified information and the freshest local produce.',
+    images: ['/og.jpg'],
+  },
+  alternates: {
+    canonical: '/',
+  },
+}
+
+// Server-side data for stats
+async function getStats() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/data/farms.uk.json`, {
+      next: { revalidate: 3600 }
+    })
+    
+    if (!response.ok) {
+      return { farmCount: 1300, countyCount: 45 }
     }
+    
+    const farms = await response.json()
+    const counties = new Set(farms.map((farm: any) => farm.county).filter(Boolean))
+    
+    return {
+      farmCount: farms.length,
+      countyCount: counties.size
+    }
+  } catch (error) {
+    return { farmCount: 1300, countyCount: 45 }
   }
+}
+
+export default async function HomePage() {
+  const { farmCount, countyCount } = await getStats()
 
   return (
-    <div className="min-h-screen bg-background-canvas">
-      {/* SEO: Organization JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <main className="container mx-auto px-4 py-6 sm:py-8 lg:py-12">
-        {/* Hero Section - Mobile First */}
-        <section className="text-center py-8 sm:py-12 lg:py-16 animate-fade-in">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-heading mb-4 sm:mb-6 leading-tight">
-            Farm Companion
-          </h1>
-          <p className="text-lg sm:text-xl text-text-muted mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-2">
-            The UK&apos;s premium guide to real food, real people, and real places. 
-            Discover 1,300+ authentic farm shops with fresh local produce, seasonal guides, and verified farm information across the UK.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-            <Button asChild variant="primary" size="lg">
-              <Link href="/map">
-                Explore Farm Shops
+    <main className="min-h-screen bg-background-canvas">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-green-600 via-blue-600 to-purple-600 text-white">
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="relative max-w-7xl mx-auto px-6 py-20 lg:py-32">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              Find Fresh Local
+              <span className="block text-green-300">Farm Shops</span>
+            </h1>
+            <p className="text-xl md:text-2xl opacity-90 mb-8 leading-relaxed">
+              Discover {farmCount}+ authentic UK farm shops with the freshest local produce, 
+              seasonal delights, and farm-fresh goodness near you.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/map"
+                className="bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center gap-2"
+              >
+                <MapPin className="w-5 h-5" />
+                Explore Farm Map
               </Link>
-            </Button>
-            <Button asChild variant="secondary" size="lg">
-              <Link href="/seasonal">
+              <Link
+                href="/seasonal"
+                className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-gray-900 transition-colors inline-flex items-center justify-center gap-2"
+              >
                 What&apos;s in Season
+                <ArrowRight className="w-5 h-5" />
               </Link>
-            </Button>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Features Grid - Mobile First */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 py-12 sm:py-16">
-          <Card className="text-center p-6 sm:p-8 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-            <div className="mb-4 sm:mb-6">
-              <svg className="w-10 h-10 sm:w-12 sm:h-12 mx-auto text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
+      {/* Stats Section */}
+      <section className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-6 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <div className="text-4xl font-bold text-brand-primary mb-2">{farmCount}+</div>
+              <div className="text-gray-600">Farm Shops</div>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-text-heading mb-2 sm:mb-3">Find Local Farms</h3>
-            <p className="text-sm sm:text-base text-text-muted leading-relaxed">
-              Discover farm shops near you with our interactive map. 
-              Find fresh, local produce and authentic farm experiences.
-            </p>
-          </Card>
-
-          <Card className="text-center p-6 sm:p-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            <div className="mb-4 sm:mb-6">
-              <svg className="w-10 h-10 sm:w-12 sm:h-12 mx-auto text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            <div>
+              <div className="text-4xl font-bold text-brand-primary mb-2">{countyCount}</div>
+              <div className="text-gray-600">Counties</div>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-text-heading mb-2 sm:mb-3">Seasonal Guide</h3>
-            <p className="text-sm sm:text-base text-text-muted leading-relaxed">
-              Know what&apos;s in season and when to visit. 
-              Get the best produce at the perfect time of year.
-            </p>
-          </Card>
-
-          <Card className="text-center p-6 sm:p-8 sm:col-span-2 lg:col-span-1 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <div className="mb-4 sm:mb-6">
-              <svg className="w-10 h-10 sm:w-12 sm:h-12 mx-auto text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
+            <div>
+              <div className="text-4xl font-bold text-brand-primary mb-2">24/7</div>
+              <div className="text-gray-600">Updated Directory</div>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-text-heading mb-2 sm:mb-3">Community Driven</h3>
-            <p className="text-sm sm:text-base text-text-muted leading-relaxed">
-              Farm owners can claim their listings and add photos. 
-              Help us build the most comprehensive farm shop directory.
-            </p>
-          </Card>
-        </section>
-
-        {/* Call to Action - Mobile First */}
-        <section className="text-center py-8 sm:py-12 lg:py-16 bg-background-surface rounded-lg px-4 sm:px-6 lg:px-8 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-heading mb-3 sm:mb-4 leading-tight">
-            Ready to Explore?
-          </h2>
-          <p className="text-base sm:text-lg text-text-muted mb-6 sm:mb-8 max-w-xl mx-auto leading-relaxed">
-            Start your journey to discover authentic farm shops and fresh local produce.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-            <Button asChild variant="primary" size="lg">
-              <Link href="/map">
-                Browse by Map
-              </Link>
-            </Button>
-            <Button asChild variant="secondary" size="lg">
-              <Link href="/counties">
-                Browse by County
-              </Link>
-            </Button>
+            <div>
+              <div className="text-4xl font-bold text-brand-primary mb-2">100%</div>
+              <div className="text-gray-600">Verified Farms</div>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* About Preview - Mobile First */}
-        <section className="py-12 sm:py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div className="order-2 lg:order-1 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-heading mb-3 sm:mb-4 leading-tight">
-                About Farm Companion
-              </h2>
-              <p className="text-sm sm:text-base text-text-muted mb-4 sm:mb-6 leading-relaxed">
-                We&apos;re passionate about connecting people with authentic farm experiences. 
-                Our mission is to make it easy to find and support local farmers while 
-                enjoying the freshest, most delicious produce available.
-              </p>
-              <p className="text-sm sm:text-base text-text-muted mb-6 sm:mb-8 leading-relaxed">
-                Every farm shop in our directory is carefully verified to ensure you get 
-                the real deal - no supermarkets, no mass-produced goods, just genuine 
-                farm-to-table experiences.
-              </p>
-              <Button asChild variant="tertiary" size="md">
-                <Link href="/about">
-                  Learn More About Us
-                </Link>
-              </Button>
-            </div>
-            <div className="order-1 lg:order-2 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-              <div className="bg-background-surface rounded-lg p-6 sm:p-8 text-center">
-                <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-primary mb-4">
-                  500+
-                </div>
-                <p className="text-lg sm:text-xl text-text-heading font-semibold mb-2">
-                  Verified Farm Shops
-                </p>
-                <p className="text-sm sm:text-base text-text-muted">
-                  Across the United Kingdom
-                </p>
+      {/* Features Section */}
+      <section className="py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Why Choose Farm Companion?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              We connect you with authentic, local farm shops that offer the freshest produce 
+              and the best farm-to-table experience.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <MapPin className="w-8 h-8 text-green-600" />
               </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Interactive Map</h3>
+              <p className="text-gray-600">
+                Find farm shops near you with our Google-level interactive map. 
+                Search, filter, and discover local farms with ease.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Star className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Seasonal Guides</h3>
+              <p className="text-gray-600">
+                Know what&apos;s in season with our comprehensive produce guides. 
+                Get recipe inspiration and storage tips for fresh ingredients.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="w-8 h-8 text-purple-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Verified Information</h3>
+              <p className="text-gray-600">
+                All farm shops are verified with accurate contact details, 
+                opening hours, and up-to-date information.
+              </p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Newsletter Signup - Mobile First */}
-        <section className="py-12 sm:py-16 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
-          <NewsletterSignup source="homepage" />
-        </section>
-      </main>
-    </div>
+      {/* CTA Section */}
+      <section className="bg-gray-50 border-t border-b">
+        <div className="max-w-7xl mx-auto px-6 py-16">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Ready to Discover Local Farm Shops?
+            </h2>
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+              Start exploring our comprehensive directory of UK farm shops. 
+              Find fresh, local produce and support your local farmers.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/map"
+                className="bg-brand-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-brand-primary/90 transition-colors inline-flex items-center justify-center gap-2"
+              >
+                <MapPin className="w-5 h-5" />
+                Start Exploring
+              </Link>
+              <Link
+                href="/shop"
+                className="border-2 border-brand-primary text-brand-primary px-8 py-4 rounded-xl font-semibold hover:bg-brand-primary hover:text-white transition-colors"
+              >
+                Browse Directory
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-16">
+        <div className="max-w-4xl mx-auto px-6">
+          <NewsletterSignup />
+        </div>
+      </section>
+
+      {/* SEO Content Section */}
+      <section className="bg-white border-t">
+        <div className="max-w-4xl mx-auto px-6 py-16">
+          <div className="prose prose-lg max-w-none">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              UK Farm Shops Directory
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Welcome to Farm Companion, your comprehensive guide to UK farm shops. We&apos;ve curated 
+              a directory of over {farmCount} authentic farm shops across {countyCount} counties, 
+              helping you discover the freshest local produce and connect with real farmers.
+            </p>
+            
+            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+              Find Farm Shops Near You
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Whether you&apos;re looking for fresh vegetables, organic meat, artisanal cheese, or 
+              homemade preserves, our interactive map makes it easy to find farm shops in your area. 
+              Each listing includes verified contact information, opening hours, and details about 
+              what each farm offers.
+            </p>
+
+            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+              Seasonal Produce Guides
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Eating seasonally means enjoying produce at its peak flavour and nutritional value. 
+              Our seasonal guides help you understand what&apos;s in season throughout the year, 
+              with tips on selection, storage, and preparation for the freshest ingredients.
+            </p>
+
+            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+              Support Local Farmers
+            </h3>
+            <p className="text-gray-600">
+              By choosing to shop at local farm shops, you&apos;re supporting British farmers and 
+              contributing to sustainable, local food systems. You&apos;ll enjoy fresher produce, 
+              reduce food miles, and help maintain the UK&apos;s rich agricultural heritage.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }

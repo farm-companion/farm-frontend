@@ -260,6 +260,12 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
               </a>
             ))}
           </div>
+          <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+            <p className="text-xs text-blue-700">
+              <strong>Content Policy:</strong> All recipe links are family-friendly and non-alcoholic. 
+              We focus on fresh, healthy, family-appropriate recipes only.
+            </p>
+          </div>
         </section>
       )}
 

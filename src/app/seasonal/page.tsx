@@ -1,279 +1,208 @@
-'use client'
-
-import { useEffect, useMemo, useState } from 'react'
+import { Suspense } from 'react'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import AdSlot from '@/components/AdSlot'
-import ProduceCard from '@/components/ProduceCard'
+import ClientMonthSelector from '@/components/ClientMonthSelector'
 import { getProduceInSeason, getProduceAtPeak } from '@/data/produce'
 
-type SeasonItem = { month: number; inSeason: string[]; notes: string }
-type SeasonItemWithProv = SeasonItem & { source?: string; sourceName?: string; updatedAt?: string }
-
-
-
-// Seasonal data for immersive experience
-const seasonalData = {
-  1: { name: 'Winter\'s Quiet Bounty', color: 'from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/10', icon: '❄️', quote: 'In the depth of winter, I finally learned that within me there lay an invincible summer.' },
-  2: { name: 'February\'s Promise', color: 'from-purple-50 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/10', icon: '🌸', quote: 'The promise of spring is whispered in the wind.' },
-  3: { name: 'Spring\'s Fresh Awakening', color: 'from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/10', icon: '🌱', quote: 'Spring is nature\'s way of saying, Let\'s party!' },
-  4: { name: 'April\'s Gentle Growth', color: 'from-green-50 to-teal-100 dark:from-green-900/20 dark:to-teal-900/10', icon: '🌿', quote: 'April hath put a spirit of youth in everything.' },
-  5: { name: 'May\'s Abundant Bloom', color: 'from-yellow-50 to-green-100 dark:from-yellow-900/20 dark:to-green-900/10', icon: '🌺', quote: 'The world\'s favorite season is the spring. All things seem possible in May.' },
-  6: { name: 'Summer\'s Golden Harvest', color: 'from-yellow-50 to-orange-100 dark:from-yellow-900/20 dark:to-orange-900/10', icon: '☀️', quote: 'Summer afternoon—summer afternoon; to me those have always been the two most beautiful words in the English language.' },
-  7: { name: 'July\'s Peak Abundance', color: 'from-orange-50 to-red-100 dark:from-orange-900/20 dark:to-red-900/10', icon: '🍅', quote: 'July is the month when the year\'s best work is done.' },
-  8: { name: 'August\'s Rich Harvest', color: 'from-orange-50 to-yellow-100 dark:from-orange-900/20 dark:to-yellow-900/10', icon: '🌾', quote: 'August is the month when the year\'s bounty reaches its peak.' },
-  9: { name: 'Autumn\'s Golden Harvest', color: 'from-orange-50 to-amber-100 dark:from-orange-900/20 dark:to-amber-900/10', icon: '🍂', quote: 'Autumn is a second spring when every leaf is a flower.' },
-  10: { name: 'October\'s Earthy Bounty', color: 'from-amber-50 to-orange-100 dark:from-amber-900/20 dark:to-orange-900/10', icon: '🎃', quote: 'October is the month of painted leaves and ripened fruit.' },
-  11: { name: 'November\'s Quiet Wisdom', color: 'from-gray-50 to-slate-100 dark:from-gray-900/20 dark:to-slate-900/10', icon: '🍁', quote: 'November is the month of gratitude and reflection.' },
-  12: { name: 'December\'s Cozy Comfort', color: 'from-blue-50 to-slate-100 dark:from-blue-900/20 dark:to-slate-900/10', icon: '🎄', quote: 'December is the month when the year\'s stories come to rest.' }
+export const metadata: Metadata = {
+  title: 'Seasonal Produce Guide',
+  description: 'Discover what\'s in season now with our comprehensive UK seasonal produce guide. Find the freshest local fruits and vegetables.',
+  openGraph: {
+    title: 'Seasonal Produce Guide — Farm Companion',
+    description: 'What\'s in season now? Find the freshest local produce with our comprehensive UK seasonal guide.',
+  },
 }
 
-export default function SeasonalPage() {
-  const [data, setData] = useState<SeasonItemWithProv[]>([])
-  const [month, setMonth] = useState<number>(new Date().getMonth() + 1)
-  const [isAnimating, setIsAnimating] = useState(false)
-
-  useEffect(() => {
-    fetch('/data/seasons.uk.json', { cache: 'no-store' })
-      .then(r => r.json())
-      .then((json: SeasonItemWithProv[]) => setData(json))
-      .catch(() => setData([]))
-  }, [])
-
-  const current = useMemo(
-    () => data.find(d => d.month === month),
-    [data, month]
-  )
-
-  const currentSeason = seasonalData[month as keyof typeof seasonalData]
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-
-  const handleMonthChange = (newMonth: number) => {
-    setIsAnimating(true)
-    setMonth(newMonth)
-    // Reset animation state after transition
-    setTimeout(() => setIsAnimating(false), 300)
+// Server-side data fetching
+async function getSeasonalData() {
+  const now = new Date()
+  const month = now.getMonth() + 1
+  
+  return {
+    month,
+    inSeasonProduce: getProduceInSeason(month),
+    atPeakProduce: getProduceAtPeak(month),
+    monthName: new Date(now.getFullYear(), month - 1).toLocaleString('en-GB', { month: 'long' })
   }
+}
+
+// Server-side seasonal content
+function SeasonalContent({ month, inSeasonProduce, atPeakProduce, monthName }: {
+  month: number
+  inSeasonProduce: any[]
+  atPeakProduce: any[]
+  monthName: string
+}) {
+  // Combine and deduplicate
+  const allInSeason = [...new Set([...inSeasonProduce, ...atPeakProduce])]
+
+  return (
+    <div className="space-y-8">
+      {/* Seasonal Wisdom */}
+      <section className="bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 rounded-3xl p-8">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+          What&apos;s in Season in {monthName}
+        </h2>
+        <p className="text-gray-700 leading-relaxed">
+          Eating seasonally means enjoying produce at its peak flavour and nutritional value. 
+          This month, look for these fresh, local delights at your nearest farm shop.
+        </p>
+      </section>
+
+      {/* Produce Gallery */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-semibold text-gray-900">
+          What&apos;s in Season Now
+        </h3>
+
+        {/* Enhanced Produce Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {allInSeason.map((produce, index) => (
+            <div
+              key={produce.slug}
+              className="animate-fade-in-up"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <Link
+                href={`/seasonal/${produce.slug}`}
+                className="group block rounded-2xl border border-border-default/30 bg-white shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-primary"
+                aria-label={`Open seasonal guide for ${produce.name}`}
+              >
+                <div className="p-5 flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-lg font-semibold text-text-heading">{produce.name}</h3>
+                    <p className="text-sm text-text-muted mt-1">Peak season for flavour and nutrition</p>
+                    <span className="inline-flex mt-3 items-center rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-1">
+                      {atPeakProduce.find(p => p.slug === produce.slug) ? 'Peak Season' : 'In Season'}
+                    </span>
+                  </div>
+                  <svg className="w-5 h-5 text-text-muted group-hover:text-brand-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        {allInSeason.length === 0 && (
+          <div className="text-center py-8">
+            <p className="text-gray-600 mb-4">No seasonal produce data available for this month.</p>
+            <p className="text-sm text-gray-500">Check back later for updated seasonal information.</p>
+          </div>
+        )}
+      </section>
+
+      {/* Seasonal Tips */}
+      <section className="bg-white rounded-2xl border p-6 shadow-sm">
+        <h3 className="text-xl font-semibold text-gray-900 mb-4">Seasonal Shopping Tips</h3>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div>
+            <h4 className="font-semibold text-gray-800 mb-2">Why Shop Seasonally?</h4>
+            <ul className="text-sm text-gray-600 space-y-1">
+              <li>• Better flavour and nutritional value</li>
+              <li>• Lower environmental impact</li>
+              <li>• Support local farmers</li>
+              <li>• More affordable prices</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold text-gray-800 mb-2">Storage Tips</h4>
+            <ul className="text-sm text-gray-600 space-y-1">
+              <li>• Store most produce in the fridge</li>
+              <li>• Keep tomatoes at room temperature</li>
+              <li>• Use within 3-5 days for best quality</li>
+              <li>• Freeze excess for later use</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Source Attribution */}
+      <section className="text-center text-sm text-gray-500 border-t pt-6">
+        <p>
+          Seasonal data sourced from UK farming calendars and agricultural research. 
+          Actual availability may vary by region and weather conditions.
+        </p>
+      </section>
+    </div>
+  )
+}
+
+export default async function SeasonalPage() {
+  const { month, inSeasonProduce, atPeakProduce, monthName } = await getSeasonalData()
 
   return (
     <main className="min-h-screen bg-background-canvas">
-      {/* Hero Section with Seasonal Background */}
-      <div className={`relative overflow-hidden bg-gradient-to-br ${currentSeason.color} transition-all duration-500 ease-in-out`}>
-        <div className="absolute inset-0 opacity-10">
-          {/* Seasonal pattern overlay */}
-          <div className="absolute inset-0 bg-dots-pattern"></div>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-emerald-600 via-blue-600 to-purple-600 text-white">
+        <div className="max-w-7xl mx-auto px-6 py-16 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            Seasonal Produce Guide
+          </h1>
+          <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
+            Discover what&apos;s fresh and in season right now. 
+            Find the best local produce at farm shops near you.
+          </p>
         </div>
-        
-        <div className="relative max-w-7xl mx-auto px-6 py-16">
-          <div className="text-center space-y-6">
-            {/* Seasonal Icon */}
-            <div className="text-6xl animate-bounce" style={{ animationDuration: '3s' }}>
-              {currentSeason.icon}
-            </div>
-            
-            {/* Hero Title */}
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 animate-fade-in-up">
-              {currentSeason.name}
-            </h1>
-            
-            {/* Seasonal Quote */}
-            <blockquote className="text-xl text-gray-800 italic max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              &ldquo;{currentSeason.quote}&rdquo;
-            </blockquote>
-            
-            {/* Subtitle */}
-            <p className="text-lg text-gray-700 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-              Discover what&apos;s at its peak this month and find farm shops near you
-            </p>
-          </div>
-        </div>
-      </div>
+      </section>
 
-      {/* Interactive Month Selector */}
+      {/* Month Selector - Client Component */}
+      <section className="border-b bg-white">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <Suspense fallback={<div className="h-12 bg-gray-100 rounded animate-pulse" />}>
+            <ClientMonthSelector currentMonth={month} />
+          </Suspense>
+        </div>
+      </section>
+
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="bg-background-surface rounded-2xl shadow-lg border border-border-default p-6">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
-            Explore the Seasons
-          </h2>
-          
-          {/* Visual Calendar */}
-          <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-12 gap-3">
-            {months.map((monthName, index) => {
-              const monthNumber = index + 1
-              const isCurrent = monthNumber === month
-              const monthSeason = seasonalData[monthNumber as keyof typeof seasonalData]
-              
-              return (
-                <button
-                  key={monthNumber}
-                  onClick={() => handleMonthChange(monthNumber)}
-                  className={`
-                    relative group p-4 rounded-xl border-2 transition-all duration-300 ease-in-out
-                    ${isCurrent 
-                      ? 'border-brand-primary bg-brand-primary/10 shadow-lg scale-105' 
-                      : 'border-border-default hover:border-brand-primary/50 hover:bg-brand-primary/5'
-                    }
-                    focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2
-                  `}
-                >
-                  <div className="text-center space-y-2">
-                    <div className="text-2xl group-hover:scale-110 transition-transform duration-200">
-                      {monthSeason.icon}
-                    </div>
-                    <div className={`
-                      text-sm font-medium transition-colors duration-200
-                      ${isCurrent ? 'text-brand-primary' : 'text-gray-900 group-hover:text-brand-primary'}
-                    `}>
-                      {monthName}
-                    </div>
-                    {isCurrent && (
-                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-primary rounded-full animate-pulse"></div>
-                    )}
-                  </div>
-                </button>
-              )
-            })}
+        <Suspense fallback={
+          <div className="space-y-8">
+            <div className="h-64 bg-gray-100 rounded-3xl animate-pulse" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="h-32 bg-gray-100 rounded-2xl animate-pulse" />
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
-
-      {/* Seasonal Content */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        {!current ? (
-                      <div className="text-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-primary mx-auto mb-4"></div>
-              <p className="text-gray-700">Loading seasonal delights...</p>
-            </div>
-        ) : (
-          <div className={`space-y-8 transition-opacity duration-300 ${isAnimating ? 'opacity-50' : 'opacity-100'}`}>
-            {/* Seasonal Wisdom */}
-            <div className="bg-background-surface rounded-2xl shadow-lg border border-border-default p-8">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-                This Month&apos;s Seasonal Wisdom
-              </h3>
-              <p className="text-gray-800 text-lg leading-relaxed">
-                {current.notes}
-              </p>
-            </div>
-
-            {/* Produce Gallery */}
-            <div className="space-y-6">
-              <h3 className="text-2xl font-semibold text-gray-900">
-                What&apos;s in Season Now
-              </h3>
-              
-              {/* Enhanced Produce Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {(() => {
-                  // Get produce that's in season this month
-                  const inSeasonProduce = getProduceInSeason(month)
-                  const atPeakProduce = getProduceAtPeak(month)
-                  
-                  // Combine and deduplicate
-                  const allInSeason = [...new Set([...inSeasonProduce, ...atPeakProduce])]
-                  
-                  return allInSeason.map((produce, index) => (
-                    <div
-                      key={produce.slug}
-                      className="animate-fade-in-up"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <ProduceCard 
-                        p={{ 
-                          slug: produce.slug, 
-                          name: produce.name 
-                        }}
-                        badge={atPeakProduce.find(p => p.slug === produce.slug) ? 'Peak Season' : 'In Season'}
-                      />
-                    </div>
-                  ))
-                })()}
-              </div>
-              
-              {/* Show all produce if no seasonal data available */}
-              {(() => {
-                const inSeasonProduce = getProduceInSeason(month)
-                if (inSeasonProduce.length === 0) {
-                  return (
-                    <div className="text-center py-8">
-                      <p className="text-gray-600 mb-4">No seasonal produce data available for this month.</p>
-                      <p className="text-sm text-gray-500">Check back later for updated seasonal information.</p>
-                    </div>
-                  )
-                }
-                return null
-              })()}
-            </div>
-
-            {/* Seasonal Tips */}
-            <div className="bg-gradient-to-r from-brand-primary/5 to-brand-accent/5 rounded-2xl border border-brand-primary/20 p-8">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-                Seasonal Eating Tips
-              </h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">🌱 Why Seasonal?</h4>
-                  <p className="text-gray-800 text-sm">
-                    Seasonal produce is fresher, more nutritious, and often more affordable. 
-                    It supports local farmers and reduces environmental impact.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">💡 Storage Tips</h4>
-                  <p className="text-gray-800 text-sm">
-                    Store seasonal produce properly to extend freshness. 
-                    Most seasonal items keep best in cool, dark places or the refrigerator.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Source Attribution */}
-            {current.source && (
-              <div className="text-center py-6 border-t border-border-default">
-                <p className="text-sm text-gray-600">
-                  Source: <a 
-                    className="text-blue-600 hover:underline" 
-                    href={current.source} 
-                    target="_blank" 
-                    rel="noreferrer"
-                  >
-                    {current.sourceName || current.source}
-                  </a>
-                  {current.updatedAt && (
-                    <span> · Updated {new Date(current.updatedAt).toLocaleDateString('en-GB')}</span>
-                  )}
-                </p>
-              </div>
-            )}
-          </div>
-        )}
+        }>
+          <SeasonalContent 
+            month={month}
+            inSeasonProduce={inSeasonProduce}
+            atPeakProduce={atPeakProduce}
+            monthName={monthName}
+          />
+        </Suspense>
       </div>
 
       {/* Call to Action */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="bg-gradient-to-r from-brand-primary/10 to-brand-accent/10 rounded-2xl border border-brand-primary/20 p-8 text-center">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-            Ready to Taste the Season?
-          </h3>
-          <p className="text-gray-800 mb-6">
-            Find farm shops near you that stock these seasonal delights
+      <section className="bg-gray-50 border-t">
+        <div className="max-w-7xl mx-auto px-6 py-12 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Find Farm Shops Near You
+          </h2>
+          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            Discover local farm shops with the freshest seasonal produce. 
+            Use our interactive map to find trusted farms in your area.
           </p>
-          <Link 
-            href="/map" 
-            className="btn-primary inline-flex items-center gap-2"
+          <Link
+            href="/map"
+            className="inline-flex items-center gap-2 bg-brand-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-brand-primary/90 transition-colors"
           >
-            Explore Farm Shops
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
+            Explore Farm Map
           </Link>
         </div>
-      </div>
+      </section>
 
-      {/* Respectful, consented ad slot */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <AdSlot />
-      </div>
+      {/* Ad Slot */}
+      <AdSlot />
     </main>
   )
 }
