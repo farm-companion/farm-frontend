@@ -176,6 +176,17 @@ export default async function ProducePage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
+      {/* GALLERY */}
+      {galleryImages.length > 0 && (
+        <section className="mt-8">
+          <h2 className="text-xl font-semibold mb-4">Gallery</h2>
+          <ProduceGallery 
+            images={galleryImages}
+            produceName={p.name}
+          />
+        </section>
+      )}
+
       {/* INFO STRIPS */}
       <section className="mt-8 grid gap-4 md:grid-cols-3">
         {p.selectionTips?.length ? (
