@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState, useMemo } from 'react'
 import { X, Phone, MapPin, Star, Clock, Share2, Heart, ExternalLink, Navigation } from 'lucide-react'
+import Image from 'next/image'
 import { FarmShop } from '@/types/farm'
 import { hapticFeedback } from '@/lib/haptics'
 import { createSwipeToClose } from '@/lib/gestures'
@@ -248,16 +249,18 @@ export const FarmDetailSheet: React.FC<FarmDetailSheetProps> = ({
             <div className="relative">
               {hasRealImages ? (
                 <div className="relative h-48 overflow-hidden">
-                <img
+                <Image
                   src={realImages[0]}
                   alt={`${farm.name} hero image`}
-                  loading="lazy"
-                  decoding="async"
-                  referrerPolicy="no-referrer"
-                  className={`w-full h-full object-cover transition-opacity duration-500 ${
+                  fill
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  className={`object-cover transition-opacity duration-500 ${
                     imageLoaded ? 'opacity-100' : 'opacity-0'
                   }`}
                   onLoad={() => setImageLoaded(true)}
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
                 />
                 {/* Loading state */}
                 {!imageLoaded && (
