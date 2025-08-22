@@ -431,9 +431,10 @@ export default function MapPage() {
                 type: 'circle',
                 source: 'highlight-src',
                 paint: {
-                  'circle-radius': 12,
+                  'circle-radius': 16,
                   'circle-color': '#FF6B35',
-                  'circle-stroke-width': 4,
+                  'circle-opacity': 0.9,
+                  'circle-stroke-width': 3,
                   'circle-stroke-color': '#FFFFFF'
                 }
               })
@@ -513,19 +514,8 @@ export default function MapPage() {
             essential: true
           })
           
-          // 2. Enhanced marker animation with glow effect
-          const markerElement = e.target
-          if (markerElement) {
-            // Scale up with glow
-            markerElement.style.transform = 'scale(1.3)'
-            markerElement.style.filter = 'drop-shadow(0 0 10px rgba(34, 197, 94, 0.6))'
-            
-            // Reset after animation
-            setTimeout(() => {
-              markerElement.style.transform = 'scale(1)'
-              markerElement.style.filter = 'none'
-            }, 300)
-          }
+          // 2. WebGL-based marker animation (no DOM styling for WebGL layers)
+          // Note: WebGL circle layers cannot be styled with DOM properties
           
           // 3. Visual focus - highlight this marker using separate layer
           setHighlightedFarmId(farm.id)
@@ -547,11 +537,23 @@ export default function MapPage() {
               }
             }
             
-            // Set highlight data
+            // Set highlight data with animation effect
             source.setData({
               type: 'FeatureCollection',
               features: [highlightFeature]
             })
+            
+            // Animate highlight with scale effect
+            const highlightLayer = map.getLayer('highlight-layer')
+            if (highlightLayer) {
+              // Start with larger radius for "pop" effect
+              map.setPaintProperty('highlight-layer', 'circle-radius', 20)
+              
+              // Animate back to normal size
+              setTimeout(() => {
+                map.setPaintProperty('highlight-layer', 'circle-radius', 16)
+              }, 150)
+            }
             
             // Remove highlight after 2 seconds
             setTimeout(() => {
