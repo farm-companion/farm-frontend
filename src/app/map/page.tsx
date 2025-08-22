@@ -719,8 +719,7 @@ export default function MapPage() {
              !(lat === 0 && lng === 0)
     })
     
-    // Performance optimization: Only update if data actually changed
-    const currentFeatures = src._data?.features || []
+    // Create new features from filtered farms
     const newFeatures = validFilteredFarms.map((f) => ({
       type: 'Feature' as const,
       geometry: { 
@@ -737,15 +736,9 @@ export default function MapPage() {
       }
     }))
     
-    // Check if data has actually changed to avoid unnecessary updates
-    const hasChanged = currentFeatures.length !== newFeatures.length || 
-                      JSON.stringify(currentFeatures.map((f: any) => f.properties.id).sort()) !== 
-                      JSON.stringify(newFeatures.map((f: any) => f.properties.id).sort())
-    
-    if (hasChanged) {
-      src.setData({ type: 'FeatureCollection', features: newFeatures })
-    }
-  }, [filteredFarmsBase])
+    // Always update the data - MapLibre will handle optimization internally
+    src.setData({ type: 'FeatureCollection', features: newFeatures })
+  }, [filteredFarms])
 
   // Google-style fly to farm
   const flyToFarm = useCallback((f: FarmShop) => {
