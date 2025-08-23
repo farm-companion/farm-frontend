@@ -72,10 +72,10 @@ export const PRODUCE: Produce[] = [
     slug: 'tomatoes',
     name: 'Tomatoes',
     images: [
-      { src: 'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?w=800&h=600&fit=crop', alt: 'Ripe red tomatoes on the vine' },
-      { src: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&h=600&fit=crop', alt: 'Assorted heirloom tomatoes in various colors' },
-      { src: 'https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=800&h=600&fit=crop', alt: 'Fresh tomatoes in a wooden basket' },
-      { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop', alt: 'Fresh tomatoes arranged on rustic wooden surface' },
+      { src: '/images/produce/tomato1.jpg', alt: 'Hands holding fresh heirloom tomatoes in various colors' },
+      { src: '/images/produce/tomato2.jpg', alt: 'Fresh cherry tomatoes with water droplets in rustic wooden crate' },
+      { src: '/images/produce/tomato3.jpg', alt: 'Tomato vines with ripe red and green tomatoes growing' },
+      { src: '/images/produce/tomato4.jpg', alt: 'Large pile of fresh red tomatoes with water droplets' },
     ],
     monthsInSeason: [6, 7, 8, 9, 10],    // Jun–Oct
     peakMonths: [7, 8, 9],
@@ -100,19 +100,19 @@ export const PRODUCE: Produce[] = [
     ],
     recipeChips: [
       {
-        title: 'Classic Tomato Bruschetta',
-        url: 'https://www.bbcgoodfood.com/recipes/tomato-bruschetta',
-        description: 'Simple Italian appetizer'
+        title: 'Abundance Tomato Soup',
+        url: 'https://www.jamieoliver.com/recipes/vegetables/-abundance-tomato-soup-with-basil-oil/',
+        description: 'Fresh tomato soup with basil oil'
       },
       {
-        title: 'Fresh Tomato Soup',
-        url: 'https://www.jamieoliver.com/recipes/tomato-recipes/fresh-tomato-soup/',
-        description: 'Homemade soup with garden tomatoes'
+        title: 'Pappa al Pomodoro',
+        url: 'https://www.jamieoliver.com/recipes/bread/bread-and-tomato-soup-pappa-al-pomodoro/',
+        description: 'Italian bread and tomato soup'
       },
       {
-        title: 'Slow-Roasted Tomatoes',
-        url: 'https://www.deliciousmagazine.co.uk/recipes/slow-roasted-tomatoes/',
-        description: 'Intense flavour for pasta and salads'
+        title: 'Shakshuka',
+        url: 'https://downshiftology.com/recipes/shakshuka/',
+        description: 'Middle Eastern eggs in tomato sauce'
       }
     ],
     aliases: ['tomato', 'cherry tomatoes', 'heirloom tomatoes'],
