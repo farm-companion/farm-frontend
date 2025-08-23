@@ -1,7 +1,7 @@
 import './globals.css'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import type { Metadata } from 'next'
-import { Analytics } from '@vercel/analytics/next'
+// import { Analytics } from '@vercel/analytics'
 import ConsentBanner from '@/components/ConsentBanner'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
@@ -68,22 +68,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        {/* Preload critical fonts */}
-        <link
-          rel="preload"
-          href="/fonts/inter-var.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/satoshi-var.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        
         {/* Font declarations */}
         <link
           rel="stylesheet"
@@ -176,7 +160,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
 
         {/* Vercel Analytics */}
-        <Analytics />
+        {/* <Analytics /> */}
 
       </body>
     </html>
