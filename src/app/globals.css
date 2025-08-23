@@ -409,3 +409,16 @@ a:hover {
   background: linear-gradient(var(--background-canvas), var(--background-canvas)) padding-box,
               linear-gradient(135deg, var(--brand-primary), var(--brand-accent)) border-box;
 }
+
+/* Mobile Menu - Less Transparent Frosted Glass */
+.mobile-menu-frosted {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dark .mobile-menu-frosted {
+  background: rgba(30, 31, 35, 0.95);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}

@@ -221,7 +221,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       {/* Apple-style Backdrop */}
       <div
         ref={backdropRef}
-        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[9998] animate-backdrop-blur-in mobile-menu-backdrop"
+        className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[9998] animate-backdrop-blur-in mobile-menu-backdrop"
         onClick={handleBackdropClick}
         aria-hidden="true"
       />
