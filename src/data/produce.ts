@@ -170,10 +170,10 @@ export const PRODUCE: Produce[] = [
     slug: 'blackberries',
     name: 'Blackberries',
     images: [
-      { src: 'https://images.unsplash.com/photo-1588952159215-a4b39193464e?w=800&h=600&fit=crop', alt: 'Fresh blackberries in a wooden bowl' },
-      { src: 'https://images.unsplash.com/photo-1593181194270-e1c63bc5d7b5?w=800&h=600&fit=crop', alt: 'Ripe purple-black blackberries on the vine' },
-      { src: 'https://images.unsplash.com/photo-1629464005877-92c9a5e10e16?w=800&h=600&fit=crop', alt: 'Blackberries scattered on rustic surface' },
-      { src: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop', alt: 'Fresh blackberries arranged on rustic wooden surface' },
+      { src: '/images/produce/Blackberries1.jpg', alt: 'Close-up of fresh blackberries piled in a rustic wooden bowl with green leaves' },
+      { src: '/images/produce/Blackberries2.jpg', alt: 'Dense pile of ripe blackberries in a dark bowl on wooden cutting board' },
+      { src: '/images/produce/Blackberries3.jpg', alt: 'Fresh blackberries overflowing from a rustic wooden crate' },
+      { src: '/images/produce/Blackberries4.jpg', alt: 'Fresh blackberries with lemon slice on rustic surface' },
     ],
     monthsInSeason: [7, 8, 9],            // Jul–Sep
     peakMonths: [8],
@@ -198,19 +198,19 @@ export const PRODUCE: Produce[] = [
     ],
     recipeChips: [
       {
-        title: 'Blackberry Crumble',
-        url: 'https://www.bbcgoodfood.com/recipes/blackberry-crumble',
-        description: 'Classic British dessert'
+        title: 'Easy Blackberry Compote',
+        url: 'https://veggiedesserts.com/easy-blackberry-compote/',
+        description: 'Simple 3-ingredient compote in 15 minutes'
       },
       {
-        title: 'Blackberry Smoothie Bowl',
-        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/blackberry-smoothie-bowl/',
-        description: 'Healthy breakfast option'
+        title: 'Blackberry Compote Video',
+        url: 'https://www.youtube.com/watch?v=fK9CNdJK9lo',
+        description: 'Step-by-step blackberry compote tutorial'
       },
       {
-        title: 'Blackberry Jam',
-        url: 'https://www.deliciousmagazine.co.uk/recipes/blackberry-jam/',
-        description: 'Preserve wild blackberries'
+        title: 'Blackberry Recipe Collection',
+        url: 'https://youtu.be/-DKcU7xWbgI?si=l8Ymj-kKJbPgTNaW',
+        description: 'Creative blackberry recipe ideas'
       }
     ],
     aliases: ['blackberry', 'bramble berries'],
