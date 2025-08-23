@@ -205,12 +205,12 @@ export const PRODUCE: Produce[] = [
       {
         title: 'Blackberry Compote Video',
         url: 'https://www.youtube.com/watch?v=fK9CNdJK9lo',
-        description: 'Step-by-step blackberry compote tutorial'
+        description: 'Blackberry Crème Brûlée'
       },
       {
         title: 'Blackberry Recipe Collection',
         url: 'https://youtu.be/-DKcU7xWbgI?si=l8Ymj-kKJbPgTNaW',
-        description: 'Creative blackberry recipe ideas'
+        description: 'Blackberry Crumble Bars'
       }
     ],
     aliases: ['blackberry', 'bramble berries'],
@@ -268,10 +268,10 @@ export const PRODUCE: Produce[] = [
     slug: 'plums',
     name: 'Plums',
     images: [
-      { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop', alt: 'Fresh purple plums' },
-      { src: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=800&h=600&fit=crop', alt: 'Plum tree with ripe fruit' },
-      { src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=600&fit=crop', alt: 'Assorted plums in a basket' },
-      { src: 'https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=800&h=600&fit=crop', alt: 'Fresh plums arranged on rustic wooden surface' },
+      { src: '/images/produce/Plums1.jpg', alt: 'Hand harvesting ripe purple plums from tree branch' },
+      { src: '/images/produce/Plums2.jpg', alt: 'Homemade plum jam jar with fresh plums on rustic wooden surface' },
+      { src: '/images/produce/Plums3.jpg', alt: 'Fresh plums cut open showing bright red flesh on wooden surface' },
+      { src: '/images/produce/Plums4.jpg', alt: 'Fresh plums with water droplets on rustic wooden surface' },
     ],
     monthsInSeason: [8, 9, 10],           // Aug–Oct
     peakMonths: [9],
@@ -298,17 +298,17 @@ export const PRODUCE: Produce[] = [
       {
         title: 'Plum Crumble',
         url: 'https://www.bbcgoodfood.com/recipes/plum-crumble',
-        description: 'Warm autumn dessert'
+        description: 'Classic British dessert with cinnamon-spiced plums'
       },
       {
-        title: 'Fresh Plum Smoothie',
-        url: 'https://www.jamieoliver.com/recipes/fruit-recipes/plum-smoothie/',
-        description: 'Healthy breakfast drink'
+        title: 'Plum & Apple Cobbler',
+        url: 'https://www.bbcgoodfood.com/recipes/plum-apple-cobbler',
+        description: 'Warm fruit cobbler with vanilla and cinnamon'
       },
       {
-        title: 'Plum Jam',
-        url: 'https://www.deliciousmagazine.co.uk/recipes/plum-jam/',
-        description: 'Preserve autumn plums'
+        title: 'Plum Shashlik Kebabs',
+        url: 'https://www.bbc.co.uk/food/recipes/shashlik_kebabs_with_26187',
+        description: 'Grilled plum kebabs with exotic spices'
       }
     ],
     aliases: ['plum', 'gages', 'damsons'],
