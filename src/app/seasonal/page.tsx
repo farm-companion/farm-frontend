@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import ClientMonthSelector from '@/components/ClientMonthSelector'
-import { getProduceInSeason, getProduceAtPeak } from '@/data/produce'
+import { getProduceInSeason, getProduceAtPeak, getProduceImages } from '@/lib/produce-integration'
 import { MapPin } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -21,10 +21,40 @@ async function getSeasonalData() {
   const now = new Date()
   const month = now.getMonth() + 1
   
+  // Get static produce data
+  const inSeasonProduce = getProduceInSeason(month)
+  const atPeakProduce = getProduceAtPeak(month)
+  
+  // Get dynamic images from API for each produce
+  const produceWithImages = await Promise.all(
+    [...new Set([...inSeasonProduce, ...atPeakProduce])].map(async (produce) => {
+      try {
+        const apiImages = await getProduceImages(produce.slug, month)
+        
+        // Use API images if available, otherwise fall back to static images
+        const images = apiImages.length > 0 
+          ? apiImages.map(img => ({ src: img.url, alt: img.alt }))
+          : produce.images
+        
+        return {
+          ...produce,
+          images,
+          hasApiImages: apiImages.length > 0
+        }
+      } catch (error) {
+        console.error(`Error fetching images for ${produce.slug}:`, error)
+        return {
+          ...produce,
+          hasApiImages: false
+        }
+      }
+    })
+  )
+  
   return {
     month,
-    inSeasonProduce: getProduceInSeason(month),
-    atPeakProduce: getProduceAtPeak(month),
+    inSeasonProduce: produceWithImages.filter(p => inSeasonProduce.some(sp => sp.slug === p.slug)),
+    atPeakProduce: produceWithImages.filter(p => atPeakProduce.some(sp => sp.slug === p.slug)),
     monthName: new Date(now.getFullYear(), month - 1).toLocaleString('en-GB', { month: 'long' })
   }
 }
